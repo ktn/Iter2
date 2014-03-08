@@ -1,8 +1,8 @@
 class Sanitation {
-	PlayerFacade player;
+	PlayerTurn player;
 	BoardFacade board;
 	
-	public Sanitation(PlayerFacade player, BoardFacade board) {
+	public Sanitation(PlayerTurn player, BoardFacade board) {
 		this.player = player;
 		this.board = board;
 	}
@@ -32,9 +32,9 @@ class Sanitation {
 		return result;
 	}
 	
-	public boolean actionTokenChecker() {
+	public boolean actionTokenChecker(){
 		boolean result = true;
-		result = (player.actionTokensLeft() > 0) ? result && true : false; // Check to see if player has any action tokens left.
+		// Check to see if player has any action tokens left.
 		result = (player.actionTokenUsable()) ? result && true : false; // Check to see if player has used an action token already.
 		
 		// Create command? Call command?
@@ -46,12 +46,49 @@ class Sanitation {
 		return placeBlockChecker(b, x, y);
 	}
 	
-	public boolean placeBlockChecker(Block b, int x, int y) {
+	public boolean placeBlockChecker(Block b, int x, int y) throws NoBlocksLeftException, IllegalBlockPlacementException {
 		boolean result = true;
-		result = (board.validPlacement(Block b, int x, int y)) ? result && true : false;
+		BlockType type = BlockTypeConverter.convertToBlockType(b);
 		
-		// Check to see if blocks exist in inventory or communal 
+		if(board.validPlacement(Block b, int x, int y)) {
+			result = false;
+			throw new IllegalBlockPlacementException("Error when placing block", type, x, y);
+		}
 		
+		switch(type) {
+		case IRRIGATION:
+			if(board.irrigationBlocksLeft() < 1) {
+				result = false;
+				throw new NoBlocksLeftException("Error when placing block", type);
+			}
+			break;
+		case RICE:
+			if(!player.checkRice()) {
+				result = false;
+				throw new NoBlocksLeftException("Error when placing block", type);
+			}
+			break;
+		case THREE:
+			if(board.threeBlocksLeft() < 1) {
+				result = false;
+				throw new NoBlocksLeftException("Error when placing block", type);
+			}
+			break;
+		case TWO:
+			if(!player.checkTwoBlock()) {
+				result = false;
+				throw new NoBlocksLeftException("Error when placing block", type);
+			}
+			break;
+		case VILLAGE:
+			if(!player.checkVillage()) {
+				result = false;
+				throw new NoBlocksLeftException("Error when placing block", type);
+			}
+			break;
+		default:
+			break;
+		}
 		// Create command? Call command?
 		
 		return result;
@@ -61,9 +98,10 @@ class Sanitation {
 		boolean result = true;
 		// Check to see if space is palace tile
 		// Check to see if level > current palace level
+		result = (board.getSpaceHeight(x, y) < level) ? false : result && true;
 		Developer hd = board.highestDeveloper(x, y);
 		result = (level % 2 == 0 && level <= 10) ? result && true : false;
-		result = (player.getPlayer() == hd.getPlayer()) ? result && true : false;
+		result = (player.getCurrentPlayer() == hd.getPlayer()) ? result && true : false;
 		
 		return result;
 	}
