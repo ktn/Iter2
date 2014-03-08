@@ -62,6 +62,7 @@ class Sanitation {
 		// Check to see if space is palace tile
 		// Check to see if level > current palace level
 		Developer hd = board.highestDeveloper(x, y);
+		result = (level % 2 == 0 && level <= 10) ? result && true : false;
 		result = (player.getPlayer() == hd.getPlayer()) ? result && true : false;
 		
 		return result;
