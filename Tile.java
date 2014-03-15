@@ -1,8 +1,7 @@
 import java.util.*;
 
 public abstract class Tile {
-	private Tile.TileType type;
-	public enum TileType { PALACE, VILLAGE, RICE, IRRIGATION };
+	private TileType type;
 	protected Grid<Tile> joinedTiles;
 	
 	
@@ -11,7 +10,7 @@ public abstract class Tile {
 		joinedTiles = new Grid<Tile>(Tile.class);
 	}
 
-	public Tile.TileType getType()
+	public TileType getType()
 	{
 		return type;
 	}

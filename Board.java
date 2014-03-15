@@ -14,7 +14,7 @@ public class Board {
 		Space[][] temp = new Space[xDim][yDim];
 		for(int i = 0; i < xDim; i++)
 		{
-			for(int j = 0; j < yDim; y++)
+			for(int j = 0; j < yDim; j++)
 			{
 				temp[i][j] = new Space();
 			}
@@ -51,7 +51,7 @@ public class Board {
 	}
 	
 	//ACCESSORS  =======================================================================
-
+	//All methods from here down assume that inbounds indices are passed
 	private Space get(int x, int y){
 		Space temp = head;
 		
@@ -70,17 +70,25 @@ public class Board {
 		
 	}
 
-	//BLOCK METHODS  =======================================================================
-
 	public int getHeight(int x, int y){
 		return this.get(x, y).getHeight();
 	}
-
 
 	public Tile getTile(int x, int y){
 		return this.get(x,y).getTile();
 	}
 	
+	public TileType getTileType(int x, int y){
+		Space temp = this.get(x, y);
+
+		if(temp.getHeight() == 0)
+			return temp.getTile().getType();
+		else
+			return TileType.EMPTY;
+	}
+
+	//BLOCK METHODS  =======================================================================
+
 	public void placeBlock(Block b, int x, int y){
 		Space target = this.get(x,y);
 		target.placeTile(b.getTile());
@@ -91,7 +99,11 @@ public class Board {
 		Space target = this.get(x,y);
 		target.removeTile();
 	}
-	
-	
+
+
+	//CHECKING METHODS  =======================================================================
+	public boolean inBounds(int x, int y){
+		return x <= xDim || y <= yDim;
+	}
 	
 }
