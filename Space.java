@@ -39,6 +39,11 @@ public class Space {
 			joinedSpaces.add(s);
 	}
 
+	public void join(int i, Space s){
+		//check if tile is already joined
+		if(joinedSpaces.indexOf(s) == -1)
+			joinedSpaces.set(i, s);
+	}
 
 	public void remove(Space s){
 		joinedSpaces.remove(s);

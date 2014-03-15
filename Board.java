@@ -8,7 +8,8 @@ public class Board {
 		Head is in the top left corner just fyi
 	*/
 	
-	
+	//CONSTRUCTOR  =======================================================================
+
 	Board(){
 		Space[][] temp = new Space[xDim][yDim];
 		for(int i = 0; i < xDim; i++)
@@ -26,27 +27,33 @@ public class Board {
 			for(int y = 0; y < yDim; y++)
 			{
 				if(x != 0){
-					temp[x][y].join(temp[x-1][y]);
+					//Left
+					temp[x][y].join(3 , temp[x-1][y]);
 				}
 				
 				if(y != 0){
-					temp[x][y].join(temp[x][y-1]);
+					//Bottom
+					temp[x][y].join(2 , temp[x][y-1]);
 				}
 				
 				if(x != xDim - 1){
-					temp[x][y].join(temp[x+1][y]);
+					//Right
+					temp[x][y].join(1 , temp[x+1][y]);
 				}
 				
 				if(y != yDim - 1){
-					temp[x][y].join(temp[x][y+1]);
+					//Top
+					temp[x][y].join(4 , temp[x][y+1]);
 				}
 				
 			}
 		}
 	}
 	
+	//ACCESSORS  =======================================================================
+
 	private Space get(int x, int y){
-		Space temp = null;
+		Space temp = head;
 		
 		if(x < xDim){
 			if(y < yDim){
@@ -59,10 +66,16 @@ public class Board {
 			}
 		}
 		
-		
 		return temp;
 		
 	}
+
+	//BLOCK METHODS  =======================================================================
+
+	public int getHeight(int x, int y){
+		return this.get(x, y).getHeight();
+	}
+
 
 	public Tile getTile(int x, int y){
 		return this.get(x,y).getTile();
@@ -80,7 +93,5 @@ public class Board {
 	}
 	
 	
-	public int getHeight(int x, int y){
-		return this.get(x, y).getHeight();
-	}
+	
 }
