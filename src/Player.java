@@ -234,4 +234,14 @@ public class Player {
 			}
 		}
 	}
+
+	public String toString() {
+		StringBuilder result = new StringBuilder(100);
+		String NEW_LINE = System.getProperty("line.separator");
+		result.append(this.getClass().getName() + " Object {" + NEW_LINE);
+		result.append(" Name: " + this.getName() + NEW_LINE);
+		result.append("}" + NEW_LINE);
+		return result.toString();
+	}
+
 }

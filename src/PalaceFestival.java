@@ -3,7 +3,7 @@ public class PalaceFestival {
 	private PalaceCard festivalCard;
 
 	public PalaceFestival(PalaceCard festivalCard) {
-		this.festivalCard = festivalCard;
+		this.setFestivalCard(festivalCard);
 	}
 
 	public void startFestival() {
@@ -26,5 +26,13 @@ public class PalaceFestival {
 
 	public void endFestival() {
 		// Score fame points
+	}
+
+	public PalaceCard getFestivalCard() {
+		return festivalCard;
+	}
+
+	public void setFestivalCard(PalaceCard festivalCard) {
+		this.festivalCard = festivalCard;
 	}
 }
