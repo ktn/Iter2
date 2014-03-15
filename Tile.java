@@ -35,6 +35,29 @@ public abstract class Tile {
 		}
 	}
 
+	public ArrayList<int> getJoined(){
+		ArrayList<int> joined = new ArrayList<int>();
+
+		for(Tile y : joinedTiles)
+		{
+			if(y != null)
+				joined.add(joinedTiles.indexOf(y));
+		}
+	}
+
+	public Tile getJoined(int i){
+		Tile temp = joinedTiles.get(i);
+
+		if(temp != null){
+			ret = temp 
+		}
+		else{
+			//throw exception?
+		}
+
+		return temp;
+	}
+
 
 	public void remove(Tile t){
 		joinedTiles.remove(t);

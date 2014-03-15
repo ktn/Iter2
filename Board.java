@@ -1,8 +1,8 @@
 
 public class Board {
 	private Space head;
-	int xDim = 10;
-	int yDim = 10;
+	private int xDim = 10;
+	private int yDim = 10;
 	
 	/*
 		Head is in the top left corner just fyi
@@ -37,7 +37,7 @@ public class Board {
 		}
 	}
 	
-	public Space get(int x, int y){
+	private Space get(int x, int y){
 		Space temp = null;
 		
 		if(x < xDim){
@@ -55,28 +55,20 @@ public class Board {
 		return temp;
 		
 	}
+
+	public Tile getTile(int x, int y){
+		return this.get(x,y).getTile();
+	}
 	
 	public void placeBlock(Block b, int x, int y){
 		Space target = this.get(x,y);
 		target.placeTile(b.getTile());
 		
-		Grid<Tile> tiles = b.getTile().getGrid();
-		Grid<Space> spaces = target.getGrid();
-		
-		//assumes error checked
-		//can implement error checking though
-		for(int i = 0; i < spaces.size(); i++)
-		{
-			if(spaces.get(i) != null){
-				if(tiles.get(i) != null){
-					spaces.get(i).placeTile(tiles.get(i));
-				}
-				else{
-					//error stuff?
-				}
-			}
-		}
-		
+	}
+
+	public void removeBlock(int x, int y){
+		Space target = this.get(x,y);
+		target.removeTile();
 	}
 	
 	
