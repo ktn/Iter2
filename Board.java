@@ -13,6 +13,15 @@ public class Board {
 		Space[][] temp = new Space[10][10];
 		head = temp[0][0];
 		
+		
+		for(int x = 0; x < xDim; x++)
+		{
+			for(int y = 0; y < yDim; y++)
+			{
+				temp[x][y]=new Space();
+			}
+		}
+		
 		for(int x = 0; x < xDim; x++)
 		{
 			for(int y = 0; y < yDim; y++)
@@ -29,7 +38,7 @@ public class Board {
 					temp[x][y].join(temp[x+1][y]);
 				}
 				
-				if(y != xDim - 1){
+				if(y != yDim - 1){
 					temp[x][y].join(temp[x][y+1]);
 				}
 				
@@ -37,8 +46,8 @@ public class Board {
 		}
 	}
 	
-	private Space get(int x, int y){
-		Space temp = null;
+	public Space get(int x, int y){
+		Space temp = head;
 		
 		if(x < xDim){
 			if(y < yDim){
