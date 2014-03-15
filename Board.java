@@ -28,22 +28,22 @@ public class Board {
 			{
 				if(x != 0){
 					//Left
-					temp[x][y].join(3 , temp[x-1][y]);
+					temp[x][y].join(2 , temp[x-1][y]);
 				}
 				
 				if(y != 0){
 					//Bottom
-					temp[x][y].join(2 , temp[x][y-1]);
+					temp[x][y].join(1 , temp[x][y-1]);
 				}
 				
 				if(x != xDim - 1){
 					//Right
-					temp[x][y].join(1 , temp[x+1][y]);
+					temp[x][y].join(0 , temp[x+1][y]);
 				}
 				
 				if(y != yDim - 1){
 					//Top
-					temp[x][y].join(4 , temp[x][y+1]);
+					temp[x][y].join(3 , temp[x][y+1]);
 				}
 				
 			}

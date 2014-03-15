@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Space {
 	
-	private List<Space> joinedSpaces;
 	private Grid<Space> neighbors  = new Grid(Space.class);
 	private Stack<Tile> tiles;
 	
@@ -17,14 +16,15 @@ public class Space {
 
 	Space(){
 		tiles = new Stack<Tile>();
-		joinedSpaces = new ArrayList<Space>();
+		
 	}
 
 	//JOINED SPACES METHODS  =======================================================================
+	//might delete
 	public boolean isJoined(Space s){
 		boolean ret = false;
 				
-		for(Space y : joinedSpaces)
+		for(Space y : neighbors)
 		{
 			if(s == y)
 				ret = true;
@@ -35,18 +35,18 @@ public class Space {
 
 	public void join(Space s){
 		//check if tile is already joined
-		if(joinedSpaces.indexOf(s) == -1)
-			joinedSpaces.add(s);
+		if(neighbors.indexOf(s) == -1)
+			neighbors.add(s);
 	}
 
 	public void join(int i, Space s){
 		//check if tile is already joined
-		if(joinedSpaces.indexOf(s) == -1)
-			joinedSpaces.set(i, s);
+		if(neighbors.indexOf(s) == -1)
+			neighbors.set(i, s);
 	}
 
 	public void remove(Space s){
-		joinedSpaces.remove(s);
+		neighbors.remove(s);
 	}
 
 
@@ -59,19 +59,19 @@ public class Space {
 	}
 	
 	public Space getTop(){
-		return neighbors.get(4);
+		return neighbors.get(3);
 	}
 	
 	public Space getBottom(){
-		return neighbors.get(2);
-	}
-	
-	public Space getRight(){
 		return neighbors.get(1);
 	}
 	
+	public Space getRight(){
+		return neighbors.get(0);
+	}
+	
 	public Space getLeft(){
-		return neighbors.get(3);
+		return neighbors.get(2);
 	}
 	
 	
