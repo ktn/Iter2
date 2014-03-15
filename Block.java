@@ -1,5 +1,5 @@
-public abstract class Tile {
-	private Tile head
+public abstract class Block {
+	private Tile head;
 
 	/*========================================
 		The standard orientation will be
@@ -16,7 +16,7 @@ public abstract class Tile {
 
 	Block(Tile ... tiles){
 
-		head = tiles;
+		head = tiles[0];
 
 		for(Tile t : tiles){
 			head.join(t);
@@ -26,5 +26,9 @@ public abstract class Tile {
 
 	public void rotate(){
 		head.rotate();
+	}
+	
+	public Tile getTile(){
+		return head;
 	}
 }

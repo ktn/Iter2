@@ -1,7 +1,9 @@
+import java.util.*;
+
 public class Space {
 	
-	private Grid<Space> joinedSpaces = new ArrayList<Space>();
-	private List<Space> neighbors;
+	private List<Space> joinedSpaces;
+	private Grid<Space> neighbors  = new Grid(Space.class);
 	private Stack<Tile> tiles;
 	
 
@@ -15,13 +17,13 @@ public class Space {
 
 	Space(){
 		tiles = new Stack<Tile>();
-		neighbors = new Grid<Space>();
+		joinedSpaces = new ArrayList<Space>();
 	}
 
-	//joined spaces methods
+	//JOINED SPACES METHODS  =======================================================================
 	public boolean isJoined(Space s){
 		boolean ret = false;
-
+				
 		for(Space y : joinedSpaces)
 		{
 			if(s == y)
@@ -38,19 +40,49 @@ public class Space {
 	}
 
 
-	public boolean remove(Space s){
+	public void remove(Space s){
 		joinedSpaces.remove(s);
 	}
 
 
-	//neighbor methods
+	//NEIGHBOR METHODS =======================================================================
+	public Grid<Space> getGrid(){
+		return neighbors;
+	}
+	
 	public void addNeighbor(Space s){
 		if(neighbors.indexOf(s) == -1)
 			neighbors.add(s);
 	}
-
-	//discuss how to implement neighbor traversal this might not be best
-	public List<Space> getNeighbors(){
-		return neighbors;
+	
+	public Space getTop(){
+		return neighbors.get(4);
+	}
+	
+	public Space getBottom(){
+		return neighbors.get(2);
+	}
+	
+	public Space getRight(){
+		return neighbors.get(1);
+	}
+	
+	public Space getLeft(){
+		return neighbors.get(3);
+	}
+	
+	
+	//TILE METHODS =========================================================================
+	
+	public int getHeight(){
+		return tiles.size();
+	}
+	
+	public void placeTile(Tile t){
+		tiles.add(t);
+	}
+	
+	public void removeTile(){
+		tiles.pop();
 	}
 }

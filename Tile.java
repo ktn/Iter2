@@ -6,7 +6,7 @@ public abstract class Tile {
 	
 
 	Tile(){
-		joinedTiles = new Grid<Tiles>;
+		joinedTiles = new Grid<Tile>(Tile.class);
 	}
 
 	public Tile.TileType getType()
@@ -36,11 +36,15 @@ public abstract class Tile {
 	}
 
 
-	public boolean remove(Tile t){
+	public void remove(Tile t){
 		joinedTiles.remove(t);
 	}
 
 	public void rotate(){
 		joinedTiles.rotate();
+	}
+	
+	public Grid<Tile> getGrid(){
+		return joinedTiles;
 	}
 }

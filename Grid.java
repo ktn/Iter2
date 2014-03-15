@@ -1,6 +1,9 @@
-private static class Grid<T> extends AbstractList<T>{
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class Grid<E> implements Iterable<E>{
 	private final int childNum = 4; //Change this to increase board size
-	private final T[] members = new T[childNum];
+	private E[] members;
 
 	/*========================================
 		The standard is as follows
@@ -9,17 +12,23 @@ private static class Grid<T> extends AbstractList<T>{
 		3rd child = left child
 		4th child = top child
 	=========================================*/
+	
+	Grid(Class<E> type){
+		@SuppressWarnings("unchecked")
+		final E[] temp =  (E[]) Array.newInstance(type, childNum);
+		this.members = temp;
+	}
 
-	public T get(int index) {
+	public E get(int index) {
         return members[index];
     }
 
-    public T set(int index, T element) {
+    public E set(int index, E element) {
     	//check for out of bounds, return null if true
     	if(index >= childNum)
-    		return NULL
+    		return null;
 
-        T oldValue = members[index];
+        E oldValue = members[index];
         members[index] = element;
         return oldValue;
     }
@@ -28,42 +37,43 @@ private static class Grid<T> extends AbstractList<T>{
         return members.length;
     }
 
-    public int indexOf(T element){
+     public int indexOf(E element){
     	//behaves like indexOf in ArrayList
     	int ret = -1;
 
     	for(int i = 0; i < childNum; i++){
-    		if(members[i] == T)
+    		if(members[i] == element)
     			ret = i;
     	}
 
     	return ret;
     }
+     
 
-    public void add(T element){
+    public void add(E element){
     	//behaves like add in ArrayList
 
     	for(int i = 0; i < childNum; i++){
-    		if(members[i] != NULL)
+    		if(members[i] != null)
     		{
-    			members[i] = T;
-    			return;
+    			members[i] = element;
+    			break;
     		}	
     	}
     }
 
-    public void remove(T element){
+    public void remove(E element){
     	//behaves like remove in ArrayList
 
     	for(int i = 0; i < childNum; i++){
-    		if(members[i] == T)
-    			members[i] = NULL;
+    		if(members[i] == element)
+    			members[i] = null;
     	}
     }
 
     public void rotate(){
 
-    	T[] temp = Arrays.copyOf(members);
+    	E[] temp = members;
 
     	for(int i = 0; i < childNum; i++){
     		if(i != childNum - 1){
@@ -72,7 +82,30 @@ private static class Grid<T> extends AbstractList<T>{
     		else{
     			members[i] = temp[0];
     		}
-    			
+    		
+    	}
+    }
+    
+    public Iterator<E> iterator(){
+    	return new GridIterator();
+    }
+    
+    private class GridIterator implements Iterator<E>{
+    	private int index = 0;
+    	
+    	GridIterator(){
+    		
+    	}
+
+    	public boolean hasNext(){
+    		return index <= childNum;
+    	}
+    	
+    	public E next(){
+    		return members[index];
+    	}
+    	
+    	public void remove(){
     		
     	}
     }
