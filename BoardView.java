@@ -3,6 +3,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -22,6 +23,8 @@ public class BoardView extends JPanel{
 	
 	Board target;
 	
+	BufferedImage cachedCanvas;
+	
 	public BoardView(Board board) throws IOException{
 		dirt=ImageIO.read(new File("images/dirt.png"));
 		rice=ImageIO.read(new File("images/rice.png"));
@@ -34,17 +37,18 @@ public class BoardView extends JPanel{
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
-		renderSpace(g, target.get(0,0), 0, 0);
-		//renderRow(g, target.get(0,0), 0);
+		renderRow(g, target.get(0,0), 0);
 		System.out.println("BoardView: row rendered");
 	}
+	
+	//public void 
 	
 	private void renderRow(Graphics g, Space leftmost,int y){
 		Space lefty=leftmost;
 		int x=0;
-		
+		System.out.println("lefty:"+lefty);
 		while (lefty!=null){
-			renderSpace(getGraphics(), lefty, x, y);
+			renderSpace(g, lefty, x, y);
 			x++;
 			lefty=lefty.getRight();
 			System.out.println("BoardView: space rendered");
@@ -53,14 +57,13 @@ public class BoardView extends JPanel{
 	
 	/**Renders a space at the given x & y board coordinates.*/
 	private void renderSpace(Graphics g, Space s,int x, int y){
-		Tile topTile=s.getTile();
 		Image tileFace=dirt;
-		if (topTile!=null&&topTile.getType()==Tile.TileType.RICE){
+		if (s.getHeight()>0&&s.getTile().getType()==Tile.TileType.RICE){
 			tileFace=rice;
 		}
 		g.setColor(Color.white);
 		g.drawImage(tileFace, x*32, y*32, this);
-		renderText(g, ""+s.getHeight(), x+12, y+12);
+		renderText(g, ""+s.getHeight(), x*32+12, y*32+12);
 	}
 	
 	/**calls g.drawstring, but gives a small black outline*/
