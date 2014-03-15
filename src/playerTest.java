@@ -1,6 +1,8 @@
 public class playerTest {
 
-	public void main(String[] a) {
+	public static void main(String[] args) {
+		Deck b = new Deck();
 
+		System.out.print(b.toString());
 	}
 }

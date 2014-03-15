@@ -39,4 +39,14 @@ public class Deck {
 		this.setFestivalCard();
 		return previousFestCard;
 	}
+
+	public String toString() {
+		StringBuilder result = new StringBuilder(100);
+		String NEW_LINE = System.getProperty("line.separator");
+		for (PalaceCard c : cardStack) {
+			result.append(c.getSymbol() + NEW_LINE);
+		}
+		return result.toString();
+	}
+
 }
