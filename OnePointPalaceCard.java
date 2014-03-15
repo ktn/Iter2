@@ -1,7 +1,6 @@
 public class OnePointPalaceCard extends PalaceCard
 {
-	//String representing the symbol on the card
-	Symbol symbol;
+	private Symbol symbol;
 	
 	public OnePointPalaceCard(String symbolType)
 	{
@@ -17,5 +16,10 @@ public class OnePointPalaceCard extends PalaceCard
 		{
 			symbol = PUPPET;
 		}
+	}
+
+	public Symbol getSymbol()
+	{
+		return this.symbol;
 	}
 }

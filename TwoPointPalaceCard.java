@@ -1,8 +1,8 @@
 public class TwoPointPalaceCard extends PalaceCard
 {
 	//String representing the symbol on the card
-	Symbol firstSymbol;
-	Symbol secondSymbol;
+	private Symbol firstSymbol;
+	private Symbol secondSymbol;
 	
 	public TwoPointPalaceCard(String symbol1, String symbol2)
 	{
@@ -31,5 +31,15 @@ public class TwoPointPalaceCard extends PalaceCard
 		{
 			secondSymbol = PUPPET;
 		}
+	}
+
+	public Symbol getFirstSymbol()
+	{
+		return this.firstSymbol;
+	}
+
+	public Symbol getSecondSymbol()
+	{
+		return this.secondSymbol;
 	}
 }
