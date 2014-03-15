@@ -1,3 +1,5 @@
+import java.util.*;
+
 public abstract class Tile {
 	private Tile.TileType type;
 	public enum TileType { PALACE, VILLAGE, RICE, IRRIGATION };
@@ -35,21 +37,23 @@ public abstract class Tile {
 		}
 	}
 
-	public ArrayList<int> getJoined(){
-		ArrayList<int> joined = new ArrayList<int>();
+	public ArrayList<Integer> getJoined(){
+		ArrayList<Integer> joined = new ArrayList<Integer>();
 
 		for(Tile y : joinedTiles)
 		{
 			if(y != null)
 				joined.add(joinedTiles.indexOf(y));
 		}
+		return joined;
 	}
 
 	public Tile getJoined(int i){
 		Tile temp = joinedTiles.get(i);
+		Tile ret;
 
 		if(temp != null){
-			ret = temp 
+			ret = temp;
 		}
 		else{
 			//throw exception?

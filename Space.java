@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Space {
 	
-	//private List<Space> joinedSpaces;
+	private List<Space> joinedSpaces;
 	private Grid<Space> neighbors  = new Grid(Space.class);
 	private Stack<Tile> tiles;
 	
@@ -81,7 +81,7 @@ public class Space {
 	}
 
 	public void placeTile(Tile t){
-		ArrayList<int> joined = t.getJoined();
+		ArrayList<Integer> joined = t.getJoined();
 
 
 		//dont add same tile again and again forever
@@ -102,9 +102,9 @@ public class Space {
 	}
 	
 	public void removeTile(){
-	ArrayList<int> joined = t.getJoined();
+		Tile t = tiles.pop();
+		ArrayList<Integer> joined = t.getJoined();
 
-		tiles.pop();
 
 		for(int i : joined){
 				Space temp = neighbors.get(i);
