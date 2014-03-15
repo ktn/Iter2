@@ -8,38 +8,38 @@ public class TwoPointPalaceCard extends PalaceCard
 	{
 		if(symbol1 == "MASK")
 		{
-			firstSymbol = MASK; 
+			firstSymbol = Symbol.MASK; 
 		}
 		else if(symbol1 == "DRUM")
 		{
-			firstSymbol = DRUM;
+			firstSymbol = Symbol.DRUM;
 		}
 		else
 		{
-			firstSymbol = PUPPET;
+			firstSymbol = Symbol.PUPPET;
 		}
 
 		if(symbol2 == "MASK")
 		{
-			secondSymbol = MASK; 
+			secondSymbol = Symbol.MASK; 
 		}
 		else if(symbol2 == "DRUM")
 		{
-			secondSymbol = DRUM;
+			secondSymbol = Symbol.DRUM;
 		}
 		else
 		{
-			secondSymbol = PUPPET;
+			secondSymbol = Symbol.PUPPET;
 		}
 	}
 
-	public Symbol getFirstSymbol()
+	public String getFirstSymbol()
 	{
-		return this.firstSymbol;
+		return this.firstSymbol.toString();
 	}
 
-	public Symbol getSecondSymbol()
+	public String getSecondSymbol()
 	{
-		return this.secondSymbol;
+		return this.secondSymbol.toString();
 	}
 }

@@ -1,6 +1,6 @@
 abstract class PalaceCard
 {
-	private enum Symbol
+	protected enum Symbol
 	{
 		MASK, DRUM, PUPPET
 	}

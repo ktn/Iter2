@@ -1,6 +1,6 @@
 public class PalaceFestival
 {
-	private PlayerFacade playerFacade;
+	//private PlayerFacade playerFacade;
 	private PalaceCard festivalCard;
 
 	public PalaceFestival(PalaceCard festivalCard)
