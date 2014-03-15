@@ -52,15 +52,15 @@ public class Board {
 	
 	//ACCESSORS  =======================================================================
 	//All methods from here down assume that inbounds indices are passed
-	private Space get(int x, int y){
+	private Space get(Coordinates c){
 		Space temp = head;
 		
-		if(x < xDim){
-			if(y < yDim){
-				for(int i = 0; i < x; i++){
+		if(c.x < xDim){
+			if(c.y < yDim){
+				for(int i = 0; i < c.x; i++){
 					temp = temp.getRight();
 				}
-				for(int j = 0; j < y; j++){
+				for(int j = 0; j < c.y; j++){
 					temp = temp.getBottom();
 				}
 			}
@@ -70,16 +70,16 @@ public class Board {
 		
 	}
 
-	public int getHeight(int x, int y){
-		return this.get(x, y).getHeight();
+	public int getHeight(Coordinates c){
+		return this.get(c).getHeight();
 	}
 
-	public Tile getTile(int x, int y){
-		return this.get(x,y).getTile();
+	public Tile getTile(Coordinates c){
+		return this.get(c).getTile();
 	}
 	
-	public TileType getTileType(int x, int y){
-		Space temp = this.get(x, y);
+	public TileType getTileType(Coordinates c){
+		Space temp = this.get(c);
 
 		if(temp.getHeight() == 0)
 			return temp.getTile().getType();
@@ -87,16 +87,20 @@ public class Board {
 			return TileType.EMPTY;
 	}
 
+	public Coordinates getLargest(){
+		return new Coordinates(xDim-1, yDim-1);
+	}
+
 	//BLOCK METHODS  =======================================================================
 
-	public void placeBlock(Block b, int x, int y){
-		Space target = this.get(x,y);
+	public void placeBlock(Block b, Coordinates c){
+		Space target = this.get(c);
 		target.placeTile(b.getTile());
 		
 	}
 
-	public void removeBlock(int x, int y){
-		Space target = this.get(x,y);
+	public void removeBlock(Coordinates c){
+		Space target = this.get(c);
 		target.removeTile();
 	}
 
@@ -104,6 +108,23 @@ public class Board {
 	//CHECKING METHODS  =======================================================================
 	public boolean inBounds(int x, int y){
 		return x <= xDim || y <= yDim;
+	}
+
+	public boolean inBounds(Coordinates c){
+		return c.x <= xDim || c.y <= yDim;
+	}
+
+	public class Coordinates{
+		public int x;
+		public int y;
+
+		Coordinates(int x , int y){
+			if(!inBounds(x, y))
+				throw new IllegalArgumentException("Out of Bounds arguements");
+
+			this.x = x;
+			this.y = y;
+		}
 	}
 	
 }
