@@ -1,15 +1,10 @@
-public class OnePointPalaceCard extends PalaceCard
-{
+public class OnePointPalaceCard extends PalaceCard {
 	private Symbol symbol;
-	
-	public OnePointPalaceCard(String symbolType)
-	{
-		if(symbolType == "MASK")
-		{
-			symbol = Symbol.MASK; 
-		}
-		else if(symbolType == "DRUM")
-		{
+
+	public OnePointPalaceCard(String symbolType) {
+		if (symbolType == "MASK") {
+			symbol = Symbol.MASK;
+		} else if (symbolType == "DRUM") {
 			symbol = Symbol.DRUM;
 		}
 		else

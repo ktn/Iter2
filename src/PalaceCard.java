@@ -1,7 +1,5 @@
-abstract class PalaceCard
-{
-	protected enum Symbol
-	{
+abstract class PalaceCard {
+	protected enum Symbol {
 		MASK, DRUM, PUPPET
 	}
 }
