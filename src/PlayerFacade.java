@@ -15,12 +15,14 @@ public class PlayerFacade {
 	boolean blockPlayed;
 
 	// initialization requires names of players, assumes acceptable size
-	public PlayerFacade(int p, String[] n) {
-		if (p > 4) {
-			p = 4;
+	public PlayerFacade(String[] n) {
+		numPlayers = n.length;
+		if (numPlayers > 4) {
+			numPlayers = 4;
 		}
 
-		playerTurn = new PlayerTurn(p, n);
+		playerTurn = new PlayerTurn(n);
+		currentPlayer = playerTurn.getCurrentPlayer();
 
 		tokenUsed = false;
 		actionPoints = 6;

@@ -6,9 +6,7 @@ public class OnePointPalaceCard extends PalaceCard {
 			symbol = Symbol.MASK;
 		} else if (symbolType == "DRUM") {
 			symbol = Symbol.DRUM;
-		}
-		else
-		{
+		} else {
 			symbol = Symbol.PUPPET;
 		}
 	}

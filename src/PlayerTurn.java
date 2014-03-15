@@ -13,16 +13,17 @@ public class PlayerTurn {
 	boolean blockPlayed;
 
 	// initialization requires names of players, assumes acceptable size
-	public PlayerTurn(int p, String[] n) {
-		if (p > 4) {
-			p = 4;
+	public PlayerTurn(String[] n) {
+		numPlayers = n.length;
+
+		if (numPlayers > 4) {
+			numPlayers = 4;
 		}
 
-		players = new Player[p];
-		numPlayers = p;
+		players = new Player[numPlayers];
 		currentPlayer = 0;
 
-		for (int i = 0; i < p; i++) {
+		for (int i = 0; i < numPlayers; i++) {
 			players[i] = new Player(n[i]);
 		}
 		tokenUsed = false;

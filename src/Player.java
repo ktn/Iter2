@@ -119,8 +119,8 @@ public class Player {
 		actionTokens--;
 	}
 
-	public void returnActionToken() {
-		actionTokens++;
+	public int getActionToken() {
+		return actionTokens;
 	}
 
 	public void placeTwoBlock() {
@@ -190,6 +190,10 @@ public class Player {
 		return ret;
 	}
 
+	private String showCards() {
+		return cards.toString();
+	}
+
 	public boolean hasCardWith(String[] t) // string is 1 or 2 symbols
 	{
 		boolean ret = false;
@@ -240,6 +244,17 @@ public class Player {
 		String NEW_LINE = System.getProperty("line.separator");
 		result.append(this.getClass().getName() + " Object {" + NEW_LINE);
 		result.append(" Name: " + this.getName() + NEW_LINE);
+		result.append(" Score: " + this.getScore() + NEW_LINE);
+		result.append(" Color: " + this.getColor() + NEW_LINE);
+		result.append(" Developers on Board: " + this.getDevelsOn() + NEW_LINE);
+		result.append(" Developers off Board: " + this.getDevelsOff()
+				+ NEW_LINE);
+		result.append(" Action Points " + this.getActionTokens() + NEW_LINE);
+		result.append(" TwoBlocks " + this.twoBlocksLeft() + NEW_LINE);
+		result.append(" Village Blocks " + this.villageBlocksLeft() + NEW_LINE);
+		result.append(" Rice Blocks " + this.riceBlocksLeft() + NEW_LINE);
+		result.append(" Deck " + showCards() + NEW_LINE);
+
 		result.append("}" + NEW_LINE);
 		return result.toString();
 	}
