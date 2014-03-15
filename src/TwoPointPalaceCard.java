@@ -21,6 +21,10 @@ public class TwoPointPalaceCard extends PalaceCard {
 		}
 	}
 
+	public String getSymbol() {
+		return getFirstSymbol() + " " + getSecondSymbol();
+	}
+
 	public String getFirstSymbol() {
 		return this.firstSymbol.toString();
 	}
