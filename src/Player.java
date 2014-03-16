@@ -191,7 +191,17 @@ public class Player {
 	}
 
 	private String showCards() {
-		return cards.toString();
+		StringBuilder result = new StringBuilder(100);
+		int i = 1;
+		result.append("[");
+		for (PalaceCard c : cards) {
+
+			result.append(i++ + ". ");
+			result.append(c.getSymbol() + " ");
+		}
+		result.append("]");
+
+		return result.toString();
 	}
 
 	public boolean hasCardWith(String[] t) // string is 1 or 2 symbols
@@ -249,12 +259,11 @@ public class Player {
 		result.append(" Developers on Board: " + this.getDevelsOn() + NEW_LINE);
 		result.append(" Developers off Board: " + this.getDevelsOff()
 				+ NEW_LINE);
-		result.append(" Action Points " + this.getActionTokens() + NEW_LINE);
-		result.append(" TwoBlocks " + this.twoBlocksLeft() + NEW_LINE);
-		result.append(" Village Blocks " + this.villageBlocksLeft() + NEW_LINE);
-		result.append(" Rice Blocks " + this.riceBlocksLeft() + NEW_LINE);
-		result.append(" Deck " + showCards() + NEW_LINE);
-
+		result.append(" Action Points: " + this.getActionTokens() + NEW_LINE);
+		result.append(" TwoBlocks: " + this.twoBlocksLeft() + NEW_LINE);
+		result.append(" Village Blocks: " + this.villageBlocksLeft() + NEW_LINE);
+		result.append(" Rice Blocks: " + this.riceBlocksLeft() + NEW_LINE);
+		result.append(" Deck: " + this.showCards() + NEW_LINE);
 		result.append("}" + NEW_LINE);
 		return result.toString();
 	}

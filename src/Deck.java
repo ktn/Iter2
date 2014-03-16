@@ -43,10 +43,15 @@ public class Deck {
 	public String toString() {
 		StringBuilder result = new StringBuilder(100);
 		String NEW_LINE = System.getProperty("line.separator");
+		result.append(this.getClass().getName() + " Object {" + NEW_LINE);
+
+		int i = 1;
 		for (PalaceCard c : cardStack) {
+			result.append(" " + i++ + ". ");
 			result.append(c.getSymbol() + NEW_LINE);
 		}
+		result.append("}" + NEW_LINE);
+
 		return result.toString();
 	}
-
 }
