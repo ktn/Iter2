@@ -80,4 +80,28 @@ public class PlayerTurn {
 	{
 		players[currentPlayer].returnActionToken();
 	}
+
+	public void createPalaceFestival(PalaceCard c, PlayerFacade p)
+	{
+		festival = new PalaceFestival(c, p);
+	}
+
+	public void startFestival(Player[] p)
+	{
+		festival.startFestival(p);
+	}
+
+	public int getPlayerInt(Player p)
+	{
+		int ret = -1;
+		for(int i = 0; i < numPlayers; i++)
+		{
+			if(players[i] = p)
+			{
+				ret = i;
+				break;
+			}
+		}
+		return ret;
+	}
 }

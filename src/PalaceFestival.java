@@ -1,17 +1,52 @@
+import java.util.*;
+
 public class PalaceFestival {
 	// private PlayerFacade playerFacade;
 	private PalaceCard festivalCard;
+	private PlayerFacade playerFacade;
+	private ArrayList<Player> players;
 
 	public PalaceFestival()
 	{
 		festivalCard = null;
+		playerFacade = null;
+		players = new ArrayList<Player>();
 	}
 
-	public PalaceFestival(PalaceCard festivalCard) {
+	public PalaceFestival(PalaceCard festivalCard, PlayerFacade p) {
 		this.setFestivalCard(festivalCard);
+		playerFacade = p;
+		players = new ArrayList<Player>();
 	}
 
-	public void startFestival() {
+	public void startFestival(Player[] p) {
+		String a;
+		if(festivalCard instanceof OnePointPalaceCard)
+		{
+			a = (OnePointPalaceCard) festivalCard.getSymbol();
+		}
+		else if (festivalCard instanceof TwoPointPalaceCard)
+		{
+			a = (TwoPointPalaceCard) festivalCard.getFirstSymbol();
+		}
+		for(int i = 0; i < p.length(); i++)
+		{
+			if(playerFacade.playerCanParticipate(p[i], a))
+			{
+				players.add(p[i]);
+			}
+		}
+		if(festivalCard instanceof TwoPointPalaceCard)
+		{
+			a = (TwoPointPalaceCard) festivalCard.getSecondSymbol();
+			for(int i = 0; i < p.length(); i++)
+			{
+				if(playerFacade.playerCanParticipate(p[i], a) && !players.contains(p[i]))
+				{
+					players.add(p[i]);
+				}
+			}
+		}
 		/*
 		 * PalaceCard p = playerFacade.playPalaceCard(); if(p instanceof
 		 * OnePointPalaceCard && this.festivalCard instanceof

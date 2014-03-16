@@ -185,4 +185,19 @@ public class PlayerFacade {
 	{
 		deck.returnTopCard(c);
 	}
+
+	public void createPalaceFestival()
+	{
+		playerTurn.createPalaceFestival(deck.getFestivalCard(), this);
+	}
+
+	public void startFestival(Player[] p)
+	{
+		playerTurn.startFestival(p);
+	}
+
+	public int getPlayerInt(Player p)
+	{
+		return playerTurn.getPlayerInt(Player p);
+	}
 }
