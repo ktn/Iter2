@@ -1,4 +1,3 @@
-
 public class PalaceUpgradeException extends Exception {
 
 	public PalaceUpgradeException() {

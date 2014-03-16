@@ -1,4 +1,3 @@
-
 public class BlockNotPlayedException extends Exception {
 
 	public BlockNotPlayedException() {
