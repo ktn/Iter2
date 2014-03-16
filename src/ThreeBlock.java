@@ -1,5 +1,4 @@
-public abstract class Block {
-	protected Tile head;
+public class ThreeBlock extends Block {
 
 	/*
 	 * ======================================== The standard orientation will be
@@ -12,11 +11,10 @@ public abstract class Block {
 	 * child =========================================
 	 */
 
-	public void rotate() {
-		head.rotate();
-	}
+	ThreeBlock() {
+		head = new VillageTile();
 
-	public Tile getTile() {
-		return head;
+		head.join(new RiceTile());
+		head.join(new RiceTile());
 	}
 }

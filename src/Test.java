@@ -1,15 +1,16 @@
-public class PlayerTest {
+public class Test {
 
 	public static void main(String[] args) {
-		Deck b = new Deck();
+		Deck d = new Deck();
 
 		String names[] = { "Lucas", "Xy", "Trouble" };
 
 		PlayerFacade p = new PlayerFacade(names);
 
+		Board b = new Board();
 		System.out.print(b.toString());
 
-		p.addCard(b.drawCard());
+		p.addCard(d.drawCard());
 		p.addScore(100);
 		p.addScore(10);
 
