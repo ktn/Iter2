@@ -47,6 +47,10 @@ public class PlayerFacade {
 	public void useActionToken() {
 		playerTurn.useActionToken();
 	}
+	
+	public int getActionPoints() {
+		return playerTurn.getActionPoints();
+	}
 
 	public boolean checkTwoBlock() {
 		if (currentPlayer.twoBlocksLeft() > 0 && actionPoints > 0) {

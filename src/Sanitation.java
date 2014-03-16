@@ -7,9 +7,9 @@ class Sanitation {
 		this.board = board;
 	}
 
-	public boolean placeDeveloperChecker(Coordinates coord) throws BlockNotPlayedException, NotEnoughAPException, CoordinateException, CoordinatesOutOfBoundsException{
+	public boolean placeDeveloperChecker(Board.Coordinates coord) throws BlockNotPlayedException, NotEnoughAPException, CoordinateException, CoordinatesOutOfBoundsException{
 		boolean result = true;
-		int ap = player.actionPointsLeft();
+		int ap = player.getActionPoints();
 		int requiredAP = board.checkDeveloperCost(blah blah blah);
 		int x = coord.x;
 		int y = coord.y;
@@ -22,7 +22,7 @@ class Sanitation {
 			result = false;
 			throw new NotEnoughAPException("Can't place developer.");
 		}
-		else if(ap - requiredAP < 1 && player.playedBlock()) {
+		else if(ap - requiredAP < 1 && player.blockPlayed()) {
 			result = false;
 			throw new BlockNotPlayedException("Not enough AP remaining to play block.");
 		}
@@ -32,12 +32,12 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean moveDeveloperChecker(Coordinates oldCoords, Coordinates newCoords) throws NotEnoughAPException, CoordinatesOutOfBoundsException, CoordinateException, NoDeveloperAtCoordinatesException{
+	public boolean moveDeveloperChecker(Board.Coordinates oldCoords, Board.Coordinates newCoords) throws NotEnoughAPException, CoordinatesOutOfBoundsException, CoordinateException, NoDeveloperAtCoordinatesException{
 		boolean result = true;
-		int ap = player.actionPointsLeft();
+		int ap = player.getActionPoints();
 		int old_x = oldCoords.x;
 		int old_y = oldCoords.y;
-		if(board.getDeveloper(oldCoords) instanceof null) {
+		if(board.getDeveloper(oldCoords) == null) {
 			result = false;
 			throw new NoDeveloperAtCoordinatesException("Error while moving developer", old_x, old_y);
 		}
@@ -53,28 +53,18 @@ class Sanitation {
 	public boolean actionTokenChecker() {
 		boolean result = true;
 		// Check to see if player has any action tokens left.
-		result = (player.actionTokenUsable()) ? result && true : false; // Check
-																		// to
-																		// see
-																		// if
-																		// player
-																		// has
-																		// used
-																		// an
-																		// action
-																		// token
-																		// already.
+		result = (player.actionTokenUsable()) ? result && true : false; // Check to	see if player has used action token already.
 
 		// Create command? Call command?
 
 		return result;
 	}
-
-	public boolean placeTileChecker(Block b, Coordinates coords) {
-		return placeBlockChecker(b, coords.x, coords.y);
+	
+	public boolean placeTileChecker(Block b, Board.Coordinates coords) {
+		return placeBlockChecker(b, coords);
 	}
 
-	public boolean placeBlockChecker(Block b, Coordinates coords)
+	public boolean placeBlockChecker(Block b, Board.Coordinates coords)
 			throws NoBlocksLeftException, IllegalBlockPlacementException {
 		boolean result = true;
 		BlockType type = BlockTypeConverter.convertToBlockType(b);
