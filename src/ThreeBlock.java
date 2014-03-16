@@ -18,5 +18,6 @@ public class ThreeBlock extends Block{
 
 		head.join(new RiceTile());
 		head.join(new RiceTile());
+		type = TileType.THREE;
 	}
 }

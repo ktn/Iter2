@@ -26,10 +26,14 @@ public class Communal
 	
 	public ThreeBlock getThreeBlock()
 	{
+		if(!threes.empty())
+			throw new NoBlocksLeftException("No Three-Tile Blocks left.");
 		return threes.pop();
 	}
 	public OneBlock getIrrigationTile()
 	{
+		if(!irrigations.empty())
+			throw new NoBlocksLeftException("No Irrigation Tiles left.");
 		return irrigations.pop();
 	}
 	public void putBackThreeBlock(Block b)
@@ -41,5 +45,13 @@ public class Communal
 	{
 		if(b.getType() = TileType.IRRIGATION)
 			threes.add(b);
+	}
+	public int numThreeBlocks()
+	{
+		return threes.size();
+	}
+	public int numIrrigationTiles()
+	{
+		return irrigations.size();
 	}
 }

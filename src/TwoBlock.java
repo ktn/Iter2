@@ -17,5 +17,6 @@ public class OneBlock extends Block{
 		this.head = new VillageTile();
 
 		head.join(new RiceTile());
+		type = TileType.TWO;
 	}
 }
