@@ -56,17 +56,18 @@ public class OtherPlayersView extends JPanel{
 	 * Initialize the contents of the this.
 	 */
 	private void initialize() throws Exception {
-		//First we set up the window. 
-        //this.setTitle("Player Info: ");
-		//this.setBounds(50, 50, 600, 300);
-        //this.setResizable(false);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new GridLayout(1, playerNames.length, 1 , 1));
+		this.setLayout(new GridLayout(1, playerNames.length+1, 1 , 1));
+		
+		//Add the label
+		JLabel label = new JLabel("Other (Inactive) Players", JLabel.CENTER);
+		label.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.add(label);
 		
 		for (int i = 0; i < this.playerNames.length; i++) {
 		    playerTextArea[i] = new JTextArea("");
 		    updatePlayer(i);
 		    playerTextArea[i].setEditable(false);
+			playerTextArea[i].setBorder(BorderFactory.createLineBorder(Color.black));
 		    this.add(playerTextArea[i]);
 		}
 	}

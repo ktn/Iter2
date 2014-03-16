@@ -13,7 +13,7 @@ public class View extends JFrame {
 		names.add("Do");
 		names.add("You");
 		names.add("See");
-		//names.add("Right");
+		names.add("Right");
 		View view = new View(names);
 	}
 	 
@@ -32,13 +32,23 @@ public class View extends JFrame {
 	
 	private void initialize(ArrayList<String> playerNames) {
 		this.setTitle("Java");
-		this.setBounds(100, 100, 910, 650);
-        this.setResizable(false);
+		//this.setBounds(100, 100, 910, 650);
+        //this.setExtendedState(Frame.MAXIMIZED_BOTH);
+		Toolkit tk = Toolkit.getDefaultToolkit();  
+		int xSize = ((int) tk.getScreenSize().getWidth());  
+		int ySize = ((int) tk.getScreenSize().getHeight());  
+		this.setSize(xSize,ySize);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout(3, 3));
 		
 		PlayerView playerView = new PlayerView(playerNames);
 		
-		this.getContentPane().add(playerView.getOtherPlayerView(), BorderLayout.NORTH);
+		this.getContentPane().add(playerView.getOtherPlayerView(),							BorderLayout.NORTH);
+		this.getContentPane().add(playerView.getCurrentPlayerView(),
+								  BorderLayout.SOUTH);
+								  
+		//TODO: Add public inventory view to east and player instructoins
+		//to left.
 	}
 }

@@ -10,20 +10,21 @@ public class PlayerView {
 	 * players.
 	 */
 	 
-	private OtherPlayersView otherPlayers;
-	private CurrentPlayerView currentPlayer;
+	private OtherPlayersView otherPlayersView;
+	private CurrentPlayerView currentPlayerView;
 	
 	public PlayerView(ArrayList<String> playerNames) {
-		otherPlayers = new OtherPlayersView(playerNames);
-		currentPlayer = new CurrentPlayerView();
+		ArrayList<String> otherPlayers = new ArrayList<String>(playerNames.subList(1,4));
+		otherPlayersView = new OtherPlayersView(otherPlayers);
+		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
 	}
 	
 	public OtherPlayersView getOtherPlayerView() {
-		return otherPlayers;
+		return otherPlayersView;
 	}
 	
 	public CurrentPlayerView getCurrentPlayerView() {
-		return currentPlayer;
+		return currentPlayerView;
 	}
 
 }
