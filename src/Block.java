@@ -14,12 +14,29 @@ public abstract class Block {
 					child
 	=========================================*/
 
-	Block(Tile ... tiles){
+	public Block()
+	{
+		head = new VillageTile();
+	}
 
-		head = tiles[0];
+	public Block(TileType t)
+	{
+		if(t == TileType.VILLAGE)
+			head = new VillageTile();
+		else if(t == TileType.IRRIGATION)
+			head = new IrrigationTile();
+	}
 
-		for(Tile t : tiles){
-			head.join(t);
+	public Block(int num)
+	{
+		head = new VillageTile();
+		if(num >= 2)
+		{
+			head.join(new RiceTile());
+		}
+		if(num >= 3)
+		{
+			head.join(new RiceTile());
 		}
 
 	}
@@ -27,7 +44,7 @@ public abstract class Block {
 	public void rotate(){
 		head.rotate();
 	}
-	
+
 	public Tile getTile(){
 		return head;
 	}
