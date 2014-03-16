@@ -2,6 +2,11 @@ public class PalaceFestival {
 	// private PlayerFacade playerFacade;
 	private PalaceCard festivalCard;
 
+	public PalaceFestival()
+	{
+		festivalCard = null;
+	}
+
 	public PalaceFestival(PalaceCard festivalCard) {
 		this.setFestivalCard(festivalCard);
 	}

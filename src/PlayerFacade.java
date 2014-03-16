@@ -13,6 +13,7 @@ public class PlayerFacade {
 	boolean tokenUsed;
 	int actionPoints;
 	boolean blockPlayed;
+	Deck deck;
 
 	// initialization requires names of players, assumes acceptable size
 	public PlayerFacade(String[] n) {
@@ -27,6 +28,8 @@ public class PlayerFacade {
 		tokenUsed = false;
 		actionPoints = 6;
 		blockPlayed = false;
+
+		deck = new Deck();
 	}
 
 	// change player turn
@@ -171,5 +174,15 @@ public class PlayerFacade {
 
 	public void playerUsePC(int p, String[] t) {
 		playerTurn.getPlayer(p).useCardWith(t);
+	}
+
+	public PalaceCard topCard()
+	{
+		return deck.drawCard();
+	}
+
+	public void returnTopCard(PalaceCard c)
+	{
+		deck.returnTopCard(c);
 	}
 }

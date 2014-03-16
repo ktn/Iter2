@@ -11,6 +11,7 @@ public class PlayerTurn {
 	boolean tokenUsed;
 	int actionPoints;
 	boolean blockPlayed;
+	PalaceFestival festival;
 
 	// initialization requires names of players, assumes acceptable size
 	public PlayerTurn(String[] n) {
@@ -29,6 +30,8 @@ public class PlayerTurn {
 		tokenUsed = false;
 		actionPoints = 6;
 		blockPlayed = false;
+
+		festival = new PalaceFestival;
 	}
 
 	// change player turn
