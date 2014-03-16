@@ -1,15 +1,15 @@
 import java.util.*;
 
 public abstract class Tile {
-	private TileType type;
-	protected Grid<Tile> joinedTiles;
+	protected TileType type;
+	private Grid<Tile> joinedTiles;
 	
 	
 
 	Tile(){
 		joinedTiles = new Grid<Tile>(Tile.class);
 	}
-
+	
 	public TileType getType()
 	{
 		return type;
