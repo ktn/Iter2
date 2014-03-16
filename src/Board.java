@@ -1,7 +1,10 @@
+import java.util.*;
+
 public class Board {
 	private Space head;
 	private int xDim = 10;
 	private int yDim = 10;
+	private ArrayList<Developer> devs;
 
 	/*
 		Head is in the top left corner just fyi
@@ -47,6 +50,8 @@ public class Board {
 
 			}
 		}
+
+		devs = new ArrayList<Developer>();
 	}
 
 	//ACCESSORS  =======================================================================
@@ -80,10 +85,12 @@ public class Board {
 	public TileType getTileType(Coordinates c){
 		Space temp = this.get(c);
 
-		if(temp.getHeight() == 0)
+		/*if(temp.getHeight() == 0)
 			return temp.getTile().getType();
 		else
-			return TileType.EMPTY;
+			return TileType.EMPTY;*/
+
+		temp.getTile().getType();
 	}
 
 	public Coordinates getLargest(){
@@ -126,4 +133,19 @@ public class Board {
 		}
 	}
 
+	//CHECKING METHODS  =======================================================================
+
+	public void placeDeveloper(Coordinates c, Developer d){
+		Space temp = this.get(c);
+
+		d.moveDeveloper(temp);
+
+		devs.add(d);
+	}
+
+	public void moveDeveloper(Coordinates c, Developer d){
+		Space temp = this.get(c);
+
+		d.moveDeveloper(temp);
+	}
 }

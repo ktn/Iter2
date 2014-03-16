@@ -78,11 +78,17 @@ public class Space {
 	//TILE METHODS =========================================================================
 	
 	public int getHeight(){
-		return tiles.size();
+		if(tiles.empty())
+			return 0;
+		else
+			return tiles.size();
 	}
 	
 	public Tile getTile(){
-		return tiles.peek();
+		if(tiles.empty())
+			return TileType.EMPTY
+		else
+			return tiles.peek();
 	}
 
 	public void placeTile(Tile t){
