@@ -13,34 +13,17 @@ public abstract class Block {
 
 					child
 	=========================================*/
-	
-	public Block()
-	{
-		head = new VillageTile();
-	}
-	
-	public Block(TileType t)
-	{
-		if(t == TileType.VILLAGE)
-			head = new VillageTile();
-		else if(t == TileType.IRRIGATION)
-			head = new IrrigationTile();
-	}
-	
-	public Block(int num)
-	{
-		head = new VillageTile();
-		if(num >= 2)
-		{
-			head.join(new RiceTile());
+
+	Block(Tile ... tiles){
+
+		head = tiles[0];
+
+		for(Tile t : tiles){
+			head.join(t);
 		}
-		if(num >= 3)
-		{
-			head.join(new RiceTile());
-		}
-		
+
 	}
-	
+
 	public void rotate(){
 		head.rotate();
 	}
