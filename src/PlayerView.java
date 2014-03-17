@@ -26,5 +26,13 @@ public class PlayerView {
 	public CurrentPlayerView getCurrentPlayerView() {
 		return currentPlayerView;
 	}
+	
+	public void displayPalaceInventory(int numMask, int numPuppet, int numDrum, 
+									   int numMaskDrum, int numDrumPuppet, 
+									   int numPuppetMask) {
+		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
+												 numMaskDrum, numDrumPuppet,
+												 numPuppetMask);								
+	}
 
 }

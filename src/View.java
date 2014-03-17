@@ -28,6 +28,7 @@ public class View extends JFrame {
             e.printStackTrace();
         }
         setVisible(true);
+		//TODO:Set KeyListener for this to Controller
 	}  
 	
 	private void initialize(ArrayList<String> playerNames) {

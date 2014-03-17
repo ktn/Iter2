@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileInputStream;
 
 public class CurrentPlayerView extends JPanel {
 /**This class, placed towards the bottom of the game window, will contain
@@ -11,6 +10,20 @@ public class CurrentPlayerView extends JPanel {
  * (village rice), action tokens, remaining off-board developers and palace 
  * cards */
  
+	private JLabel numDrumCards;
+	private JLabel numPuppetCards;
+	private JLabel numMaskCards;
+	private JLabel numMaskDrumCards;
+	private JLabel numDrumPuppetCards;
+	private JLabel numPuppetMaskCards;
+	private JLabel numRiceBlocks;
+	private JLabel numVillageBlocks;
+	private JLabel numTwoBlocks;
+	private JLabel numDevelopers;
+	private JLabel score;
+	private JLabel name;
+	private JLabel AP;
+	
 	public CurrentPlayerView(String playerName) {
 		try {
 			initialize(playerName);
@@ -33,9 +46,9 @@ public class CurrentPlayerView extends JPanel {
 		JPanel playerInfo = new JPanel();
 		playerInfo.setLayout(new BoxLayout(playerInfo, BoxLayout.PAGE_AXIS));
 		playerInfo.setBorder(BorderFactory.createLineBorder(Color.black));
-		JLabel name = new JLabel(playerName + "\n");
-		JLabel score = new JLabel("Score: ");
-		JLabel AP = new JLabel("AP: 6");
+		name = new JLabel(playerName + "\n");
+		score = new JLabel("Score: ");
+		AP = new JLabel("AP: 6");
 		playerInfo.add(name);
 		playerInfo.add(score);
 		playerInfo.add(AP);
@@ -64,7 +77,7 @@ public class CurrentPlayerView extends JPanel {
 		Image img = ImageIO.read(new File("../images/drumcard.png"));
 		JLabel drumPic = new JLabel(new ImageIcon(img));
 		drumCards.add(drumPic);
-		JLabel numDrumCards = new JLabel("0", JLabel.CENTER);
+		numDrumCards = new JLabel("0", JLabel.CENTER);
 		drumCards.add(numDrumCards);
 		playerCards.add(drumCards);
 		
@@ -74,7 +87,7 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("../images/puppetcard.png"));
 		JLabel puppetPic = new JLabel(new ImageIcon(img));
 		puppetCards.add(puppetPic);
-		JLabel numPuppetCards = new JLabel("0", JLabel.CENTER);
+		numPuppetCards = new JLabel("0", JLabel.CENTER);
 		puppetCards.add(numPuppetCards);
 		playerCards.add(puppetCards);
 
@@ -84,7 +97,7 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("../images/maskcard.png"));
 		JLabel maskPic = new JLabel(new ImageIcon(img));
 		maskCards.add(maskPic);
-		JLabel numMaskCards = new JLabel("0", JLabel.CENTER);
+		numMaskCards = new JLabel("0", JLabel.CENTER);
 		maskCards.add(numMaskCards);
 		playerCards.add(maskCards);
 
@@ -94,7 +107,7 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("../images/drummaskcard.png"));
 		JLabel maskDrumPic = new JLabel(new ImageIcon(img));
 		maskDrumCards.add(maskDrumPic);
-		JLabel numMaskDrumCards = new JLabel("0", JLabel.CENTER);
+		numMaskDrumCards = new JLabel("0", JLabel.CENTER);
 		maskDrumCards.add(numMaskDrumCards);
 		playerCards.add(maskDrumCards);
 
@@ -104,7 +117,7 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("../images/drumpuppet.png"));
 		JLabel drumPuppetPic = new JLabel(new ImageIcon(img));
 		drumPuppetCards.add(drumPuppetPic);
-		JLabel numDrumPuppetCards = new JLabel("0", JLabel.CENTER);
+		numDrumPuppetCards = new JLabel("0", JLabel.CENTER);
 		drumPuppetCards.add(numDrumPuppetCards);
 		playerCards.add(drumPuppetCards);
 		
@@ -114,12 +127,22 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("../images/puppetmaskcard.png"));
 		JLabel puppetMaskPic = new JLabel(new ImageIcon(img));
 		puppetMaskCards.add(puppetMaskPic);
-		JLabel numPuppetMaskCards = new JLabel("0", JLabel.CENTER);
+		numPuppetMaskCards = new JLabel("0", JLabel.CENTER);
 		puppetMaskCards.add(numPuppetMaskCards);
 		playerCards.add(puppetMaskCards);
 		
 		//Add this whole panel in 
-		this.add(playerCards);
-		
+		this.add(playerCards);	
+	}
+	
+	public void displayPalaceInventory(int numMask, int numPuppet, int numDrum, 
+									   int numMaskDrum, int numDrumPuppet, 
+									   int numPuppetMask) {
+		numDrumCards.setText(Integer.toString(numDrum));
+		numPuppetCards.setText(Integer.toString(numPuppet));
+		numMaskCards.setText(Integer.toString(numMask));
+		numMaskDrumCards.setText(Integer.toString(numMaskDrum));
+		numDrumPuppetCards.setText(Integer.toString(numDrumPuppet));
+		numPuppetMaskCards.setText(Integer.toString(numPuppetMask));
 	}
 }
