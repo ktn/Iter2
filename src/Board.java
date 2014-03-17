@@ -23,12 +23,13 @@ public class Board {
 		for (int x = 0; x < xDim; x++) {
 			for (int y = 0; y < yDim; y++) {
 				if (x != 0) {
-					// Left
+					// Left  
 					temp[x][y].join(2, temp[x - 1][y]);
+					
 				}
 
 				if (y != 0) {
-					// Bottom
+					// BOTTOM
 					temp[x][y].join(1, temp[x][y - 1]);
 				}
 
@@ -38,7 +39,7 @@ public class Board {
 				}
 
 				if (y != yDim - 1) {
-					// Top
+					// TOP
 					temp[x][y].join(3, temp[x][y + 1]);
 				}
 
@@ -62,6 +63,8 @@ public class Board {
 				}
 			}
 		}
+		if(temp == null)
+			System.out.print(c.x + " " + c.y);
 
 		return temp;
 
@@ -77,7 +80,9 @@ public class Board {
 
 	public TileType getTileType(Coordinates c) {
 		Space temp = this.get(c);
-
+		
+		if(temp == null)
+			System.out.print("fjakshdflkjahsfd");
 		if (temp.getHeight() != 0)
 			return temp.getTile().getType();
 		else
@@ -117,7 +122,7 @@ public class Board {
 		String NEW_LINE = System.getProperty("line.separator");
 		for (int i = 0; i < xDim; i++) {
 			for (int j = 0; j < yDim; j++) {
-				if (this.getTile(new Coordinates(i, j)) == null) {
+				if (this.getHeight(new Coordinates(i, j)) == 0) {
 					result.append("N ");
 				} else {
 					result.append(this.getTileType(new Coordinates(i, j)));

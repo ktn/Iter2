@@ -55,11 +55,11 @@ public class Space {
 	}
 
 	public Space getTop() {
-		return neighbors.get(3);
+		return neighbors.get(1);
 	}
 
 	public Space getBottom() {
-		return neighbors.get(1);
+		return neighbors.get(3);
 	}
 
 	public Space getRight() {
