@@ -174,6 +174,7 @@ public class PlayerFacade {
 
 	public void playerUsePC(int p, String[] t) {
 		playerTurn.getPlayer(p).useCardWith(t);
+		playerTurn.giveFestivalPoints(p, t);
 	}
 
 	public PalaceCard topCard()

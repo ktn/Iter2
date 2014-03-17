@@ -13,12 +13,21 @@ public class PalaceFestival {
 		playerFacade = null;
 		players = new ArrayList<Player>();
 		playerScores = new int[4];
+		for(int i = 0; i < 4; i++)
+		{
+			playerScores[i] = 0;
+		}
 	}
 
 	public PalaceFestival(PalaceCard festivalCard, PlayerFacade p) {
 		this.setFestivalCard(festivalCard);
 		playerFacade = p;
 		players = new ArrayList<Player>();
+		playerScores = new int[4];
+		for(int i = 0; i < 4; i++)
+		{
+			playerScores[i] = 0;
+		}
 	}
 
 	public void startFestival(Player[] p) {
@@ -85,5 +94,33 @@ public class PalaceFestival {
 	{
 		//Call playerfacade to call player turn to call player
 		return playerFacade.getCardsForPlayer(p);
+	}
+
+	public void giveFestivalPoints(Player p, String[] t)
+	{
+		int pInt = 0;
+		for(int i = 0; i < players.size(); i++)
+		{
+			if(p = players.get(i))
+			{
+				pInt = i;
+				break;
+			}
+		}
+		if(festivalCard instanceof OnePointPalaceCard)
+		{
+			playerScores[pInt] += 1;
+		}
+		else if(festivalCard instanceof TwoPointPalaceCard)
+		{
+			if(t[0] == (TwoPointPalaceCard) festivalCard.getFirstSymbol() || t[0] == (TwoPointPalaceCard) festivalCard.getSecondSymbol())
+			{
+				playerScores[pInt] +=1;
+			}
+			if(t[1] == (TwoPointPalaceCard) festivalCard.getFirstSymbol() || t[1] == (TwoPointPalaceCard) festivalCard.getSecondSymbol())
+			{
+				playerScores[pInt] +=1;
+			}
+		}
 	}
 }
