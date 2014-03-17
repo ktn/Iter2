@@ -95,11 +95,12 @@ public class Grid<E> implements Iterable<E> {
 		}
 
 		public boolean hasNext() {
-			return index <= childNum;
+			return index < childNum;
 		}
 
 		public E next() {
-			return members[index];
+			index++;
+			return members[index-1];
 		}
 
 		public void remove() {

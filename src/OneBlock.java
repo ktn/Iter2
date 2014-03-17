@@ -11,4 +11,8 @@ public class OneBlock extends Block {
 			throw new IllegalArgumentException("Illegal One Block type");
 		}
 	}
+
+	public String toString() {
+		return head.getType().toString();
+	}
 }

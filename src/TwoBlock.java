@@ -1,4 +1,4 @@
-public class ThreeBlock extends Block {
+public class TwoBlock extends Block {
 
 	/*
 	 * ======================================== The standard orientation will be
@@ -11,10 +11,8 @@ public class ThreeBlock extends Block {
 	 * child =========================================
 	 */
 
-	ThreeBlock() {
-		head = new VillageTile();
-
+	TwoBlock() {
+		this.head = new VillageTile();
 		head.set(0, new RiceTile());
-		head.set(1, new RiceTile());
 	}
 }
