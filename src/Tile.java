@@ -29,11 +29,7 @@ public abstract class Tile {
 		for (Tile y : joinedTiles) {
 			if (y != null)
 				result.append(y.getType().toString());
-			/*else
-				result.append("EMPTY ");*/
-
 		}
-
 		return result.toString();
 	}
 
@@ -43,18 +39,13 @@ public abstract class Tile {
 		joinedTiles.add(t);
 	}
 
-	private void joinTile(Tile t) {
-		if (!this.isJoined(t))
-			joinedTiles.add(t);
-	}
-
 	public ArrayList<Integer> getJoined() {
 		ArrayList<Integer> joined = new ArrayList<Integer>();
 
 		for (Tile y : joinedTiles) {
 			if (y != null) {
 				joined.add(joinedTiles.indexOf(y));
-				//System.out.println(y + "is joined");
+				// System.out.println(y + "is joined");
 			}
 		}
 		return joined;
