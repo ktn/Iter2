@@ -204,7 +204,7 @@ class Pathfinding {
 		result.append(" Coordinates in Path: " + NEW_LINE);
 
 		for (Coordinates c : shortestPath) {
-			result.append(" ( " + c.x + " , " + c.y + " )" + NEW_LINE);
+			result.append(" (" + c.x + " , " + c.y + ")" + NEW_LINE);
 		}
 		result.append("}" + NEW_LINE);
 
