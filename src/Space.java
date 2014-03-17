@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class Space {
-	
-	private Grid<Space> neighbors  = new Grid(Space.class);
+
+	private Grid<Space> neighbors = new Grid(Space.class);
 	private Stack<Tile> tiles;
-	
+
 
 	/*========================================
 		The standard is as follows
@@ -14,9 +14,8 @@ public class Space {
 		4th child = bottom child
 	=========================================*/
 
-	Space(){
-		tiles = new Stack<Tile>();
-		
+	Space() {
+		tiles = new Stack<Tile>();		
 	}
 
 	//JOINED SPACES METHODS  =======================================================================
@@ -33,99 +32,107 @@ public class Space {
 		return ret;
 	}
 
-	public void join(Space s){
-		//check if tile is already joined
-		if(neighbors.indexOf(s) == -1)
+
+	public void join(Space s) {
+		// check if tile is already joined
+		if (neighbors.indexOf(s) == -1)
 			neighbors.add(s);
 	}
 
-	public void join(int i, Space s){
-		//check if tile is already joined
-		if(neighbors.indexOf(s) == -1)
+	public void join(int i, Space s) {
+		// check if tile is already joined
+		if (neighbors.indexOf(s) == -1)
 			neighbors.set(i, s);
 	}
 
-	public void remove(Space s){
+	public void remove(Space s) {
 		neighbors.remove(s);
 	}
 
+	// NEIGHBOR METHODS
+	// =======================================================================
 
-	//NEIGHBOR METHODS =======================================================================
-	
-	
-	public void addNeighbor(Space s){
-		if(neighbors.indexOf(s) == -1)
+	public void addNeighbor(Space s) {
+		if (neighbors.indexOf(s) == -1)
 			neighbors.add(s);
 	}
-	
-	public Space getTop(){
+
+
+	public Space getTop() {
 		return neighbors.get(1);
 	}
-	
-	public Space getBottom(){
+
+	public Space getBottom() {
 		return neighbors.get(3);
 	}
-	
-	public Space getRight(){
+
+	public Space getRight() {
 		return neighbors.get(0);
 	}
-	
-	public Space getLeft(){
+
+	public Space getLeft() {
 		return neighbors.get(2);
 	}
-	
-	
-	//TILE METHODS =========================================================================
-	
-	public int getHeight(){
-		if(tiles.empty())
+
+	// TILE METHODS
+	// =========================================================================
+
+	public int getHeight() {
+		if (tiles.empty())
 			return 0;
 		else
 			return tiles.size();
 	}
-	
-	public Tile getTile(){
-		if(tiles.empty())
-			return TileType.EMPTY
-		else
+
+	public Tile getTile() {
+		if (!tiles.empty()) {
 			return tiles.peek();
+		}
+		return null;
 	}
 
-	public void placeTile(Tile t){
+	public void placeTile(Tile t) {
 		ArrayList<Integer> joined = t.getJoined();
+		System.out.println(joined.size());
 
+		// dont add same tile again and again forever
+		// if (tiles.peek() != t) {
+		for (int i : joined) {
+			Space temp = neighbors.get(i);
 
-		//dont add same tile again and again forever
-		if(tiles.peek() != t){
-			for(int i : joined){
-				Space temp = neighbors.get(i);
+			if (temp != null) {
+				System.out.println("Placing other tile");
 
-				if(temp != null){
-					temp.placeTile(t.getJoined(i));
-				}
-				else{
-					//throw exception?
-				}
+				temp.addTile(t.getJoined(i));
+			} else {
+				System.out.println("Uh oh");
 			}
 		}
 
 		tiles.add(t);
 	}
-	
-	public void removeTile(){
+
+	private void addTile(Tile t) {
+		tiles.add(t);
+		System.out.println("Private placement");
+	}
+
+	public void removeTile() {
 		Tile t = tiles.pop();
 		ArrayList<Integer> joined = t.getJoined();
 
+		for (int i : joined) {
+			Space temp = neighbors.get(i);
 
-		for(int i : joined){
-				Space temp = neighbors.get(i);
-
-				if(temp != null){
-					temp.removeTile();
-				}
-				else{
-					//throw exception?
-				}
+			if (temp != null) {
+				temp.popTile();
+			} else {
+				// throw exception?
 			}
+		}
+	}
+
+	private void popTile() {
+		tiles.pop();
 	}
 }

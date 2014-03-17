@@ -1,21 +1,19 @@
-public class OneBlock extends Block{
-	
-	/*========================================
-		The standard orientation will be
 
+public class TwoBlock extends Block {
 
-					head	-->		child
-					
-					  |
-					  |
-					  v
+	/* ======================================== 
+	 *	The standard orientation will be
+	 * 
+	 * 
+	 * 		head --> child
+	 * 		  |
+	 * 		  |
+	 * 		  v
+	 *		child
+	 * =========================================*/
 
-					child
-	=========================================*/
-
-	TwoBlock(){
+	TwoBlock() {
 		this.head = new VillageTile();
-
-		head.join(new RiceTile());
+		head.set(0, new RiceTile());
 	}
 }

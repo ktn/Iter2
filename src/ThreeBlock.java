@@ -16,7 +16,7 @@ public class ThreeBlock extends Block{
 	ThreeBlock(){
 		this.head = new VillageTile();
 
-		head.join(new RiceTile());
-		head.join(new RiceTile());
+		head.set(0, new RiceTile());
+		head.set(1, new RiceTile());
 	}
 }
