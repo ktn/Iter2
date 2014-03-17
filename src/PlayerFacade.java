@@ -197,6 +197,11 @@ public class PlayerFacade {
 		deck.returnTopCard(c);
 	}
 
+	public void discardCard(PalaceCard c)
+	{
+		deck.discardCard(c);
+	}
+
 	public void createPalaceFestival()
 	{
 		playerTurn.createPalaceFestival(deck.getFestivalCard(), this);
