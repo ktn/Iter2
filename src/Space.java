@@ -5,30 +5,33 @@ public class Space {
 	private Grid<Space> neighbors = new Grid(Space.class);
 	private Stack<Tile> tiles;
 
-	/*
-	 * ======================================== The standard is as follows 1st
-	 * child = right child 2nd child = bottom child 3rd child = left child 4th
-	 * child = top child =========================================
-	 */
+
+	/*========================================
+		The standard is as follows
+		1st child = right child
+		2nd child = top child
+		3rd child = left child
+		4th child = bottom child
+	=========================================*/
 
 	Space() {
-		tiles = new Stack<Tile>();
-
+		tiles = new Stack<Tile>();		
 	}
 
-	// JOINED SPACES METHODS
-	// =======================================================================
-	// might delete
-	public boolean isJoined(Space s) {
+	//JOINED SPACES METHODS  =======================================================================
+	//might delete
+	public boolean isJoined(Space s){
 		boolean ret = false;
-
-		for (Space y : neighbors) {
-			if (s == y)
+				
+		for(Space y : neighbors)
+		{
+			if(s == y)
 				ret = true;
 		}
 
 		return ret;
 	}
+
 
 	public void join(Space s) {
 		// check if tile is already joined
@@ -53,6 +56,7 @@ public class Space {
 		if (neighbors.indexOf(s) == -1)
 			neighbors.add(s);
 	}
+
 
 	public Space getTop() {
 		return neighbors.get(1);
@@ -89,6 +93,7 @@ public class Space {
 
 	public void placeTile(Tile t) {
 		ArrayList<Integer> joined = t.getJoined();
+		System.out.println(joined.size());
 
 		// dont add same tile again and again forever
 		// if (tiles.peek() != t) {
@@ -96,11 +101,8 @@ public class Space {
 			Space temp = neighbors.get(i);
 
 			if (temp != null) {
-				// System.out.println("Placing other tile");
-
 				temp.addTile(t.getJoined(i));
 			} else {
-				// System.out.println("Uh oh");
 			}
 		}
 
@@ -109,7 +111,6 @@ public class Space {
 
 	private void addTile(Tile t) {
 		tiles.add(t);
-		// System.out.println("Private placement");
 	}
 
 	public void removeTile() {
