@@ -15,4 +15,9 @@ public class TwoBlock extends Block {
 		this.head = new VillageTile();
 		head.set(0, new RiceTile());
 	}
+
+	public String toString() {
+		String s = head.getType().toString() + head.getJoined(0).toString();
+		return s;
+	}
 }

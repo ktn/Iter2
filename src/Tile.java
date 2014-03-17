@@ -22,16 +22,16 @@ public abstract class Tile {
 
 		return ret;
 	}
-	
+
 	public String toString() {
 		StringBuilder result = new StringBuilder(100);
 		result.append(type.toString());
 		for (Tile y : joinedTiles) {
 			if (y != null)
 				result.append(y.getType().toString());
-			else
-				result.append("EMPTY");
-			
+			/*else
+				result.append("EMPTY ");*/
+
 		}
 
 		return result.toString();
@@ -39,12 +39,12 @@ public abstract class Tile {
 
 	public void join(Tile t) {
 		// check if tile is already joined
-		//if (joinedTiles.indexOf(t) == -1)
-			joinedTiles.add(t);
+		// if (joinedTiles.indexOf(t) == -1)
+		joinedTiles.add(t);
 	}
-	
-	private void joinTile(Tile t){
-		if(!this.isJoined(t))
+
+	private void joinTile(Tile t) {
+		if (!this.isJoined(t))
 			joinedTiles.add(t);
 	}
 
@@ -52,9 +52,9 @@ public abstract class Tile {
 		ArrayList<Integer> joined = new ArrayList<Integer>();
 
 		for (Tile y : joinedTiles) {
-			if (y != null){
+			if (y != null) {
 				joined.add(joinedTiles.indexOf(y));
-				System.out.println(y + "is joined");
+				//System.out.println(y + "is joined");
 			}
 		}
 		return joined;
@@ -84,8 +84,8 @@ public abstract class Tile {
 	public Grid<Tile> getGrid() {
 		return joinedTiles;
 	}
-	
-	public void set(int i, Tile t){
+
+	public void set(int i, Tile t) {
 		joinedTiles.set(i, t);
 	}
 }

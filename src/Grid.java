@@ -6,11 +6,9 @@ public class Grid<E> implements Iterable<E> {
 	private E[] members;
 
 	/*
-	 * ======================================== The standard is as follows
-	 * 1st child = right child 
-	 * 2nd child = TOP child 
-	 * 3rd child = left child 
-	 * 4th child = BOTTOM child =========================================
+	 * ======================================== The standard is as follows 1st
+	 * child = right child 2nd child = TOP child 3rd child = left child 4th
+	 * child = BOTTOM child =========================================
 	 */
 
 	Grid(Class<E> type) {
@@ -71,16 +69,11 @@ public class Grid<E> implements Iterable<E> {
 
 	public void rotate() {
 
-		E[] temp = members;
-
-		for (int i = 0; i < childNum; i++) {
-			if (i != childNum - 1) {
-				members[i] = temp[i + 1];
-			} else {
-				members[i] = temp[0];
-			}
-
+		E temp = members[0];
+		for (int i = 1; i < childNum; i++) {
+			members[i - 1] = members[i];
 		}
+		members[childNum - 1] = temp;
 	}
 
 	public Iterator<E> iterator() {
@@ -100,7 +93,7 @@ public class Grid<E> implements Iterable<E> {
 
 		public E next() {
 			index++;
-			return members[index-1];
+			return members[index - 1];
 		}
 
 		public void remove() {

@@ -97,11 +97,11 @@ public class Space {
 			Space temp = neighbors.get(i);
 
 			if (temp != null) {
-				System.out.println("Placing other tile");
+				//System.out.println("Placing other tile");
 
 				temp.addTile(t.getJoined(i));
 			} else {
-				System.out.println("Uh oh");
+				//System.out.println("Uh oh");
 			}
 		}
 
@@ -110,7 +110,7 @@ public class Space {
 
 	private void addTile(Tile t) {
 		tiles.add(t);
-		System.out.println("Private placement");
+		//System.out.println("Private placement");
 	}
 
 	public void removeTile() {
