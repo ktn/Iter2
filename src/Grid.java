@@ -6,11 +6,13 @@ public class Grid<E> implements Iterable<E> {
 	private E[] members;
 
 	/*
-	 * ======================================== The standard is as follows
+	 * ======================================== 
+	 *	The standard is as follows
 	 * 1st child = right child 
 	 * 2nd child = TOP child 
 	 * 3rd child = left child 
-	 * 4th child = BOTTOM child =========================================
+	 * 4th child = BOTTOM child
+	 * =========================================
 	 */
 
 	Grid(Class<E> type) {
