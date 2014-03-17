@@ -48,11 +48,6 @@ public class PlayerFacade {
 		playerTurn.useActionToken();
 	}
 
-	public void returnActionToken()
-	{
-		playerTurn.returnActionToken();
-	}
-
 	public boolean checkTwoBlock() {
 		if (currentPlayer.twoBlocksLeft() > 0 && actionPoints > 0) {
 			return true;
@@ -85,7 +80,6 @@ public class PlayerFacade {
 
 	public void returnVillageBlock() {
 		currentPlayer.returnVillageBlock();
-		actionPoints++;
 	}
 
 	public boolean checkRice() {
@@ -103,30 +97,15 @@ public class PlayerFacade {
 
 	public void returnRiceBlock() {
 		currentPlayer.returnRiceBlock();
-		actionPoints++;
-
 	}
 
 	public void playThreeBlock() {
 		blockPlayed = true;
-		actionPoints--;
-	}
-
-	public void returnThreeBlock()
-	{
-		actionPoints++;
-
 	}
 
 	public boolean blockPlayed() {
 		return blockPlayed;
 	}
-
-	public void blockNotPlayed()
-	{
-		blockPlayed = false;
-	}
-
 
 	// changing score
 	public void addScore(int s) {
@@ -176,4 +155,3 @@ public class PlayerFacade {
 		playerTurn.getPlayer(p).useCardWith(t);
 	}
 }
-

@@ -1,26 +1,26 @@
-public class Developer{
+public class Developer {
 	private Player player;
 	private Space space;
 
-	Developer(Player p){
+	Developer(Player p) {
 		this.space = null;
-		this.player  = p;
+		this.player = p;
 	}
 
-	Developer(Player p, Space s){
+	Developer(Player p, Space s) {
 		this.space = s;
-		this.player  = p;
+		this.player = p;
 	}
 
-	public Player getPlayer(){
+	public Player getPlayer() {
 		return player;
 	}
 
-	public Space getSpace(){
+	public Space getSpace() {
 		return space;
 	}
 
-	public void moveDeveloper(Space s){
-		this.space = s;
+	public Space moveDeveloper(Space s) {
+		return this.space = s;
 	}
 }

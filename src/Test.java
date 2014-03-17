@@ -18,11 +18,6 @@ public class Test {
 		Block two = new TwoBlock();
 		Block three = new ThreeBlock();
 
-<<<<<<< HEAD
-		b.placeBlock(rice, b.new Coordinates(3, 3));
-		b.placeBlock(two, b.new Coordinates(1, 1));
-		b.placeBlock(three, b.new Coordinates(4, 3));
-=======
 		b.placeBlock(rice, new Coordinates(3, 3));
 		b.placeBlock(two, new Coordinates(1, 1));
 		b.placeBlock(three, new Coordinates(4, 3));
@@ -39,7 +34,6 @@ public class Test {
 		b.placeBlock(two, new Coordinates(2, 3));
 		b.placeBlock(two, new Coordinates(2, 2));
 		b.placeBlock(two, new Coordinates(3, 3));
->>>>>>> origin/pathfinding
 
 		Pathfinding pf = new Pathfinding(b);
 

@@ -1,61 +1,51 @@
-import java.util.*;
-
 public class Board {
 	private Space head;
-	private int xDim = 10;
-	private int yDim = 10;
-	private ArrayList<Developer> devs;
+	private static int xDim = 10;
+	private static int yDim = 10;
 
 	/*
-		Head is in the bottom left corner just fyi
-	*/
+	 * Head is in the top left corner just fyi
+	 */
 
-	//CONSTRUCTOR  =======================================================================
+	// CONSTRUCTOR
+	// =======================================================================
 
-	Board(){
+	Board() {
 		Space[][] temp = new Space[xDim][yDim];
-		for(int i = 0; i < xDim; i++)
-		{
-			for(int j = 0; j < yDim; j++)
-			{
-
+		for (int i = 0; i < xDim; i++) {
+			for (int j = 0; j < yDim; j++) {
 				temp[i][j] = new Space();
 			}
 		}
 
 		head = temp[0][0];
 
-		for(int x = 0; x < xDim; x++)
-		{
-			for(int y = 0; y < yDim; y++)
-			{
-				if(x != 0){
-					//Left
-					temp[x][y].join(2 , temp[x-1][y]);
+		for (int x = 0; x < xDim; x++) {
+			for (int y = 0; y < yDim; y++) {
+				if (x != 0) {
+					// Left
+					temp[x][y].join(2, temp[x - 1][y]);
+
 				}
 
-				if(y != 0){
-					//Top
-					temp[x][y].join(1 , temp[x][y-1]);
+				if (y != 0) {
+					// BOTTOM
+					temp[x][y].join(1, temp[x][y - 1]);
 				}
 
-				if(x != xDim - 1){
-					//Right
-					temp[x][y].join(0 , temp[x+1][y]);
+				if (x != xDim - 1) {
+					// Right
+					temp[x][y].join(0, temp[x + 1][y]);
 				}
 
-				if(y != yDim - 1){
-					//Bottom
-					temp[x][y].join(3 , temp[x][y+1]);
-
+				if (y != yDim - 1) {
+					// TOP
+					temp[x][y].join(3, temp[x][y + 1]);
 				}
 
 			}
 		}
-
-		devs = new ArrayList<Developer>();
 	}
-
 
 	// ACCESSORS
 	// =======================================================================
@@ -73,6 +63,9 @@ public class Board {
 				}
 			}
 		}
+		if (temp == null)
+			System.out.print(c.x + " " + c.y);
+
 		return temp;
 
 	}
@@ -110,54 +103,20 @@ public class Board {
 
 	}
 
-
 	public void removeBlock(Coordinates c) {
 		Space target = this.get(c);
 		target.removeTile();
 	}
 
-	// CHECKING METHODS  
+	// CHECKING METHODS
 	// =======================================================================
-	public boolean inBounds(int x, int y){
+	public static boolean inBounds(int x, int y) {
 		return x <= xDim || y <= yDim;
 	}
 
-	public boolean inBounds(Coordinates c){
+	public boolean inBounds(Coordinates c) {
 		return c.x <= xDim || c.y <= yDim;
 	}
-
-	public class Coordinates{
-		public int x;
-		public int y;
-
-		Coordinates(int x , int y){
-			if(!inBounds(x, y))
-				throw new IllegalArgumentException("Out of Bounds arguements");
-
-			this.x = x;
-			this.y = y;
-		}
-	}
-
-	// DEVELOPER METHODS  
-	// =======================================================================
-
-	public void placeDeveloper(Coordinates c, Developer d){
-		Space temp = this.get(c);
-
-		d.moveDeveloper(temp);
-
-		devs.add(d);
-	}
-
-	public void moveDeveloper(Coordinates c, Developer d){
-		Space temp = this.get(c);
-
-		d.moveDeveloper(temp);
-	}
-
-	// HELPER METHODS  
-	// =======================================================================
 
 	public String toString() {
 		StringBuilder result = new StringBuilder(100);
