@@ -11,8 +11,8 @@ public class OtherPlayersView extends JPanel{
 	 
 	private JTextArea[] playerTextArea;
 	private String[] playerNames;
-	private int[] oneCityBlkCounts;
 	private int[] oneVillageBlkCounts;
+	private int[] oneRiceBlkCounts;
 	private int[] twoCityBlkCounts;
 	private int[] twoBlkCounts;
 	private int[] actionTokens;
@@ -23,8 +23,8 @@ public class OtherPlayersView extends JPanel{
 	public OtherPlayersView(ArrayList<String> playerNames) {
 		this.playerNames = new String[4];
 	    playerTextArea = new JTextArea[4];
-	    oneCityBlkCounts = new int[4];
 	    oneVillageBlkCounts = new int[4];
+	    oneRiceBlkCounts = new int[4];
 	    twoBlkCounts = new int[4];
 	    actionTokens = new int[4];
 	    developerCounts = new int[4];
@@ -36,8 +36,8 @@ public class OtherPlayersView extends JPanel{
 	    
 	    //Start of game value initialization
 	    for (int i = 0; i < this.playerNames.length; i++) {
-	        oneCityBlkCounts[i] = 2;
-	        oneVillageBlkCounts[i] = 3;
+	        oneVillageBlkCounts[i] = 2;
+	        oneRiceBlkCounts[i] = 3;
 	        twoBlkCounts[i] = 5;
 	        actionTokens[i] = 3;
 	        developerCounts[i] = 12;
@@ -72,20 +72,31 @@ public class OtherPlayersView extends JPanel{
 		}
 	}
 	
-	//Method for decrementing 1 block counts
-	public void updateOneBlockCount(String playerName, boolean isCity) {
-	    int playerNum = getPlayerNumber(playerName);
-	    if (isCity)
-	        oneCityBlkCounts[playerNum]--;
-	    else
-	        oneVillageBlkCounts[playerNum]--;
+	//Method for displaying number of action tokens
+	public void displayActionTokens(String playerName, int numActionTokens) {
+		int playerNum = getPlayerNumber(playerName);
+	    actionTokens[playerNum] = numActionTokens;
 	    updatePlayer(playerNum);
 	}
 	
-	//Method for decrementing 2 block counts
-	public void updateTwoBlockCount(String playerName) {
+	//Method for display # rice blocks
+	public void displayRiceBlocks(String playerName, int riceBlocks) {
+		int playerNum = getPlayerNumber(playerName);
+	    oneRiceBlkCounts[playerNum] = riceBlocks;
+	    updatePlayer(playerNum);
+	}
+	
+	//Method for display # rice blocks
+	public void displayVillageBlocks(String playerName, int villageBlocks) {
+		int playerNum = getPlayerNumber(playerName);
+	    oneVillageBlkCounts[playerNum] = villageBlocks;
+	    updatePlayer(playerNum);
+	}
+	
+	//Method for displaying 2 block counts
+	public void updateTwoBlockCount(String playerName, int twoBlocks) {
 	    int playerNum = getPlayerNumber(playerName);
-	    twoBlkCounts[playerNum]--;
+	    twoBlkCounts[playerNum] = twoBlocks;
 	    updatePlayer(playerNum);
 	}
 	
@@ -97,7 +108,7 @@ public class OtherPlayersView extends JPanel{
 	}
 	
 	//Method for updating player score, given player
-	public void updateScore(String playerName, int score) {
+	public void displayScore(String playerName, int score) {
 		int playerNum = getPlayerNumber(playerName);
 		this.score[playerNum] = score;
 		updatePlayer(playerNum);
@@ -120,9 +131,9 @@ public class OtherPlayersView extends JPanel{
 	//Update a given player
 	public void updatePlayer(int i) {
 	    playerTextArea[i].setText(playerNames[i] + "\n" +
-		                              "1 Blks (Village): " + oneCityBlkCounts[i] +
+		                              "1 Blks (Village): " + oneVillageBlkCounts[i] +
 		                              "\n1 Blks (Rice): " + 
-		                              oneVillageBlkCounts[i] +
+		                              oneRiceBlkCounts[i] +
 		                              "\n2 Blks: " + twoBlkCounts[i] +
 		                              "\nAction Tokens: " + actionTokens[i] +
 		                              "\nDevelopers: " + developerCounts[i] +

@@ -16,7 +16,7 @@ public class PlayerView {
 	private ArrayList<String> otherPlayers;
 	
 	public PlayerView(ArrayList<String> playerNames) {
-		otherPlayers = new ArrayList<String>(playerNames.subList(1,4));
+		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
@@ -36,6 +36,14 @@ public class PlayerView {
 		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
 												 numMaskDrum, numDrumPuppet,
 												 numPuppetMask);								
+	}
+	
+	public void switchPlayer() {
+			String temp = otherPlayers.get(otherPlayers.size());
+			for (int i = 1; i < otherPlayers.size(); i++)
+				otherPlayers.add(i, otherPlayers.get(i-1));
+			otherPlayers.add(0,currentPlayer);
+			currentPlayer = temp;
 	}
 
 }
