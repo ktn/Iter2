@@ -23,6 +23,7 @@ public class CurrentPlayerView extends JPanel {
 	private JLabel score;
 	private JLabel name;
 	private JLabel AP;
+	private JLabel numActionTokens;
 	
 	public CurrentPlayerView(String playerName) {
 		try {
@@ -58,7 +59,7 @@ public class CurrentPlayerView extends JPanel {
 		JPanel playerInv = new JPanel();
 		playerInv.setBorder(BorderFactory.createLineBorder(Color.black));
 		//playerInv.setLayout(new BoxLayout(playerInv, BoxLayout.PAGE_AXIS));
-		playerInv.setLayout(new GridLayout(4,2));
+		playerInv.setLayout(new GridLayout(5,2));
 		Image img = ImageIO.read(new File("../images/rice.png"));
 		JLabel riceBlocks = new JLabel(new ImageIcon(img));
 		numRiceBlocks = new JLabel("3");
@@ -69,6 +70,9 @@ public class CurrentPlayerView extends JPanel {
 		numTwoBlocks = new JLabel("3");
 		JLabel developers = new JLabel("Off-Board Developers: ");
 		JLabel numDevelopers = new JLabel("12");
+		JLabel actionTokens = new JLabel("Action Tokens: ");
+		numActionTokens = new JLabel("3");
+		
 		playerInv.add(riceBlocks);
 		playerInv.add(numRiceBlocks);
 		playerInv.add(villageBlocks);
@@ -77,6 +81,8 @@ public class CurrentPlayerView extends JPanel {
 		playerInv.add(numTwoBlocks);
 		playerInv.add(developers);
 		playerInv.add(numDevelopers);
+		playerInv.add(actionTokens);
+		playerInv.add(numActionTokens);
 		this.add(playerInv);
 		
 		//Current player palace card inventory
