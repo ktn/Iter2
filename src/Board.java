@@ -34,7 +34,7 @@ public class Board {
 				}
 
 				if(y != 0){
-					//Bottom
+					//Top
 					temp[x][y].join(1 , temp[x][y-1]);
 				}
 
@@ -44,7 +44,7 @@ public class Board {
 				}
 
 				if(y != yDim - 1){
-					//Top
+					//Bottom
 					temp[x][y].join(3 , temp[x][y+1]);
 				}
 

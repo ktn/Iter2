@@ -9,9 +9,9 @@ public class Space {
 	/*========================================
 		The standard is as follows
 		1st child = right child
-		2nd child = bottom child
+		2nd child = top child
 		3rd child = left child
-		4th child = top child
+		4th child = bottom child
 	=========================================*/
 
 	Space(){
@@ -59,11 +59,11 @@ public class Space {
 	}
 	
 	public Space getTop(){
-		return neighbors.get(3);
+		return neighbors.get(1);
 	}
 	
 	public Space getBottom(){
-		return neighbors.get(1);
+		return neighbors.get(3);
 	}
 	
 	public Space getRight(){
