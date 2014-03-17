@@ -45,9 +45,10 @@ public class CurrentPlayerView extends JPanel {
 		
 		//Current Player basic info
 		JPanel playerInfo = new JPanel();
-		playerInfo.setLayout(new BoxLayout(playerInfo, BoxLayout.PAGE_AXIS));
+		//playerInfo.setLayout(new BoxLayout(playerInfo, BoxLayout.PAGE_AXIS));
+		playerInfo.setLayout(new GridLayout(3,1));
 		playerInfo.setBorder(BorderFactory.createLineBorder(Color.black));
-		name = new JLabel(playerName + "\n");
+		name = new JLabel("Name: " + playerName);
 		score = new JLabel("Score: ");
 		AP = new JLabel("AP: 6");
 		playerInfo.add(name);
@@ -87,8 +88,8 @@ public class CurrentPlayerView extends JPanel {
 		
 		//Current player palace card inventory
 		JPanel playerCards = new JPanel();
-		playerCards.setLayout(new BoxLayout(playerCards, BoxLayout.LINE_AXIS));
-		//playerCards.setLayout(new GridLayout(1,6));
+		//playerCards.setLayout(new BoxLayout(playerCards, BoxLayout.LINE_AXIS));
+		playerCards.setLayout(new GridLayout(1,6));
 		
 		//Drum cards first
 		JPanel drumCards = new JPanel();
