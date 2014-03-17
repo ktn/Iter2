@@ -39,11 +39,13 @@ public class PlayerView {
 	}
 	
 	public void switchPlayer() {
-			String temp = otherPlayers.get(otherPlayers.size());
-			for (int i = 1; i < otherPlayers.size(); i++)
-				otherPlayers.add(i, otherPlayers.get(i-1));
-			otherPlayers.add(0,currentPlayer);
-			currentPlayer = temp;
+		String temp = otherPlayers.get(otherPlayers.size());
+		for (int i = 1; i < otherPlayers.size(); i++)
+			otherPlayers.add(i, otherPlayers.get(i-1));
+		otherPlayers.add(0,currentPlayer);
+		currentPlayer = temp;
+		otherPlayersView = new OtherPlayersView(otherPlayers);
+		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
 	}
 
 }
