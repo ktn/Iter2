@@ -15,6 +15,7 @@ public class View extends JFrame {
 		names.add("See");
 		names.add("Right");
 		View view = new View(names);
+		
 	}
 	 
 	/**
@@ -43,10 +44,11 @@ public class View extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout(3, 3));
 		
-		PlayerView playerView = new PlayerView(playerNames);
+		//PlayerView playerView = new PlayerView();
+		PlayerView.initialize(playerNames);
 		
-		this.getContentPane().add(playerView.getOtherPlayerView(),							BorderLayout.NORTH);
-		this.getContentPane().add(playerView.getCurrentPlayerView(),
+		this.getContentPane().add(PlayerView.getOtherPlayerView(),							BorderLayout.NORTH);
+		this.getContentPane().add(PlayerView.getCurrentPlayerView(),
 								  BorderLayout.SOUTH);
 		try {
 			BoardView boardView = new BoardView(); 

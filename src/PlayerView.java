@@ -10,10 +10,10 @@ public class PlayerView {
 	 * players.
 	 */
 	 
-	private OtherPlayersView otherPlayersView;
-	private CurrentPlayerView currentPlayerView;
-	private String currentPlayer;
-	private ArrayList<String> otherPlayers;
+	private static OtherPlayersView otherPlayersView;
+	private static CurrentPlayerView currentPlayerView;
+	private static String currentPlayer;
+	private static ArrayList<String> otherPlayers;
 	
 	public PlayerView(ArrayList<String> playerNames) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
@@ -22,15 +22,23 @@ public class PlayerView {
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
 	}
 	
-	public OtherPlayersView getOtherPlayerView() {
+	//Copy of above for testing
+	public static void initialize(ArrayList<String> playerNames) {
+		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
+		otherPlayersView = new OtherPlayersView(otherPlayers);
+		currentPlayer = playerNames.get(0);
+		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
+	}
+	
+	public static OtherPlayersView getOtherPlayerView() {
 		return otherPlayersView;
 	}
 	
-	public CurrentPlayerView getCurrentPlayerView() {
+	public static CurrentPlayerView getCurrentPlayerView() {
 		return currentPlayerView;
 	}
 	
-	public void displayPalaceInventory(int numMask, int numPuppet, int numDrum, 
+	public static void displayPalaceInventory(int numMask, int numPuppet, int numDrum, 
 									   int numMaskDrum, int numDrumPuppet, 
 									   int numPuppetMask) {
 		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
@@ -38,14 +46,15 @@ public class PlayerView {
 												 numPuppetMask);								
 	}
 	
-	public void switchPlayer() {
-		String temp = otherPlayers.get(otherPlayers.size());
-		for (int i = 1; i < otherPlayers.size(); i++)
-			otherPlayers.add(i, otherPlayers.get(i-1));
-		otherPlayers.add(0,currentPlayer);
+	public static void switchActivePlayer() {
+		String temp = otherPlayers.get(otherPlayers.size() - 1);
+		for (int i = otherPlayers.size() - 1; i > 0; i--) {
+			otherPlayers.set(i, otherPlayers.get(i-1));
+		}
+		otherPlayers.set(0,currentPlayer);
 		currentPlayer = temp;
 		otherPlayersView = new OtherPlayersView(otherPlayers);
-		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
+		currentPlayerView = new CurrentPlayerView(currentPlayer);
 	}
 
 }
