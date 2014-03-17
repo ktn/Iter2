@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class PlayerView {
 	/**This class represents the facade for two portions
@@ -103,5 +104,13 @@ public class PlayerView {
 			currentPlayerView.displayTwoBlocks(score);
 	}
 	
-
+	public static boolean promptPlayer(String message) {
+		int n = JOptionPane.showConfirmDialog(otherPlayersView, message, "Player Prompt", JOptionPane.YES_NO_OPTION);
+		if (n == 0)
+			return true;
+		else if (n == 1)
+			return false;
+		else
+			return false;
+	}
 }
