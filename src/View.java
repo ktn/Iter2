@@ -47,6 +47,11 @@ public class View extends JFrame {
 		this.getContentPane().add(playerView.getOtherPlayerView(),							BorderLayout.NORTH);
 		this.getContentPane().add(playerView.getCurrentPlayerView(),
 								  BorderLayout.SOUTH);
+		try {
+			BoardView boardView = new BoardView(); 
+			this.getContentPane().add(boardView, BorderLayout.CENTER);
+		}
+		catch (Exception e) { e.printStackTrace(); }						  
 								  
 		//TODO: Add public inventory view to east and player instructoins
 		//to left.

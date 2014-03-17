@@ -1,4 +1,4 @@
-package view;
+//package view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,7 +16,7 @@ public class BoardView extends JPanel{
 	Image rice;
 	
 	public BoardView() throws IOException{
-		dirt=ImageIO.read(new File("images/dirt.png"));
+		dirt=ImageIO.read(new File("../images/dirt.png"));
 	}
 	
 	@Override
