@@ -1,4 +1,5 @@
 public abstract class Block {
+<<<<<<< HEAD
 	private Tile head;
 
 	/*========================================
@@ -14,38 +15,36 @@ public abstract class Block {
 					child
 	=========================================*/
 
-	public Block()
-	{
-		head = new VillageTile();
-	}
+=======
+	protected Tile head;
 
-	public Block(TileType t)
-	{
-		if(t == TileType.VILLAGE)
-			head = new VillageTile();
-		else if(t == TileType.IRRIGATION)
-			head = new IrrigationTile();
-	}
+	/*
+	 * ======================================== The standard orientation will be
+	 * 
+	 * 
+	 * head --> child
+	 * 
+	 * | | v
+	 * 
+	 * child =========================================
+	 */
 
-	public Block(int num)
-	{
-		head = new VillageTile();
-		if(num >= 2)
-		{
-			head.join(new RiceTile());
-		}
-		if(num >= 3)
-		{
-			head.join(new RiceTile());
-		}
-
-	}
-
-	public void rotate(){
+	public void rotate() {
 		head.rotate();
 	}
+>>>>>>> pathfinding
+
+	public Tile getTile() {
+		return head;
+	}
+<<<<<<< HEAD
 
 	public Tile getTile(){
 		return head;
+=======
+	
+	public String toString(){
+		return null;
+>>>>>>> pathfinding
 	}
 }

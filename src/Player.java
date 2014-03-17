@@ -119,11 +119,14 @@ public class Player {
 		actionTokens--;
 	}
 
+<<<<<<< HEAD
 	public void returnActionToken()
 	{
 		actionTokens++;
 	}
 
+=======
+>>>>>>> pathfinding
 	public int getActionToken() {
 		return actionTokens;
 	}
