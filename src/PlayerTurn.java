@@ -108,6 +108,8 @@ public class PlayerTurn {
 	public List<PalaceCard> getCardsForPlayer(Player p)
 	{
 		PalaceCard currentFestCard = this.festival.getFestivalCard();
+		ArrayList<PalaceCard> cardList = new ArrayList<PalaceCard>();
+		ArrayList<PalaceCard> temp = new ArrayList<PalaceCard>();
 
 		//Type of the festival card
 		String[] type;
@@ -116,14 +118,27 @@ public class PlayerTurn {
 		{
 			type = new String[1];
 			type[0] = (OnePointPalaceCard) currentFestCard.getSymbol();
+			cardList.addAll(p.getPlayablePalaceCards(type[0]));
 		}
 		else if(currentFestCard instanceof TwoPointPalaceCard)
 		{
 			type = new String[2];
 			type[0] = (TwoPointPalaceCard) currentFestCard.getFirstSybmol();
+			cardList.addAll(p.getPlayablePalaceCards(type[0]));
 			type[1] = (TwoPointPalaceCard) currentFestCard.getSecondSymbol();
+			temp.addAll(p.getPlayablePalaceCards(type[1]));
+			
+			for(int i = 0; i < temp.size(); i++)
+			{
+				if(!cardList.contains(temp.get(i)))
+				{
+					cardList.add(temp.get(i));
+				}
+			}
+
+
 		}
 
-		return p.getPlayablePalaceCards(type);
+		return cardList;
 	}
 }
