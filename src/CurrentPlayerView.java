@@ -203,4 +203,9 @@ public class CurrentPlayerView extends JPanel {
 		AP.setText(s);
 	} 
 
+	public void displayActionTokens(int a)
+	{
+		numActionTokens.setText(Integer.toString(a));
+	}
+
 }
