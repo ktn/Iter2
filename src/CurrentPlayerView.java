@@ -159,15 +159,42 @@ public class CurrentPlayerView extends JPanel {
 		numPuppetMaskCards.setText(Integer.toString(numPuppetMask));
 	}
 
-	public void displayInventory(int numRice, int numVilage, int numTwoBlock, 
-											int numDevel, int s, String n, int actionPoints)
+	public void displayRiceBlocks(int numRice)
 	{
 		numRiceBlocks.setText(Integer.toString(numRice));
+	} 
+
+	public void displayVillageBlocks(int numVillage)
+	{
 		numVillageBlocks.setText(Integer.toString(numVillage));
+	} 
+
+	public void displayTwoBlocks(int numTwoBlock)
+	{
 		numTwoBlocks.setText(Integer.toString(numTwoBlock));
+	} 
+
+ 	public void displayDevelopers(int numDevel)
+	{
 		numDevelopers.setText(Integer.toString(numDevel));
-		score.setText(Integer.toString(s));
-		name.setText(n);
-		AP.setText(Integer.toString(actionPoints));
-	}
+	} 
+
+	public void displayScore(int theScore)
+	{
+		String s = "Score " + Integer.toString(theScore);
+		score.setText(s);
+	} 
+
+	public void displayName(String n)
+	{
+		String s = "Name: " + n;
+		name.setText(s);
+	} 
+
+	public void displayAP(int actionPoints)
+	{
+		String s = "AP: " + Integer.toString(actionPoints);
+		AP.setText(s);
+	} 
+
 }
