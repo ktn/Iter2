@@ -120,4 +120,36 @@ public class PlayerView {
 		else
 			return false;
 	}
+	
+	public static void displayThreeBlocks(int numThreeBlocks) {
+		publicInventoryView.displayThreeBlocks(numThreeBlocks);
+	}
+	
+	public static void displayIrrigationTiles(int numIrrigationTiles) {
+		publicInventoryView.displayIrrigationTiles(numIrrigationTiles);
+	}
+	
+	public static void displayTwoPalaceTiles(int numTwoPalace) {
+		publicInventoryView.displayTwoPalaceTiles(numTwoPalace);
+	}
+	
+	public static void displayFourPalaceTiles(int numFourPalace) {
+		publicInventoryView.displayFourPalaceTiles(numFourPalace);
+	}
+	
+	public static void displaySixPalaceTiles(int numSixPalace) {
+		publicInventoryView.displaySixPalaceTiles(numSixPalace);
+	}
+	
+	public static void displayEightPalaceTiles(int numEightPalace) {
+		publicInventoryView.displaySixPalaceTiles(numEightPalace);
+	}
+	
+	public static void displayTenPalaceTiles(int numTenPalace) {
+		publicInventoryView.displaySixPalaceTiles(numTenPalace);
+	}
+	
+	public static void displayFestivalCard(int type) {
+		publicInventoryView.displayFestivalCard(type);
+	}
 }

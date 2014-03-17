@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class PublicInventoryView extends JPanel {
 	/** This class will be represented in the main View as the public inventory
@@ -6,9 +9,14 @@ public class PublicInventoryView extends JPanel {
 	 * palace deck, palace tiles, etc.
 	*/
 	
-	private int numLandTiles = 3;
-	private int numIrrigationTiles = 16;
-	private int numPalaceTiles = 40;
+	private JLabel numLandTiles;
+	private JLabel numIrrigationTiles;
+	private JLabel numTwoPalaceTiles;
+	private JLabel numFourPalaceTiles;
+	private JLabel numSixPalaceTiles;
+	private JLabel numEightPalaceTiles;
+	private JLabel numTenPalaceTiles;
+	private JLabel festivalCard;
 	
 	public PublicInventoryView() {
 		try {
@@ -20,8 +28,90 @@ public class PublicInventoryView extends JPanel {
 	}
 	
 	private void initialize() {
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new GridLayout(10,1));
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
+		JLabel label = new JLabel("Communal Inventory");
+		this.add(label);
+		
+		numLandTiles = new JLabel("Three Space Tiles: 3");
+		this.add(numLandTiles);
+		numIrrigationTiles = new JLabel("Irrigation Tiles: 16");
+		this.add(numIrrigationTiles);
+		numTwoPalaceTiles = new JLabel("Lv. 2 Palace Tiles: 6");
+		this.add(numTwoPalaceTiles);
+		numFourPalaceTiles = new JLabel("Lv. 4 Palace Tiles: 7");
+		this.add(numFourPalaceTiles);
+		numSixPalaceTiles = new JLabel("Lv. 6 Palace Tiles: 8");
+		this.add(numSixPalaceTiles);
+		numEightPalaceTiles = new JLabel("Lv. 8 Palace Tiles: 9");
+		this.add(numEightPalaceTiles);
+		numTenPalaceTiles = new JLabel("Lv. 10 Palace Tiles: 10");
+		this.add(numTenPalaceTiles);
+		JLabel festivalCardLabel = new JLabel("The Festival Card is... ");
+		this.add(festivalCardLabel);		
+		festivalCard = new JLabel("...");
+		this.add(festivalCard);		
 	}
-	 
+	
+	public void displayThreeBlocks(int numThreeBlocks) {
+		numLandTiles = new JLabel("Three Space Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	public void displayIrrigationTiles(int numThreeBlocks) {
+		numIrrigationTiles = new JLabel("Irrigation Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	public void displayTwoPalaceTiles(int numThreeBlocks) {
+		numTwoPalaceTiles = new JLabel("Lv. 2 Palace Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	public void displayFourPalaceTiles(int numThreeBlocks) {
+		numFourPalaceTiles = new JLabel("Lv. 4 Palace Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	public void displaySixPalaceTiles(int numThreeBlocks) {
+		numSixPalaceTiles = new JLabel("Lv. 6 Palace Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	public void displayEightPalaceTiles(int numThreeBlocks) {
+		numEightPalaceTiles = new JLabel("Lv. 8 Palace Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	public void displayTenPalaceTiles(int numThreeBlocks) {
+		numTenPalaceTiles = new JLabel("Lv. 10 Palace Tiles: " + 
+								  Integer.toString(numThreeBlocks));
+	}
+	
+	 public void displayFestivalCard(int type) {
+		try {
+			Image img = ImageIO.read(new File("../images/drumcard.png"));
+		
+			switch (type) {
+				case 1: img = ImageIO.read(new File("../images/drumcard.png"));
+						break;
+				case 2: img = ImageIO.read(new File("../images/maskcard.png"));
+						break;
+				case 3: img = ImageIO.read(new File("../images/puppetcard.png"));
+						break;					
+				case 4: img = ImageIO.read(new File("../images/drummaskcard.png"));
+						break;
+				case 5: img = ImageIO.read(new File("../images/drumpuppet.png"));
+						break;
+				case 6: img = ImageIO.read(new File("../images/puppetmaskcard.png"));
+						break;
+			}
+					
+			festivalCard = new JLabel(new ImageIcon(img));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	 }
 	
 }
