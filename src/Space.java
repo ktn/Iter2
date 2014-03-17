@@ -93,7 +93,6 @@ public class Space {
 
 	public void placeTile(Tile t) {
 		ArrayList<Integer> joined = t.getJoined();
-		System.out.println(joined.size());
 
 		// dont add same tile again and again forever
 		// if (tiles.peek() != t) {
@@ -103,6 +102,7 @@ public class Space {
 			if (temp != null) {
 				temp.addTile(t.getJoined(i));
 			} else {
+				//error checking?
 			}
 		}
 
