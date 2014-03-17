@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class PlayerView {
-	/**This class represents the facade for two portions
-	 * of the final view, the current player and other player
-	 * components. This class serves as a facade to interface
-	 * both with outside systems, as well as with the central 
+	/**This class represents the facade for three portions
+	 * of the final view, the current player other player
+	 * components, and public inventory. This class serves as a facade to
+	 * interface both with outside systems, as well as with the central 
 	 * view. Primarily, this handles method calls related
 	 * to PlayerView and rotates the current player and inactive
 	 * players.
@@ -15,12 +15,14 @@ public class PlayerView {
 	private static CurrentPlayerView currentPlayerView;
 	private static String currentPlayer;
 	private static ArrayList<String> otherPlayers;
+	private static PublicInventoryView publicInventoryView;
 	
 	public PlayerView(ArrayList<String> playerNames) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
+		publicInventoryView = new PublicInventoryView();
 	}
 	
 	//Copy of above for testing
@@ -29,6 +31,7 @@ public class PlayerView {
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
+		publicInventoryView = new PublicInventoryView();
 	}
 	
 	public static OtherPlayersView getOtherPlayerView() {
@@ -39,9 +42,13 @@ public class PlayerView {
 		return currentPlayerView;
 	}
 	
-	public static void displayPalaceInventory(int numMask, int numPuppet, int numDrum, 
-									   int numMaskDrum, int numDrumPuppet, 
-									   int numPuppetMask) {
+	public static PublicInventoryView getPublicInventoryView() {
+		return publicInventoryView;
+	}
+	
+	public static void displayPalaceInventory(int numMask, int numPuppet, 
+											  int numDrum, int numMaskDrum, int numDrumPuppet, int numPuppetMask) 
+											  {
 		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
 												 numMaskDrum, numDrumPuppet,
 												 numPuppetMask);								

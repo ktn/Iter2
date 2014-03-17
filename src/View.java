@@ -47,16 +47,19 @@ public class View extends JFrame {
 		//PlayerView playerView = new PlayerView();
 		PlayerView.initialize(playerNames);
 		
-		this.getContentPane().add(PlayerView.getOtherPlayerView(),							BorderLayout.NORTH);
+		this.getContentPane().add(PlayerView.getOtherPlayerView(), 
+								  BorderLayout.NORTH);
 		this.getContentPane().add(PlayerView.getCurrentPlayerView(),
 								  BorderLayout.SOUTH);
+		this.getContentPane().add(PlayerView.getPublicInventoryView(),
+								  BorderLayout.EAST);
 		try {
 			BoardView boardView = new BoardView(); 
 			this.getContentPane().add(boardView, BorderLayout.CENTER);
 		}
 		catch (Exception e) { e.printStackTrace(); }						  
 								  
-		//TODO: Add public inventory view to east and player instructoins
+		//TODO: Add player instructoins
 		//to left.
 	}
 }

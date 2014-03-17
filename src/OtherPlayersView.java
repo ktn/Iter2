@@ -50,7 +50,6 @@ public class OtherPlayersView extends JPanel{
         catch (Exception e) {
             e.printStackTrace();
         }
-        setVisible(true);
 	}
 	/**
 	 * Initialize the contents of the this.
