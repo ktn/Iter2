@@ -5,12 +5,14 @@ public class PalaceFestival {
 	private PalaceCard festivalCard;
 	private PlayerFacade playerFacade;
 	private ArrayList<Player> players;
+	private int[] playerScores;
 
 	public PalaceFestival()
 	{
 		festivalCard = null;
 		playerFacade = null;
 		players = new ArrayList<Player>();
+		playerScores = new int[4];
 	}
 
 	public PalaceFestival(PalaceCard festivalCard, PlayerFacade p) {
@@ -47,6 +49,9 @@ public class PalaceFestival {
 				}
 			}
 		}
+
+
+		for(int i = 0; i < players.length)
 		/*
 		 * PalaceCard p = playerFacade.playPalaceCard(); if(p instanceof
 		 * OnePointPalaceCard && this.festivalCard instanceof
@@ -74,5 +79,11 @@ public class PalaceFestival {
 
 	public void setFestivalCard(PalaceCard festivalCard) {
 		this.festivalCard = festivalCard;
+	}
+
+	public List<PalaceCard> getPlayableCards(Player p)
+	{
+		//Call playerfacade to call player turn to call player
+		playerFacade.getCardsForPlayer(p);
 	}
 }

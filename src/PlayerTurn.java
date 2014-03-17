@@ -104,4 +104,26 @@ public class PlayerTurn {
 		}
 		return ret;
 	}
+
+	public List<PalaceCard> getCardsForPlayer(Player p)
+	{
+		PalaceCard currentFestCard = this.festival.getFestivalCard();
+
+		//Type of the festival card
+		String[] type;
+
+		if(currentFestCard instanceof OnePointPalaceCard)
+		{
+			type = new String[1];
+			type[0] = (OnePointPalaceCard) currentFestCard.getSymbol();
+		}
+		else if(currentFestCard instanceof TwoPointPalaceCard)
+		{
+			type = new String[2];
+			type[0] = (TwoPointPalaceCard) currentFestCard.getFirstSybmol();
+			type[1] = (TwoPointPalaceCard) currentFestCard.getSecondSymbol();
+		}
+
+		return p.getPlayablePalaceCards(type);
+	}
 }

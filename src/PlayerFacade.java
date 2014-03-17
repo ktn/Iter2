@@ -200,4 +200,9 @@ public class PlayerFacade {
 	{
 		return playerTurn.getPlayerInt(Player p);
 	}
+
+	public List<PalaceCard> getCardsForPlayer(Player p)
+	{
+		return playerTurn.getCardsForPlayer(p);
+	}
 }
