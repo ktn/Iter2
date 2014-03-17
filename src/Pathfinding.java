@@ -29,7 +29,7 @@ class Pathfinding {
 		shortestPath = new ArrayList<Coordinates>();
 	}
 
-	public void findShortestPath(int xo, int yo, int xn, int yn) {
+	public int findShortestPath(int xo, int yo, int xn, int yn) {
 		xOld = xo;
 		yOld = yo;
 		xNew = xn;
@@ -47,6 +47,8 @@ class Pathfinding {
 
 		checkNextSpot(new ArrayList<Coordinates>(), xOld, yOld,
 				new Coordinates(xOld, yOld), 0);
+
+		return shortestPath.size();
 	}
 
 	public void checkNextSpot(ArrayList<Coordinates> currentPath, int x, int y,
@@ -59,7 +61,7 @@ class Pathfinding {
 			AP++;
 		}
 
-		if (x == xOld && y == yOld) {
+		if (x == xNew && y == yNew) {
 			if (check[x][y] == -1) {
 				shortestPath = currentPath;
 				APUsed = AP;
