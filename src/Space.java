@@ -2,9 +2,8 @@ import java.util.*;
 
 public class Space {
 
-	private Grid<Space> neighbors = new Grid(Space.class);
+	private Grid<Space> neighbors = new Grid<Space>(Space.class);
 	private Stack<Tile> tiles;
-
 
 	/*========================================
 		The standard is as follows
@@ -15,23 +14,22 @@ public class Space {
 	=========================================*/
 
 	Space() {
-		tiles = new Stack<Tile>();		
+		tiles = new Stack<Tile>();
 	}
 
-	//JOINED SPACES METHODS  =======================================================================
-	//might delete
-	public boolean isJoined(Space s){
+	// JOINED SPACES METHODS
+	// =======================================================================
+	// might delete
+	public boolean isJoined(Space s) {
 		boolean ret = false;
-				
-		for(Space y : neighbors)
-		{
-			if(s == y)
+
+		for (Space y : neighbors) {
+			if (s == y)
 				ret = true;
 		}
 
 		return ret;
 	}
-
 
 	public void join(Space s) {
 		// check if tile is already joined
@@ -56,7 +54,6 @@ public class Space {
 		if (neighbors.indexOf(s) == -1)
 			neighbors.add(s);
 	}
-
 
 	public Space getTop() {
 		return neighbors.get(1);
@@ -130,5 +127,18 @@ public class Space {
 
 	private void popTile() {
 		tiles.pop();
+	}
+
+	public String toString() {
+		StringBuilder result = new StringBuilder(100);
+		String NEW_LINE = System.getProperty("line.separator");
+		result.append(" Tile Stack Size: " + this.tiles.toString() + NEW_LINE);
+		/*
+		 * result.append(" Neighbors: "+ NEW_LINE); result.append("  Top: " +
+		 * this.getTop() + NEW_LINE); result.append("  Left: " + this.getLeft()
+		 * + NEW_LINE); result.append("  Bottom: " + this.getBottom() +
+		 * NEW_LINE); result.append("  Right: " + this.getRight() + NEW_LINE);
+		 */
+		return result.toString();
 	}
 }
