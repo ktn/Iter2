@@ -57,13 +57,26 @@ public class CurrentPlayerView extends JPanel {
 		//Current player inventory
 		JPanel playerInv = new JPanel();
 		playerInv.setBorder(BorderFactory.createLineBorder(Color.black));
-		playerInv.setLayout(new BoxLayout(playerInv, BoxLayout.PAGE_AXIS));
-		JLabel riceBlocks = new JLabel("Rice Blocks: ");
-		JLabel villageBlocks = new JLabel("Village Blocks: ");
+		//playerInv.setLayout(new BoxLayout(playerInv, BoxLayout.PAGE_AXIS));
+		playerInv.setLayout(new GridLayout(4,2));
+		Image img = ImageIO.read(new File("../images/rice.png"));
+		JLabel riceBlocks = new JLabel(new ImageIcon(img));
+		numRiceBlocks = new JLabel("3");
+		img = ImageIO.read(new File("../images/village.png"));
+		JLabel villageBlocks = new JLabel(new ImageIcon(img));
+		numVillageBlocks = new JLabel("3");
+		JLabel twoBlocks = new JLabel("Two Blocks: ");
+		numTwoBlocks = new JLabel("3");
 		JLabel developers = new JLabel("Off-Board Developers: ");
+		JLabel numDevelopers = new JLabel("12");
 		playerInv.add(riceBlocks);
+		playerInv.add(numRiceBlocks);
 		playerInv.add(villageBlocks);
+		playerInv.add(numVillageBlocks);
+		playerInv.add(twoBlocks);
+		playerInv.add(numTwoBlocks);
 		playerInv.add(developers);
+		playerInv.add(numDevelopers);
 		this.add(playerInv);
 		
 		//Current player palace card inventory
@@ -74,7 +87,7 @@ public class CurrentPlayerView extends JPanel {
 		//Drum cards first
 		JPanel drumCards = new JPanel();
 		drumCards.setLayout(new BoxLayout(drumCards,BoxLayout.PAGE_AXIS));
-		Image img = ImageIO.read(new File("../images/drumcard.png"));
+		img = ImageIO.read(new File("../images/drumcard.png"));
 		JLabel drumPic = new JLabel(new ImageIcon(img));
 		drumCards.add(drumPic);
 		numDrumCards = new JLabel("0", JLabel.CENTER);

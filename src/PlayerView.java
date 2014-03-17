@@ -12,10 +12,13 @@ public class PlayerView {
 	 
 	private OtherPlayersView otherPlayersView;
 	private CurrentPlayerView currentPlayerView;
+	private String currentPlayer;
+	private ArrayList<String> otherPlayers;
 	
 	public PlayerView(ArrayList<String> playerNames) {
-		ArrayList<String> otherPlayers = new ArrayList<String>(playerNames.subList(1,4));
+		otherPlayers = new ArrayList<String>(playerNames.subList(1,4));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
+		currentPlayer = playerNames.get(0);
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
 	}
 	
