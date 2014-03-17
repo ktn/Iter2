@@ -93,7 +93,6 @@ public class Space {
 
 	public void placeTile(Tile t) {
 		ArrayList<Integer> joined = t.getJoined();
-		System.out.println(joined.size());
 
 		// dont add same tile again and again forever
 		// if (tiles.peek() != t) {
@@ -101,11 +100,11 @@ public class Space {
 			Space temp = neighbors.get(i);
 
 			if (temp != null) {
-				System.out.println("Placing other tile");
+				// System.out.println("Placing other tile");
 
 				temp.addTile(t.getJoined(i));
 			} else {
-				System.out.println("Uh oh");
+				// System.out.println("Uh oh");
 			}
 		}
 
@@ -114,7 +113,7 @@ public class Space {
 
 	private void addTile(Tile t) {
 		tiles.add(t);
-		System.out.println("Private placement");
+		// System.out.println("Private placement");
 	}
 
 	public void removeTile() {

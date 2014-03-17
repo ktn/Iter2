@@ -16,19 +16,16 @@ public class Test {
 		p.useActionToken();
 		Block rice = new OneBlock(TileType.RICE);
 		Block two = new TwoBlock();
+		Block three = new ThreeBlock();
 
-		// b.placeBlock(rice, new Coordinates(1, 1));
-
-		b.placeBlock(two, new Coordinates(0, 0));
-		b.placeBlock(two, new Coordinates(1, 0));
-		b.placeBlock(two, new Coordinates(2, 0));
-		b.placeBlock(two, new Coordinates(3, 0));
-		b.placeBlock(two, new Coordinates(4, 0));
-		b.placeBlock(two, new Coordinates(5, 0));
+		b.placeBlock(rice, new Coordinates(3, 3));
+		b.placeBlock(two, new Coordinates(1, 1));
+		b.placeBlock(three, new Coordinates(4, 3));
 
 		Pathfinding pf = new Pathfinding(b);
 
-		System.out.println(pf.findShortestPath(0, 0, 3, 0) + " Shortest Path Size");
+		System.out.println(pf.findShortestPath(0, 0, 0, 3)
+				+ " Shortest Path Size");
 		System.out.print(b.toString());
 
 		System.out.print(p.getCurrentPlayer());

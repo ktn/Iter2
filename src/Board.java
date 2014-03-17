@@ -105,7 +105,7 @@ public class Board {
 
 	public void placeBlock(Block b, Coordinates c) {
 		Space target = this.get(c);
-		System.out.println("Board placement");
+		//System.out.println("Board placement");
 		target.placeTile(b.getTile());
 
 	}
@@ -167,7 +167,7 @@ public class Board {
 				if (this.getTileType(new Coordinates(i, j)) == null) {
 					result.append("N ");
 				} else {
-					result.append(this.getTileType(new Coordinates(i, j)) + " ");
+					result.append(this.getTileType(new Coordinates(i, j)) + "\t");
 				}
 			}
 			result.append(NEW_LINE);
