@@ -1,5 +1,5 @@
 public class NoBlocksLeftException extends Exception {
-	BlockType block;
+	TileType block;
 
 	public NoBlocksLeftException() {
 		super();
@@ -9,12 +9,12 @@ public class NoBlocksLeftException extends Exception {
 		super(m);
 	}
 
-	public NoBlocksLeftException(BlockType b) {
+	public NoBlocksLeftException(TileType b) {
 		super();
 		block = b;
 	}
 
-	public NoBlocksLeftException(String m, BlockType b) {
+	public NoBlocksLeftException(String m, TileType b) {
 		super(m);
 		block = b;
 	}

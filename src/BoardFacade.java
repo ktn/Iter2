@@ -33,6 +33,15 @@ public class BoardFacade {
 	public OneBlock getIrrigationTile() {
 		return communal.getIrrigationTile();
 	}
+	
+	public int getPalaceLevel(Board.Coordinates c) {
+		int level = ((PalaceTile) board.getTile(c)).getLevel();
+		return level;
+	}
+	
+	public Developer getDeveloper(Board.Coordinates c) {
+		return board.getDeveloper(c);
+	}
 
 	// BLOCK METHODS
 	// =======================================================================

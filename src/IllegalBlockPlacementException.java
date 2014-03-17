@@ -1,5 +1,5 @@
 public class IllegalBlockPlacementException extends CoordinateException {
-	BlockType block;
+	TileType block;
 
 	public IllegalBlockPlacementException() {
 		super();
@@ -9,12 +9,12 @@ public class IllegalBlockPlacementException extends CoordinateException {
 		super(m);
 	}
 
-	public IllegalBlockPlacementException(BlockType b) {
+	public IllegalBlockPlacementException(TileType b) {
 		super();
 		block = b;
 	}
 
-	public IllegalBlockPlacementException(String m, BlockType b) {
+	public IllegalBlockPlacementException(String m, TileType b) {
 		super(m);
 		block = b;
 	}
@@ -23,12 +23,12 @@ public class IllegalBlockPlacementException extends CoordinateException {
 		super(m, x, y);
 	}
 
-	public IllegalBlockPlacementException(BlockType b, int x, int y) {
+	public IllegalBlockPlacementException(TileType b, int x, int y) {
 		super(x, y);
 		block = b;
 	}
 
-	public IllegalBlockPlacementException(String m, BlockType b, int x, int y) {
+	public IllegalBlockPlacementException(String m, TileType b, int x, int y) {
 		super(m, x, y);
 		block = b;
 	}
