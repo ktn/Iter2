@@ -3,14 +3,14 @@ import java.util.ArrayList;
 //assuming xOld and yOld are dev location and xNew and yNew are the location
 class Pathfinding {
 	Board board;
-	Coordinates coords;
+	Board.Coordinates coords;
 	int check[][];
 	int xOld;
 	int yOld;
 	int xNew;
 	int yNew;
 	int APUsed;
-	ArrayList<Coordinates> shortestPath;
+	ArrayList<Board.Coordinates> shortestPath;
 
 	public Pathfinding(Board b) {
 		board = b;
@@ -26,7 +26,7 @@ class Pathfinding {
 		xNew = 0;
 		yNew = 0;
 		APUsed = 99;
-		shortestPath = new ArrayList<Coordinates>();
+		shortestPath = new ArrayList<Board.Coordinates>();
 	}
 
 	public int findShortestPath(int xo, int yo, int xn, int yn) {
@@ -43,17 +43,17 @@ class Pathfinding {
 		check[xOld][yOld] = 0;
 		APUsed = 99;
 
-		shortestPath = new ArrayList<Coordinates>();
+		shortestPath = new ArrayList<Board.Coordinates>();
 
-		checkNextSpot(new ArrayList<Coordinates>(), xOld, yOld,
-				new Coordinates(xOld, yOld), 0);
+		checkNextSpot(new ArrayList<Board.Coordinates>(), xOld, yOld,
+				board.new Coordinates(xOld, yOld), 0);
 
 		return shortestPath.size();
 	}
 
-	public void checkNextSpot(ArrayList<Coordinates> currentPath, int x, int y,
-			Coordinates prevCoord, int AP) {
-		Coordinates newCoord = new Coordinates(x, y);
+	public void checkNextSpot(ArrayList<Board.Coordinates> currentPath, int x, int y,
+			Board.Coordinates prevCoord, int AP) {
+		Board.Coordinates newCoord = board.new Coordinates(x, y);
 		currentPath.add(newCoord);
 
 		// check tile type change and add AP if tile type has changed
@@ -77,44 +77,44 @@ class Pathfinding {
 			// the two tiles are of the same type)
 			if (x + 1 < coords.x) {
 				if (board.getTileType(newCoord) == board
-						.getTileType(new Coordinates(x + 1, y))
+						.getTileType(board.new Coordinates(x + 1, y))
 						&& AP < check[x + 1][y]
-						&& board.getTileType(new Coordinates(x + 1, y)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Coordinates>(currentPath),
+						&& board.getTileType(board.new Coordinates(x + 1, y)) != TileType.EMPTY) {
+					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath),
 							x + 1, y, newCoord, AP);
 				}
 			}
 			if (x - 1 >= 0) {
 				if (board.getTileType(newCoord) == board
-						.getTileType(new Coordinates(x - 1, y))
+						.getTileType(board.new Coordinates(x - 1, y))
 						&& AP < check[x - 1][y]
-						&& board.getTileType(new Coordinates(x - 1, y)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Coordinates>(currentPath),
+						&& board.getTileType(board.new Coordinates(x - 1, y)) != TileType.EMPTY) {
+					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath),
 							x - 1, y, newCoord, AP);
 				}
 			}
 			if (y + 1 < coords.y) {
 				if (board.getTileType(newCoord) == board
-						.getTileType(new Coordinates(x, y + 1))
+						.getTileType(board.new Coordinates(x, y + 1))
 						&& AP < check[x][y + 1]
-						&& board.getTileType(new Coordinates(x, y + 1)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Coordinates>(currentPath), x,
+						&& board.getTileType(board.new Coordinates(x, y + 1)) != TileType.EMPTY) {
+					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath), x,
 							y + 1, newCoord, AP);
 				}
 			}
 			if (y - 1 >= 0) {
 				if (board.getTileType(newCoord) == board
-						.getTileType(new Coordinates(x, y - 1))
+						.getTileType(board.new Coordinates(x, y - 1))
 						&& AP < check[x][y - 1]
-						&& board.getTileType(new Coordinates(x, y - 1)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Coordinates>(currentPath), x,
+						&& board.getTileType(board.new Coordinates(x, y - 1)) != TileType.EMPTY) {
+					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath), x,
 							y - 1, newCoord, AP);
 				}
 			}
 		}
 	}
 
-	public ArrayList<Coordinates> getShortestPath() {
+	public ArrayList<Board.Coordinates> getShortestPath() {
 		return shortestPath;
 	}
 }
