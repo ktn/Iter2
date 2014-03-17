@@ -9,7 +9,7 @@ public class HighestDeveloper
 		board = b;
 		developers = d;
 	}
-	public ArrayList<Developer> findHighestDev(Coordinates c)
+	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
 	{
 		ArrayList<Space> visited = new ArrayList<Space>();
 		ArrayList<Player> players = new ArrayList<Player>();

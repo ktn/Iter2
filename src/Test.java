@@ -18,22 +18,23 @@ public class Test {
 		Block two = new TwoBlock();
 		Block three = new ThreeBlock();
 
-		b.placeBlock(rice, new Coordinates(3, 3));
-		b.placeBlock(two, new Coordinates(1, 1));
-		b.placeBlock(three, new Coordinates(4, 3));
-		b.placeBlock(two, new Coordinates(0, 0));
-		b.placeBlock(two, new Coordinates(1, 0));
-		b.placeBlock(two, new Coordinates(2, 0));
-		b.placeBlock(two, new Coordinates(3, 0));
+		b.placeBlock(rice, b.new Coordinates(3, 3));
+		b.placeBlock(two, b.new Coordinates(1, 1));
+		b.placeBlock(three, b.new Coordinates(4, 3));
+		b.placeBlock(two, b.new Coordinates(0, 0));
+		b.placeBlock(two, b.new Coordinates(1, 0));
+		b.placeBlock(two, b.new Coordinates(2, 0));
+		b.placeBlock(two, b.new Coordinates(3, 0));
 		two.rotate();
-		b.placeBlock(two, new Coordinates(0, 2));
-		b.placeBlock(two, new Coordinates(0, 3));
+		b.placeBlock(two, b.new Coordinates(0, 2));
+		b.placeBlock(two, b.new Coordinates(0, 3));
 		two.rotate();
 		two.rotate();
-		b.placeBlock(two, new Coordinates(0, 2));
-		b.placeBlock(two, new Coordinates(2, 3));
-		b.placeBlock(two, new Coordinates(2, 2));
-		b.placeBlock(two, new Coordinates(3, 3));
+		b.placeBlock(two, b.new Coordinates(0, 2));
+		b.placeBlock(two, b.new Coordinates(2, 3));
+		b.placeBlock(two, b.new Coordinates(2, 2));
+		b.placeBlock(two, b.new Coordinates(3, 3));
+
 
 		Pathfinding pf = new Pathfinding(b);
 

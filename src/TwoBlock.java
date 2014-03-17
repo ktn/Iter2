@@ -1,15 +1,16 @@
+
 public class TwoBlock extends Block {
 
-	/*
-	 * ======================================== The standard orientation will be
+	/* ======================================== 
+	 *	The standard orientation will be
 	 * 
 	 * 
-	 * head --> child
-	 * 
-	 * | | v
-	 * 
-	 * child =========================================
-	 */
+	 * 		head --> child
+	 * 		  |
+	 * 		  |
+	 * 		  v
+	 *		child
+	 * =========================================*/
 
 	TwoBlock() {
 		this.head = new VillageTile();

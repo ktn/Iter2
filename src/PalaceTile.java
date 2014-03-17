@@ -19,4 +19,8 @@ public class PalaceTile extends Tile {
 	public boolean isHeadsUp() {
 		return this.headsUp;
 	}
+
+	public int getLevel(){
+		return level;
+	}
 }
