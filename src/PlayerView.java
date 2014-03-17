@@ -56,5 +56,52 @@ public class PlayerView {
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayerView = new CurrentPlayerView(currentPlayer);
 	}
+	
+	public static void displayScore(String playerName, int score) {
+		if (otherPlayers.contains(playerName)) 
+			otherPlayersView.displayScore(playerName, score);
+		else if (currentPlayer.equals(playerName)) 
+			currentPlayerView.displayScore(score);
+	}
+	
+	public static void displayActionTokens(String playerName, int score) {
+		if (otherPlayers.contains(playerName)) 
+			otherPlayersView.displayActionTokens(playerName, score);
+		else if (currentPlayer.equals(playerName)) 
+			currentPlayerView.displayActionTokens(score);
+	}
+	
+	public static void displayRiceBlocks(String playerName, int score) {
+		if (otherPlayers.contains(playerName)) 
+			otherPlayersView.displayRiceBlocks(playerName, score);
+		else if (currentPlayer.equals(playerName)) 
+			currentPlayerView.displayRiceBlocks(score);
+	}
+	
+	public static void displayVillageBlocks(String playerName, int score) {
+		if (otherPlayers.contains(playerName)) 
+			otherPlayersView.displayVillageBlocks(playerName, score);
+		else if (currentPlayer.equals(playerName)) 
+			currentPlayerView.displayVillageBlocks(score);
+	}
+	
+	public static void displayTwoBlocks(String playerName, int score) {
+		if (otherPlayers.contains(playerName)) 
+			otherPlayersView.displayTwoBlocks(playerName, score);
+		else if (currentPlayer.equals(playerName)) 
+			currentPlayerView.displayTwoBlocks(score);
+	}
+	
+	public static void displayActionPoints(int score) {
+			currentPlayerView.displayActionPoints(score);
+	}
+	
+	public static void displayDevelopers(String playerName, int score) {
+		if (otherPlayers.contains(playerName)) 
+			otherPlayersView.displayTwoBlocks(playerName, score);
+		else if (currentPlayer.equals(playerName)) 
+			currentPlayerView.displayTwoBlocks(score);
+	}
+	
 
 }

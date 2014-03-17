@@ -197,7 +197,7 @@ public class CurrentPlayerView extends JPanel {
 		name.setText(s);
 	} 
 
-	public void displayAP(int actionPoints)
+	public void displayActionPoints(int actionPoints)
 	{
 		String s = "AP: " + Integer.toString(actionPoints);
 		AP.setText(s);

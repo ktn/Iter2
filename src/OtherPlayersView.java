@@ -94,16 +94,16 @@ public class OtherPlayersView extends JPanel{
 	}
 	
 	//Method for displaying 2 block counts
-	public void updateTwoBlockCount(String playerName, int twoBlocks) {
+	public void displayTwoBlocks(String playerName, int twoBlocks) {
 	    int playerNum = getPlayerNumber(playerName);
 	    twoBlkCounts[playerNum] = twoBlocks;
 	    updatePlayer(playerNum);
 	}
 	
 	//Method for incrementing/decremeting developer counts
-	public void developerCount(String playerName, int increment) {
+	public void displayDevelopers(String playerName, int numDevs) {
 	    int playerNum = getPlayerNumber(playerName);
-	    developerCounts[playerNum] = developerCounts[playerNum] + increment;
+	    developerCounts[playerNum] = numDevs;
 	    updatePlayer(playerNum);
 	}
 	
