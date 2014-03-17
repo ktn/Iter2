@@ -141,4 +141,11 @@ public class PlayerTurn {
 
 		return cardList;
 	}
+
+	public void giveFestivalPoints(int p, String[] t)
+	{
+		//Find player corresponding to p
+		Player player = this.getPlayer(p);
+		festival.giveFestivalPoints(player, t);
+	}
 }
