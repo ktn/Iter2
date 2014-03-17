@@ -48,11 +48,14 @@ public class PlayerFacade {
 		playerTurn.useActionToken();
 	}
 
+<<<<<<< HEAD
 	public void returnActionToken()
 	{
 		playerTurn.returnActionToken();
 	}
 
+=======
+>>>>>>> pathfinding
 	public boolean checkTwoBlock() {
 		if (currentPlayer.twoBlocksLeft() > 0 && actionPoints > 0) {
 			return true;
@@ -85,7 +88,10 @@ public class PlayerFacade {
 
 	public void returnVillageBlock() {
 		currentPlayer.returnVillageBlock();
+<<<<<<< HEAD
 		actionPoints++;
+=======
+>>>>>>> pathfinding
 	}
 
 	public boolean checkRice() {
@@ -103,28 +109,37 @@ public class PlayerFacade {
 
 	public void returnRiceBlock() {
 		currentPlayer.returnRiceBlock();
+<<<<<<< HEAD
 		actionPoints++;
+=======
+>>>>>>> pathfinding
 	}
 
 	public void playThreeBlock() {
 		blockPlayed = true;
+<<<<<<< HEAD
 		actionPoints--;
 	}
 
 	public void returnThreeBlock()
 	{
 		actionPoints++;
+=======
+>>>>>>> pathfinding
 	}
 
 	public boolean blockPlayed() {
 		return blockPlayed;
 	}
 
+<<<<<<< HEAD
 	public void blockNotPlayed()
 	{
 		blockPlayed = false;
 	}
 
+=======
+>>>>>>> pathfinding
 	// changing score
 	public void addScore(int s) {
 		currentPlayer.addScore(s);
@@ -172,4 +187,8 @@ public class PlayerFacade {
 	public void playerUsePC(int p, String[] t) {
 		playerTurn.getPlayer(p).useCardWith(t);
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> pathfinding
