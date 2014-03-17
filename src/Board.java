@@ -240,6 +240,18 @@ public class Board {
 		d.moveDeveloper(temp);
 	}
 
+	public Developer getDeveloper(Coordinates c){
+		Space temp = this.get(c);
+
+		Developer ret = null;
+		for(Developer d : devs){
+			if(d.getSpace() == temp)
+				ret = d;
+		}
+
+		return ret;
+	}
+
 	// HELPER METHODS  
 	// =======================================================================
 
