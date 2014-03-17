@@ -133,8 +133,18 @@ public class PlayerFacade {
 		currentPlayer.addScore(s);
 	}
 
+	public void addPlayerScore(Player p, int s)
+	{
+		p.addScore(s);
+	}
+
 	public void decrementScore(int s) {
 		currentPlayer.decrementScore(s);
+	}
+
+	public void decrementPlayerScore(Player p, int s)
+	{
+		p.decrementScore(s);
 	}
 
 	// changing colors
@@ -205,5 +215,10 @@ public class PlayerFacade {
 	public List<PalaceCard> getCardsForPlayer(Player p)
 	{
 		return playerTurn.getCardsForPlayer(p);
+	}
+
+	public ArrayList<Player> getVictors()
+	{
+		return playerTurn.getVictors();
 	}
 }

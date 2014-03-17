@@ -148,4 +148,9 @@ public class PlayerTurn {
 		Player player = this.getPlayer(p);
 		festival.giveFestivalPoints(player, t);
 	}
+
+	public ArrayList<Player> getVictors()
+	{
+		return festival.getVictors();
+	}
 }

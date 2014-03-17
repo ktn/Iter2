@@ -123,4 +123,25 @@ public class PalaceFestival {
 			}
 		}
 	}
+
+	public ArrayList<Player> getVictors()
+	{
+		ArrayList<Player> victors = new ArrayList<Player>();
+		int max = 0;
+		for(int i : playerScores)
+		{
+			if(i > max)
+			{
+				max = i;
+			}
+		}
+		for(int i = 0; i < playerScores.length(); i++)
+		{
+			if(playerScores[i] == max)
+			{
+				victors.add(players.get(i));
+			}
+		}
+		return victors;
+	}
 }
