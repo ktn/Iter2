@@ -229,6 +229,10 @@ public class Board {
 	public void placeDeveloper(Coordinates c, Developer d){
 		Space temp = this.get(c);
 
+		for(Developer d : devs){
+			if(temp == this.get(d.getSpace())
+				throw new IllegalArgumentException("Developer already at location");
+		}
 		d.moveDeveloper(temp);
 
 		devs.add(d);
@@ -236,7 +240,10 @@ public class Board {
 
 	public void moveDeveloper(Coordinates c, Developer d){
 		Space temp = this.get(c);
-
+		for(Developer d : devs){
+			if(temp == this.get(d.getSpace())
+				throw new IllegalArgumentException("Developer already at location");
+		}
 		d.moveDeveloper(temp);
 	}
 
