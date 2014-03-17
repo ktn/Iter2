@@ -273,4 +273,12 @@ public class Player {
 		return result.toString();
 	}
 
+	public List<PalaceCard> getPlayablePalaceCards(String[] type)
+	{
+		List<PalaceCard> playableCards = new List<PalaceCard>();
+
+		if(this.hasCardWith(type))
+
+	}
+
 }

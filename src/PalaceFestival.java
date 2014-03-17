@@ -84,6 +84,6 @@ public class PalaceFestival {
 	public List<PalaceCard> getPlayableCards(Player p)
 	{
 		//Call playerfacade to call player turn to call player
-		playerFacade.getCardsForPlayer(p);
+		return playerFacade.getCardsForPlayer(p);
 	}
 }
