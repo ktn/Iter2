@@ -105,7 +105,7 @@ public class PlayerTurn {
 		return ret;
 	}
 
-	public List<PalaceCard> getCardsForPlayer(Player p)
+	public ArrayList<PalaceCard> getCardsForPlayer(Player p)
 	{
 		PalaceCard currentFestCard = this.festival.getFestivalCard();
 		ArrayList<PalaceCard> cardList = new ArrayList<PalaceCard>();
@@ -127,10 +127,10 @@ public class PlayerTurn {
 		{
 			twoPointPalaceCard = (TwoPointPalaceCard) currentFestCard;
 			type = new String[2];
-			type[0] = twoPointPalaceCard.getFirstSybmol();
-			cardList.addAll(p.getPlayablePalaceCards(type[0]));
+			type[0] = twoPointPalaceCard.getFirstSymbol();
+			cardList.addAll(p.getPlayablePalaceCards(type));
 			type[1] = twoPointPalaceCard.getSecondSymbol();
-			temp.addAll(p.getPlayablePalaceCards(type[1]));
+			temp.addAll(p.getPlayablePalaceCards(type));
 			
 			for(int i = 0; i < temp.size(); i++)
 			{
