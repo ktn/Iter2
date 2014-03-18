@@ -15,6 +15,8 @@ public class Board {
 	// =======================================================================
 
 	Board() {
+		mountains = new ArrayList<Coordinates>();
+
 		Space[][] temp = new Space[xDim][yDim];
 		for (int i = 0; i < xDim; i++) {
 			for (int j = 0; j < yDim; j++) {
