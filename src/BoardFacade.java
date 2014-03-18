@@ -4,10 +4,12 @@ public class BoardFacade {
 	Board board;
 	Pathfinding path;
 	Communal communal;
+	Pathfinding pathfinding;
 	public BoardFacade() {
 		board = new Board();
 		path = new Pathfinding(board);
 		communal = new Communal();
+		pathfinding = new Pathfinding(board);
 	}
 
 	public int getHeight(Board.Coordinates c) {
@@ -90,4 +92,10 @@ public class BoardFacade {
 	public void moveDeveloper(Board.Coordinates c, Developer d){
 		board.moveDeveloper(c, d);
 	}
+	
+	public int findShortestPath(Board.Coordinates oldPos, Board.Coordinates newPos) {
+		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x, newPos.y);
+	}
+	
+	
 }

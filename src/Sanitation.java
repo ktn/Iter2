@@ -14,7 +14,7 @@ class Sanitation {
 		int x = coord.x;
 		int y = coord.y;
 		// Check to see if <x,y> is on edge of central java
-		if(!board.inbounds(x)) {
+		if(!board.inBounds(coord)) {
 			result = false;
 			throw new CoordinatesOutOfBoundsException("Can't place developers.", x, y);
 		}
@@ -37,15 +37,18 @@ class Sanitation {
 		int ap = player.getActionPoints();
 		int old_x = oldCoords.x;
 		int old_y = oldCoords.y;
+		int new_x = newCoords.x;
+		int new_y = newCoords.y;
 		if(board.getDeveloper(oldCoords) == null) {
 			result = false;
 			throw new NoDeveloperAtCoordinatesException("Error while moving developer", old_x, old_y);
 		}
-		// Check to see if <new_x,new_y> is on central Java. Possibly getSpaceHeight() > 0?
+		else if(board.getTileType(newCoords) == TileType.EMPTY) {
+			result = false;
+			throw new CoordinateException("New position isn't a tile.", new_x, new_y);
+		}
 		// Check to see if valid path from old position to new position.
 		// Check to see if player has enough AP
-		
-		// Create command? Call command?
 		
 		return result;
 	}
@@ -60,21 +63,19 @@ class Sanitation {
 		return result;
 	}
 	
-	public boolean placeTileChecker(Block b, Board.Coordinates coords) {
+	public boolean placeTileChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException {
 		return placeBlockChecker(b, coords);
 	}
 
-	public boolean placeBlockChecker(Block b, Board.Coordinates coords)
-			throws NoBlocksLeftException, IllegalBlockPlacementException {
+	public boolean placeBlockChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException {
 		boolean result = true;
-		BlockType type = BlockTypeConverter.convertToBlockType(b);
+		TileType type = BlockTypeConverter.convertToBlockType(b);
 		int x = coords.x;
 		int y = coords.y;
 
 		if (board.validPlacement(b, x, y)) {
 			result = false;
-			throw new IllegalBlockPlacementException(
-					"Error when placing block", type, x, y);
+			throw new IllegalBlockPlacementException("Error when placing block", type, x, y);
 		}
 
 		switch (type) {
@@ -121,29 +122,34 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean upgradeChecker(int level, int x, int y) {
+	public boolean upgradeChecker(int level, int x, int y) throws PalaceUpgradeException {
 		boolean result = true;
-		// Check to see if space is palace tile
+		Board.Coordinates coord = new Board.Coordinates(x, y);
+		if(level < 2 || level > 10 || level % 2 == 1) {
+			result = false;
+			throw new PalaceUpgradeException("Invalid level");
+		}
+		else if(board.getTileType(coord) != TileType.PALACE) {
+			result = false;
+			throw new PalaceUpgradeException("Coordinate isn't a palace");
+		}
 		// Check to see if level > current palace level
-		result = (board.getSpaceHeight(x, y) < level) ? false : result && true;
+		else if(board.getPalaceLevel(coord) < level) {
+			result = false;
+			throw new PalaceUpgradeException("Level isn't higher than palace level.");
+		}
 		Developer hd = board.highestDeveloper(x, y);
-		result = (level % 2 == 0 && level <= 10) ? result && true : false;
 		result = (player.getCurrentPlayer() == hd.getPlayer()) ? result && true
 				: false;
 
 		return result;
 	}
 
-	public boolean cardChecker() {
-		return false;
-	}
-
-	public boolean changeTurn() {
+	public boolean changeTurn() throws BlockNotPlayedException {
 		boolean result = true;
 		if (player.blockPlayed() == false) {
 			result = false;
-			throw new BlockNotPlayedException(
-					"Block must be played before ending turn.");
+			throw new BlockNotPlayedException("Block must be played before ending turn.");
 		}
 		return result;
 	}
