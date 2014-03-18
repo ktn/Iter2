@@ -3,11 +3,7 @@ import java.util.Arrays;
 
 public class PhaseActive {
 	ModelFacade model;
-	
-	PhaseDeveloperMovement developerMovement;
-	PhaseDeveloperPlacement developerPlacement;
-	
-	
+
 	private enum Mode { BLOCK, PALACE, PLACEDEVELOPER, MOVEDEVELOPER }
 	private Mode state;
 	
@@ -26,7 +22,7 @@ public class PhaseActive {
 	}
 	public void placeDeveloperMode() {
 		state = Mode.PLACEDEVELOPER;
-		developerMovement = new PhaseDeveloperMovement(model);
+		selectedPos = new int[] {0,0};
 	}
 	public void moveDeveloperMode() {
 		state = Mode.MOVEDEVELOPER;
