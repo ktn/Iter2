@@ -86,6 +86,10 @@ public class BoardFacade {
 		return communal.numIrrigationTiles();
 	}
 
+	public boolean isMountains(Board.Coordinates c){
+		return board.isMountains(c);
+	}
+
 	// DEVELOPER METHODS  
 	// =======================================================================
 
