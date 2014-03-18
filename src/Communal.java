@@ -17,6 +17,7 @@ public class Communal {
 			irrigations.add(new OneBlock(TileType.IRRIGATION));
 		palaceTiles = new ArrayList<Integer>();
 		palaceTiles.add(0);
+		palaceTiles.add(0);
 		palaceTiles.add(6);
 		palaceTiles.add(0);
 		palaceTiles.add(7);
