@@ -23,7 +23,7 @@ public class Deck {
 		shuffle(cardStack);
 		setFestivalCard();
 		
-		discardStack = new ArrayList<PalaceCard();
+		discardStack = new ArrayList<PalaceCard>();
 	}
 
 	public void shuffle(ArrayList<PalaceCard> cardStack) {
@@ -31,7 +31,7 @@ public class Deck {
 	}
 
 	public PalaceCard drawCard() {
-		PalaceCard ret cardStack.remove(cardStack.size()-1);
+		PalaceCard ret = cardStack.remove(cardStack.size()-1);
 		if(cardStack.isEmpty())
 		{
 			cardStack = discardStack;
@@ -53,7 +53,7 @@ public class Deck {
 
 	public void discardCard(PalaceCard c)
 	{
-		discardPile.add(c);
+		discardStack.add(c);
 	}
 
 	public String toString() {

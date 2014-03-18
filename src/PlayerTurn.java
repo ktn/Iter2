@@ -3,7 +3,7 @@
 PlayerTurn is an object that keeps track of whose turn it is
  ******************************************************************************
  */
-
+import java.util.*;
 public class PlayerTurn {
 	Player[] players;
 	int currentPlayer;
@@ -31,7 +31,7 @@ public class PlayerTurn {
 		actionPoints = 6;
 		blockPlayed = false;
 
-		festival = new PalaceFestival;
+		festival = new PalaceFestival();
 	}
 
 	// change player turn
@@ -96,7 +96,7 @@ public class PlayerTurn {
 		int ret = -1;
 		for(int i = 0; i < numPlayers; i++)
 		{
-			if(players[i] = p)
+			if(players[i] == p)
 			{
 				ret = i;
 				break;
@@ -110,22 +110,26 @@ public class PlayerTurn {
 		PalaceCard currentFestCard = this.festival.getFestivalCard();
 		ArrayList<PalaceCard> cardList = new ArrayList<PalaceCard>();
 		ArrayList<PalaceCard> temp = new ArrayList<PalaceCard>();
+		OnePointPalaceCard onePointPalaceCard;
+		TwoPointPalaceCard twoPointPalaceCard;
 
 		//Type of the festival card
 		String[] type;
 
 		if(currentFestCard instanceof OnePointPalaceCard)
 		{
+			onePointPalaceCard = (OnePointPalaceCard) currentFestCard;
 			type = new String[1];
-			type[0] = (OnePointPalaceCard) currentFestCard.getSymbol();
+			type[0] = onePointPalaceCard.getSymbol();
 			cardList.addAll(p.getPlayablePalaceCards(type[0]));
 		}
 		else if(currentFestCard instanceof TwoPointPalaceCard)
 		{
+			twoPointPalaceCard = (TwoPointPalaceCard) currentFestCard;
 			type = new String[2];
-			type[0] = (TwoPointPalaceCard) currentFestCard.getFirstSybmol();
+			type[0] = twoPointPalaceCard.getFirstSybmol();
 			cardList.addAll(p.getPlayablePalaceCards(type[0]));
-			type[1] = (TwoPointPalaceCard) currentFestCard.getSecondSymbol();
+			type[1] = twoPointPalaceCard.getSecondSymbol();
 			temp.addAll(p.getPlayablePalaceCards(type[1]));
 			
 			for(int i = 0; i < temp.size(); i++)

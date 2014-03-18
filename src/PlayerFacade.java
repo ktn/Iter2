@@ -214,7 +214,7 @@ public class PlayerFacade {
 
 	public int getPlayerInt(Player p)
 	{
-		return playerTurn.getPlayerInt(Player p);
+		return playerTurn.getPlayerInt(p);
 	}
 
 	public List<PalaceCard> getCardsForPlayer(Player p)

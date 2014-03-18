@@ -273,9 +273,9 @@ public class Player {
 		return result.toString();
 	}
 
-	public List<PalaceCard> getPlayablePalaceCards(String type)
+	public List<PalaceCard> getPlayablePalaceCards(String[] t)
 	{
-		List<PalaceCard> playableCards = new List<PalaceCard>();
+		ArrayList<PalaceCard> playableCards = new ArrayList<PalaceCard>();
 
 		for (int i = 0; i < cards.size(); i++) {
 			if (cards.get(i) instanceof OnePointPalaceCard) {

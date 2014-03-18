@@ -31,51 +31,38 @@ public class PalaceFestival {
 	}
 
 	public void startFestival(Player[] p) {
-		String a;
+		String a = null;
+		OnePointPalaceCard onePointPalaceCard = null;
+		TwoPointPalaceCard twoPointPalaceCard = null;
 		if(festivalCard instanceof OnePointPalaceCard)
 		{
-			a = (OnePointPalaceCard) festivalCard.getSymbol();
+			onePointPalaceCard = (OnePointPalaceCard) festivalCard;
+			a = onePointPalaceCard.getSymbol();
 		}
 		else if (festivalCard instanceof TwoPointPalaceCard)
 		{
-			a = (TwoPointPalaceCard) festivalCard.getFirstSymbol();
+			twoPointPalaceCard = (TwoPointPalaceCard) festivalCard;
+			a = twoPointPalaceCard.getFirstSymbol();
 		}
-		for(int i = 0; i < p.length(); i++)
+		for(int i = 0; i < p.length; i++)
 		{
-			if(playerFacade.playerCanParticipate(p[i], a))
+			if(playerFacade.playerCanParticipate(i, a))
 			{
 				players.add(p[i]);
 			}
 		}
 		if(festivalCard instanceof TwoPointPalaceCard)
 		{
-			a = (TwoPointPalaceCard) festivalCard.getSecondSymbol();
-			for(int i = 0; i < p.length(); i++)
+			a = twoPointPalaceCard.getSecondSymbol();
+			for(int i = 0; i < p.length; i++)
 			{
-				if(playerFacade.playerCanParticipate(p[i], a) && !players.contains(p[i]))
+				if(playerFacade.playerCanParticipate(i, a) && !players.contains(p[i]))
 				{
 					players.add(p[i]);
 				}
 			}
 		}
 
-
-		for(int i = 0; i < players.length)
-		/*
-		 * PalaceCard p = playerFacade.playPalaceCard(); if(p instanceof
-		 * OnePointPalaceCard && this.festivalCard instanceof
-		 * OnePointPalaceCard) {
-		 * 
-		 * } else if (p instanceof OnePointPalaceCard && this.festivalCard
-		 * instanceof TwoPointPalaceCard) {
-		 * 
-		 * } else if (p instanceof TwoPointPalaceCard && this.festivalCard
-		 * instanceof OnePointPalaceCard) {
-		 * 
-		 * } //else both are TwoPointPalaceCards else {
-		 * 
-		 * }
-		 */
 	}
 
 	public void endFestival() {
@@ -98,10 +85,11 @@ public class PalaceFestival {
 
 	public void giveFestivalPoints(Player p, String[] t)
 	{
+		TwoPointPalaceCard twoPointPalaceCard;
 		int pInt = 0;
 		for(int i = 0; i < players.size(); i++)
 		{
-			if(p = players.get(i))
+			if(p == players.get(i))
 			{
 				pInt = i;
 				break;
@@ -113,11 +101,12 @@ public class PalaceFestival {
 		}
 		else if(festivalCard instanceof TwoPointPalaceCard)
 		{
-			if(t[0] == (TwoPointPalaceCard) festivalCard.getFirstSymbol() || t[0] == (TwoPointPalaceCard) festivalCard.getSecondSymbol())
+			twoPointPalaceCard = (TwoPointPalaceCard) festivalCard;
+			if(t[0] == twoPointPalaceCard.getFirstSymbol() || t[0] == twoPointPalaceCard.getSecondSymbol())
 			{
 				playerScores[pInt] +=1;
 			}
-			if(t[1] == (TwoPointPalaceCard) festivalCard.getFirstSymbol() || t[1] == (TwoPointPalaceCard) festivalCard.getSecondSymbol())
+			if(t[1] == twoPointPalaceCard.getFirstSymbol() || t[1] == twoPointPalaceCard.getSecondSymbol())
 			{
 				playerScores[pInt] +=1;
 			}
@@ -135,7 +124,7 @@ public class PalaceFestival {
 				max = i;
 			}
 		}
-		for(int i = 0; i < playerScores.length(); i++)
+		for(int i = 0; i < playerScores.length; i++)
 		{
 			if(playerScores[i] == max)
 			{
