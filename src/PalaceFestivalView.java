@@ -12,6 +12,8 @@ public class PalaceFestivalView extends JFrame {
 	private JLabel numMaskDrumCards;
 	private JLabel numDrumPuppetCards;
 	private JLabel numPuppetMaskCards;
+	private JLabel festivalCard;
+	private JLabel topOfPileCard;
 
 	/**
 	 * Create the application.
@@ -38,6 +40,38 @@ public class PalaceFestivalView extends JFrame {
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(1,3));
 		topPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		//Festival card portion 
+		JPanel festCard = new JPanel();
+		festCard.setLayout(new BoxLayout(festCard, BoxLayout.PAGE_AXIS));
+		JLabel festCardLabel = new JLabel("Festival Card: ");
+		festCard.add(festCardLabel);
+		Image img = ImageIO.read(new File("../images/drumcard.png"));
+		festivalCard = new JLabel(new ImageIcon(img));
+		festCard.add(festivalCard);
+		topPanel.add(festCard);
+		
+		//Pile card portion 
+		JPanel pileCard = new JPanel();
+		pileCard.setLayout(new BoxLayout(pileCard, BoxLayout.PAGE_AXIS));
+		JLabel pileCardLabel = new JLabel("Top of Pile: ");
+		pileCard.add(pileCardLabel);
+		topOfPileCard = new JLabel("Empty Pile");
+		pileCard.add(topOfPileCard);
+		topPanel.add(pileCard);
+		
+		//Instructions portion
+		String instructions = "<html>Instructions:<br>" +
+							  "0 - Pass<br>" + 
+							  "1 - Play Drum Card<br>" +
+							  "2 - Play Puppet Card<br>" +
+							  "3 - Play Mask Card<br>" +
+							  "4 - Play Mask/Drum Card<br>" +
+							  "5 - Play Drum/Puppet Card<br>" +
+							  "6 - Play Puppet/Mask Card<br>" +
+							  "7 - Finish Turn";
+		JLabel instrs = new JLabel(instructions);
+		topPanel.add(instrs);
 		this.add(topPanel);
 		
 		//Set up the bottom panel
@@ -52,7 +86,7 @@ public class PalaceFestivalView extends JFrame {
 		//Drum cards first
 		JPanel drumCards = new JPanel();
 		drumCards.setLayout(new BoxLayout(drumCards,BoxLayout.PAGE_AXIS));
-		Image img = ImageIO.read(new File("../images/drumcard.png"));
+		img = ImageIO.read(new File("../images/drumcard.png"));
 		JLabel drumPic = new JLabel(new ImageIcon(img));
 		drumCards.add(drumPic);
 		numDrumCards = new JLabel("0", JLabel.CENTER);
@@ -110,5 +144,9 @@ public class PalaceFestivalView extends JFrame {
 		bottomPanel.add(puppetMaskCards);
 		
 		this.add(bottomPanel);
+	}
+	
+	public static void setFestivalCard(String cardType) {
+		
 	}
 }
