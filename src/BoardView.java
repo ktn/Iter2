@@ -2,16 +2,22 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.AbstractCollection;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-/**mostly for markups as of yet.  need more model to view.*/
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
+/**mostly for markups as of yet.  need more model to view.
+ * needs work to create buffer.*/
 public class BoardView extends JPanel{
 
 	Image dirt;
@@ -25,10 +31,11 @@ public class BoardView extends JPanel{
 	
 	BufferedImage cachedCanvas;
 	
-	public BoardView(Board board) throws IOException{
+	/**creates a new board view with the given height and width (in Tiles)*/
+	public BoardView(int boardWidth, int boardHeight) throws IOException{
 		dirt=ImageIO.read(new File("images/dirt.png"));
 		rice=ImageIO.read(new File("images/rice.png"));
-		target=board;
+		cachedCanvas=new BufferedImage(dirt.getWidth(this)*boardWidth, dirt.getHeight(this)*boardHeight, BufferedImage.TYPE_INT_RGB);
 	}
 	
 	@Override
@@ -37,28 +44,49 @@ public class BoardView extends JPanel{
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		
-		renderRow(g, target.get(0,0), 0);
-		System.out.println("BoardView: row rendered");
+		//figure out a new way to test
+		g.drawImage(cachedCanvas, 0, 0, this);
 	}
 	
-	//public void 
+	/**recursively renders the given space at it's given location, 
+	 * along with all of the spaces connected to it.*/
+	public void renderNetwork(Space origin, int x, int y){
+		Graphics2D g = cachedCanvas.createGraphics();
+		ArrayList<Space> alreadyRendered=new ArrayList<Space>();
+		renderNetworkRecursive(g,alreadyRendered, origin, x, y);
+	}
 	
-	private void renderRow(Graphics g, Space leftmost,int y){
-		Space lefty=leftmost;
-		int x=0;
-		System.out.println("lefty:"+lefty);
-		while (lefty!=null){
-			renderSpace(g, lefty, x, y);
-			x++;
-			lefty=lefty.getRight();
-			System.out.println("BoardView: space rendered");
+	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Space> finished, Space origin, int x, int y){
+		renderSpace(g, origin, x, y);
+		if (origin.getLeft()!=null&&!finished.contains(origin.getLeft())){
+			finished.add(origin.getLeft());
+			renderNetworkRecursive(g,finished,origin.getLeft(),x-1,y);
+		}
+		if (origin.getRight()!=null&&!finished.contains(origin.getRight())){
+			finished.add(origin.getRight());
+			renderNetworkRecursive(g,finished,origin.getRight(),x+1,y);
+		}
+		if (origin.getTop()!=null&&!finished.contains(origin.getTop())){
+			finished.add(origin.getTop());
+			renderNetworkRecursive(g,finished,origin.getTop(),x,y-1);
+		}
+		if (origin.getBottom()!=null&&!finished.contains(origin.getBottom())){
+			finished.add(origin.getBottom());
+			renderNetworkRecursive(g,finished,origin.getBottom(),x,y+1);
 		}
 	}
 	
+	/**renders a single space.  To render a network of connected spaces, 
+	 * use renderNetwork.*/
+	public void renderSpace(Space s, int x, int y){
+		Graphics2D g = cachedCanvas.createGraphics();
+		renderSpace(g,s, x, y);
+	}
+	
 	/**Renders a space at the given x & y board coordinates.*/
-	private void renderSpace(Graphics g, Space s,int x, int y){
+	protected void renderSpace(Graphics g, Space s,int x, int y){
 		Image tileFace=dirt;
-		if (s.getHeight()>0&&s.getTile().getType()==Tile.TileType.RICE){
+		if (s.getHeight()>0&&s.getTile().getType()==TileType.RICE){
 			tileFace=rice;
 		}
 		g.setColor(Color.white);

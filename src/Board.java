@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Board {
-	private Space head;
+	protected Space head;
 	private int xDim = 10;
 	private int yDim = 10;
 	private ArrayList<Developer> devs;
