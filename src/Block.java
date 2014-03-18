@@ -1,5 +1,5 @@
 public abstract class Block {
-	private Tile head;
+	protected Tile head;
 	protected TileType type;
 
 	/*========================================

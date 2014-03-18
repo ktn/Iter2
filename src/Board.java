@@ -5,6 +5,7 @@ public class Board {
 	private int xDim = 10;
 	private int yDim = 10;
 	private ArrayList<Developer> devs;
+	private ArrayList<Coordinates> mountains;
 
 	/*
 		Head is in the bottom left corner just fyi
@@ -54,6 +55,17 @@ public class Board {
 		}
 
 		devs = new ArrayList<Developer>();
+
+		for(int x = 0; x < xDim; x++){
+			if(x == 0 || x == xDim - 1)
+				for(int y = 0; y < Math.round(yDim/2); y++){
+					mountains.add(new Coordinates(x, y));
+				}
+			else
+				mountains.add(new Coordinates(x, 0));
+		}
+
+
 	}
 
 
@@ -104,7 +116,7 @@ public class Board {
 	// =======================================================================
 
 	public void placeBlock(Coordinates c, Block b) {
-		levelSpaces target = this.get(c);
+		Spaces target = this.get(c);
 		//System.out.println("Board placement");
 		target.placeTile(b.getTile());
 
@@ -210,6 +222,18 @@ public class Board {
 		return ret;
 	}
 
+
+	public boolean isMountainSpace(Coordinates c){
+		boolean ret = false;
+
+		for(Coordinates temp : mountains){
+			if(c.equals(temp)){
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
 	public class Coordinates{
 		public int x;
 		public int y;
