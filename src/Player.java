@@ -287,11 +287,18 @@ public class Player {
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
 				if (current.getFirstSymbol().equals(t[0])
-						|| current.getFirstSymbol() == t[1]
+						|| current.getSecondSymbol().equals(t[0])
 					) {
 					playableCards.add(current);
 				}
+				if(t.length > 1) {
+					if(current.getFirstSymbol().equals(t[1])
+						|| current.getSecondSymbol().equals(t[1])
+					) 
+					playableCards.add(current);
+				}
 			}
+
 		}
 		return playableCards;
 

@@ -7,11 +7,13 @@ public class PlayerTest {
 		String names[] = { "Lucas", "Xy"};
 
 		PlayerFacade p = new PlayerFacade(names);
+		p.createPalaceFestival();
 
 		//System.out.print(b.toString());
 		OnePointPalaceCard festivalCard1;
 		TwoPointPalaceCard festivalCard2;
 
+		/*
 		if(b.getFestivalCard() instanceof OnePointPalaceCard)
 		{
 			festivalCard1 = (OnePointPalaceCard) b.getFestivalCard();
@@ -22,6 +24,8 @@ public class PlayerTest {
 			festivalCard2 = (TwoPointPalaceCard) b.getFestivalCard();
 			System.out.println("\nThe current festival card is: " + festivalCard2.getFirstSymbol() + "  " + festivalCard2.getSecondSymbol()+ "\n\n");
 		}
+		*/
+
 
 		/*System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~");
 		System.out.println(new OnePointPalaceCard("PUPPET").toString());
@@ -30,7 +34,7 @@ public class PlayerTest {
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~");
 		*/ 
 
-		System.out.println("Player1's palace cards:");
+		System.out.println("\nPlayer1's palace cards:");
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
@@ -41,16 +45,14 @@ public class PlayerTest {
 		{
 			if(list1.get(0) instanceof OnePointPalaceCard)
 			{
-				System.out.println("test");
 				OnePointPalaceCard o = (OnePointPalaceCard) list1.get(0);
-				System.out.println(o.getSymbol());
+				//System.out.println(o.getSymbol());
 			}
 				
 			else
 			{
-				System.out.println("test");
 				TwoPointPalaceCard t = (TwoPointPalaceCard) list1.get(0);
-				System.out.println(t.getFirstSymbol() + "  " + t.getSecondSymbol());
+				//System.out.println(t.getFirstSymbol() + "  " + t.getSecondSymbol());
 			}
 				
 		}
@@ -65,6 +67,7 @@ public class PlayerTest {
 
 		p.changeTurn();
 		p.addScore(10);
+		System.out.println("\n");
 		System.out.println("Player2's palace cards:");
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
@@ -77,17 +80,13 @@ public class PlayerTest {
 		{
 			if(list2.get(0) instanceof OnePointPalaceCard)
 			{
-				System.out.println("test");
 				OnePointPalaceCard o = (OnePointPalaceCard) list2.get(0);
 				System.out.println(o.getSymbol());
-				System.out.println("test");
 			}	
 			else
 			{
-				System.out.println("test");
 				TwoPointPalaceCard t = (TwoPointPalaceCard) list2.get(0);
 				System.out.println(t.getFirstSymbol() + "  " + t.getSecondSymbol());
-				System.out.println("test");
 			}
 		}
 
