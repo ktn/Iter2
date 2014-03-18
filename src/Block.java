@@ -1,5 +1,6 @@
 public abstract class Block {
 	private Tile head;
+	protected TileType type;
 
 	/*========================================
 		The standard orientation will be
@@ -14,21 +15,19 @@ public abstract class Block {
 					child
 	=========================================*/
 
-	Block(Tile ... tiles){
-
-		head = tiles[0];
-
-		for(Tile t : tiles){
-			head.join(t);
-		}
-
-	}
-
-	public void rotate(){
+	public void rotate() {
 		head.rotate();
 	}
-	
-	public Tile getTile(){
+
+	public Tile getTile() {
 		return head;
+	}
+
+	public TileType getType(){
+		return type;
+	}
+	
+	public String toString(){
+		return null;
 	}
 }
