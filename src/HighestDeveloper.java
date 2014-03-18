@@ -60,22 +60,22 @@ public class HighestDeveloper
 					//System.out.println(temp[board.getHeight(c)]);
 					map.put(devFound.getPlayer(), temp);
 				}
-				if (board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.PALACE
+				if (board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.VILLAGE
 						&& !visited.contains(board.new Coordinates(c.x, c.y+1))) {
 					queuePath.add(board.new Coordinates(c.x, c.y+1));
 					visited.add(board.new Coordinates(c.x, c.y+1));
 				}
-				if (board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.PALACE
+				if (board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.VILLAGE
 						&& !visited.contains(board.new Coordinates(c.x, c.y-1))) {
 					queuePath.add(board.new Coordinates(c.x, c.y-1));
 					visited.add(board.new Coordinates(c.x, c.y-1));
 				}
-				if (board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.PALACE
+				if (board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.VILLAGE
 						&& !visited.contains(board.new Coordinates(c.x-1, c.y))) {
 					queuePath.add(board.new Coordinates(c.x-1, c.y));
 					visited.add(board.new Coordinates(c.x-1, c.y));
 				}
-				if (board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.PALACE
+				if (board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.VILLAGE
 						&& !visited.contains(board.new Coordinates(c.x+1, c.y))) {
 					queuePath.add(board.new Coordinates(c.x+1, c.y));
 					visited.add(board.new Coordinates(c.x+1, c.y));
@@ -212,5 +212,86 @@ public class HighestDeveloper
 			for(Player p : players)
 				highestDevsReturn.add(highestDevs.get(p));	
 		return highestDevsReturn;
+	}
+	
+	public boolean playerInCity(Player player, Board.Coordinates aCityTile)
+	{
+		Board.Coordinates c = aCityTile;
+		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
+
+		queuePath.add(c);
+		
+		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
+		visited.add(c);
+
+		while (!queuePath.isEmpty())
+		{
+			c = queuePath.remove();
+			//System.out.println(coord[0]+" "+coord[1]);
+			// FOUND A DEVELOPER
+			Developer devFound = board.getDeveloper(c);
+			if(devFound != null)
+			{
+				if(devFound.getPlayer() == player)
+				return true;
+			}
+			if ((board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y+1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y+1));
+				visited.add(board.new Coordinates(c.x, c.y+1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y-1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y-1));
+				visited.add(board.new Coordinates(c.x, c.y-1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x-1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x-1, c.y));
+				visited.add(board.new Coordinates(c.x-1, c.y));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x+1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x+1, c.y));
+				visited.add(board.new Coordinates(c.x+1, c.y));
+			}
+		}
+		return false;
+	}
+	
+	public int numIrrigationTiles(Board.Coordinates anIrrigTile)
+	{
+		Board.Coordinates c = anIrrigTile;
+		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
+
+		queuePath.add(c);
+		
+		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
+		visited.add(c);
+		while (!queuePath.isEmpty())
+		{
+			c = queuePath.remove();
+			if ((board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y+1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y+1));
+				visited.add(board.new Coordinates(c.x, c.y+1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y-1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y-1));
+				visited.add(board.new Coordinates(c.x, c.y-1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x-1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x-1, c.y));
+				visited.add(board.new Coordinates(c.x-1, c.y));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.PALACE || board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x+1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x+1, c.y));
+				visited.add(board.new Coordinates(c.x+1, c.y));
+			}
+		}
+		return visited.size();
 	}
 }
