@@ -104,7 +104,7 @@ public class Board {
 	// =======================================================================
 
 	public void placeBlock(Coordinates c, Block b) {
-		Space target = this.get(c);
+		levelSpaces target = this.get(c);
 		//System.out.println("Board placement");
 		target.placeTile(b.getTile());
 

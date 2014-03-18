@@ -1,15 +1,16 @@
 public class PlaceThreeBlockCommand implements Command{
 	private Board board;
 	private Board.Coordinates coords;
-	
-	PlaceThreeBlockCommand(Board.Coordinates c, Board b){
+	private Block block;
+	PlaceThreeBlockCommand(Board b, Board.Coordinates c){
 		this.board = b;
 		this.coords = c;
 	}
 
 	public void execute(){
-		//if(board.validPlacement(c, b))
-			board.placeBlock(coords, (Block)(new ThreeBlock()));
+		
+		//if(board.validPlacement(coorsd, b)
+			board.placeBlock(coords, block);
 
 			this.save();
 	}
