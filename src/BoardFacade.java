@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import Board.Coordinates;
 
 public class BoardFacade {
@@ -97,5 +99,7 @@ public class BoardFacade {
 		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x, newPos.y);
 	}
 	
-	
+	public ArrayList<Board.Coordinates> getShortestPath() {
+		return pathfinding.getShortestPath();
+	}
 }
