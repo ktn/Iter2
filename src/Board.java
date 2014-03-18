@@ -55,7 +55,8 @@ public class Board {
 		}
 
 		devs = new ArrayList<Developer>();
-
+		mountains = new ArrayList<Coordinates>();
+		
 		for(int x = 0; x < xDim; x++){
 			if(x == 0 || x == xDim - 1)
 				for(int y = 0; y < Math.round(yDim/2); y++){
@@ -116,7 +117,7 @@ public class Board {
 	// =======================================================================
 
 	public void placeBlock(Coordinates c, Block b) {
-		Spaces target = this.get(c);
+		Space target = this.get(c);
 		//System.out.println("Board placement");
 		target.placeTile(b.getTile());
 
@@ -138,7 +139,7 @@ public class Board {
 		return c.x <= xDim || c.y <= yDim;
 	}
 
-	public boolean validPlacement(Coordinates c, Block b){
+	public boolean validPlacement(Coordinates c, Block b) throws IllegalBlockPlacementException{
 		boolean ret = true;
 		Space target = this.get(c);
 		
