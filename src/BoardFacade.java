@@ -1,17 +1,19 @@
 import java.util.ArrayList;
 
-import Board.Coordinates;
 
 public class BoardFacade {
 	Board board;
 	Pathfinding path;
 	Communal communal;
 	Pathfinding pathfinding;
+	HighestDeveloper highestDeveloper;
+
 	public BoardFacade() {
 		board = new Board();
 		path = new Pathfinding(board);
 		communal = new Communal();
 		pathfinding = new Pathfinding(board);
+		highestDeveloper = new HighestDeveloper(board);
 	}
 
 	public int getHeight(Board.Coordinates c) {
@@ -101,5 +103,9 @@ public class BoardFacade {
 	
 	public ArrayList<Board.Coordinates> getShortestPath() {
 		return pathfinding.getShortestPath();
+	}
+
+	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
+		return highestDeveloper.findHighestDev(c);
 	}
 }
