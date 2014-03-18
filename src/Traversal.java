@@ -1,9 +1,9 @@
 import java.util.*;
 
-public class HighestDeveloper
+public class Traversal
 {
 	Board board;
-	public HighestDeveloper(Board b)
+	public Traversal(Board b)
 	{
 		board = b;
 	}
@@ -293,5 +293,16 @@ public class HighestDeveloper
 			}
 		}
 		return visited.size();
+	}
+	
+	public ArrayList<Board.Coordinates> allPalaceTiles()
+	{
+		ArrayList<Board.Coordinates> palaceTiles = new ArrayList<Board.Coordinates>();
+		Board.Coordinates c = board.new Coordinates(0,0);
+		for(int x = 0; board.inBounds(c); x++, c.x=x)
+			for(int y = 0; board.inBounds(c); y++, c.y=y)
+				if(board.getTileType(c) == TileType.PALACE)
+					palaceTiles.add(c);
+		return palaceTiles;
 	}
 }
