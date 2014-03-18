@@ -85,6 +85,10 @@ public class BoardFacade {
 	public int irrigationBlocksLeft() {
 		return communal.numIrrigationTiles();
 	}
+	
+	public boolean validPlacement(Board.Coordinates c, Block b) throws IllegalBlockPlacementException {
+		return board.validPlacement(c,b);
+	}
 
 	public boolean isMountains(Board.Coordinates c){
 		return board.isMountains(c);

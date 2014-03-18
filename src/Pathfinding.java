@@ -57,7 +57,6 @@ class Pathfinding {
 					board.new Coordinates(xOld, yOld), 0);
 		}
 		return APUsed;
-
 	}
 
 	public void checkNextSpot(ArrayList<Board.Coordinates> currentPath, int x, int y,
@@ -122,7 +121,6 @@ class Pathfinding {
 						&& board.getTileType(board.new Coordinates(x, y - 1)) != TileType.EMPTY) {
 					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath), x,
 							y - 1, newCoord, AP);
-
 				}
 			}
 		}
