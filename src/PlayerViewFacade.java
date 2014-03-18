@@ -160,15 +160,15 @@ public class PlayerViewFacade {
 		publicInventoryView.displayFestivalCard(type);
 	}
 	
-	public void setGameMode(String mode) {
+	public static void setGameMode(String mode) {
 		controllerView.setMode(mode);
 	}
 	
-	public void setAvailableActions(String actions) {
+	public static void setAvailableActions(String actions) {
 		controllerView.setActions(actions);
 	}
 	
-	public void startPalaceFestival() {
-		PalaceFestivalView.show(String currentPlayer);
+	public static void startPalaceFestival(String currentPlayer) {
+		PalaceFestivalViewFacade.initialize(currentPlayer);
 	}
 }
