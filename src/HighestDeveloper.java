@@ -1,235 +1,233 @@
 import java.util.*;
 
-public class HighestDeveloper
-{
+public class HighestDeveloper {
 	Board board;
-	ArrayList<Developer> developers;
-	public HighestDeveloper(Board b, ArrayList<Developer> d)
-	{
+
+	public HighestDeveloper(Board b) {
 		board = b;
-		developers = d;
 	}
-	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
-	{
-		ArrayList<Space> visited = new ArrayList<Space>();
+
+	public ArrayList<Developer> findHighestDev(Board.Coordinates c) {
+		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
 		ArrayList<Player> players = new ArrayList<Player>();
-		
+
 		HashMap<Player, int[]> map = new HashMap<Player, int[]>();
 		HashMap<Player, Developer> highestDevs = new HashMap<Player, Developer>();
 
-		Space s = board.get(c);
-
 		int highestVal = 0;
-		
+
 		// check for which algorithm to use to search
-		if (s.getTile().getType() == TileType.PALACE)
-		{
+		if (board.getTileType(c) == TileType.PALACE) {
 			// DFS for highest rank developer in the surrounding city;
-			Queue<Space> queuePath = new LinkedList<Space>();
+			Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
 
-			queuePath.add(s);
-			visited.add(s);
+			queuePath.add(c);
+			visited.add(c);
 
-			while (!queuePath.isEmpty())
-			{
-				s = queuePath.remove();
-				//System.out.println(coord[0]+" "+coord[1]);
+			while (!queuePath.isEmpty()) {
+				c = queuePath.remove();
+				// System.out.println(coord[0]+" "+coord[1]);
 				// FOUND A DEVELOPER
-				Developer devFound = null;
-				for(Developer dev : developers)
-				{
-					if(dev.getSpace() == s)
+				Developer devFound = board.getDeveloper(c);
+				if (devFound != null) {
+					// System.out.print("Found developer: ");
+					if (!players.contains(devFound.getPlayer())) // First
+																	// instance
+																	// of
+																	// player,
+																	// add it to
+																	// arraylist
+																	// and
+																	// create
+																	// its int
+																	// array in
+																	// map
 					{
-						devFound = dev;
-						break;
-					}
-				}
-				if(devFound != null)
-				{
-					//System.out.print("Found developer: ");
-					if(!players.contains(devFound.getPlayer()))	//First instance of player, add it to arraylist and create its int array in map
-					{
-						//System.out.println(devFound.getPlayer());
+						// System.out.println(devFound.getPlayer());
 						players.add(devFound.getPlayer());
 						int[] temp = new int[50];
-						for(int i = 0; i < 50; i++)
+						for (int i = 0; i < 50; i++)
 							temp[i] = 0;
 						map.put(devFound.getPlayer(), temp);
 					}
-					if(s.getHeight()>highestVal)	//if height is greater than past heighest value, reset heighest devs so code will know what to pass at the end
+					if (board.getHeight(c) > highestVal) // if height is greater
+															// than past
+															// heighest value,
+															// reset heighest
+															// devs so code will
+															// know what to pass
+															// at the end
 					{
-						highestVal = s.getHeight();
+						highestVal = board.getHeight(c);
 						highestDevs.clear();
-						highestDevs.put(devFound.getPlayer(),devFound);
-					}
-					else if(s.getHeight() == highestVal)
-					{
+						highestDevs.put(devFound.getPlayer(), devFound);
+					} else if (board.getHeight(c) == highestVal) {
 						highestDevs.put(devFound.getPlayer(), devFound);
 					}
 					int[] temp = map.get(devFound.getPlayer());
-					temp[s.getHeight()]++;
-					//System.out.println(temp[s.getHeight()]);
+					temp[board.getHeight(c)]++;
+					// System.out.println(temp[board.getHeight(c)]);
 					map.put(devFound.getPlayer(), temp);
 				}
-				if (s.getTop().getTile().getType() == TileType.PALACE
-						&& !visited.contains(s.getTop())) {
-					queuePath.add(s.getTop());
-					visited.add(s.getTop());
+				if (board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
+						&& !visited
+								.contains(board.new Coordinates(c.x, c.y + 1))) {
+					queuePath.add(board.new Coordinates(c.x, c.y + 1));
+					visited.add(board.new Coordinates(c.x, c.y + 1));
 				}
-				if (s.getBottom().getTile().getType() == TileType.PALACE
-						&& !visited.contains(s.getBottom())) {
-					queuePath.add(s.getBottom());
-					visited.add(s.getBottom());
+				if (board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE
+						&& !visited
+								.contains(board.new Coordinates(c.x, c.y - 1))) {
+					queuePath.add(board.new Coordinates(c.x, c.y - 1));
+					visited.add(board.new Coordinates(c.x, c.y - 1));
 				}
-				if (s.getLeft().getTile().getType() == TileType.PALACE
-						&& !visited.contains(s.getLeft())) {
-					queuePath.add(s.getLeft());
-					visited.add(s.getLeft());
+				if (board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE
+						&& !visited
+								.contains(board.new Coordinates(c.x - 1, c.y))) {
+					queuePath.add(board.new Coordinates(c.x - 1, c.y));
+					visited.add(board.new Coordinates(c.x - 1, c.y));
 				}
-				if (s.getRight().getTile().getType() == TileType.PALACE
-						&& !visited.contains(s.getRight())) {
-					queuePath.add(s.getRight());
-					visited.add(s.getRight());
-				}
-			}
-			
-		} else if (s.getTile().getType() == TileType.IRRIGATION) {
-			Queue<Space> queuePath = new LinkedList<Space>();
-
-			queuePath.add(s);
-			visited.add(s);
-			ArrayList<Space> check = new ArrayList<Space>();
-
-			while (!queuePath.isEmpty())
-			{
-				s = queuePath.remove();
-				
-				if (!check.contains(s)) {
-					check.add(s);
-				}
-				if (!check.contains(s.getTop())) {
-					check.add(s.getTop());
-				}
-				if (!check.contains(s.getBottom())) {
-					check.add(s.getBottom());
-				}
-				if (!check.contains(s.getRight())) {
-					check.add(s.getRight());
-				}
-				if (!check.contains(s.getLeft())) {
-					check.add(s.getLeft());
-				}
-				
-				
-				if (s.getTop().getTile().getType() == TileType.IRRIGATION
-						&& !visited.contains(s.getTop())) {
-					queuePath.add(s.getTop());
-					visited.add(s.getTop());
-				}
-				if (s.getBottom().getTile().getType() == TileType.IRRIGATION
-						&& !visited.contains(s.getBottom())) {
-					queuePath.add(s.getBottom());
-					visited.add(s.getBottom());
-				}
-				if (s.getLeft().getTile().getType() == TileType.IRRIGATION
-						&& !visited.contains(s.getLeft())) {
-					queuePath.add(s.getLeft());
-					visited.add(s.getLeft());
-				}
-				if (s.getRight().getTile().getType() == TileType.IRRIGATION
-						&& !visited.contains(s.getRight())) {
-					queuePath.add(s.getRight());
-					visited.add(s.getRight());
+				if (board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE
+						&& !visited
+								.contains(board.new Coordinates(c.x + 1, c.y))) {
+					queuePath.add(board.new Coordinates(c.x + 1, c.y));
+					visited.add(board.new Coordinates(c.x + 1, c.y));
 				}
 			}
-			for(int checkI=0; checkI<check.size();checkI++)
-			{
-				s = check.get(checkI);
-				Developer devFound = null;
-				for(Developer dev : developers)
-				{
-					if(dev.getSpace() == s)
-					{
-						devFound = dev;
-						break;
-					}
+
+		} else if (board.getTileType(c) == TileType.IRRIGATION) {
+			Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
+
+			queuePath.add(c);
+			visited.add(c);
+			ArrayList<Board.Coordinates> check = new ArrayList<Board.Coordinates>();
+
+			while (!queuePath.isEmpty()) {
+				c = queuePath.remove();
+
+				if (!check.contains(c)) {
+					check.add(c);
 				}
-				if (devFound != null)
-				{
-					if(!players.contains(devFound.getPlayer()))
-					{
+				if (!check.contains(board.getTile(board.new Coordinates(c.x,
+						c.y + 1)))) {
+					board.new Coordinates(c.x, c.y + 1);
+				}
+				if (!check.contains(board.getTile(board.new Coordinates(c.x,
+						c.y - 1)))) {
+					board.new Coordinates(c.x, c.y - 1);
+				}
+				if (!check.contains(board.getTile(board.new Coordinates(
+						c.x + 1, c.y)))) {
+					board.new Coordinates(c.x + 1, c.y);
+				}
+				if (!check.contains(board.getTile(board.new Coordinates(
+						c.x - 1, c.y)))) {
+					board.new Coordinates(c.x - 1, c.y);
+				}
+
+				if (board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.IRRIGATION
+						&& !visited
+								.contains(board.new Coordinates(c.x, c.y + 1))) {
+					queuePath.add(board.new Coordinates(c.x, c.y + 1));
+					visited.add(board.new Coordinates(c.x, c.y + 1));
+				}
+				if (board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.IRRIGATION
+						&& !visited
+								.contains(board.new Coordinates(c.x, c.y - 1))) {
+					queuePath.add(board.new Coordinates(c.x, c.y - 1));
+					visited.add(board.new Coordinates(c.x, c.y - 1));
+				}
+				if (board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.IRRIGATION
+						&& !visited
+								.contains(board.new Coordinates(c.x - 1, c.y))) {
+					queuePath.add(board.new Coordinates(c.x - 1, c.y));
+					visited.add(board.new Coordinates(c.x - 1, c.y));
+				}
+				if (board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.IRRIGATION
+						&& !visited
+								.contains(board.new Coordinates(c.x + 1, c.y))) {
+					queuePath.add(board.new Coordinates(c.x + 1, c.y));
+					visited.add(board.new Coordinates(c.x + 1, c.y));
+				}
+			}
+			for (int checkI = 0; checkI < check.size(); checkI++) {
+				c = check.get(checkI);
+				Developer devFound = board.getDeveloper(c);
+				if (devFound != null) {
+					if (!players.contains(devFound.getPlayer())) {
 						players.add(devFound.getPlayer());
 						int[] temp = new int[50];
-						for(int i = 0; i < 50; i++)
+						for (int i = 0; i < 50; i++)
 							temp[i] = 0;
 						map.put(devFound.getPlayer(), temp);
 					}
-					if(s.getHeight()>highestVal)
-					{
-						highestVal = s.getHeight();
+					if (board.getHeight(c) > highestVal) {
+						highestVal = board.getHeight(c);
 						highestDevs.clear();
 						highestDevs.put(devFound.getPlayer(), devFound);
-					}
-					else if(s.getHeight() == highestVal)
-					{
+					} else if (board.getHeight(c) == highestVal) {
 						highestDevs.put(devFound.getPlayer(), devFound);
 					}
 					int[] temp = map.get(devFound.getPlayer());
-					temp[s.getHeight()]++;
+					temp[board.getHeight(c)]++;
 					map.put(devFound.getPlayer(), temp);
 				}
 			}
 		}
 		ArrayList<Developer> highestDevsReturn = new ArrayList<Developer>();
 		ArrayList<Player> lowerDevs = new ArrayList<Player>();
-		for( int height=highestVal; highestDevsReturn.size() == 0 && height >= 0; height--)
-		{
-			int most = 0;	//most developers on this level
-			//System.out.print("Height: "+height+" most: "+most);
-			for(int p = 0; p < players.size(); p++)	//get most developers on this level
-				if(map.get(players.get(p))[height] > most)
+		for (int height = highestVal; highestDevsReturn.size() == 0
+				&& height >= 0; height--) {
+			int most = 0; // most developers on this level
+			// System.out.print("Height: "+height+" most: "+most);
+			for (int p = 0; p < players.size(); p++)
+				// get most developers on this level
+				if (map.get(players.get(p))[height] > most)
 					most = map.get(players.get(p))[height];
-			//System.out.print(" most: "+most+"Players: "+players.size());
-			for(int p = 0; p < players.size(); p++)	//if player has less than most developers, remove it from array list
-				if(map.get(players.get(p))[height] < most)
-				{
+			// System.out.print(" most: "+most+"Players: "+players.size());
+			for (int p = 0; p < players.size(); p++)
+				// if player has less than most developers, remove it from array
+				// list
+				if (map.get(players.get(p))[height] < most) {
 					lowerDevs.add(players.get(p));
 					players.remove(players.get(p));
 				}
-			//System.out.println(" Players: "+players.size());
-			if(players.size() == 1)	//if there is only one player left, he had the highest developers
+			// System.out.println(" Players: "+players.size());
+			if (players.size() == 1) // if there is only one player left, he had
+										// the highest developers
 				highestDevsReturn.add(highestDevs.get(players.get(0)));
 		}
-		if(highestDevsReturn.size() == 1)
-		{
-			if(lowerDevs.size() == 1)
-			{
+		if (highestDevsReturn.size() == 1) {
+			if (lowerDevs.size() == 1) {
 				highestDevsReturn.add(highestDevs.get(lowerDevs.get(0)));
-			}
-			else
-			{
-				for( int height=highestVal; highestDevsReturn.size() == 0 && height >= 0; height--)
-				{
-					int most = 0;	//most developers on this level
-					//System.out.print("Height: "+height+" most: "+most);
-					for(int p = 0; p < lowerDevs.size(); p++)	//get most developers on this level
-						if(map.get(lowerDevs.get(p))[height] > most)
+			} else {
+				for (int height = highestVal; highestDevsReturn.size() == 0
+						&& height >= 0; height--) {
+					int most = 0; // most developers on this level
+					// System.out.print("Height: "+height+" most: "+most);
+					for (int p = 0; p < lowerDevs.size(); p++)
+						// get most developers on this level
+						if (map.get(lowerDevs.get(p))[height] > most)
 							most = map.get(lowerDevs.get(p))[height];
-					//System.out.print(" most: "+most+"lowerDevs: "+lowerDevs.size());
-					for(int p = 0; p < lowerDevs.size(); p++)	//if player has less than most developers, remove it from array list
-						if(map.get(lowerDevs.get(p))[height] < most)
-						{
+					// System.out.print(" most: "+most+"lowerDevs: "+lowerDevs.size());
+					for (int p = 0; p < lowerDevs.size(); p++)
+						// if player has less than most developers, remove it
+						// from array list
+						if (map.get(lowerDevs.get(p))[height] < most) {
 							lowerDevs.remove(lowerDevs.get(p));
 						}
-					//System.out.println(" lowerDevs: "+lowerDevs.size());
-					if(lowerDevs.size() == 1)	//if there is only one player left, he had the highest developers
-						highestDevsReturn.add(highestDevs.get(lowerDevs.get(0)));
+					// System.out.println(" lowerDevs: "+lowerDevs.size());
+					if (lowerDevs.size() == 1) // if there is only one player
+												// left, he had the highest
+												// developers
+						highestDevsReturn
+								.add(highestDevs.get(lowerDevs.get(0)));
 				}
 			}
 		}
-		if(highestDevsReturn.size() == 0 & players.size() == 2)
-			for(Player p : players)
-				highestDevsReturn.add(highestDevs.get(p));	
+		if (highestDevsReturn.size() == 0 & players.size() == 2)
+			for (Player p : players)
+				highestDevsReturn.add(highestDevs.get(p));
 		return highestDevsReturn;
 	}
 }

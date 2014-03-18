@@ -1,19 +1,17 @@
-public class ThreeBlock extends Block{
+public class ThreeBlock extends Block {
 
-	/*========================================
-		The standard orientation will be
+	/*
+	 * ======================================== The standard orientation will be
+	 * 
+	 * 
+	 * head --> child
+	 * 
+	 * | | v
+	 * 
+	 * child =========================================
+	 */
 
-
-					head	-->		child
-					
-					  |
-					  |
-					  v
-
-					child
-	=========================================*/	
-
-	ThreeBlock(){
+	ThreeBlock() {
 		this.head = new VillageTile();
 
 		type = TileType.THREE;

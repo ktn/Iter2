@@ -44,30 +44,32 @@ public class Communal {
 			palaceTiles.add(pt[i]);
 	}
 
-	public ThreeBlock getThreeBlock() {
+	public ThreeBlock getThreeBlock() throws NoBlocksLeftException {
 		if (!threes.isEmpty())
 			throw new NoBlocksLeftException("No Three-Tile Blocks left.");
 		return threes.remove(0);
 	}
 
-	public OneBlock getIrrigationTile() {
-		
+	public OneBlock getIrrigationTile() throws NoBlocksLeftException {
+
 		if (!irrigations.isEmpty())
 			throw new NoBlocksLeftException("No Irrigation Tiles left.");
 		return irrigations.remove(0);
 	}
 
 	public OneBlock getPalaceTile(int level) {
-		//Makes no sense
-		if (palaceTiles.get(level) != 0)
+		// Makes no sense
+		if (palaceTiles.get(level) != 0) {
 			palaceTiles.get(level) -= 1;
-		return new OneBlock(TileType.PALACE);
+
+			return new OneBlock(TileType.PALACE);
+		}
 	}
 
 	public void putBackPalaceTile(Block b) {
-		//Makes no sense
+		// Makes no sense
 		if (b.getType() == TileType.PALACE)
-			palaceTiles.get(((PalaceTile) b.getTile()).getLevel()) += 1;
+			palaceTiles.get(((PalaceTile) b.getTile()).getLevel())) += 1;
 	}
 
 	public void putBackThreeBlock(ThreeBlock b) {
