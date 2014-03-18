@@ -115,7 +115,7 @@ public class PlayerTurn {
 
 		//Type of the festival card
 		String[] type;
-		System.out.println("Current fest card class name: " + currentFestCard.getSimpleName());
+	
 		if(currentFestCard instanceof OnePointPalaceCard)
 		{
 			onePointPalaceCard = (OnePointPalaceCard) currentFestCard;
@@ -144,10 +144,12 @@ public class PlayerTurn {
 
 
 		}
-		System.out.println("These are the playable cards: ")
-		for(PalaceCard p : cardList){
-			System.out.print(p + " ");
+		System.out.println("These are the playable cards for player " + (currentPlayer+1) + ": ");
+		for(PalaceCard palace : cardList){
+			System.out.print(palace + " ");
 		}
+		System.out.println("\n");
+		
 
 		return cardList;
 	}

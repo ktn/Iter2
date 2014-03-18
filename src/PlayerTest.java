@@ -15,23 +15,26 @@ public class PlayerTest {
 		if(b.getFestivalCard() instanceof OnePointPalaceCard)
 		{
 			festivalCard1 = (OnePointPalaceCard) b.getFestivalCard();
-			System.out.println(festivalCard1.getSymbol());
+			System.out.println("\nThe current festival card is: " + festivalCard1.getSymbol() + "\n\n");
 		}
 		else
 		{
 			festivalCard2 = (TwoPointPalaceCard) b.getFestivalCard();
-			System.out.println(festivalCard2.getFirstSymbol() + "  " + festivalCard2.getSecondSymbol());
+			System.out.println("\nThe current festival card is: " + festivalCard2.getFirstSymbol() + "  " + festivalCard2.getSecondSymbol()+ "\n\n");
 		}
 
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~");
+		/*System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~");
 		System.out.println(new OnePointPalaceCard("PUPPET").toString());
 		System.out.println(new OnePointPalaceCard("MASK").toString());
 		System.out.println(new OnePointPalaceCard("DRUM").toString());
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~");
+		*/ 
 
+		System.out.println("Player1's palace cards:");
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
+		System.out.println("\n");
 
 		ArrayList<PalaceCard> list1 = p.getCardsForPlayer(p.getCurrentPlayer());
 		for(int i = 0; i < list1.size(); i++)
@@ -62,9 +65,11 @@ public class PlayerTest {
 
 		p.changeTurn();
 		p.addScore(10);
+		System.out.println("Player2's palace cards:");
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
 		p.addCard(b.drawCard());
+		System.out.println("\n");
 
 
 		ArrayList<PalaceCard> list2 = p.getCardsForPlayer(p.getCurrentPlayer());
