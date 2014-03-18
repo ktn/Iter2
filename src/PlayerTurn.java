@@ -121,7 +121,7 @@ public class PlayerTurn {
 			onePointPalaceCard = (OnePointPalaceCard) currentFestCard;
 			type = new String[1];
 			type[0] = onePointPalaceCard.getSymbol();
-			cardList.addAll(p.getPlayablePalaceCards(type[0]));
+			cardList.addAll(p.getPlayablePalaceCards(type));
 		}
 		else if(currentFestCard instanceof TwoPointPalaceCard)
 		{
