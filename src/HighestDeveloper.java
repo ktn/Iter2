@@ -3,11 +3,9 @@ import java.util.*;
 public class HighestDeveloper
 {
 	Board board;
-	ArrayList<Developer> developers;
-	public HighestDeveloper(Board b, ArrayList<Developer> d)
+	public HighestDeveloper(Board b)
 	{
 		board = b;
-		developers = d;
 	}
 	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
 	{
