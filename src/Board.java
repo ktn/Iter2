@@ -55,7 +55,8 @@ public class Board {
 		}
 
 		devs = new ArrayList<Developer>();
-
+		mountains = new ArrayList<Coordinates>();
+		
 		for(int x = 0; x < xDim; x++){
 			if(x == 0 || x == xDim - 1)
 				for(int y = 0; y < Math.round(yDim/2); y++){
