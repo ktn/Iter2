@@ -115,10 +115,11 @@ public class PlayerTurn {
 
 		//Type of the festival card
 		String[] type;
-
+		System.out.println("Current fest card class name: " + currentFestCard.getSimpleName());
 		if(currentFestCard instanceof OnePointPalaceCard)
 		{
 			onePointPalaceCard = (OnePointPalaceCard) currentFestCard;
+			System.out.println("One point fest card " + currentFestCard);
 			type = new String[1];
 			type[0] = onePointPalaceCard.getSymbol();
 			cardList.addAll(p.getPlayablePalaceCards(type));
@@ -126,6 +127,7 @@ public class PlayerTurn {
 		else if(currentFestCard instanceof TwoPointPalaceCard)
 		{
 			twoPointPalaceCard = (TwoPointPalaceCard) currentFestCard;
+			System.out.println("Two point fest card " + currentFestCard);
 			type = new String[2];
 			type[0] = twoPointPalaceCard.getFirstSymbol();
 			cardList.addAll(p.getPlayablePalaceCards(type));
@@ -141,6 +143,10 @@ public class PlayerTurn {
 			}
 
 
+		}
+		System.out.println("These are the playable cards: ")
+		for(PalaceCard p : cardList){
+			System.out.print(p + " ");
 		}
 
 		return cardList;
