@@ -20,7 +20,7 @@ public class Developer{
 		return space;
 	}
 
-	public Space moveDeveloper(Space s){
+	public void moveDeveloper(Space s){
 		this.space = s;
 	}
 }

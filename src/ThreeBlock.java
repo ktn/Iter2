@@ -16,8 +16,15 @@ public class ThreeBlock extends Block{
 	ThreeBlock(){
 		this.head = new VillageTile();
 
-		head.join(new RiceTile());
-		head.join(new RiceTile());
 		type = TileType.THREE;
+		head.set(0, new RiceTile());
+		head.set(3, new RiceTile());
 	}
+
+	public String toString() {
+		String s = head.getType().toString() + head.getJoined(0).toString()
+				+ head.getJoined(3).toString();
+		return s;
+	}
+
 }
