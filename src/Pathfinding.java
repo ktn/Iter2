@@ -5,6 +5,7 @@ class Pathfinding {
 	Board board;
 	Board.Coordinates coords;
 	int check[][];
+	int lengths[][];
 	int xOld;
 	int yOld;
 	int xNew;
@@ -19,6 +20,12 @@ class Pathfinding {
 		for (int i = 0; i < coords.x; i++) {
 			for (int j = 0; j < coords.y; j++) {
 				check[i][j] = 99;
+			}
+		}
+		lengths = new int[coords.x][coords.y];
+		for (int i = 0; i < coords.x; i++) {
+			for (int j = 0; j < coords.y; j++) {
+				lengths[i][j] = 99;
 			}
 		}
 		xOld = 0;
@@ -45,16 +52,19 @@ class Pathfinding {
 
 		shortestPath = new ArrayList<Board.Coordinates>();
 
-		checkNextSpot(new ArrayList<Board.Coordinates>(), xOld, yOld,
-				board.new Coordinates(xOld, yOld), 0);
+		if (board.getTileType(board.new Coordinates(xOld, yOld)) != TileType.EMPTY) {
+			checkNextSpot(new ArrayList<Board.Coordinates>(), xOld, yOld,
+					board.new Coordinates(xOld, yOld), 0);
+		}
+		return APUsed;
 
-		return shortestPath.size();
 	}
 
 	public void checkNextSpot(ArrayList<Board.Coordinates> currentPath, int x, int y,
 			Board.Coordinates prevCoord, int AP) {
 		Board.Coordinates newCoord = board.new Coordinates(x, y);
 		currentPath.add(newCoord);
+		boolean cont = true;
 
 		// check tile type change and add AP if tile type has changed
 		if (board.getTileType(newCoord) != board.getTileType(prevCoord)) {
@@ -62,19 +72,22 @@ class Pathfinding {
 		}
 
 		if (x == xNew && y == yNew) {
-			if (check[x][y] == -1) {
+			cont = false;
+			if (AP < APUsed) {
 				shortestPath = currentPath;
 				APUsed = AP;
-			} else {
-				if (AP < APUsed) {
+				check[xNew][yNew] = AP;
+			} else if (AP == APUsed) {
+				if (currentPath.size() < lengths[xNew][yNew]) {
+					lengths[x][y] = currentPath.size();
 					shortestPath = currentPath;
-					APUsed = AP;
 				}
 			}
-		} else {
+		} else if (AP <= check[x][y]) {
 			// recursively call this function for each of the four directions,
 			// but only if the current AP is less than the new AP by 2 (or 1 if
 			// the two tiles are of the same type)
+			
 			if (x + 1 < coords.x) {
 				if (board.getTileType(newCoord) == board
 						.getTileType(board.new Coordinates(x + 1, y))
@@ -109,6 +122,7 @@ class Pathfinding {
 						&& board.getTileType(board.new Coordinates(x, y - 1)) != TileType.EMPTY) {
 					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath), x,
 							y - 1, newCoord, AP);
+
 				}
 			}
 		}
@@ -116,5 +130,31 @@ class Pathfinding {
 
 	public ArrayList<Board.Coordinates> getShortestPath() {
 		return shortestPath;
+	}
+
+	public int getShortestPathSize() {
+		return shortestPath.size();
+	}
+
+	public int getAPUsed() {
+		return APUsed;
+	}
+
+	public String toString() {
+		StringBuilder result = new StringBuilder(100);
+		String NEW_LINE = System.getProperty("line.separator");
+		result.append(this.getClass().getName() + " Object {" + NEW_LINE);
+		result.append(" AP Used: " + this.getAPUsed() + NEW_LINE);
+		result.append(" Shortest Path Size: " + this.getShortestPathSize()
+				+ NEW_LINE);
+		result.append(" Coordinates in Path: " + NEW_LINE);
+
+		for (Board.Coordinates c : shortestPath) {
+			result.append(" (" + c.x + " , " + c.y + ")" + NEW_LINE);
+		}
+		result.append("}" + NEW_LINE);
+
+		return result.toString();
+
 	}
 }
