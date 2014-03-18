@@ -13,9 +13,10 @@ public class Communal {
 		for (int i = 0; i < 56; i++)
 			threes.add(new ThreeBlock());
 		irrigations = new ArrayList<OneBlock>();
+
 		for (int i = 0; i < 16; i++)
 			irrigations.add(new OneBlock(TileType.IRRIGATION));
-		palaceTiles = new ArrayList<Integer>();
+
 		palaceTiles.add(0);
 		palaceTiles.add(0);
 		palaceTiles.add(6);
@@ -60,16 +61,18 @@ public class Communal {
 	public OneBlock getPalaceTile(int level) {
 		// Makes no sense
 		if (palaceTiles.get(level) != 0) {
-			palaceTiles.get(level) -= 1;
+			// palaceTiles.getLevel() -= 1;
 
 			return new OneBlock(TileType.PALACE);
 		}
+		return null;
 	}
 
 	public void putBackPalaceTile(Block b) {
 		// Makes no sense
 		if (b.getType() == TileType.PALACE)
-			palaceTiles.get(((PalaceTile) b.getTile()).getLevel())) += 1;
+			;
+		// palaceTiles.get(((PalaceTile) b.getTile()).getLevel()) += 1;
 	}
 
 	public void putBackThreeBlock(ThreeBlock b) {
