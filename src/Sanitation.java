@@ -13,7 +13,10 @@ class Sanitation {
 	public boolean placeDeveloperChecker(Board.Coordinates coord) throws BlockNotPlayedException, NotEnoughAPException, CoordinateException, CoordinatesOutOfBoundsException{
 		boolean result = true;
 		int ap = player.getActionPoints();
-		int requiredAP = board.checkDeveloperCost(blah blah blah);
+		int requiredAP = 1;
+		if(board.isMountains(coord)) {
+			requiredAP = 2;
+		}
 		int x = coord.x;
 		int y = coord.y;
 		int max_x = board.getLargest().x;
@@ -87,7 +90,7 @@ class Sanitation {
 		int x = coords.x;
 		int y = coords.y;
 
-		if (board.validPlacement(b, x, y)) {
+		if (board.validPlacement(b, coords)) {
 			result = false;
 			throw new IllegalBlockPlacementException("Error when placing block", type, x, y);
 		}
