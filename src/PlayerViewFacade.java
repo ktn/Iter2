@@ -167,4 +167,8 @@ public class PlayerViewFacade {
 	public void setAvailableActions(String actions) {
 		controllerView.setActions(actions);
 	}
+	
+	public void startPalaceFestival() {
+		PalaceFestivalViewFacade palaceFestView = new PalaceFestivalViewFacade();
+	}
 }
