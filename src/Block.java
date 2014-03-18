@@ -21,7 +21,7 @@ public abstract class Block {
 	public Tile getTile() {
 		return head;
 	}
-	
+
 	public String toString(){
 		return null;
 	}
