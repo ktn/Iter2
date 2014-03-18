@@ -85,8 +85,6 @@ public class PlayerTurn {
 		players[currentPlayer].returnActionToken();
 	}
 
-<<<<<<< HEAD
-=======
 	public void createPalaceFestival(PalaceCard c, PlayerFacade p)
 	{
 		festival = new PalaceFestival(c, p);
@@ -163,5 +161,4 @@ public class PlayerTurn {
 	{
 		return festival.getVictors();
 	}
->>>>>>> 972dd25a6340eae37bc2808a6d2eb716105f2b53
 }
