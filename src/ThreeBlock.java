@@ -16,7 +16,10 @@ public class ThreeBlock extends Block{
 	ThreeBlock(){
 		this.head = new VillageTile();
 
+<<<<<<< HEAD
 		type = TileType.THREE;
+=======
+>>>>>>> parent of 2624437... Removed everything but BoardFacade
 		head.set(0, new RiceTile());
 		head.set(3, new RiceTile());
 	}

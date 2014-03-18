@@ -1,6 +1,10 @@
 public abstract class Block {
+<<<<<<< HEAD
 	private Tile head;
 	protected TileType type;
+=======
+	protected Tile head;
+>>>>>>> parent of 2624437... Removed everything but BoardFacade
 
 	/*========================================
 		The standard orientation will be
@@ -22,10 +26,13 @@ public abstract class Block {
 	public Tile getTile() {
 		return head;
 	}
+<<<<<<< HEAD
 
 	public TileType getType(){
 		return type;
 	}
+=======
+>>>>>>> parent of 2624437... Removed everything but BoardFacade
 	
 	public String toString(){
 		return null;

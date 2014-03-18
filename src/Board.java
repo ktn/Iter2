@@ -156,6 +156,7 @@ public class Board {
 		d.moveDeveloper(temp);
 	}
 
+<<<<<<< HEAD
 	public Developer getDeveloper(Coordinates c){
 		Space temp = this.get(c);
 
@@ -168,6 +169,8 @@ public class Board {
 		return ret;
 	}
 
+=======
+>>>>>>> parent of 2624437... Removed everything but BoardFacade
 	// HELPER METHODS  
 	// =======================================================================
 
