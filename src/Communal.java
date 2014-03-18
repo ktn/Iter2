@@ -59,9 +59,8 @@ public class Communal {
 	}
 
 	public OneBlock getPalaceTile(int level) {
-		// Makes no sense
-		if (palaceTiles.get(level) != 0) {
-			// palaceTiles.getLevel() -= 1;
+		if (palaceTiles.get(level).compareTo(0) != 0) {
+			palaceTiles.set(level, palaceTiles.get(level) - 1);
 
 			return new OneBlock(TileType.PALACE);
 		}
@@ -69,10 +68,11 @@ public class Communal {
 	}
 
 	public void putBackPalaceTile(Block b) {
-		// Makes no sense
 		if (b.getType() == TileType.PALACE)
-			;
-		// palaceTiles.get(((PalaceTile) b.getTile()).getLevel()) += 1;
+		{
+			int level = (((PalaceTile) b.getTile()).getLevel());
+			palaceTiles.set(level, palaceTiles.get(level) +1 );
+		}
 	}
 
 	public void putBackThreeBlock(ThreeBlock b) {
