@@ -52,7 +52,7 @@ class Pathfinding {
 
 		shortestPath = new ArrayList<Board.Coordinates>();
 
-		if (board.getTileType(new Board.Coordinates(xOld, yOld)) != TileType.EMPTY) {
+		if (board.getTileType(board.new Coordinates(xOld, yOld)) != TileType.EMPTY) {
 			checkNextSpot(new ArrayList<Board.Coordinates>(), xOld, yOld,
 					board.new Coordinates(xOld, yOld), 0);
 		}
