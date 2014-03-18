@@ -89,6 +89,10 @@ public class BoardFacade {
 		return board.validPlacement(c,b);
 	}
 
+	public boolean isMountains(Board.Coordinates c){
+		return board.isMountains(c);
+	}
+
 	// DEVELOPER METHODS  
 	// =======================================================================
 
