@@ -169,6 +169,6 @@ public class PlayerViewFacade {
 	}
 	
 	public void startPalaceFestival() {
-		PalaceFestivalViewFacade palaceFestView = new PalaceFestivalViewFacade();
+		PalaceFestivalView.show(String currentPlayer);
 	}
 }

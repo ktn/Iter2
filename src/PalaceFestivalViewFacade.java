@@ -1,5 +1,9 @@
-import javax.swing.*;
+public class PalaceFestivalViewFacade {
 
-public class PalaceFestivalViewFacade extends JFrame {
+	static PalaceFestivalView festView;
+
+	public static void initialize(String currentPlayer) {
+		festView = new PalaceFestivalView(currentPlayer);
+	}
 
 }
