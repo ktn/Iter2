@@ -15,7 +15,7 @@ public class PlaceRiceTileCommand implements Command{
 		block = new OneBlock(TileType.RICE);
 		player.placeRice();
 		//if(board.validPlacement(coors, b)
-		board.placeBlock(coords, block);
+		board.placeBlock(block, coords);
 
 		this.save();
 		
@@ -35,5 +35,13 @@ public class PlaceRiceTileCommand implements Command{
 
 	public void load(){
 		
+	}
+	public String toString() {
+		StringBuilder result = new StringBuilder(100);
+		String NEW_LINE = System.getProperty("line.separator");
+		result.append(this.getClass().getName() + " " + coords.x + " "
+				+ coords.y + NEW_LINE);
+		result.append(NEW_LINE);
+		return result.toString();
 	}
 }

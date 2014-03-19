@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Space {
 
-	private Grid<Space> neighbors = new Grid(Space.class);
+	private Grid<Space> neighbors = new Grid<Space>(Space.class);
 	private Stack<Tile> tiles;
 
 
