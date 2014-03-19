@@ -82,13 +82,6 @@ public class Deck {
 		return festivalCard;
 	}
 
-	public PalaceCard drawFestivalCard(){
-		PalaceCard ret = this.getFestivalCard();
-
-		this.setFestivalCard();
-
-		return ret;
-	}
 
 	public void returnTopCard(PalaceCard c)
 	{

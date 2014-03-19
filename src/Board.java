@@ -90,6 +90,21 @@ public class Board {
 
 	}
 
+	private Coordinates get(Space s){
+		Coordinates temp = null;
+
+		for(int x = 0; x < xDim; x++){
+			for(int y = 0; y < yDim; y++){
+				temp.x = x;
+				temp.y = y;
+				if(this.get(temp) == s)
+					return temp;
+			}
+		}
+
+		return temp;
+	}
+
 	public int getHeight(Coordinates c) {
 		return this.get(c).getHeight();
 	}
@@ -366,7 +381,7 @@ public class Board {
 		loop:
 		for(Developer d : devs){
 			if(d.getPlayer() == p){
-				temp = this.get(d.getSpace);
+				temp = this.get(d.getSpace());
 				break loop;
 			}
 		}
