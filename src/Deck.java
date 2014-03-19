@@ -46,6 +46,11 @@ public class Deck {
 		festivalCard = this.drawCard();
 	}
 
+	public void returnFestivalCard(PalaceCard c){
+		this.returnTopCard(this.getFestivalCard());
+		this.festivalCard = c;
+	}
+
 	public PalaceCard drawFestivalCard() {
 		PalaceCard previousFestCard = this.festivalCard;
 		this.setFestivalCard();
@@ -75,6 +80,14 @@ public class Deck {
 	public PalaceCard getFestivalCard()
 	{
 		return festivalCard;
+	}
+
+	public PalaceCard drawFestivalCard(){
+		PalaceCard ret = this.getFestivalCard();
+
+		this.setFestivalCard();
+
+		return ret;
 	}
 
 	public void returnTopCard(PalaceCard c)

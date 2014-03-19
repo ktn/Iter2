@@ -10,15 +10,17 @@ public class DrawDeckCardCommand implements Command{
 	}
 
 	public void	execute(){
-		/*card = player.getFestivalCard;
+		card = player.topCard();
 		player.addCard(card);
-		this.save();*/
+		this.save();
 
 	}
 
 	public void undo(){
 		//return player card
 		//return festival cards
+		player.returnTopCard(card);
+		player.removeCard(card);
 
 	}
 
@@ -27,6 +29,6 @@ public class DrawDeckCardCommand implements Command{
 	}
 
 	public void load(){
-		
+
 	}
 }

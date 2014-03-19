@@ -195,6 +195,10 @@ public class PlayerFacade {
 		return deck.drawCard();
 	}
 
+	public void removeCard(PalaceCard c){
+		currentPlayer.removeCard(c);
+	}
+
 	public void returnTopCard(PalaceCard c)
 	{
 		deck.returnTopCard(c);
@@ -259,6 +263,14 @@ public class PlayerFacade {
 		return playerTurn.getFestivalCard();
 	}
 	
+	public PalaceCard drawFestivalCard(){
+		return deck.drawFestivalCard();
+	}
+
+	public void returnFestivalCard(PalaceCard c){
+		deck.returnFestivalCard(c);
+	}
+
 	public void freezePlayer()
 	{
 		playerTurn.freezeCurrentPlayer();

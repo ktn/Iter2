@@ -10,7 +10,7 @@ public class DrawPalaceCardCommand implements Command{
 	}
 
 	public void	execute(){
-		card = player.getFestivalCard();
+		card = player.drawFestivalCard();
 		player.addCard(card);
 		this.save();
 
@@ -19,6 +19,9 @@ public class DrawPalaceCardCommand implements Command{
 	public void undo(){
 		//return player card
 		//return festival cards
+		player.removeCard(card);
+		player.returnFestivalCard(card);
+
 
 	}
 
