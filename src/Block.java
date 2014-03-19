@@ -1,5 +1,6 @@
 public abstract class Block {
-	private Tile head;
+	protected Tile head;
+	protected TileType type;
 
 	/*========================================
 		The standard orientation will be
@@ -14,38 +15,19 @@ public abstract class Block {
 					child
 	=========================================*/
 
-	public Block()
-	{
-		head = new VillageTile();
-	}
-
-	public Block(TileType t)
-	{
-		if(t == TileType.VILLAGE)
-			head = new VillageTile();
-		else if(t == TileType.IRRIGATION)
-			head = new IrrigationTile();
-	}
-
-	public Block(int num)
-	{
-		head = new VillageTile();
-		if(num >= 2)
-		{
-			head.join(new RiceTile());
-		}
-		if(num >= 3)
-		{
-			head.join(new RiceTile());
-		}
-
-	}
-
-	public void rotate(){
+	public void rotate() {
 		head.rotate();
 	}
 
-	public Tile getTile(){
+	public Tile getTile() {
 		return head;
+	}
+
+	public TileType getType(){
+		return type;
+	}
+	
+	public String toString(){
+		return null;
 	}
 }

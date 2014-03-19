@@ -107,6 +107,7 @@ public class PlayerFacade {
 	public void returnRiceBlock() {
 		currentPlayer.returnRiceBlock();
 		actionPoints++;
+
 	}
 
 	public void playThreeBlock() {
@@ -117,6 +118,7 @@ public class PlayerFacade {
 	public void returnThreeBlock()
 	{
 		actionPoints++;
+
 	}
 
 	public boolean blockPlayed() {
@@ -127,6 +129,7 @@ public class PlayerFacade {
 	{
 		blockPlayed = false;
 	}
+
 
 	// changing score
 	public void addScore(int s) {
@@ -276,3 +279,4 @@ public class PlayerFacade {
 		return playerTurn.getVictors();
 	}
 }
+
