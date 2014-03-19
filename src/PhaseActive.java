@@ -7,14 +7,14 @@ public class PhaseActive {
 	Sanitation sanitation;
 	CommandCreator com;
 
-	private enum Mode { BLOCK, PALACE, PLACEDEVELOPER, MOVEDEVELOPER }
-	private Mode state;
+	public enum Mode { BLOCK, PALACE, PLACEDEVELOPER, MOVEDEVELOPER }
+	public Mode state;
 	
-	private int[] selectedDeveloper;
-	private int[] selectedPos;
-	private Block selectedBlock;
-	private int palaceLevel;
-	private int rotationCount;
+	public int[] selectedDeveloper;
+	public int[] selectedPos;
+	public Block selectedBlock;
+	public int palaceLevel;
+	public int rotationCount;
 	
 	public PhaseActive(PlayerFacade player, BoardFacade board, Sanitation sanitation, CommandCreator com) {
 		this.player = player;
@@ -46,16 +46,16 @@ public class PhaseActive {
 	
 	// General methods
 	public void moveDown() {
-		selectedPos[1]--;
+		selectedPos[1] = (selectedPos[1] <= 0) ? 0 : selectedPos[1] - 1;
 	}
 	public void moveLeft() {
-		selectedPos[0]--;
+		selectedPos[0] = (selectedPos[0] <= 0) ? 0 : selectedPos[0] - 1;
 	}
 	public void moveRight() {
-		selectedPos[0]++;
+		selectedPos[0] = (selectedPos[0] >= board.getLargest().x) ? board.getLargest().x : selectedPos[0] + 1;
 	}
 	public void moveUp() {
-		selectedPos[1]++;
+		selectedPos[1] = (selectedPos[1] >= board.getLargest().y) ? board.getLargest().y : selectedPos[1] + 1;
 	}
 	
 	public void switchSelected() {
