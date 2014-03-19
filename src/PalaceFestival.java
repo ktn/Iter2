@@ -93,6 +93,11 @@ public class PalaceFestival {
 	{
 		playerFrozen[currentPlayer] = true;
 	}
+
+	public void unfreezeCurrentPlayer()
+	{
+		playerFrozen[currentPlayer] = false;
+	}
 	
 	public void nextPlayer()
 	{

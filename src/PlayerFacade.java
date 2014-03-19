@@ -260,6 +260,11 @@ public class PlayerFacade {
 	{
 		playerTurn.freezeCurrentPlayer();
 	}
+
+	public void unfreezePlayer()
+	{
+		playerTurn.unfreezeCurrentPlayer();
+	}
 	
 	public void nextPFPlayer()
 	{

@@ -175,6 +175,11 @@ public class PlayerTurn {
 	{
 		festival.freezeCurrentPlayer();
 	}
+
+	public void unfreezeCurrentPlayer()
+	{
+		festival.unfreezeCurrentPlayer();
+	}
 	
 	public void nextPFPlayer()
 	{
