@@ -83,6 +83,11 @@ public class PalaceFestival {
 	{
 		return players.get(currentPlayer);
 	}
+
+	public boolean getEndFestival()
+	{
+		return endFestival;
+	}
 	
 	public void freezeCurrentPlayer()
 	{
