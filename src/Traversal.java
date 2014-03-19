@@ -201,7 +201,7 @@ public class Traversal
 	{
 		ArrayList<ArrayList<Developer>> highestDevsReturn = findHighestDevsDownTheLine(c);
 		if(highestDevsReturn.size() > 1)
-			return highestDevsReturn.get(0);
+			return highestDevsReturn.get(1);
 		else
 			return null;
 	}
