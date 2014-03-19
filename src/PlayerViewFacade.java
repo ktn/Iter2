@@ -128,6 +128,10 @@ public class PlayerViewFacade {
 			return false;
 	}
 	
+	public static void warnPlayer(String message) {
+		int n = JOptionPane.showConfirmDialog(otherPlayersView, message, "Player Warning", JOptionPane.DEFAULT_OPTION);
+	}
+	
 	public static void displayThreeBlocks(int numThreeBlocks) {
 		publicInventoryView.displayThreeBlocks(numThreeBlocks);
 	}
