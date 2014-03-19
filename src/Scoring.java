@@ -21,13 +21,13 @@ public class Scoring {
 		this.p=null;
 		this.b=b;
 	}
-
+	//THIS METHOD ASSUMES THAT THE PALACE PLACEMENT WAS LEGAL
 	public void palaceScoring(Board.Coordinates c) {
 		//This method is called when a player expands or builds a palace
 		p.addScore(b.getPalaceLevel(c)/2);
 	}
 
-	
+	//THIS METHOD ASSUMES THAT THE IRRIGATION PLACEMENT WAS LEGAL
 	public void irrigationScoring(Board.Coordinates c) {
 		//Called when any player lays down an irrigation tile AND that irrigation tile (and irrigation tiles connected to it)
 		//is COMPLETELY enclosed by land tiles.
