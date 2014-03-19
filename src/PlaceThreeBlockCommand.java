@@ -27,7 +27,7 @@ public class PlaceThreeBlockCommand implements Command{
 	}
 
 	public void save(){
-		
+		CommandStack.storeCommand(this);
 	}
 
 	public void load(){
