@@ -1,4 +1,5 @@
 public class IllegalBlockPlacementException extends CoordinateException {
+
 	TileType block;
 
 	public IllegalBlockPlacementException() {
@@ -40,3 +41,4 @@ public class IllegalBlockPlacementException extends CoordinateException {
 		return result;
 	}
 }
+

@@ -4,16 +4,13 @@ public class OneBlock extends Block {
 		if (type == TileType.VILLAGE) {
 			this.head = new VillageTile();
 			type = TileType.VILLAGE;
-		}
-		else if(type == TileType.IRRIGATION){
+		} else if (type == TileType.IRRIGATION) {
 			this.head = new IrrigationTile();
 			type = TileType.IRRIGATION;
-		}
-		else if(type == TileType.RICE){
+		} else if (type == TileType.RICE) {
 			this.head = new RiceTile();
 			type = TileType.RICE;
-		}
-		else{
+		} else {
 			throw new IllegalArgumentException("Illegal One Block type");
 		}
 	}

@@ -13,7 +13,6 @@ public class Deck {
 			cardStack.add(new OnePointPalaceCard("MASK"));
 			cardStack.add(new OnePointPalaceCard("DRUM"));
 			cardStack.add(new OnePointPalaceCard("PUPPET"));
-
 			cardStack.add(new TwoPointPalaceCard("MASK", "DRUM"));
 			cardStack.add(new TwoPointPalaceCard("DRUM", "PUPPET"));
 			cardStack.add(new TwoPointPalaceCard("PUPPET", "MASK"));

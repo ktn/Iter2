@@ -7,12 +7,14 @@ public class BoardFacade {
 	Pathfinding pathfinding;
 	Traversal traversal;
 
+
 	public BoardFacade() {
 		board = new Board();
 		path = new Pathfinding(board);
 		communal = new Communal();
 		pathfinding = new Pathfinding(board);
 		traversal = new Traversal(board);
+
 	}
 
 	public int getHeight(Board.Coordinates c) {
@@ -46,6 +48,7 @@ public class BoardFacade {
 		} catch (NoBlocksLeftException e){
 			return null;
 		}
+
 	}
 
 	public int getPalaceLevel(Board.Coordinates c) {
@@ -62,6 +65,7 @@ public class BoardFacade {
 
 	public void placeBlock(Board.Coordinates c, Block b) {
 		board.placeBlock(c, b);
+
 	}
 
 	public void removeBlock(Board.Coordinates c) {
@@ -83,6 +87,7 @@ public class BoardFacade {
 	}
 
 	public boolean inBounds(Board.Coordinates c){
+
 		return board.inBounds(c);
 	}
 
@@ -115,6 +120,7 @@ public class BoardFacade {
 
 	public int findShortestPath(Board.Coordinates oldPos, Board.Coordinates newPos) {
 		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x, newPos.y);
+
 	}
 
 	public ArrayList<Board.Coordinates> getShortestPath() {

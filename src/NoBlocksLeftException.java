@@ -1,4 +1,5 @@
 public class NoBlocksLeftException extends Exception {
+
 	TileType block;
 
 	public NoBlocksLeftException() {

@@ -1,4 +1,5 @@
 public class CoordinateException extends Exception {
+
 	int x, y;
 
 	public CoordinateException() {
