@@ -333,4 +333,49 @@ public class Traversal
 					palaceTiles.add(c);
 		return palaceTiles;
 	}
+	
+	public palaceInCity(Board.Coordinates aVillageTile)
+	{
+		if(board.getTileType(aVillageTile) == TileType.PALACE)
+			return true;
+		Board.Coordinates c = aVillageTile;
+		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
+
+		queuePath.add(c);
+
+		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
+		visited.add(c);
+		while (!queuePath.isEmpty())
+		{
+			if ((board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.PALACE
+			|| board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.PALACE
+			|| board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.PALACE
+			|| board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.PALACE)
+			{
+				return true;
+			}
+			
+			c = queuePath.remove();
+			if ((board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y+1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y+1));
+				visited.add(board.new Coordinates(c.x, c.y+1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y-1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y-1));
+				visited.add(board.new Coordinates(c.x, c.y-1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x-1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x-1, c.y));
+				visited.add(board.new Coordinates(c.x-1, c.y));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x+1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x+1, c.y));
+				visited.add(board.new Coordinates(c.x+1, c.y));
+			}
+		}
+		return false;
 }

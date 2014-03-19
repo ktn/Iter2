@@ -455,10 +455,13 @@ public class Board {
 		for (int i = 0; i < xDim; i++) {
 			for (int j = 0; j < yDim; j++) {
 				if (this.getTileType(new Coordinates(i, j)) == null) {
-					result.append("N ");
+					result.append("N");
 				} else {
-					result.append(this.getTileType(new Coordinates(i, j)) + "\t");
+					result.append(this.getTileType(new Coordinates(i, j)));
 				}
+				if( getDeveloper(new Coordinates(i, j)) != null )
+					result.append("D");
+				result.append('\t');
 			}
 			result.append(NEW_LINE);
 		}

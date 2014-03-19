@@ -60,6 +60,11 @@ public class BoardFacade {
 	public Developer getDeveloper(Board.Coordinates c) {
 		return board.getDeveloper(c);
 	}
+	
+	public String toString()
+	{
+		return board.toString();
+	}
 
 	// BLOCK METHODS
 	// =======================================================================
