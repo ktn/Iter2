@@ -183,7 +183,7 @@ public class PlayerFacade {
 	}
 
 	public void playerUsePC(int p, String[] t) {
-		playerTurn.getPlayer(p).useCardWith(t);
+		deck.discardCard(playerTurn.getPlayer(p).useCardWith(t));
 		playerTurn.giveFestivalPoints(p, t);
 	}
 
@@ -211,15 +211,64 @@ public class PlayerFacade {
 	{
 		playerTurn.startFestival(p);
 	}
+	
+	public Player getPFPlayer()
+	{
+		return playerTurn.getPFPlayer();
+	}
 
 	public int getPlayerInt(Player p)
 	{
 		return playerTurn.getPlayerInt(p);
 	}
+	
+	public ArrayList<Player> getParticipants()
+	{
+		return playerTurn.getParticipants();
+	}
 
 	public ArrayList<PalaceCard> getCardsForPlayer(Player p)
 	{
 		return playerTurn.getCardsForPlayer(p);
+	}
+	
+	public ArrayList<PalaceCard> getCurrentPlayerCards()
+	{
+		return getCardsForPlayer(playerTurn.getPFPlayer());
+	}
+	
+	public boolean playCard(String[] t)
+	{
+		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t))
+		{
+			playerUsePC(getPlayerInt(playerTurn.getPFPlayer()), t);
+			playerTurn.giveFestivalPoints(playerTurn.getPFPlayer(), t);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public PalaceCard getFestivalCard()
+	{
+		return playerTurn.getFestivalCard();
+	}
+	
+	public void freezePlayer()
+	{
+		playerTurn.freezeCurrentPlayer();
+	}
+	
+	public void nextPFPlayer()
+	{
+		playerTurn.nextPFPlayer();
+	}
+	
+	public boolean checkEnd()
+	{
+		return playerTurn.checkEnd();
 	}
 
 	public ArrayList<Player> getVictors()

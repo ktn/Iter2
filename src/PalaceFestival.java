@@ -6,6 +6,9 @@ public class PalaceFestival {
 	private PlayerFacade playerFacade;
 	private ArrayList<Player> players;
 	private int[] playerScores;
+	private int currentPlayer;
+	private boolean[] playerFrozen;
+	private boolean endFestival;
 
 	public PalaceFestival()
 	{
@@ -13,10 +16,14 @@ public class PalaceFestival {
 		playerFacade = null;
 		players = new ArrayList<Player>();
 		playerScores = new int[4];
+		playerFrozen = new boolean[4];
 		for(int i = 0; i < 4; i++)
 		{
 			playerScores[i] = 0;
+			playerFrozen[i] = false;
 		}
+		currentPlayer = 0;
+		endFestival = false;
 	}
 
 	public PalaceFestival(PalaceCard festivalCard, PlayerFacade p) {
@@ -24,10 +31,14 @@ public class PalaceFestival {
 		playerFacade = p;
 		players = new ArrayList<Player>();
 		playerScores = new int[4];
+		playerFrozen = new boolean[4];
 		for(int i = 0; i < 4; i++)
 		{
 			playerScores[i] = 0;
+			playerFrozen[i] = false;
 		}
+		currentPlayer = 0;
+		endFestival = false;
 	}
 
 	public void startFestival(Player[] p) {
@@ -62,13 +73,70 @@ public class PalaceFestival {
 				}
 			}
 		}
-
+		for(int i = 3; i > players.size() - 1; i--)
+		{
+			playerFrozen[i] = true;
+		}
 	}
 
+	public Player getCurrentPlayer()
+	{
+		return players.get(currentPlayer);
+	}
+	
+	public void freezeCurrentPlayer()
+	{
+		playerFrozen[currentPlayer] = true;
+	}
+	
+	public void nextPlayer()
+	{
+		int frozen = 0;
+		for(int i = 0; i < players.size(); i++)
+		{
+			if(playerFrozen[i])
+			{
+				frozen++;
+			}
+		}
+		if(frozen == players.size())
+		{
+			endFestival();
+		}
+		else
+		{
+			changePlayer();
+			while(playerFrozen[currentPlayer])
+			{
+				changePlayer();
+			}
+		}
+	}
+	
+	private void changePlayer()
+	{
+		currentPlayer++;
+		if(currentPlayer >= players.size())
+		{
+			currentPlayer = 0;
+		}
+	}
+	
+	public ArrayList<Player> getParticipants()
+	{
+		return players;
+	}
+	
 	public void endFestival() {
-		// Score fame points
+		endFestival = true;
+		//calculate fame points
 	}
 
+	public boolean checkEnd()
+	{
+		return endFestival;
+	}
+	
 	public PalaceCard getFestivalCard() {
 		return festivalCard;
 	}
@@ -83,8 +151,18 @@ public class PalaceFestival {
 		return playerFacade.getCardsForPlayer(p);
 	}
 
-	public void giveFestivalPoints(Player p, String[] t)
+	public void giveFestivalPoints(Player p, String[] s)
 	{
+		String[] t = new String[2];
+		t[0] = s[0];
+		if(s.length == 1)
+		{
+			t[1] = " ";
+		}
+		else
+		{
+			t[1] = s[1];
+		}
 		TwoPointPalaceCard twoPointPalaceCard;
 		int pInt = 0;
 		for(int i = 0; i < players.size(); i++)
@@ -102,11 +180,11 @@ public class PalaceFestival {
 		else if(festivalCard instanceof TwoPointPalaceCard)
 		{
 			twoPointPalaceCard = (TwoPointPalaceCard) festivalCard;
-			if(t[0] == twoPointPalaceCard.getFirstSymbol() || t[0] == twoPointPalaceCard.getSecondSymbol())
+			if(twoPointPalaceCard.getFirstSymbol().equals(t[0]) || twoPointPalaceCard.getSecondSymbol().equals(t[0]))
 			{
 				playerScores[pInt] +=1;
 			}
-			if(t[1] == twoPointPalaceCard.getFirstSymbol() || t[1] == twoPointPalaceCard.getSecondSymbol())
+			if(twoPointPalaceCard.getFirstSymbol().equals(t[1]) || twoPointPalaceCard.getSecondSymbol().equals(t))
 			{
 				playerScores[pInt] +=1;
 			}
@@ -117,14 +195,14 @@ public class PalaceFestival {
 	{
 		ArrayList<Player> victors = new ArrayList<Player>();
 		int max = 0;
-		for(int i : playerScores)
+		for(int i = 0; i < players.size(); i++)
 		{
 			if(i > max)
 			{
-				max = i;
+				max = playerScores[i];
 			}
 		}
-		for(int i = 0; i < playerScores.length; i++)
+		for(int i = 0; i < players.size(); i++)
 		{
 			if(playerScores[i] == max)
 			{

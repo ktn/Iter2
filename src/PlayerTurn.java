@@ -104,6 +104,11 @@ public class PlayerTurn {
 		}
 		return ret;
 	}
+	
+	public PalaceCard getFestivalCard()
+	{
+		return festival.getFestivalCard();
+	}
 
 	public ArrayList<PalaceCard> getCardsForPlayer(Player p)
 	{
@@ -146,16 +151,41 @@ public class PlayerTurn {
 
 
 		}
-		System.out.println("These are the playable cards for player " + (currentPlayer+1) + ": ");
-		for(PalaceCard palace : cardList){
-			System.out.print(palace + " || ");
-		}
-		System.out.println("\n");
 
 
 		return cardList;
 	}
+	
+	public ArrayList<Player> getParticipants()
+	{
+		return festival.getParticipants();
+	}
+	
+	public boolean checkEnd()
+	{
+		return festival.checkEnd();
+	}
 
+	public Player getPFPlayer()
+	{
+		return festival.getCurrentPlayer();
+	}
+	
+	public void freezeCurrentPlayer()
+	{
+		festival.freezeCurrentPlayer();
+	}
+	
+	public void nextPFPlayer()
+	{
+		festival.nextPlayer();
+	}
+	
+	public void giveFestivalPoints(Player p, String[] t)
+	{
+		festival.giveFestivalPoints(p, t);
+	}
+	
 	public void giveFestivalPoints(int p, String[] t)
 	{
 		//Find player corresponding to p
