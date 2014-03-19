@@ -7,7 +7,7 @@ public class PlaceTwoBlockCommand implements Command{
 	PlaceTwoBlockCommand(BoardFacade b,PlayerFacade p, Board.Coordinates c){
 		this.board = b;
 		this.coords = c;
-		this.playerFacade = p;
+		this.player = p;
 	}
 
 	public void execute(){

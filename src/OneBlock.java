@@ -18,6 +18,10 @@ public class OneBlock extends Block {
 		}
 	}
 
+	OneBlock(PalaceTile p){
+		this.head = p;
+	}
+
 	public String toString() {
 		return head.getType().toString();
 	}

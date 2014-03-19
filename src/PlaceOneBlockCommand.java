@@ -8,58 +8,17 @@ public class PlaceOneBlockCommand implements Command{
 	PlaceOneBlockCommand(BoardFacade b,PlayerFacade p, Board.Coordinates c, TileType type){
 		this.board = b;
 		this.coords = c;
-		this.playerFacade = p;
+		this.player = p;
 		this.type = type;
 	}
 
 	public void execute(){
-		if(type == TileType.RICE){
-			//assume checks have been made
-			block = new RiceTile();
-			player.placeRice();
-			//if(board.validPlacement(coors, b)
-			board.placeBlock(coords, block);
-
-			this.save();
-		}
-		else if(type == TileType.VILLAGE){
-			//assume checks have been made
-			block = new VillageTile();
-			player.placeVillage();
-			//if(board.validPlacement(coors, b)
-			board.placeBlock(coords, block);
-
-			this.save();
-		}
-		else if(type == TileType.PALACE){
-			//assume checks have been made
-			block = new PalaceTile();
-			player.placeRice();
-			//if(board.validPlacement(coors, b)
-			board.placeBlock(coords, block);
-
-			this.save();
-		}
+		
 		
 	}
 
 	public void undo(){
-		board.removeBlock(coords);
-		if(type == TileType.RICE){
-			
-			player.returnVillageBlock();
-			
-		}
-		else if(type == TileType.VILLAGE){
-			
-			player.returnVillageBlock();
-			
-		}
-		else if(type == TileType.PALACE){
-			
-			player.placeRice();
-			
-		}
+		
 	}
 
 	public void save(){

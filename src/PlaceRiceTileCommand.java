@@ -1,10 +1,10 @@
-public class PlaceThreeBlockCommand implements Command{
+public class PlaceRiceTileCommand implements Command{
 	private BoardFacade board;
 	private Board.Coordinates coords;
 	private PlayerFacade player;
 	private Block block;
 
-	PlaceThreeBlockCommand(BoardFacade b,PlayerFacade p, Board.Coordinates c){
+	PlaceRiceTileCommand(BoardFacade b,PlayerFacade p, Board.Coordinates c){
 		this.board = b;
 		this.coords = c;
 		this.player = p;
@@ -12,18 +12,21 @@ public class PlaceThreeBlockCommand implements Command{
 
 	public void execute(){
 		//assume checks have been made
-		block = board.getThreeBlock();
-		player.playThreeBlock();
+		block = new OneBlock(TileType.RICE);
+		player.placeRice();
 		//if(board.validPlacement(coors, b)
 		board.placeBlock(coords, block);
 
 		this.save();
+		
 	}
 
 	public void undo(){
 		board.removeBlock(coords);
-		board.putBackThreeBlock(block);
-		player.returnThreeBlock();
+			
+		player.returnRiceBlock();
+			
+		
 	}
 
 	public void save(){
