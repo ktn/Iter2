@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Communal {
 	ArrayList<ThreeBlock> threes;
 	ArrayList<OneBlock> irrigations;
