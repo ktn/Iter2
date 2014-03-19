@@ -31,7 +31,7 @@ public class PlaceIrrigationTileCommand implements Command{
 	}
 
 	public void save(){
-		
+		CommandStack.storeCommand(this);
 	}
 
 	public void load(){

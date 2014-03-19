@@ -106,6 +106,10 @@ public class BoardFacade {
 		return board.isMountainSpace(c);
 	}
 
+	public boolean checkEdgePlacement(Board.Coordinates c){
+		return board.checkEdgePlacement(c);
+	}
+
 	// DEVELOPER METHODS  
 	// =======================================================================
 
