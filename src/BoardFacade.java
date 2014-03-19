@@ -32,11 +32,20 @@ public class BoardFacade {
 	}
 
 	public ThreeBlock getThreeBlock() {
-		return communal.getThreeBlock();
+		try{
+			return communal.getThreeBlock();
+		} catch (NoBlocksLeftException e){
+			return null;
+		}
+		
 	}
 
 	public OneBlock getIrrigationTile() {
-		return communal.getIrrigationTile();
+		try{
+			return communal.getIrrigationTile();
+		} catch (NoBlocksLeftException e){
+			return null;
+		}
 	}
 
 	public int getPalaceLevel(Board.Coordinates c) {
