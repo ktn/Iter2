@@ -7,17 +7,6 @@ public class View extends JFrame {
 	 * window. It will grab the other components of view and place them 
 	 * in a single window according to a specific layout scheme. */
 	 
-	//TEMPORARY METHOD
-	public static void main(String[] args) {
-		ArrayList<String> names = new ArrayList<String>();
-		names.add("Do");
-		names.add("You");
-		names.add("See");
-		names.add("Right");
-		View view = new View(names);
-		
-	}
-	 
 	/**
 	 * Create the application.
 	 */
@@ -56,7 +45,8 @@ public class View extends JFrame {
 		this.getContentPane().add(PlayerViewFacade.getControllerView(), 
 								  BorderLayout.WEST);
 		try {
-			BoardView boardView = new BoardView(); 
+			BoardView boardView = new BoardView(14,14);
+			//boardView.renderNetwork(b.head, 1, 1);
 			this.getContentPane().add(boardView, BorderLayout.CENTER);
 		}
 		catch (Exception e) { e.printStackTrace(); }	
