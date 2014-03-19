@@ -27,6 +27,10 @@ public class BoardFacade {
 	public TileType getTileType(Board.Coordinates c) {
 		return board.getTileType(c);
 	}
+	
+	public TileType getTileType(int x, int y) {
+		return board.getTileType(board.new Coordinates(x, y));
+	}
 
 	public Board.Coordinates getLargest() {
 		return board.getLargest();
@@ -91,7 +95,7 @@ public class BoardFacade {
 	}
 
 	public boolean isMountains(Board.Coordinates c){
-		return board.isMountains(c);
+		return board.isMountainSpace(c);
 	}
 
 	// DEVELOPER METHODS  

@@ -10,7 +10,8 @@ class Sanitation {
 		this.board = board;
 	}
 
-	public boolean placeDeveloperChecker(Board.Coordinates coord) throws BlockNotPlayedException, NotEnoughAPException, CoordinateException, CoordinatesOutOfBoundsException{
+	public boolean placeDeveloperChecker(Board.Coordinates coord) 
+			throws BlockNotPlayedException, NotEnoughAPException, CoordinateException, CoordinatesOutOfBoundsException{
 		boolean result = true;
 		int ap = player.getActionPoints();
 		int requiredAP = 1;
@@ -21,18 +22,56 @@ class Sanitation {
 		int y = coord.y;
 		int max_x = board.getLargest().x;
 		int max_y = board.getLargest().y;
+		// Check if coordinates are in bounds of board
 		if(!board.inBounds(coord)) {
 			result = false;
 			throw new CoordinatesOutOfBoundsException("Can't place developers.", x, y);
 		}
-		else if((coord.x == 0 || coord.x == max_x) && (coord.y == 0 || coord.y == max_y)) {
-			
+		// Check if coordinate is an empty tile
+		else if(board.getTileType(coord) == TileType.EMPTY) {
+			result = false;
+			throw new CoordinateException("Coordinate is empty tile.", x, y);
 		}
-		else if(ap >= requiredAP) {
+		// Check if coordinates aren't on the border of the map
+		else if((coord.x > 1 && coord.x < max_x - 1) || (coord.y > 1 && coord.y < max_y - 1)) {
+			result = false;
+			throw new CoordinateException("Coordinate isn't on border", x, y);
+		}
+		// Check if coordinate is surrounded by blocks
+		else if((coord.x == 1 || coord.x == max_x - 1) && (coord.y == 1 || coord.y == max_x - 1)) {
+			boolean emptyPresent = false;
+			if(coord.x == 1) {
+				if(board.getTileType(0, y) == TileType.EMPTY) {
+					emptyPresent = true;
+				}
+			}
+			else {
+				if(board.getTileType(x + 1, y) == TileType.EMPTY) {
+					emptyPresent = true;
+				}
+			}
+			if(coord.y == 1) {
+				if(board.getTileType(x, 0) == TileType.EMPTY) {
+					emptyPresent = true;
+				}
+			}
+			else {
+				if(board.getTileType(x, y + 1) == TileType.EMPTY) {
+					emptyPresent = true;
+				}
+			}
+			if(!emptyPresent) {
+				result = false;
+				throw new CoordinateException("Coordinate is surrounded by tiles", x, y);
+			}
+		}
+		// Check if enough AP
+		else if(ap < requiredAP) {
 			result = false;
 			throw new NotEnoughAPException("Can't place developer.");
 		}
-		else if(isAPLeftForBlocks(ap, requiredAP)) {
+		// Check if remaining AP is enough to play a block if a block hasn't been played
+		else if(!isAPLeftForBlocks(ap, requiredAP)) {
 			result = false;
 			throw new BlockNotPlayedException("Not enough AP remaining to play block.");
 		}
@@ -42,7 +81,8 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean moveDeveloperChecker(Board.Coordinates oldCoords, Board.Coordinates newCoords) throws NotEnoughAPException, CoordinatesOutOfBoundsException, CoordinateException, NoDeveloperAtCoordinatesException{
+	public boolean moveDeveloperChecker(Board.Coordinates oldCoords, Board.Coordinates newCoords) 
+			throws NotEnoughAPException, CoordinateException, NoDeveloperAtCoordinatesException, BlockNotPlayedException{
 		boolean result = true;
 		int ap = player.getActionPoints();
 		int requiredAP = board.findShortestPath(oldCoords, newCoords);
@@ -54,6 +94,10 @@ class Sanitation {
 			result = false;
 			throw new NoDeveloperAtCoordinatesException("Error while moving developer", old_x, old_y);
 		}
+		else if(board.getDeveloper(newCoords) instanceof Developer) {
+			result = false;
+			throw new CoordinateException("Developer at destination", new_x, new_y);
+		}
 		else if(board.getTileType(newCoords) == TileType.EMPTY) {
 			result = false;
 			throw new CoordinateException("New position isn't a tile.", new_x, new_y);
@@ -62,22 +106,16 @@ class Sanitation {
 			result = false;
 			throw new NotEnoughAPException("Not enough AP to move developer.");
 		}
-		else if(isAPLeftForBlocks(ap, requiredAP)) {
+		else if(!isAPLeftForBlocks(ap, requiredAP)) {
 			result = false;
-			throw new NotEnoughAPException("Not enough AP remaining to place block.");
+			throw new BlockNotPlayedException("Not enough AP remaining to place block.");
 		}
 		
 		return result;
 	}
 
 	public boolean actionTokenChecker() {
-		boolean result = true;
-		// Check to see if player has any action tokens left.
-		result = (player.actionTokenUsable()) ? result && true : false; // Check to	see if player has used action token already.
-
-		// Create command? Call command?
-
-		return result;
+		return player.actionTokenUsable();
 	}
 	
 	public boolean placeTileChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException {
@@ -90,7 +128,7 @@ class Sanitation {
 		int x = coords.x;
 		int y = coords.y;
 
-		if (board.validPlacement(b, coords)) {
+		if (!board.validPlacement(coords, b)) {
 			result = false;
 			throw new IllegalBlockPlacementException("Error when placing block", type, x, y);
 		}
@@ -139,20 +177,15 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean upgradeChecker(int level, Board.Coordinates coord) throws PalaceUpgradeException, NoDeveloperAtCoordinatesException {
+	public boolean placePalaceChecker(int level, Board.Coordinates coord) throws PalaceUpgradeException, NoDeveloperAtCoordinatesException {
 		boolean result = true;
 		if(level < 2 || level > 10 || level % 2 == 1) {
 			result = false;
 			throw new PalaceUpgradeException("Invalid level");
 		}
-		else if(board.getTileType(coord) != TileType.PALACE) {
+		else if((board.getTileType(coord) != TileType.PALACE) && (board.getTileType(coord) != TileType.VILLAGE)) {
 			result = false;
-			throw new PalaceUpgradeException("Coordinate isn't a palace");
-		}
-		// Check to see if level > current palace level
-		else if(board.getPalaceLevel(coord) < level) {
-			result = false;
-			throw new PalaceUpgradeException("Level isn't higher than palace level.");
+			throw new PalaceUpgradeException("Coordinate isn't a palace or village");
 		}
 		List<Developer> hd = board.findHighestDeveloper(coord);
 		if(hd.size() == 0) {
@@ -160,7 +193,8 @@ class Sanitation {
 			throw new NoDeveloperAtCoordinatesException("Can't upgrade palace", coord.x, coord.y);
 		}
 		else if(hd.size() == 2) {
-			// Tie. What do?
+			result = false;
+			throw new NoDeveloperAtCoordinatesException("Developer tie", coord.x, coord.y);
 		}
 		else if(hd.get(0).getPlayer() != player.getCurrentPlayer()) {
 			result = false;
@@ -170,7 +204,7 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean changeTurn() throws BlockNotPlayedException {
+	public boolean changeTurnChecker() throws BlockNotPlayedException {
 		boolean result = true;
 		if (player.blockPlayed() == false) {
 			result = false;
@@ -179,11 +213,68 @@ class Sanitation {
 		return result;
 	}
 	
-	private boolean isAPLeftForBlocks(int ap, int requiredAP) {
+	public boolean startFestivalChecker() throws BlockNotPlayedException {
 		boolean result = true;
-		if(ap - requiredAP < 1 && player.blockPlayed()) {
+		if(player.blockPlayed() == false) {
+			result = false;
+			throw new BlockNotPlayedException("Block must be played before starting festival.");
+		}
+		else if(player.getEndFestival()) {
 			result = false;
 		}
 		return result;
 	}
+	
+	public boolean drawPalaceCardChecker() throws NotEnoughAPException, BlockNotPlayedException {
+		boolean result = true;
+		int ap = player.getActionPoints();
+		if(ap < 1) {
+			result = false;
+			throw new NotEnoughAPException("Can't draw card");
+		}
+		else if(!isAPLeftForBlocks(ap, 1)) {
+			result = false;
+			throw new BlockNotPlayedException("Not enough AP remaining");
+		}
+		return result;
+	}
+	
+	public boolean drawCardFromDeckChecker() throws NotEnoughAPException, BlockNotPlayedException {
+		boolean result = true;
+		int ap = player.getActionPoints();
+		if(ap < 1) {
+			result = false;
+			throw new NotEnoughAPException("Can't draw card");
+		}
+		else if(!isAPLeftForBlocks(ap, 1)) {
+			result = false;
+			throw new BlockNotPlayedException("Not enough AP remaining");
+		}
+		return result;
+	}
+	
+	public boolean playCardChecker(PalaceCard pc) throws NoFestivalException {
+		boolean result = false;
+		if(!player.getEndFestival()) {
+			result = false;
+			throw new NoFestivalException("There is no festival");
+		}
+		else if(player.playerHasPC(pc)) {
+			result = false;
+		}
+		return result;
+	}
+	
+	public boolean endFestivalChecker() throws NoFestivalException {
+		
+	}
+	
+	private boolean isAPLeftForBlocks(int ap, int requiredAP) {
+		boolean result = true;
+		if(ap - requiredAP < 1 && !player.blockPlayed()) {
+			result = false;
+		}
+		return result;
+	}
+
 }
