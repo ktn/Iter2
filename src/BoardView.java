@@ -14,7 +14,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 /**mostly for markups as of yet.  need more model to view.
  * needs work to create buffer.*/
@@ -33,8 +33,8 @@ public class BoardView extends JPanel{
 	
 	/**creates a new board view with the given height and width (in Tiles)*/
 	public BoardView(int boardWidth, int boardHeight) throws IOException{
-		dirt=ImageIO.read(new File("images/dirt.png"));
-		rice=ImageIO.read(new File("images/rice.png"));
+		dirt=ImageIO.read(new File("../images/dirt.png"));
+		rice=ImageIO.read(new File("../images/rice.png"));
 		cachedCanvas=new BufferedImage(dirt.getWidth(this)*boardWidth, dirt.getHeight(this)*boardHeight, BufferedImage.TYPE_INT_RGB);
 	}
 	
