@@ -21,11 +21,19 @@ public class PhaseFestival {
 	}
 
 	public void currentPlayerPassBid() {
-
+		playerFacade.freezePlayer();
+		playerFacade.nextPFPlayer();
 	}
     
-	public void endFestival() {
-		
+	public boolean endFestival() {
+		//If this is true, the festival is over
+		if(playerFacade.checkEnd)
+		{
+			return true;
+		}
+		return false;
 	}
+
+	
     
 }
