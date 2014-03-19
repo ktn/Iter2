@@ -275,4 +275,10 @@ public class PlayerFacade {
 	{
 		return playerTurn.getVictors();
 	}
+
+	public Player[] getPlayers()
+	{
+		return playerTurn.getPlayers();
+	}
+
 }

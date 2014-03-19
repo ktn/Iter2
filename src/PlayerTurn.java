@@ -197,4 +197,10 @@ public class PlayerTurn {
 	{
 		return festival.getVictors();
 	}
+
+	public Player[] getPlayers()
+	{
+		return players;
+	}
+
 }
