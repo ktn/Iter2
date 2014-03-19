@@ -16,6 +16,7 @@ public class ThreeBlock extends Block{
 	ThreeBlock(){
 		this.head = new VillageTile();
 
+		type = TileType.THREE;
 		head.set(0, new RiceTile());
 		head.set(3, new RiceTile());
 	}

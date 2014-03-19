@@ -1,5 +1,6 @@
 public abstract class Block {
 	protected Tile head;
+	protected TileType type;
 
 	/*========================================
 		The standard orientation will be
@@ -20,6 +21,10 @@ public abstract class Block {
 
 	public Tile getTile() {
 		return head;
+	}
+
+	public TileType getType(){
+		return type;
 	}
 	
 	public String toString(){

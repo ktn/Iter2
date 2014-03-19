@@ -5,6 +5,7 @@ public class Board {
 	private int xDim = 10;
 	private int yDim = 10;
 	private ArrayList<Developer> devs;
+	private ArrayList<Coordinates> mountains;
 
 	/*
 		Head is in the bottom left corner just fyi
@@ -54,6 +55,18 @@ public class Board {
 		}
 
 		devs = new ArrayList<Developer>();
+		mountains = new ArrayList<Coordinates>();
+		
+		for(int x = 0; x < xDim; x++){
+			if(x == 0 || x == xDim - 1)
+				for(int y = 0; y < Math.round(yDim/2); y++){
+					mountains.add(new Coordinates(x, y));
+				}
+			else
+				mountains.add(new Coordinates(x, 0));
+		}
+
+
 	}
 
 
@@ -103,7 +116,7 @@ public class Board {
 	// BLOCK METHODS
 	// =======================================================================
 
-	public void placeBlock(Block b, Coordinates c) {
+	public void placeBlock(Coordinates c, Block b) {
 		Space target = this.get(c);
 		//System.out.println("Board placement");
 		target.placeTile(b.getTile());
@@ -126,6 +139,102 @@ public class Board {
 		return c.x <= xDim || c.y <= yDim;
 	}
 
+	public boolean validPlacement(Coordinates c, Block b) throws IllegalBlockPlacementException{
+		boolean ret = true;
+		Space target = this.get(c);
+		
+
+		if(target.getTile().getType() == TileType.IRRIGATION || target.getTile().getType() == TileType.PALACE){
+			ret = false;
+		}
+		else{
+			//indices of joined tiles in given block
+			ArrayList<Integer> adjacentIndices = b.getTile().getJoined();
+			//spaces that you are trying to also place blocks
+			ArrayList<Space> adjacentSpaces = new ArrayList<Space>();
+
+			//check for level spaces
+			for(Integer i : adjacentIndices){
+				if(i == 0){
+					//check for out of bounds
+					if(c.x < xDim - 1)
+						adjacentSpaces.add(this.get(new Coordinates(c.x + 1, c.y)));
+					else
+						throw new IllegalBlockPlacementException("Block out of bounds");
+				}
+				else if(i == 1){
+					//check for out of bounds
+					if(c.y < yDim - 1)
+						adjacentSpaces.add(this.get(new Coordinates(c.x, c.y + 1)));
+					else
+						throw new IllegalBlockPlacementException("Block out of bounds");
+				}
+				else if(i == 2){
+					//check for out of bounds
+					if(c.x > 0)
+						adjacentSpaces.add(this.get(new Coordinates(c.x - 1, c.y)));
+					else
+						throw new IllegalBlockPlacementException("Block out of bounds");
+				}
+				else if(i == 3){
+					//check for out of bounds
+					if(c.y > 0)
+						adjacentSpaces.add(this.get(new Coordinates(c.x, c.y - 1)));
+					else
+						throw new IllegalBlockPlacementException("Block out of bounds");
+				}
+			}
+
+			//adjacent spaces now filled
+
+			//check for if it is a OneBlock
+			if(adjacentSpaces.size() != 0){
+				//check for level spaces now
+				//initialize new boolean for testing
+
+				boolean levelSpaces = true;
+				int height = adjacentSpaces.get(0).getHeight();
+				for(Space s : adjacentSpaces){
+					levelSpaces = levelSpaces && (s.getHeight() == height);
+				}
+				ret = levelSpaces && ret;
+			}
+			
+			//check for same type of block
+			if(adjacentSpaces.size() == target.getTile().getJoined().size()){
+				//same type of tile
+				//check for same rotation
+
+				boolean diffRotation = false;
+				//indices of block already places
+				ArrayList<Integer> checkIndices = target.getTile().getJoined();
+				for(int j = 0; j < adjacentSpaces.size(); j++){
+					//if they dont match even once then placement is fine
+					if(checkIndices.get(j) != adjacentIndices.get(j)){
+						diffRotation = true;
+					}
+				}
+
+				ret = ret && diffRotation;
+			}
+			
+		}
+
+		return ret;
+	}
+
+
+	public boolean isMountainSpace(Coordinates c){
+		boolean ret = false;
+
+		for(Coordinates temp : mountains){
+			if(c.equals(temp)){
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
 	public class Coordinates{
 		public int x;
 		public int y;
@@ -137,6 +246,10 @@ public class Board {
 			this.x = x;
 			this.y = y;
 		}
+
+		public boolean equals(Coordinates c){
+			return (c.x == this.x && c.y == this.y);	
+		}
 	}
 
 	// DEVELOPER METHODS  
@@ -145,6 +258,10 @@ public class Board {
 	public void placeDeveloper(Coordinates c, Developer d){
 		Space temp = this.get(c);
 
+		for(Developer dev : devs){
+			if(temp == dev.getSpace())
+				throw new IllegalArgumentException("Developer already at location");
+		}
 		d.moveDeveloper(temp);
 
 		devs.add(d);
@@ -152,7 +269,10 @@ public class Board {
 
 	public void moveDeveloper(Coordinates c, Developer d){
 		Space temp = this.get(c);
-
+		for(Developer dev : devs){
+			if(temp == dev.getSpace())
+				throw new IllegalArgumentException("Developer already at location");
+		}
 		d.moveDeveloper(temp);
 	}
 
