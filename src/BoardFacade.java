@@ -15,6 +15,10 @@ public class BoardFacade {
 		traversal = new Traversal(board);
 	}
 
+	public Board.Coordinates getCoordinates(int x, int y){
+		return board.new Coordinates(x, y);
+	}
+
 	public int getHeight(Board.Coordinates c) {
 		return board.getHeight(c);
 	}
@@ -113,6 +117,10 @@ public class BoardFacade {
 		board.moveDeveloper(c, d);
 	}
 
+	public void removeDeveloper(Board.Coordinates c){
+		board.removeDeveloper(c);
+	}
+
 	public int findShortestPath(Board.Coordinates oldPos, Board.Coordinates newPos) {
 		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x, newPos.y);
 	}
@@ -123,5 +131,9 @@ public class BoardFacade {
 
 	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
 		return traversal.findHighestDev(c);
+	}
+
+	public Developer getDeveloper(Player p){
+		return board.getDeveloper(p);
 	}
 }		

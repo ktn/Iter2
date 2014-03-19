@@ -344,6 +344,10 @@ public class Board {
 		d.moveDeveloper(temp);
 	}
 
+	public void removeDeveloper(Coordinates c){		
+		devs.remove(this.getDeveloper(c));
+	}
+
 	public Developer getDeveloper(Coordinates c){
 		Space temp = this.get(c);
 
@@ -354,6 +358,20 @@ public class Board {
 		}
 
 		return ret;
+	}
+
+	public Developer getDeveloper(Player p){
+		Developer temp = null;
+
+		loop:
+		for(Developer d : devs){
+			if(d.getPlayer() == p){
+				temp = d;
+				break loop;
+			}
+		}
+
+		return temp;
 	}
 
 	// HELPER METHODS  
