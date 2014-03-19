@@ -219,10 +219,18 @@ public class Board {
 
 			}
 		}
-		else if (target.getTile().getType() == TileType.IRRIGATION
-				|| target.getTile().getType() == TileType.PALACE ) {
+		else if (target.getTile().getType() == TileType.IRRIGATION) {
 			return false;
-		} else {
+		} 
+		else if ( target.getTile().getType() == TileType.PALACE ) {
+			PalaceTile pal = (PalaceTile)b.getTile();
+			PalaceTile targetPal = (PalaceTile)target.getTile();
+			if(pal.getLevel() > targetPal.getLevel())
+				return true;
+			else
+				return false;
+		}
+		else {
 			// indices of joined tiles in given block
 			ArrayList<Integer> adjacentIndices = b.getTile().getJoined();
 			// spaces that you are trying to also place blocks
@@ -337,6 +345,26 @@ public class Board {
 
 	// DEVELOPER METHODS  
 	// =======================================================================
+
+	public boolean checkDeveloperPlacement(Coordinates c){
+		Space target = this.get(c);
+		boolean valid = true;
+
+		if(target.getTile() == null){
+			valid = false;
+		}
+		else if(target.getTile().getType() == TileType.IRRIGATION || target.getTile().getType() == TileType.PALACE){
+			valid = false;
+		}
+		else {
+			for(Developer dev : devs){
+				if(target == dev.getSpace())
+					valid = false;
+			}
+		} 
+
+		return valid;
+	}
 
 	public void placeDeveloper(Coordinates c, Developer d){
 		Space temp = this.get(c);
