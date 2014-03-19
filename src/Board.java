@@ -139,85 +139,153 @@ public class Board {
 		return c.x <= xDim || c.y <= yDim;
 	}
 
-	public boolean validPlacement(Coordinates c, Block b) throws IllegalBlockPlacementException{
+	public boolean validPlacement(Coordinates c, Block b)
+			throws IllegalBlockPlacementException {
 		boolean ret = true;
 		Space target = this.get(c);
-		
 
-		if(target.getTile().getType() == TileType.IRRIGATION || target.getTile().getType() == TileType.PALACE){
-			ret = false;
-		}
-		else{
-			//indices of joined tiles in given block
+		if ((target.getTile() == null)){
+			// indices of joined tiles in given block
 			ArrayList<Integer> adjacentIndices = b.getTile().getJoined();
-			//spaces that you are trying to also place blocks
+			// spaces that you are trying to also place blocks
 			ArrayList<Space> adjacentSpaces = new ArrayList<Space>();
 
-			//check for level spaces
-			for(Integer i : adjacentIndices){
-				if(i == 0){
-					//check for out of bounds
-					if(c.x < xDim - 1)
-						adjacentSpaces.add(this.get(new Coordinates(c.x + 1, c.y)));
+			// check for level spaces
+			for (Integer i : adjacentIndices) {
+				if (i == 0) {
+					// check for out of bounds
+					if (c.x < xDim - 1)
+						adjacentSpaces.add(this.get(new Coordinates(c.x + 1,
+								c.y)));
 					else
-						throw new IllegalBlockPlacementException("Block out of bounds");
-				}
-				else if(i == 1){
-					//check for out of bounds
-					if(c.y < yDim - 1)
-						adjacentSpaces.add(this.get(new Coordinates(c.x, c.y + 1)));
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				} else if (i == 1) {
+					// check for out of bounds
+					if (c.y < yDim - 1)
+						adjacentSpaces.add(this.get(new Coordinates(c.x,
+								c.y + 1)));
 					else
-						throw new IllegalBlockPlacementException("Block out of bounds");
-				}
-				else if(i == 2){
-					//check for out of bounds
-					if(c.x > 0)
-						adjacentSpaces.add(this.get(new Coordinates(c.x - 1, c.y)));
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				} else if (i == 2) {
+					// check for out of bounds
+					if (c.x > 0)
+						adjacentSpaces.add(this.get(new Coordinates(c.x - 1,
+								c.y)));
 					else
-						throw new IllegalBlockPlacementException("Block out of bounds");
-				}
-				else if(i == 3){
-					//check for out of bounds
-					if(c.y > 0)
-						adjacentSpaces.add(this.get(new Coordinates(c.x, c.y - 1)));
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				} else if (i == 3) {
+					// check for out of bounds
+					if (c.y > 0)
+						adjacentSpaces.add(this.get(new Coordinates(c.x,
+								c.y - 1)));
 					else
-						throw new IllegalBlockPlacementException("Block out of bounds");
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
 				}
 			}
 
-			//adjacent spaces now filled
 
-			//check for if it is a OneBlock
-			if(adjacentSpaces.size() != 0){
-				//check for level spaces now
-				//initialize new boolean for testing
+
+			// adjacent spaces now filled
+
+			// check for if it is a OneBlock
+			if (adjacentSpaces.size() != 0) {
+				// check for level spaces now
+				// initialize new boolean for testing
+
+
+				for (Space s : adjacentSpaces) {
+					if(s.getHeight() != 0)
+						return false;
+				}
+
+			}
+		}
+		else if (target.getTile().getType() == TileType.IRRIGATION
+				|| target.getTile().getType() == TileType.PALACE ) {
+			return false;
+		} else {
+			// indices of joined tiles in given block
+			ArrayList<Integer> adjacentIndices = b.getTile().getJoined();
+			// spaces that you are trying to also place blocks
+			ArrayList<Space> adjacentSpaces = new ArrayList<Space>();
+
+			// check for level spaces
+			for (Integer i : adjacentIndices) {
+				if (i == 0) {
+					// check for out of bounds
+					if (c.x < xDim - 1)
+						adjacentSpaces.add(this.get(new Coordinates(c.x + 1,
+								c.y)));
+					else
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				} else if (i == 1) {
+					// check for out of bounds
+					if (c.y < yDim - 1)
+						adjacentSpaces.add(this.get(new Coordinates(c.x,
+								c.y + 1)));
+					else
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				} else if (i == 2) {
+					// check for out of bounds
+					if (c.x > 0)
+						adjacentSpaces.add(this.get(new Coordinates(c.x - 1,
+								c.y)));
+					else
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				} else if (i == 3) {
+					// check for out of bounds
+					if (c.y > 0)
+						adjacentSpaces.add(this.get(new Coordinates(c.x,
+								c.y - 1)));
+					else
+						throw new IllegalBlockPlacementException(
+								"Block out of bounds");
+				}
+			}
+
+			System.out.print("There are "+ adjacentSpaces.size() + " joined");
+
+			// adjacent spaces now filled
+
+			// check for if it is a OneBlock
+			if (adjacentSpaces.size() != 0) {
+				// check for level spaces now
+				// initialize new boolean for testing
 
 				boolean levelSpaces = true;
-				int height = adjacentSpaces.get(0).getHeight();
-				for(Space s : adjacentSpaces){
+				int height = target.getHeight();
+				for (Space s : adjacentSpaces) {
+					System.out.print(s.getHeight());
 					levelSpaces = levelSpaces && (s.getHeight() == height);
 				}
 				ret = levelSpaces && ret;
 			}
-			
-			//check for same type of block
-			if(adjacentSpaces.size() == target.getTile().getJoined().size()){
-				//same type of tile
-				//check for same rotation
+
+			// check for same type of block
+			if (adjacentSpaces.size() == target.getTile().getJoined().size()) {
+				// same type of tile
+				// check for same rotation
 
 				boolean diffRotation = false;
-				//indices of block already places
+				// indices of block already places
 				ArrayList<Integer> checkIndices = target.getTile().getJoined();
-				for(int j = 0; j < adjacentSpaces.size(); j++){
-					//if they dont match even once then placement is fine
-					if(checkIndices.get(j) != adjacentIndices.get(j)){
+				for (int j = 0; j < adjacentSpaces.size(); j++) {
+					// if they dont match even once then placement is fine
+					if (checkIndices.get(j) != adjacentIndices.get(j)) {
 						diffRotation = true;
 					}
 				}
 
 				ret = ret && diffRotation;
 			}
-			
+
 		}
 
 		return ret;
