@@ -111,7 +111,7 @@ public class PhaseActive {
 	public void placeDeveloper() {
 		boolean valid = false;
 		try {
-			Board.Coordinates c = board.createCoordinates(selectedPos[0], selectedPos[1]);
+			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
 			valid = sanitation.placeDeveloperChecker(c);
 			if(valid) {
 				com.placeDeveloper(c);
@@ -124,18 +124,18 @@ public class PhaseActive {
 		catch(NotEnoughAPException e) {
 			com.sendMessage("Not enough AP to place the developer.");
 		}
+		catch(CoordinatesOutOfBoundsException e) {
+			com.sendMessage("How did you even get this?");
+		}
 		catch(CoordinateException e) {
 			com.sendMessage("Invalid location.");
-		}
-		catch(CoordinateOutOfBoundsException e) {
-			com.sendMessage("How did you even get this?");
 		}
 	}
 	public void moveDeveloper() {
 		boolean valid = false;
 		try {
-			Board.Coordinates a = board.createCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
-			Board.Coordinates b = board.createCoordinates(selectedPos[0], selectedPos[1]);
+			Board.Coordinates a = board.getCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
+			Board.Coordinates b = board.getCoordinates(selectedPos[0], selectedPos[1]);
 			valid = sanitation.moveDeveloperChecker(a,b);
 			if(valid) {
 				com.moveDeveloper(a, b);
@@ -145,11 +145,11 @@ public class PhaseActive {
 		catch(NotEnoughAPException e) {
 			com.sendMessage("Not enough AP to move the developer");
 		}
-		catch(CoordinateException e) {
-			com.sendMessage("Invalid location.");
-		}
 		catch(NoDeveloperAtCoordinatesException e) {
 			com.sendMessage("How did you even get this?");
+		}
+		catch(CoordinateException e) {
+			com.sendMessage("Invalid location.");
 		}
 		catch(BlockNotPlayedException e) {
 			com.sendMessage("Not enough remaining AP to play a block.");

@@ -34,6 +34,7 @@ public class Player {
 		villageBlocks = 2;
 		riceBlocks = 3;
 		cards = new ArrayList<PalaceCard>();
+
 	}
 
 	public Player(String n) {
@@ -179,14 +180,14 @@ public class Player {
 		for (int i = 0; i < cards.size(); i++) {
 			if (cards.get(i) instanceof OnePointPalaceCard) {
 				OnePointPalaceCard current = (OnePointPalaceCard) cards.get(i);
-				if (current.getSymbol() == t) {
+				if (current.getSymbol().equals(t)) {
 					ret = true;
 					break;
 				}
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
-				if (current.getFirstSymbol() == t
-						|| current.getSecondSymbol() == t) {
+				if (current.getFirstSymbol().equals(t)
+						|| current.getSecondSymbol().equals(t)) {
 					ret = true;
 					break;
 				}
@@ -209,22 +210,32 @@ public class Player {
 		return result.toString();
 	}
 
-	public boolean hasCardWith(String[] t) // string is 1 or 2 symbols
+	public boolean hasCardWith(String[] s) // string is 1 or 2 symbols
 	{
+		String[] t = new String[2];
+		t[0] = s[0];
+		if(s.length == 1)
+		{
+			t[1] = " ";
+		}
+		else
+		{
+			t[1] = s[1];
+		}
 		boolean ret = false;
 		for (int i = 0; i < cards.size(); i++) {
-			if (cards.get(i) instanceof OnePointPalaceCard) {
+			if (cards.get(i) instanceof OnePointPalaceCard && t[1].equals(" ")) {
 				OnePointPalaceCard current = (OnePointPalaceCard) cards.get(i);
-				if (current.getSymbol() == t[0]) {
+				if (current.getSymbol().equals(t[0])) {
 					ret = true;
 					break;
 				}
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
-				if (current.getFirstSymbol() == t[0]
-						&& current.getSecondSymbol() == t[1]
-						|| current.getFirstSymbol() == t[1]
-						&& current.getSecondSymbol() == t[0]) {
+				if (current.getFirstSymbol().equals(t[0])
+						&& current.getSecondSymbol().equals(t[1])
+						|| current.getFirstSymbol().equals(t[1])
+						&& current.getSecondSymbol().equals(t[0])) {
 					ret = true;
 					break;
 				}
@@ -233,25 +244,37 @@ public class Player {
 		return ret;
 	}
 
-	public void useCardWith(String[] t) {
+	public PalaceCard useCardWith(String[] s) {
+		PalaceCard ret = null;
+		String[] t = new String[2];
+		t[0] = s[0];
+		if(s.length == 1)
+		{
+			t[1] = " ";
+		}
+		else
+		{
+			t[1] = s[1];
+		}
 		for (int i = 0; i < cards.size(); i++) {
 			if (cards.get(i) instanceof OnePointPalaceCard) {
 				OnePointPalaceCard current = (OnePointPalaceCard) cards.get(i);
-				if (current.getSymbol() == t[0]) {
-					cards.remove(i);
+				if (current.getSymbol().equals(t[0])) {
+					ret = cards.remove(i);
 					break;
 				}
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
-				if (current.getFirstSymbol() == t[0]
-						&& current.getSecondSymbol() == t[1]
-						|| current.getFirstSymbol() == t[1]
-						&& current.getSecondSymbol() == t[0]) {
-					cards.remove(i);
+				if (current.getFirstSymbol().equals(t[0])
+						&& current.getSecondSymbol().equals(t[1])
+						|| current.getFirstSymbol().equals(t[1])
+						&& current.getSecondSymbol().equals(t[0])) {
+					ret = cards.remove(i);
 					break;
 				}
 			}
 		}
+		return ret;
 	}
 
 	public String toString() {
@@ -273,24 +296,41 @@ public class Player {
 		return result.toString();
 	}
 
-	public List<PalaceCard> getPlayablePalaceCards(String[] t)
+	public List<PalaceCard> getPlayablePalaceCards(String[] s)
 	{
+		String[] t = new String[2];
+		t[0] = s[0];
+		if(s.length == 1)
+		{
+			t[1] = " ";
+		}
+		else
+		{
+			t[1] = s[1];
+		}
 		ArrayList<PalaceCard> playableCards = new ArrayList<PalaceCard>();
 
 		for (int i = 0; i < cards.size(); i++) {
 			if (cards.get(i) instanceof OnePointPalaceCard) {
 				OnePointPalaceCard current = (OnePointPalaceCard) cards.get(i);
-				if (current.getSymbol() == t[0]) {
+				if (current.getSymbol().equals(t[0])) {
 					playableCards.add(current);
 				}
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
-				if (current.getFirstSymbol() == t[0]
-						|| current.getFirstSymbol() == t[1]
+				if (current.getFirstSymbol().equals(t[0])
+						|| current.getSecondSymbol().equals(t[0])
 					) {
 					playableCards.add(current);
 				}
+				if(t.length > 1) {
+					if(current.getFirstSymbol().equals(t[1])
+						|| current.getSecondSymbol().equals(t[1])
+					) 
+					playableCards.add(current);
+				}
 			}
+
 		}
 		return playableCards;
 

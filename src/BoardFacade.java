@@ -1,19 +1,18 @@
 import java.util.ArrayList;
 
-
 public class BoardFacade {
 	Board board;
 	Pathfinding path;
 	Communal communal;
 	Pathfinding pathfinding;
-	HighestDeveloper highestDeveloper;
+	Traversal traversal;
 
 	public BoardFacade() {
 		board = new Board();
 		path = new Pathfinding(board);
 		communal = new Communal();
 		pathfinding = new Pathfinding(board);
-		highestDeveloper = new HighestDeveloper(board);
+		traversal = new Traversal(board);
 	}
 
 	public int getHeight(Board.Coordinates c) {
@@ -35,20 +34,29 @@ public class BoardFacade {
 	public Board.Coordinates getLargest() {
 		return board.getLargest();
 	}
-	
+
 	public ThreeBlock getThreeBlock() {
-		return communal.getThreeBlock();
+		try{
+			return communal.getThreeBlock();
+		} catch (NoBlocksLeftException e){
+			return null;
+		}
+		
 	}
-	
+
 	public OneBlock getIrrigationTile() {
-		return communal.getIrrigationTile();
+		try{
+			return communal.getIrrigationTile();
+		} catch (NoBlocksLeftException e){
+			return null;
+		}
 	}
-	
+
 	public int getPalaceLevel(Board.Coordinates c) {
 		int level = ((PalaceTile) board.getTile(c)).getLevel();
 		return level;
 	}
-	
+
 	public Developer getDeveloper(Board.Coordinates c) {
 		return board.getDeveloper(c);
 	}
@@ -56,20 +64,20 @@ public class BoardFacade {
 	// BLOCK METHODS
 	// =======================================================================
 
-	public void placeBlock(Block b, Board.Coordinates c) {
-		board.placeBlock(b, c);
+	public void placeBlock(Board.Coordinates c, Block b) {
+		board.placeBlock(c, b);
 	}
 
 	public void removeBlock(Board.Coordinates c) {
 		board.removeBlock(c);
 	}
-	
+
 	public void putBackThreeBlock(Block b) {
-		communal.putBackThreeBlock(b);
+		communal.putBackThreeBlock((ThreeBlock)b);
 	}
-	
+
 	public void putBackIrrigationTile(Block b) {
-		communal.putBackIrrigationTile(b);
+		communal.putBackIrrigationTile((OneBlock)b);
 	}
 
 	// CHECKING METHODS  
@@ -81,11 +89,11 @@ public class BoardFacade {
 	public boolean inBounds(Board.Coordinates c){
 		return board.inBounds(c);
 	}
-	
+
 	public int threeBlocksLeft() {
 		return communal.numThreeBlocks();
 	}
-	
+
 	public int irrigationBlocksLeft() {
 		return communal.numIrrigationTiles();
 	}
@@ -108,16 +116,16 @@ public class BoardFacade {
 	public void moveDeveloper(Board.Coordinates c, Developer d){
 		board.moveDeveloper(c, d);
 	}
-	
+
 	public int findShortestPath(Board.Coordinates oldPos, Board.Coordinates newPos) {
 		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x, newPos.y);
 	}
-	
+
 	public ArrayList<Board.Coordinates> getShortestPath() {
 		return pathfinding.getShortestPath();
 	}
 
 	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
-		return highestDeveloper.findHighestDev(c);
+		return traversal.findHighestDev(c);
 	}
-}
+}	

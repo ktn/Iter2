@@ -7,4 +7,8 @@ abstract class PalaceCard {
 		return null;
 	}
 
+	public String toString()
+	{
+		return "abstract class";
+	}
 }
