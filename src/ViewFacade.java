@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
-public class PlayerViewFacade {
+public class ViewFacade {
 	/**This class represents the facade for three portions
 	 * of the final view, the current player other player
 	 * components, and public inventory. This class serves as a facade to
@@ -17,14 +18,17 @@ public class PlayerViewFacade {
 	private static ArrayList<String> otherPlayers;
 	private static PublicInventoryView publicInventoryView;
 	private static ControllerView controllerView;
+	private static BoardView boardView;
 	
-	public PlayerViewFacade(ArrayList<String> playerNames) {
+	public ViewFacade(ArrayList<String> playerNames) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
+		//@ TODO: don't use magic  numbers
+		boardView=new BoardView(12,12);
 	}
 	
 	//Copy of above for testing
@@ -35,6 +39,8 @@ public class PlayerViewFacade {
 		currentPlayerView = new CurrentPlayerView(playerNames.get(0));
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
+		//@ TODO: don't use magic  numbers
+		boardView=new BoardView(12,12);
 	}
 	
 	public static OtherPlayersView getOtherPlayerView() {
@@ -51,6 +57,10 @@ public class PlayerViewFacade {
 	
 	public static ControllerView getControllerView() {
 		return controllerView;
+	}
+	
+	public static BoardView getBoardView(){
+		return boardView;
 	}
 	
 	public static void displayPalaceInventory(int numMask, int numPuppet, 
@@ -174,5 +184,9 @@ public class PlayerViewFacade {
 	
 	public static void startPalaceFestival(String currentPlayer) {
 		PalaceFestivalViewFacade.initialize(currentPlayer);
+	}
+	
+	public static void updateBoard(Board board){
+		boardView.renderBoard(board);
 	}
 }
