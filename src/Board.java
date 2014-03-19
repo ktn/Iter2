@@ -360,18 +360,40 @@ public class Board {
 		return ret;
 	}
 
-	public Developer getDeveloper(Player p){
-		Developer temp = null;
+	public Coordinates getDeveloper(Player p){
+		Coordinates temp = null;
 
 		loop:
 		for(Developer d : devs){
 			if(d.getPlayer() == p){
-				temp = d;
+				temp = this.get(d.getSpace);
 				break loop;
 			}
 		}
 
 		return temp;
+	}
+
+	public Coordinates nextDeveloper(Coordinates c){
+		Coordinates temp = null;
+		boolean next = false;
+		Developer old = null;
+
+		loop:
+		for(Developer d : devs){
+			if(next && d.getPlayer() == old.getPlayer()){
+				temp = this.get(d.getSpace());
+				break loop;
+			}
+			if(c.equals(this.get(d.getSpace()))){
+				next = true;
+				old = d;
+				temp = this.get(d.getSpace());
+			}
+		}
+
+		return temp;
+
 	}
 
 	// HELPER METHODS  

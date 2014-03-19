@@ -133,7 +133,11 @@ public class BoardFacade {
 		return traversal.findHighestDev(c);
 	}
 
-	public Developer getDeveloper(Player p){
+	public Board.Coordinates getDeveloper(Player p){
 		return board.getDeveloper(p);
+	}
+
+	public Board.Coordinates nextDeveloper(Board.Coordinates c){
+		return board.nextDeveloper(c);
 	}
 }		
