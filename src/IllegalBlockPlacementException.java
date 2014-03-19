@@ -1,5 +1,6 @@
 public class IllegalBlockPlacementException extends CoordinateException {
 
+	private static final long serialVersionUID = 1L;
 	TileType block;
 
 	public IllegalBlockPlacementException() {
@@ -41,4 +42,3 @@ public class IllegalBlockPlacementException extends CoordinateException {
 		return result;
 	}
 }
-

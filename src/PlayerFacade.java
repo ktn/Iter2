@@ -48,8 +48,7 @@ public class PlayerFacade {
 		playerTurn.useActionToken();
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		playerTurn.returnActionToken();
 	}
 
@@ -112,8 +111,7 @@ public class PlayerFacade {
 		actionPoints--;
 	}
 
-	public void returnThreeBlock()
-	{
+	public void returnThreeBlock() {
 		actionPoints++;
 
 	}
@@ -122,11 +120,9 @@ public class PlayerFacade {
 		return blockPlayed;
 	}
 
-	public void blockNotPlayed()
-	{
+	public void blockNotPlayed() {
 		blockPlayed = false;
 	}
-
 
 	// changing score
 	public void addScore(int s) {
@@ -176,4 +172,3 @@ public class PlayerFacade {
 		playerTurn.getPlayer(p).useCardWith(t);
 	}
 }
-

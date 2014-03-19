@@ -1,8 +1,5 @@
 public class CoordinatesOutOfBoundsException extends CoordinateException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public CoordinatesOutOfBoundsException() {

@@ -5,13 +5,11 @@ public class Space {
 	private Grid<Space> neighbors = new Grid<Space>(Space.class);
 	private Stack<Tile> tiles;
 
-	/*========================================
-		The standard is as follows
-		1st child = right child
-		2nd child = top child
-		3rd child = left child
-		4th child = bottom child
-	=========================================*/
+	/*
+	 * ======================================== The standard is as follows 1st
+	 * child = right child 2nd child = top child 3rd child = left child 4th
+	 * child = bottom child =========================================
+	 */
 
 	Space() {
 		tiles = new Stack<Tile>();
@@ -99,7 +97,7 @@ public class Space {
 			if (temp != null) {
 				temp.addTile(t.getJoined(i));
 			} else {
-				//error checking?
+				// error checking?
 			}
 		}
 

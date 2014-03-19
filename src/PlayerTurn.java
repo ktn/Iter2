@@ -73,8 +73,7 @@ public class PlayerTurn {
 		blockPlayed = true;
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		players[currentPlayer].returnActionToken();
 	}
 

@@ -119,8 +119,7 @@ public class Player {
 		actionTokens--;
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		actionTokens++;
 	}
 

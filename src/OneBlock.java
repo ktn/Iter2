@@ -15,7 +15,7 @@ public class OneBlock extends Block {
 		}
 	}
 
-	OneBlock(PalaceTile p){
+	OneBlock(PalaceTile p) {
 		this.head = p;
 	}
 

@@ -1,7 +1,5 @@
-public class IrrigationTile extends Tile
-{
-	public IrrigationTile()
-	{
+public class IrrigationTile extends Tile {
+	public IrrigationTile() {
 		type = TileType.IRRIGATION;
 	}
 }

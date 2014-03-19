@@ -6,7 +6,7 @@ public class PalaceTile extends Tile {
 		type = TileType.PALACE;
 		headsUp = true;
 
-		if (level % 2 != 0 && level <= 10) {
+		if (level % 2 == 0 && level <= 10) {
 			this.level = level;
 		} else
 			throw new IllegalArgumentException("Illegal Palace level");
@@ -20,7 +20,7 @@ public class PalaceTile extends Tile {
 		return this.headsUp;
 	}
 
-	public int getLevel(){
+	public int getLevel() {
 		return level;
 	}
 }

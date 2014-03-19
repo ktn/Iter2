@@ -7,7 +7,6 @@ public class BoardFacade {
 	Pathfinding pathfinding;
 	Traversal traversal;
 
-
 	public BoardFacade() {
 		board = new Board();
 		path = new Pathfinding(board);
@@ -34,18 +33,18 @@ public class BoardFacade {
 	}
 
 	public ThreeBlock getThreeBlock() {
-		try{
+		try {
 			return communal.getThreeBlock();
-		} catch (NoBlocksLeftException e){
+		} catch (NoBlocksLeftException e) {
 			return null;
 		}
-		
+
 	}
 
 	public OneBlock getIrrigationTile() {
-		try{
+		try {
 			return communal.getIrrigationTile();
-		} catch (NoBlocksLeftException e){
+		} catch (NoBlocksLeftException e) {
 			return null;
 		}
 
@@ -73,20 +72,20 @@ public class BoardFacade {
 	}
 
 	public void putBackThreeBlock(Block b) {
-		communal.putBackThreeBlock((ThreeBlock)b);
+		communal.putBackThreeBlock((ThreeBlock) b);
 	}
 
 	public void putBackIrrigationTile(Block b) {
-		communal.putBackIrrigationTile((OneBlock)b);
+		communal.putBackIrrigationTile((OneBlock) b);
 	}
 
-	// CHECKING METHODS  
+	// CHECKING METHODS
 	// =======================================================================
-	public boolean inBounds(int x, int y){
+	public boolean inBounds(int x, int y) {
 		return board.inBounds(x, y);
 	}
 
-	public boolean inBounds(Board.Coordinates c){
+	public boolean inBounds(Board.Coordinates c) {
 
 		return board.inBounds(c);
 	}
@@ -99,27 +98,30 @@ public class BoardFacade {
 		return communal.numIrrigationTiles();
 	}
 
-	public boolean validPlacement(Board.Coordinates c, Block b) throws IllegalBlockPlacementException {
-		return board.validPlacement(c,b);
+	public boolean validPlacement(Board.Coordinates c, Block b)
+			throws IllegalBlockPlacementException {
+		return board.validPlacement(c, b);
 	}
 
-	public boolean isMountains(Board.Coordinates c){
+	public boolean isMountains(Board.Coordinates c) {
 		return board.isMountainSpace(c);
 	}
 
-	// DEVELOPER METHODS  
+	// DEVELOPER METHODS
 	// =======================================================================
 
-	public void placeDeveloper(Board.Coordinates c, Developer d){
+	public void placeDeveloper(Board.Coordinates c, Developer d) {
 		board.placeDeveloper(c, d);
 	}
 
-	public void moveDeveloper(Board.Coordinates c, Developer d){
+	public void moveDeveloper(Board.Coordinates c, Developer d) {
 		board.moveDeveloper(c, d);
 	}
 
-	public int findShortestPath(Board.Coordinates oldPos, Board.Coordinates newPos) {
-		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x, newPos.y);
+	public int findShortestPath(Board.Coordinates oldPos,
+			Board.Coordinates newPos) {
+		return pathfinding.findShortestPath(oldPos.x, oldPos.y, newPos.x,
+				newPos.y);
 
 	}
 
@@ -130,4 +132,4 @@ public class BoardFacade {
 	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
 		return traversal.findHighestDev(c);
 	}
-}		
+}
