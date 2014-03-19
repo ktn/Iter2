@@ -132,4 +132,8 @@ public class BoardFacade {
 	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
 		return traversal.findHighestDev(c);
 	}
+
+	public Board.Coordinates getCoordinates(int x, int y) {
+		return board.new Coordinates(x, y);
+	}
 }
