@@ -278,5 +278,13 @@ public class PlayerFacade {
 	{
 		return playerTurn.getVictors();
 	}
+
+	public void placeDeveloper() {
+		currentPlayer.placeDeveloper();
+	}
+
+	public void removeDeveloper() {
+		currentPlayer.removeDeveloper();
+	}
 }
 
