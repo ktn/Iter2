@@ -32,4 +32,5 @@ public class PlaceTwoBlockCommand implements Command{
 	public void load(){
 		
 	}
+	
 }
