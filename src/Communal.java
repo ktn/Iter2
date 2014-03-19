@@ -46,14 +46,14 @@ public class Communal {
 	}
 
 	public ThreeBlock getThreeBlock() throws NoBlocksLeftException {
-		if (!threes.isEmpty())
+		if (threes.isEmpty())
 			throw new NoBlocksLeftException("No Three-Tile Blocks left.");
 		return threes.remove(0);
 	}
 
 	public OneBlock getIrrigationTile() throws NoBlocksLeftException {
 
-		if (!irrigations.isEmpty())
+		if (irrigations.isEmpty())
 			throw new NoBlocksLeftException("No Irrigation Tiles left.");
 		return irrigations.remove(0);
 	}

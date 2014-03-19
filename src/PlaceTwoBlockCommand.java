@@ -22,8 +22,7 @@ public class PlaceTwoBlockCommand implements Command{
 
 	public void undo(){
 		board.removeBlock(coords);
-		board.putBackThreeBlock(block);
-		player.returnThreeBlock();
+		player.returnTwoBlock();
 	}
 
 	public void save(){
