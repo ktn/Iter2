@@ -3,6 +3,7 @@ import java.util.*;
 public class Deck {
 	private ArrayList<PalaceCard> cardStack;
 	private PalaceCard festivalCard;
+	private ArrayList<PalaceCard> discardStack;
 
 	public Deck() {
 		// Assumption: 10 two-symbol cards and 20 one symbol
@@ -20,6 +21,9 @@ public class Deck {
 		}
 
 		shuffle(cardStack);
+		setFestivalCard();
+		
+		discardStack = new ArrayList<PalaceCard>();
 	}
 
 	public void shuffle(ArrayList<PalaceCard> cardStack) {
@@ -27,7 +31,14 @@ public class Deck {
 	}
 
 	public PalaceCard drawCard() {
-		return cardStack.remove(0);
+		PalaceCard ret = cardStack.remove(cardStack.size()-1);
+		if(cardStack.isEmpty())
+		{
+			cardStack = discardStack;
+			shuffle(cardStack);
+			discardStack.clear();
+		}
+		return ret;
 	}
 
 	public void setFestivalCard() {
@@ -38,6 +49,11 @@ public class Deck {
 		PalaceCard previousFestCard = this.festivalCard;
 		this.setFestivalCard();
 		return previousFestCard;
+	}
+
+	public void discardCard(PalaceCard c)
+	{
+		discardStack.add(c);
 	}
 
 	public String toString() {
@@ -53,5 +69,15 @@ public class Deck {
 		result.append("}" + NEW_LINE);
 
 		return result.toString();
+	}
+
+	public PalaceCard getFestivalCard()
+	{
+		return festivalCard;
+	}
+
+	public void returnTopCard(PalaceCard c)
+	{
+		cardStack.add(c);
 	}
 }

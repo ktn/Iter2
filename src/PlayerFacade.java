@@ -13,6 +13,7 @@ public class PlayerFacade {
 	boolean tokenUsed;
 	int actionPoints;
 	boolean blockPlayed;
+	Deck deck;
 
 	// initialization requires names of players, assumes acceptable size
 	public PlayerFacade(String[] n) {
@@ -27,6 +28,8 @@ public class PlayerFacade {
 		tokenUsed = false;
 		actionPoints = 6;
 		blockPlayed = false;
+
+		deck = new Deck();
 	}
 
 	// change player turn
@@ -47,15 +50,16 @@ public class PlayerFacade {
 	public void useActionToken() {
 		playerTurn.useActionToken();
 	}
+	
+	public int getActionPoints() {
+		return playerTurn.getActionPoints();
+	}
 
-<<<<<<< HEAD
 	public void returnActionToken()
 	{
 		playerTurn.returnActionToken();
 	}
 
-=======
->>>>>>> pathfinding
 	public boolean checkTwoBlock() {
 		if (currentPlayer.twoBlocksLeft() > 0 && actionPoints > 0) {
 			return true;
@@ -88,10 +92,7 @@ public class PlayerFacade {
 
 	public void returnVillageBlock() {
 		currentPlayer.returnVillageBlock();
-<<<<<<< HEAD
 		actionPoints++;
-=======
->>>>>>> pathfinding
 	}
 
 	public boolean checkRice() {
@@ -109,44 +110,48 @@ public class PlayerFacade {
 
 	public void returnRiceBlock() {
 		currentPlayer.returnRiceBlock();
-<<<<<<< HEAD
 		actionPoints++;
-=======
->>>>>>> pathfinding
+
 	}
 
 	public void playThreeBlock() {
 		blockPlayed = true;
-<<<<<<< HEAD
 		actionPoints--;
 	}
 
 	public void returnThreeBlock()
 	{
 		actionPoints++;
-=======
->>>>>>> pathfinding
+
 	}
 
 	public boolean blockPlayed() {
 		return blockPlayed;
 	}
 
-<<<<<<< HEAD
 	public void blockNotPlayed()
 	{
 		blockPlayed = false;
 	}
 
-=======
->>>>>>> pathfinding
+
 	// changing score
 	public void addScore(int s) {
 		currentPlayer.addScore(s);
 	}
 
+	public void addPlayerScore(Player p, int s)
+	{
+		p.addScore(s);
+	}
+
 	public void decrementScore(int s) {
 		currentPlayer.decrementScore(s);
+	}
+
+	public void decrementPlayerScore(Player p, int s)
+	{
+		p.decrementScore(s);
 	}
 
 	// changing colors
@@ -186,9 +191,47 @@ public class PlayerFacade {
 
 	public void playerUsePC(int p, String[] t) {
 		playerTurn.getPlayer(p).useCardWith(t);
+		playerTurn.giveFestivalPoints(p, t);
 	}
-<<<<<<< HEAD
+
+	public PalaceCard topCard()
+	{
+		return deck.drawCard();
+	}
+
+	public void returnTopCard(PalaceCard c)
+	{
+		deck.returnTopCard(c);
+	}
+
+	public void discardCard(PalaceCard c)
+	{
+		deck.discardCard(c);
+	}
+
+	public void createPalaceFestival()
+	{
+		playerTurn.createPalaceFestival(deck.getFestivalCard(), this);
+	}
+
+	public void startFestival(Player[] p)
+	{
+		playerTurn.startFestival(p);
+	}
+
+	public int getPlayerInt(Player p)
+	{
+		return playerTurn.getPlayerInt(p);
+	}
+
+	public List<PalaceCard> getCardsForPlayer(Player p)
+	{
+		return playerTurn.getCardsForPlayer(p);
+	}
+
+	public ArrayList<Player> getVictors()
+	{
+		return playerTurn.getVictors();
+	}
 }
-=======
-}
->>>>>>> pathfinding
+

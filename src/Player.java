@@ -119,14 +119,11 @@ public class Player {
 		actionTokens--;
 	}
 
-<<<<<<< HEAD
 	public void returnActionToken()
 	{
 		actionTokens++;
 	}
 
-=======
->>>>>>> pathfinding
 	public int getActionToken() {
 		return actionTokens;
 	}
@@ -274,6 +271,29 @@ public class Player {
 		result.append(" Deck: " + this.showCards() + NEW_LINE);
 		result.append("}" + NEW_LINE);
 		return result.toString();
+	}
+
+	public List<PalaceCard> getPlayablePalaceCards(String[] t)
+	{
+		ArrayList<PalaceCard> playableCards = new ArrayList<PalaceCard>();
+
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i) instanceof OnePointPalaceCard) {
+				OnePointPalaceCard current = (OnePointPalaceCard) cards.get(i);
+				if (current.getSymbol() == t[0]) {
+					playableCards.add(current);
+				}
+			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
+				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
+				if (current.getFirstSymbol() == t[0]
+						|| current.getFirstSymbol() == t[1]
+					) {
+					playableCards.add(current);
+				}
+			}
+		}
+		return playableCards;
+
 	}
 
 }
