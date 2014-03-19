@@ -1,5 +1,6 @@
 
 
+import java.awt.Color;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -26,6 +27,7 @@ public class ViewTester {
 		mainFrame.setBounds(0, 0, 800, 600);
 		mainFrame.add(boardView);
 		boardView.renderNetwork(b.getOrigin(), 1, 1);
+		boardView.hilightTile(3, 4, Color.red);
 		mainFrame.setVisible(true);
 	}
 }

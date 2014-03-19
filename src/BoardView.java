@@ -1,5 +1,3 @@
-
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,23 +7,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
-/**mostly for markups as of yet.  need more model to view.
+/**mostly for mark-ups as of yet.  need more model to view.
  * needs work to create buffer.*/
 public class BoardView extends JPanel{
-
+	
+	private static final long serialVersionUID = 5165000078001880297L;
+	
 	Image dirt;
 	Image tileSide;
 	Image rice;
 	
-	int tileWidth;
-	int tileHeight;
+	int tileWidth=32;
+	int tileHeight=32;
 	
 	Board target;
 	
@@ -41,10 +38,7 @@ public class BoardView extends JPanel{
 	@Override
 	/**draw this particular canvas*/
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		
-		//figure out a new way to test
 		g.drawImage(cachedCanvas, 0, 0, this);
 	}
 	
@@ -106,30 +100,24 @@ public class BoardView extends JPanel{
 		g.drawString(s, x, y);
 	}
 	
-	private void renderTile(Graphics g, Image i, int x, int y, int height, int leftHeight, int topHeight,int rightHeight,int bottomHeight){
-
-		
-		int nuy = height*6;
-		
-		g.drawImage(tileSide, x*32, y*32, this);
-		g.drawImage(i, x*32, y*32, this);
-		
-		g.setColor(new Color(0,0,0,0.25f));
-		g.drawLine(x*32, y*32, x*32+31, y*32);
-		g.drawLine(x*32, y*32+31, x*32+31, y*32+31);
-		g.drawLine(x*32, y*32, x*32, y*32+31);
-		g.drawLine(x*32+31, y*32, x*32+31, y*32+31);
-		g.setColor(Color.white);
-		
-		int texx=16;
-		int texy=16;
-		
-		/*
-		g.setColor(Color.white);
-		if (leftHeight!=height)g.drawLine(x*32, y*32, x*32, y*32+31);
-		if (topHeight!=height)g.drawLine(x*32, y*32, x*32+31, y*32);
-		if (rightHeight!=height)g.drawLine(x*32+31, y*32, x*32+31, y*32+31);
-		if (bottomHeight!=height)g.drawLine(x*32, y*32+31, x*32+31, y*32+31);
-		*/
+	public void hilightPath(ArrayList<Integer> x,ArrayList<Integer> y, Color c){
+		Graphics2D g = cachedCanvas.createGraphics();
+		Color transparentColor=new Color(c.getRed(),c.getGreen(),c.getBlue(),63);
+		for (int i=0;i<x.size();i++){
+			g.setColor(transparentColor);
+			g.drawRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
+			g.setColor(c);
+			g.drawRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
+		}
 	}
+	
+	public void hilightTile(int x, int y, Color c){
+		Graphics2D g = cachedCanvas.createGraphics();
+		Color transparentColor=new Color(c.getRed(),c.getGreen(),c.getBlue(),63);
+		g.setColor(transparentColor);
+		g.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+		g.setColor(c);
+		g.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+	}
+
 }
