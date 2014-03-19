@@ -348,9 +348,10 @@ public class Traversal {
 					palaceTiles.add(c);
 		return palaceTiles;
 	}
-
-	public boolean palaceInCity(Board.Coordinates aVillageTile) {
-		if (board.getTileType(aVillageTile) == TileType.PALACE)
+	
+	public boolean palaceInCity(Board.Coordinates aVillageTile)
+	{
+		if(board.getTileType(aVillageTile) == TileType.PALACE)\
 			return true;
 		Board.Coordinates c = aVillageTile;
 		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
@@ -359,11 +360,13 @@ public class Traversal {
 
 		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
 		visited.add(c);
-		while (!queuePath.isEmpty()) {
-			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
-					|| board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE
-					|| board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE || board
-						.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE)) {
+		while (!queuePath.isEmpty())
+		{
+			if (board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.PALACE
+			|| board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.PALACE
+			|| board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.PALACE
+			|| board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.PALACE)
+			{
 				return true;
 			}
 

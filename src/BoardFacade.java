@@ -110,6 +110,11 @@ public class BoardFacade {
 	public boolean isMountains(Board.Coordinates c){
 		return board.isMountainSpace(c);
 	}
+	
+	public boolean checkDeveloperPlacement(Board.Coordinates c)
+	{
+		return board.checkDeveloperPlacement(c);
+	}
 
 	// DEVELOPER METHODS  
 	// =======================================================================
