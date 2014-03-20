@@ -81,7 +81,7 @@ public class PhaseActive {
 		board.updateBoard();
 		if(state == Mode.BLOCK){ 
 			if (selectedBlock!=null){
-				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1],new Color(0,0,1,0.25f));
 			}else{
 				ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
 			}

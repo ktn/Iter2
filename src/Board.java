@@ -68,7 +68,7 @@ public class Board {
 	// ACCESSORS
 	// =======================================================================
 	// All methods from here down assume that inbounds indices are passed
-	private Space get(Coordinates c) {
+	public Space get(Coordinates c) {
 		Space temp = head;
 
 		if (c.x < xDim) {
