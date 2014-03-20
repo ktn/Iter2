@@ -33,7 +33,7 @@ public class PublicInventoryView extends JPanel {
 		JLabel label = new JLabel("Communal Inventory");
 		this.add(label);
 		
-		numLandTiles = new JLabel("Three Space Tiles: 3");
+		numLandTiles = new JLabel("Three Space Tiles: 56");
 		this.add(numLandTiles);
 		numIrrigationTiles = new JLabel("Irrigation Tiles: 16");
 		this.add(numIrrigationTiles);
