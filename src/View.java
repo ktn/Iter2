@@ -22,8 +22,7 @@ public class View extends JFrame {
             e.printStackTrace();
         }
         setVisible(true);
-		//TODO:Set KeyListener for this to Controller
-        
+		
 		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
 		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
 		ViewFacade.getBoardView().setSize(new Dimension(minDimension,minDimension));

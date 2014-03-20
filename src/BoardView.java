@@ -1,4 +1,3 @@
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,8 +14,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import sun.java2d.jules.TileWorker;
-
 /**mostly for mark-ups as of yet.  need more model to view.
  * needs work to create buffer.*/
 public class BoardView extends JPanel{
@@ -29,6 +26,8 @@ public class BoardView extends JPanel{
 	Image village;
 	Image palace;
 	Image developer;
+	Image mountians;
+	Image lowlands;
 	
 	protected int TILE_WIDTH=64;
 	protected int TILE_HEIGHT=64;
@@ -53,13 +52,15 @@ public class BoardView extends JPanel{
 		village=getTexture("images/village.png");
 		palace=getTexture("images/palace.png");
 		developer = getTexture("images/developer.png");
+		lowlands=getTexture("images/dirtside.png");
+		mountians=getTexture("images/Mountain.png");
 		this.boardWidth=boardWidth;
 		this.boardHeight=boardHeight;
 		initGraphics();
 	}
 	
 	private void initGraphics(){
-		cachedCanvas=new BufferedImage(TILE_WIDTH*boardWidth, TILE_HEIGHT*boardHeight, BufferedImage.TYPE_INT_RGB);
+		cachedCanvas=new BufferedImage(TILE_WIDTH*(boardWidth+1), TILE_HEIGHT*(boardHeight+1), BufferedImage.TYPE_INT_RGB);
 		cachedGraphics=cachedCanvas.createGraphics();
 		cachedGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Font font=new Font(Font.SANS_SERIF, Font.PLAIN, TILE_HEIGHT*3/8);
@@ -80,10 +81,10 @@ public class BoardView extends JPanel{
 		defaultTexture=new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Graphics2D defaultGraphics = defaultTexture.createGraphics();
 		defaultGraphics.setColor(Color.black);
-		defaultGraphics.drawRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
+		defaultGraphics.fillRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
 		defaultGraphics.setColor(Color.magenta);
-		defaultGraphics.drawRect(0, 0, TILE_WIDTH/2, TILE_HEIGHT/2);
-		defaultGraphics.drawRect(TILE_WIDTH/2, TILE_HEIGHT/2, TILE_WIDTH/2, TILE_HEIGHT/2);
+		defaultGraphics.fillRect(0, 0, TILE_WIDTH/2, TILE_HEIGHT/2);
+		defaultGraphics.fillRect(TILE_WIDTH/2, TILE_HEIGHT/2, TILE_WIDTH/2, TILE_HEIGHT/2);
 	}
 	
 	@Override
@@ -106,11 +107,20 @@ public class BoardView extends JPanel{
 	}
 	
 	public void renderFullBoard(Space origin, Board b){
+		for (int x = 0; x<boardWidth;x++){
+			if (x==0||x==boardWidth-1){
+				for (int y = 0; y<boardHeight;y++){
+					
+				}
+			}else{
+				
+			}
+		}
 		ArrayList<Space> alreadyRendered=new ArrayList<Space>();
 		renderFullBoardRecursive(cachedGraphics,alreadyRendered, origin, 1, 1, b);
 	}
 	
-	public void renderFullBoardRecursive(Graphics g, AbstractList<Space> finished, Space origin, int x, int y, Board b){
+	private void renderFullBoardRecursive(Graphics g, AbstractList<Space> finished, Space origin, int x, int y, Board b){
 		renderSpace(g, origin, x, y);
 		Board.Coordinates coord = b.new Coordinates(x, y);
 		Developer dev = b.getDeveloper(coord);
@@ -152,7 +162,7 @@ public class BoardView extends JPanel{
 	 * along with all of the spaces connected to it.*/
 	public void renderNetwork(Tile origin, int x, int y, Color hilight){
 		ArrayList<Tile> alreadyRendered=new ArrayList<Tile>();
-		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y, hilight);
+		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x+1, y+1, hilight);
 	}
 	
 	/**recursively renders a network of spaces*/
