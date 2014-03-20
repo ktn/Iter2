@@ -51,8 +51,7 @@ public class PlayerFacade {
 		playerTurn.useActionToken();
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		playerTurn.returnActionToken();
 	}
 
@@ -107,6 +106,7 @@ public class PlayerFacade {
 	public void returnRiceBlock() {
 		currentPlayer.returnRiceBlock();
 		actionPoints++;
+
 	}
 
 	public void playThreeBlock() {
@@ -114,17 +114,16 @@ public class PlayerFacade {
 		actionPoints--;
 	}
 
-	public void returnThreeBlock()
-	{
+	public void returnThreeBlock() {
 		actionPoints++;
+
 	}
 
 	public boolean blockPlayed() {
 		return blockPlayed;
 	}
 
-	public void blockNotPlayed()
-	{
+	public void blockNotPlayed() {
 		blockPlayed = false;
 	}
 
@@ -133,8 +132,7 @@ public class PlayerFacade {
 		currentPlayer.addScore(s);
 	}
 
-	public void addPlayerScore(Player p, int s)
-	{
+	public void addPlayerScore(Player p, int s) {
 		p.addScore(s);
 	}
 
@@ -142,8 +140,7 @@ public class PlayerFacade {
 		currentPlayer.decrementScore(s);
 	}
 
-	public void decrementPlayerScore(Player p, int s)
-	{
+	public void decrementPlayerScore(Player p, int s) {
 		p.decrementScore(s);
 	}
 
@@ -189,53 +186,47 @@ public class PlayerFacade {
 		playerTurn.giveFestivalPoints(p, t);
 	}
 
-	public PalaceCard topCard()
-	{
+	public PalaceCard topCard() {
 		return deck.drawCard();
 	}
 
-	public void returnTopCard(PalaceCard c)
-	{
+	public void removeCard(PalaceCard c) {
+		currentPlayer.removeCard(c);
+	}
+
+	public void returnTopCard(PalaceCard c) {
 		deck.returnTopCard(c);
 	}
 
-	public void discardCard(PalaceCard c)
-	{
+	public void discardCard(PalaceCard c) {
 		deck.discardCard(c);
 	}
 
-	public void createPalaceFestival()
-	{
+	public void createPalaceFestival() {
 		playerTurn.createPalaceFestival(deck.getFestivalCard(), this);
 	}
 
-	public void startFestival(Player[] p)
-	{
+	public void startFestival(Player[] p) {
 		playerTurn.startFestival(p);
 	}
-	
-	public Player getPFPlayer()
-	{
+
+	public Player getPFPlayer() {
 		return playerTurn.getPFPlayer();
 	}
 
-	public int getPlayerInt(Player p)
-	{
+	public int getPlayerInt(Player p) {
 		return playerTurn.getPlayerInt(p);
 	}
-	
-	public ArrayList<Player> getParticipants()
-	{
+
+	public ArrayList<Player> getParticipants() {
 		return playerTurn.getParticipants();
 	}
 
-	public ArrayList<PalaceCard> getCardsForPlayer(Player p)
-	{
+	public ArrayList<PalaceCard> getCardsForPlayer(Player p) {
 		return playerTurn.getCardsForPlayer(p);
 	}
-	
-	public ArrayList<PalaceCard> getCurrentPlayerCards()
-	{
+
+	public ArrayList<PalaceCard> getCurrentPlayerCards() {
 		return getCardsForPlayer(playerTurn.getPFPlayer());
 	}
 	
@@ -243,15 +234,15 @@ public class PlayerFacade {
 	{
 		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t) && playerCanPlayCard(t))
 		{
+
 			playerUsePC(getPlayerInt(playerTurn.getPFPlayer()), t);
 			playerTurn.giveFestivalPoints(playerTurn.getPFPlayer(), t);
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
+
 
 	public boolean playerCanPlayCard(String[] t)
 	{
@@ -260,11 +251,19 @@ public class PlayerFacade {
 	
 	public PalaceCard getFestivalCard()
 	{
+
 		return playerTurn.getFestivalCard();
 	}
-	
-	public void freezePlayer()
-	{
+
+	public PalaceCard drawFestivalCard() {
+		return deck.drawFestivalCard();
+	}
+
+	public void returnFestivalCard(PalaceCard c) {
+		deck.returnFestivalCard(c);
+	}
+
+	public void freezePlayer() {
 		playerTurn.freezeCurrentPlayer();
 	}
 
@@ -277,20 +276,32 @@ public class PlayerFacade {
 	{
 		playerTurn.nextPFPlayer();
 	}
-	
-	public boolean checkEnd()
-	{
+
+	public boolean checkEnd() {
 		return playerTurn.checkEnd();
 	}
 
-	public ArrayList<Player> getVictors()
-	{
+	public ArrayList<Player> getVictors() {
 		return playerTurn.getVictors();
 	}
+
 
 	public Player[] getPlayers()
 	{
 		return playerTurn.getPlayers();
+	}
+
+
+	public void placeDeveloper() {
+		currentPlayer.placeDeveloper();
+	}
+
+	public void removeDeveloper() {
+		currentPlayer.removeDeveloper();
+	}
+
+	public String getName() {
+		return currentPlayer.getName();
 	}
 
 }
