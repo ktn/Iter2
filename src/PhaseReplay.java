@@ -1,8 +1,12 @@
 
 public class PhaseReplay {
-	ModelFacade model;
-	public PhaseReplay(ModelFacade model) {
-		this.model = model;
+	BoardFacade board;
+	PlayerFacade player;
+	public PhaseReplay(BoardFacade b, PlayerFacade p) {
+		this.board = b;
+		this.player = p;
 	}
 
+
+	
 }
