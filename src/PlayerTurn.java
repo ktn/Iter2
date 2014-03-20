@@ -223,4 +223,10 @@ public class PlayerTurn {
 		return festival.canEndFestival();
 	}
 
+	public boolean getEndFestival()
+	{
+		return festival.getEndFestival();
+	}
+
+
 }
