@@ -70,7 +70,7 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("images/village.png"));
 		img = img.getScaledInstance(32,32,0);
 		JLabel villageBlocks = new JLabel(new ImageIcon(img));
-		numVillageBlocks = new JLabel("3");
+		numVillageBlocks = new JLabel("2");
 		JLabel twoBlocks = new JLabel("Two Blocks: ");
 		numTwoBlocks = new JLabel("3");
 		JLabel developers = new JLabel("Off-Board Developers: ");
