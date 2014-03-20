@@ -218,5 +218,8 @@ public class PlayerTurn {
 		blockPlayed = b;
 	}
 
-
+	public void addToActionPoints(int i)
+	{
+		actionPoints += i;
+	}
 }
