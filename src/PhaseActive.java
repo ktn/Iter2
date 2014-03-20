@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 
@@ -290,5 +291,31 @@ public class PhaseActive {
 		catch(BlockNotPlayedException e) {
 			ViewFacade.warnPlayer("Not enough AP remaining to play a block.");
 		}
+	}
+	public void save() {
+		boolean query = ViewFacade.promptPlayer("Do you want to save?");
+		if(!query) return;
+		try {
+			CommandStack.save("savefile");
+			ViewFacade.warnPlayer("Saved");
+			return;
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ViewFacade.warnPlayer("Didn't save");
+	}
+	public void load() {
+		boolean query = ViewFacade.promptPlayer("Do you want to load the last-saved game?");
+		if(!query) return;
+		try {
+			CommandStack.load("savefile", player, board);
+			ViewFacade.warnPlayer("Loading");
+			return;
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ViewFacade.warnPlayer("Didn't load");
 	}
 }

@@ -70,8 +70,42 @@ public class TurnPhase {
 		case KeyEvent.VK_TAB:
 			normal.switchSelected();
 			break;
-		case KeyEvent.VK_B:
-			normal.
+		case KeyEvent.VK_1:
+			normal.placeDeveloperMode();
+			break;
+		case KeyEvent.VK_2:
+			normal.moveDeveloperMode();
+			break;
+		case KeyEvent.VK_3:
+			normal.placeBlock();
+			break;
+		case KeyEvent.VK_4:
+			normal.placePalace();
+			break;
+		case KeyEvent.VK_ENTER:
+			normal.placeBlock();
+			normal.placeDeveloper();
+			normal.placePalace();
+			normal.moveDeveloper();
+			break;
+		case KeyEvent.VK_S:
+			normal.save();
+			break;
+		case KeyEvent.VK_L:
+			normal.load();
+			break;
+		case KeyEvent.VK_A:
+			normal.useActionToken();
+			break;
+		case KeyEvent.VK_E:
+			normal.changeTurn();
+			break;
+		case KeyEvent.VK_R:
+			normal.rotateBlock();
+			break;
+		default:
+			break;
+			
 		}
 	}
 	
