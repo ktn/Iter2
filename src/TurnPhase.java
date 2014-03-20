@@ -32,7 +32,7 @@ public class TurnPhase {
 		board = new BoardFacade();
 		sanitation = new Sanitation(player, board);
 		this.normal = new PhaseActive(player, board, sanitation);
-		// this.replay = new PhaseReplay(player, board, sanitation);
+		this.replay = new PhaseReplay(board, player);
 		this.planning = new PhasePlanning(player, board, sanitation);
 		currentMode = GameMode.NORMALMODE;
 		// this.festival = new PhaseFestival(model);
@@ -102,11 +102,24 @@ public class TurnPhase {
 			}
 			break;
 		case KeyEvent.VK_7:
+<<<<<<< HEAD
+			// replay = new PhaseReplay(player, board, sanitation);
+			boolean query2 = ViewFacade.promptPlayer("Do you want to enter replay mode?");
+			if(query2) {
+				
+				currentMode = GameMode.REPLAYMODE;
+				normal = null;
+				replay.replay();
+			}
+			else{
+				//currentMode = GameMode.NORMALMODE;
+=======
 			query = ViewFacade.promptPlayer("Do you want to enter replay mode?");
 			if(query) {
 				// replay = new PhaseReplay(player, board, sanitation);
 				currentMode = GameMode.REPLAYMODE;
 				normal = null;
+>>>>>>> 560dbd8c7125ae7a4aba0d69669acef9343b247d
 			}
 			break;
 		case KeyEvent.VK_8:
@@ -191,8 +204,16 @@ public class TurnPhase {
 			break;
 		case KeyEvent.VK_7:
 			// replay = new PhaseReplay(player, board, sanitation);
-			currentMode = GameMode.REPLAYMODE;
-			planning = null;
+			boolean query = ViewFacade.promptPlayer("Do you want to enter replay mode?");
+			if(query) {
+				
+				currentMode = GameMode.REPLAYMODE;
+				planning = null;
+				replay.replay();
+			}
+			else{
+				//currentMode = GameMode.NORMALMODE;
+			}
 			break;
 		case KeyEvent.VK_8:
 			// festival = new PhaseFestival(player, board, sanitation);
@@ -227,6 +248,11 @@ public class TurnPhase {
 
 	private void replayModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
+		switch (key){
+		case KeyEvent.VK_RIGHT:
+			replay.doCommand();
+			break;
+		}
 	}
 
 	private void festivalModeInterpreter(KeyEvent k) {
