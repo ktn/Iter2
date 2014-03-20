@@ -257,4 +257,52 @@ public class PalaceFestival {
 
 		return ret;
 	}
+
+	public boolean isOnePlayerLeft()
+	{
+		int count = 0;
+		for(int i = 0; i < playerFrozen.length; i++)
+		{
+			if(playerFrozen[i] == false)
+			{
+				count++;
+			}
+		}
+
+		if(count == 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean canEndFestival()
+	{
+		int max = 0;
+		for(int i = 0; i < playerScores.length; i++)
+		{
+			if(playerScores[i] > max)
+			{
+				max = playerScores[i];
+			}
+		}
+
+		int numberOfTies = 0;
+		for(int i = 0; i < playerScores.length; i++)
+		{
+			if(playerScores[i] == max)
+			{
+				numberOfTies++;
+			}
+		}
+
+		if(numberOfTies > 1)
+		{
+			return true;
+		}
+
+		return false;
+
+	}
 }

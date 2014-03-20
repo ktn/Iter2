@@ -293,4 +293,14 @@ public class PlayerFacade {
 		return playerTurn.getPlayers();
 	}
 
+	public boolean isOnePlayerLeft()
+	{
+		return playerTurn.isOnePlayerLeft();
+	}
+
+	public boolean canEndFestival()
+	{
+		return playerTurn.canEndFestival();
+	}
+
 }
