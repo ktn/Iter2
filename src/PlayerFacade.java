@@ -319,4 +319,9 @@ public class PlayerFacade {
 		return playerTurn.canEndFestival();
 	}
 
+	public boolean getEndFestival()
+	{
+		return playerTurn.getEndFestival();
+	}
+
 }
