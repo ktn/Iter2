@@ -16,7 +16,7 @@ public class TurnPhase {
 			return s;
 		}
 	}
-	GameMode currentMode;
+	GameMode currentMode = NORMALMODE;
 	
 	PhaseActive normal;
 	PhaseReplay replay;
@@ -39,6 +39,7 @@ public class TurnPhase {
 	}
 	
 	public void receiveKeyEvent(KeyEvent k) {
+		System.out.println("Key pressed");
 		if(currentMode == GameMode.NORMALMODE) {
 			normalModeInterpreter(k);
 		}

@@ -9,8 +9,11 @@ public class InputListener implements KeyListener {
 	public InputListener() {
 		ArrayList<String> names = new ArrayList<String>(Arrays.asList(new String[] {"Bob", "Steve", "Frank", "Alice"}));
 		new View(names, this);
+
+		
 		turn = new TurnPhase();
 	}
+
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {

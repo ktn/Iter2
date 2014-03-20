@@ -9,8 +9,7 @@ public class runGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new InputListener();
-
+		InputListener a = new InputListener();
 	}
 
 }
