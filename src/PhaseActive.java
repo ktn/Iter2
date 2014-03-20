@@ -30,6 +30,7 @@ public class PhaseActive {
 		state = Mode.BLOCK;
 		selectedBlock = new OneBlock(TileType.RICE);
 		selectedPos = new int[] {0,0};
+		rotationCount = 0;
 		updateView();
 	}
 	public void placeDeveloperMode() {
