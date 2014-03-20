@@ -38,12 +38,16 @@ public class Deck {
 			shuffle(cardStack);
 			discardStack.clear();
 		}
-		System.out.println(ret);
 		return ret;
 	}
 
 	public void setFestivalCard() {
 		festivalCard = this.drawCard();
+	}
+
+	public void returnFestivalCard(PalaceCard c){
+		this.returnTopCard(this.getFestivalCard());
+		this.festivalCard = c;
 	}
 
 	public PalaceCard drawFestivalCard() {
@@ -76,6 +80,7 @@ public class Deck {
 	{
 		return festivalCard;
 	}
+
 
 	public void returnTopCard(PalaceCard c)
 	{

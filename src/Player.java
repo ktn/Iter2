@@ -171,6 +171,14 @@ public class Player {
 		return cards;
 	}
 
+	public void removeCard(PalaceCard c){
+		for(PalaceCard card : cards){
+			if(c == card){
+				cards.remove(card);
+			}
+		}
+	}
+
 	public void addCard(PalaceCard c) {
 		cards.add(c);
 	}

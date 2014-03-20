@@ -15,6 +15,10 @@ public class BoardFacade {
 		traversal = new Traversal(board);
 	}
 
+	public Board.Coordinates getCoordinates(int x, int y){
+		return board.new Coordinates(x, y);
+	}
+
 	public int getHeight(Board.Coordinates c) {
 		return board.getHeight(c);
 	}
@@ -106,6 +110,15 @@ public class BoardFacade {
 	public boolean isMountains(Board.Coordinates c){
 		return board.isMountainSpace(c);
 	}
+	
+	public boolean checkDeveloperPlacement(Board.Coordinates c)
+	{
+		return board.checkDeveloperPlacement(c);
+	}
+
+	public boolean checkEdgePlacement(Board.Coordinates c){
+		return board.checkEdgePlacement(c);
+	}
 
 	// DEVELOPER METHODS  
 	// =======================================================================
@@ -116,6 +129,10 @@ public class BoardFacade {
 
 	public void moveDeveloper(Board.Coordinates c, Developer d){
 		board.moveDeveloper(c, d);
+	}
+
+	public void removeDeveloper(Board.Coordinates c){
+		board.removeDeveloper(c);
 	}
 
 	public int findShortestPath(Board.Coordinates oldPos, Board.Coordinates newPos) {
@@ -157,12 +174,11 @@ public class BoardFacade {
 		return traversal.allPalaceTiles();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public Board.Coordinates getDeveloper(Player p){
+		return board.getDeveloper(p);
+	}
+
+	public Board.Coordinates nextDeveloper(Board.Coordinates c){
+		return board.nextDeveloper(c);
+	}
 }		
