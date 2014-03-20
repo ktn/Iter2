@@ -22,7 +22,7 @@ public class Player {
 	private int twoBlocks;
 	private int villageBlocks;
 	private int riceBlocks;
-	private List<PalaceCard> cards;
+	private ArrayList<PalaceCard> cards;
 
 	public Player() {
 		name = "Joe Shmoe";
@@ -49,6 +49,11 @@ public class Player {
 		villageBlocks = 2;
 		riceBlocks = 3;
 		cards = new ArrayList<PalaceCard>();
+		//For now hardcode the cards they get at beginning
+		//TODO: randomize this selection
+		cards.add(new OnePointPalaceCard("MASK"));
+		cards.add(new OnePointPalaceCard("PUPPET"));
+		cards.add(new OnePointPalaceCard("DRUM"));
 	}
 
 	public Player(String n, Color c) {
@@ -62,6 +67,11 @@ public class Player {
 		villageBlocks = 2;
 		riceBlocks = 3;
 		cards = new ArrayList<PalaceCard>();
+		//For now hardcode the cards they get at beginning
+		//TODO: randomize this selection
+		cards.add(new OnePointPalaceCard("MASK"));
+		cards.add(new OnePointPalaceCard("PUPPET"));
+		cards.add(new OnePointPalaceCard("DRUM"));
 	}
 
 	public void setColor(Color c) {
@@ -167,7 +177,7 @@ public class Player {
 	}
 
 	// Palace card stuff
-	public List<PalaceCard> getCards() {
+	public ArrayList<PalaceCard> getCards() {
 		return cards;
 	}
 

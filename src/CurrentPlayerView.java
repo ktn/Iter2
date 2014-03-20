@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.util.ArrayList;
 
 public class CurrentPlayerView extends JPanel {
 /**This class, placed towards the bottom of the game window, will contain
@@ -167,26 +168,73 @@ public class CurrentPlayerView extends JPanel {
 		this.add(playerCards);	
 	}
 	
-	public void displayPalaceInventory(int numMask, int numPuppet, int numDrum, 
-									   int numMaskDrum, int numDrumPuppet, 
-									   int numPuppetMask) {
-		numDrumCards.setText(Integer.toString(numDrum));
-		numPuppetCards.setText(Integer.toString(numPuppet));
-		numMaskCards.setText(Integer.toString(numMask));
-		numMaskDrumCards.setText(Integer.toString(numMaskDrum));
-		numDrumPuppetCards.setText(Integer.toString(numDrumPuppet));
-		numPuppetMaskCards.setText(Integer.toString(numPuppetMask));
+	public void displayPalaceInventory(int cards[]) {
+		numDrumCards.setText(Integer.toString(cards[0]));
+		numPuppetCards.setText(Integer.toString(cards[1]));
+		numMaskCards.setText(Integer.toString(cards[2]));
+		numMaskDrumCards.setText(Integer.toString(cards[3]));
+		numDrumPuppetCards.setText(Integer.toString(cards[4]));
+		numPuppetMaskCards.setText(Integer.toString(cards[5]));
 	}
 	
 	public void set(PlayerFacade p){
-				displayActionTokens(p.getCurrentPlayer().getActionTokens());
-				displayRiceBlocks(p.getCurrentPlayer().riceBlocksLeft());
-				displayVillageBlocks(p.getCurrentPlayer().villageBlocksLeft());
-				displayTwoBlocks(p.getCurrentPlayer().twoBlocksLeft());
-				displayDevelopers(p.getCurrentPlayer().getDevelsOff());
-				displayScore(p.getCurrentPlayer().getScore());
-				name.setText("Name: "+p.getCurrentPlayer().getName());
-				AP.setText("AP: "+p.getActionPoints());
+		displayActionTokens(p.getCurrentPlayer().getActionTokens());
+		displayRiceBlocks(p.getCurrentPlayer().riceBlocksLeft());
+		displayVillageBlocks(p.getCurrentPlayer().villageBlocksLeft());
+		displayTwoBlocks(p.getCurrentPlayer().twoBlocksLeft());
+		displayDevelopers(p.getCurrentPlayer().getDevelsOff());
+		displayScore(p.getCurrentPlayer().getScore());
+		name.setText("Name: "+p.getCurrentPlayer().getName());
+		AP.setText("AP: "+p.getActionPoints());
+		ArrayList<PalaceCard> cards = p.getCurrentPlayer().getCards();
+		updatePalaceInventory(cards);
+	}
+	
+	//modification of displayPalaceInventory that makes use of model information
+	public void updatePalaceInventory(ArrayList<PalaceCard> cards) {
+		int[] cardCount = new int[6];
+		for(int i = 0; i < 6; i++)
+		{
+			cardCount[i] = 0;
+		}
+
+		for(int i = 0; i < cards.size(); i++)
+		{
+			if(cards.get(i) instanceof OnePointPalaceCard)
+			{
+				OnePointPalaceCard current = (OnePointPalaceCard) cards.get(i);
+				if(current.getSymbol().equals("MASK"))
+				{
+					cardCount[0]++;
+				}
+				else if(current.getSymbol().equals("PUPPET"))
+				{
+					cardCount[1]++;
+				}
+				else if(current.getSymbol().equals("DRUM"))
+				{
+					cardCount[2]++;
+				}
+			}
+			else if(cards.get(i) instanceof TwoPointPalaceCard)
+			{
+				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
+				if(current.getFirstSymbol().equals("MASK") && current.getSecondSymbol().equals("DRUM"))
+				{
+					cardCount[3]++;
+				}
+				else if(current.getFirstSymbol().equals("DRUM") && current.getSecondSymbol().equals("PUPPET"))
+				{
+					cardCount[4]++;
+				}
+				else if(current.getFirstSymbol().equals("PUPPET") && current.getSecondSymbol().equals("MASK"))
+				{
+					cardCount[5]++;
+				}
+			}
+		}
+
+		displayPalaceInventory(cardCount);
 	}
 
 	public void displayRiceBlocks(int numRice)

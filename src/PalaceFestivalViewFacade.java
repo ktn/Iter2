@@ -2,8 +2,9 @@ public class PalaceFestivalViewFacade {
 
 	static PalaceFestivalView festView;
 
-	public static void initialize(String currentPlayer) {
+	public static void initialize(String currentPlayer, InputListener input) {
 		festView = new PalaceFestivalView(currentPlayer);
+		festView.addKeyListener(input);
 	}
 	
 	public static void setFestivalCard(String cardType) {

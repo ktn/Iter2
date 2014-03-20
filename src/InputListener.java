@@ -9,7 +9,7 @@ public class InputListener implements KeyListener {
 	View theView;
 	public InputListener(String[] argNames) {
 		ArrayList<String> names = new ArrayList<String>(Arrays.asList(argNames));
-		theView = new View(names);
+		theView = new View(names, this);
 		theView.setFocusable(true);
         theView.requestFocusInWindow();
         theView.setFocusTraversalKeysEnabled(false);
