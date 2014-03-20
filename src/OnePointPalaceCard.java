@@ -2,20 +2,20 @@ public class OnePointPalaceCard extends PalaceCard {
 	private Symbol symbol;
 
 	public OnePointPalaceCard(String symbolType) {
-		if (symbolType == "MASK") {
+		if (symbolType.equals("MASK")) {
 			symbol = Symbol.MASK;
-		} else if (symbolType == "DRUM") {
+		} else if (symbolType.equals("DRUM")) {
 			symbol = Symbol.DRUM;
-		} else {
+		} else if (symbolType.equals("PUPPET")) {
 			symbol = Symbol.PUPPET;
 		}
 	}
 
 	public String getSymbol() {
-		return this.symbol.toString();
+		return symbol.toString();
 	}
 
 	public String toString() {
-		return this.symbol.toString();
+		return getSymbol();
 	}
 }

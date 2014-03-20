@@ -285,6 +285,7 @@ public class PhaseActive {
 					//com.execute();
 					blockMode();
 				}
+				rotationCount = 0;
 			}
 			catch(IllegalBlockPlacementException e) {
 				ViewFacade.warnPlayer(e.toString());

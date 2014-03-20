@@ -28,17 +28,15 @@ public class DrawDeckCardCommand implements Command {
 
 	public void load() {
 
-	}	
-	public void save(){
+	}
+
+	public void save() {
 		CommandStack.storeCommand(this);
 	}
 
-	
-
 	public String toString() {
 		StringBuilder result = new StringBuilder(100);
-		result.append(this.getClass().getName() + " " + player.getName() + " "
-				+ card);
+		result.append(this.getClass().getName() + " " + card);
 		return result.toString();
 	}
 }

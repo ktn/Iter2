@@ -4,8 +4,7 @@ public class PlaceVillageTileCommand implements Command {
 	private PlayerFacade player;
 	private Block block;
 
-	PlaceVillageTileCommand(BoardFacade b, PlayerFacade p,
-			Board.Coordinates c) {
+	PlaceVillageTileCommand(BoardFacade b, PlayerFacade p, Board.Coordinates c) {
 		this.board = b;
 		this.coords = c;
 		this.player = p;
@@ -31,8 +30,7 @@ public class PlaceVillageTileCommand implements Command {
 
 	}
 
-
-	public void save(){
+	public void save() {
 		CommandStack.storeCommand(this);
 	}
 
