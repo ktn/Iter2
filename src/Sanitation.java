@@ -259,12 +259,30 @@ class Sanitation {
 	
 	public boolean playCardChecker(PalaceCard pc) throws NoFestivalException {
 		boolean result = false;
+		String[] type;
+
+		if(pc instanceof OnePointPalaceCard)
+		{
+			OnePointPalaceCard current = (OnePointPalaceCard) pc;
+			type = new String[1];
+			type[0] = current.getSymbol();
+		}
+		else if(pc instanceof TwoPointPalaceCard)
+		{
+			TwoPointPalaceCard current = (TwoPointPalaceCard) pc;
+			type = new String[2];
+			type[0] = current.getFirstSymbol();
+			type[1] = current.getSecondSymbol();
+		}
+
+
 		if(!player.getEndFestival()) {
-			result = false;
+			result = true;
 			throw new NoFestivalException("There is no festival");
 		}
-		else if(player.playerHasPC(pc)) {
-			result = false;
+		else if(player.hasCardWith(type)) {
+
+			result = true;
 		}
 		return result;
 	}
