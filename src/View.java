@@ -28,8 +28,8 @@ public class View extends JFrame {
 		//this.setBounds(100, 100, 910, 650);
         //this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		Toolkit tk = Toolkit.getDefaultToolkit();  
-		int xSize = ((int) (tk.getScreenSize().getWidth()*0.75f));  
-		int ySize = ((int) (tk.getScreenSize().getHeight()*0.75f));  
+		int xSize = ((int) (tk.getScreenSize().getWidth()));  
+		int ySize = ((int) (tk.getScreenSize().getHeight()));  
 		this.setSize(xSize,ySize);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,10 @@ public class View extends JFrame {
 		this.getContentPane().add(ViewFacade.getPublicInventoryView(),
 								  BorderLayout.EAST);
 		this.getContentPane().add(ViewFacade.getControllerView(), 
-								  BorderLayout.WEST);
+							  BorderLayout.WEST);
+		//JPanel boardPanel = new JPanel();
+		//boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		//boardPanel.add(ViewFacade.getBoardView());
 		this.getContentPane().add(ViewFacade.getBoardView(), BorderLayout.CENTER);
 	}
 }
