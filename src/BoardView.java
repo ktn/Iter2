@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import sun.java2d.jules.TileWorker;
 
 /**mostly for mark-ups as of yet.  need more model to view.
  * needs work to create buffer.*/

@@ -84,6 +84,8 @@ public class Grid<E> implements Iterable<E> {
 			members[i - 1] = members[i];
 		}
 		members[childNum - 1] = temp;
+
+		
 	}
 
 	public Iterator<E> iterator() {
