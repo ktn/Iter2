@@ -31,11 +31,11 @@ public class ControllerView extends JPanel {
 	}
 	 
 	public void setMode(String mode) {
-		gamePhase = new JLabel(mode + " Mode");
+		gamePhase.setText(mode + " Mode");
 	}
 	
 	public void setActions(String actions) {
-		message = new JLabel(actions);
+		message.setText(actions);
 	}
 
 }

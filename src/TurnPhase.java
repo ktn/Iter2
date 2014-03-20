@@ -41,6 +41,7 @@ public class TurnPhase {
 		// TODO: randomize this later
 		OnePointPalaceCard festCard = new OnePointPalaceCard("MASK");
 		ViewFacade.displayFestivalCard(festCard);
+		sendActiveCommands();
 	}
 
 	public void receiveKeyEvent(KeyEvent k) {
@@ -101,8 +102,10 @@ public class TurnPhase {
 			query = ViewFacade
 					.promptPlayer("Do you want to enter planning mode?");
 			if (query) {
+				sendActiveCommands();
 				planning = new PhasePlanning(player, board, sanitation);
 				currentMode = GameMode.PLANNINGMODE;
+				ViewFacade.setGameMode("Planning");
 				normal = null;
 			}
 			break;
@@ -111,8 +114,9 @@ public class TurnPhase {
 			boolean query2 = ViewFacade
 					.promptPlayer("Do you want to enter replay mode?");
 			if (query2) {
-
+				sendReplayCommands();
 				currentMode = GameMode.REPLAYMODE;
+				ViewFacade.setGameMode("Replay Mode");
 				normal = null;
 				replay.replay();
 			} else {
@@ -199,8 +203,10 @@ public class TurnPhase {
 			query = ViewFacade
 					.promptPlayer("Do you want to enter action mode?");
 			if (query) {
+				sendActiveCommands();
 				normal = new PhaseActive(player, board, sanitation);
 				currentMode = GameMode.NORMALMODE;
+				ViewFacade.setGameMode("Active Mode");
 				planning = null;
 			}
 			break;
@@ -214,8 +220,9 @@ public class TurnPhase {
 			boolean query2 = ViewFacade
 					.promptPlayer("Do you want to enter replay mode?");
 			if (query2) {
-
+				sendReplayCommands();
 				currentMode = GameMode.REPLAYMODE;
+				ViewFacade.setGameMode("Replay Mode");
 				planning = null;
 				replay.replay();
 			} else {
@@ -263,8 +270,10 @@ public class TurnPhase {
 			boolean query = ViewFacade
 					.promptPlayer("Do you want to enter planning mode?");
 			if (query) {
+				sendActiveCommands();
 				planning = new PhasePlanning(player, board, sanitation);
 				currentMode = GameMode.PLANNINGMODE;
+				ViewFacade.setGameMode("Planning Mode");
 				normal = null;
 			}
 			break;
@@ -272,6 +281,7 @@ public class TurnPhase {
 			boolean query2 = ViewFacade
 					.promptPlayer("Do you want to enter action mode?");
 			if (query2) {
+				sendActiveCommands();
 				normal = new PhaseActive(player, board, sanitation);
 				currentMode = GameMode.NORMALMODE;
 				planning = null;
@@ -282,5 +292,29 @@ public class TurnPhase {
 
 	private void festivalModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
+	}
+	
+	private void sendActiveCommands() {
+		ViewFacade.setAvailableActions("<html>Keys<br>" +
+		"NUM8 - Move Cursor Up<br>" +
+		"NUM6 - Move Cursor Right<br>" +
+		"NUM4 - Move Cursor Left<br>" +
+		"NUM2 - Move Cursor Down<br>" +
+		"Enter - Place Developer/Block<br>" +
+		"Tab - Switch Developers/Blocks<br>" +
+		"R - Rotate Block<br>" +
+		"1 - Place a Developer<br>" +
+		"2 - Move a Developer<br>" +
+		"3 - Place a Block<br>" +
+		"4 - Place a Palace<br>" +
+		"5 - Active Mode<br>" +
+		"6 - Planning Mode<br></html>");
+	}
+	
+	private void sendReplayCommands() {
+		ViewFacade.setAvailableActions("<html>Keys<br>" +
+		"Right - Play Next Action<br>" +
+		"5 - Active Mode<br>" +
+		"6 - Planning Mode<br></html>");
 	}
 }
