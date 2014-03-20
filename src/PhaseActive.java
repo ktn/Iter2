@@ -221,6 +221,8 @@ public class PhaseActive {
 		if(state != Mode.BLOCK) {
 			return;
 		}
+		boolean confirm = ViewFacade.promptPlayer("Do you want to spend 1 AP to place the block?");
+		if(!confirm) return;
 		boolean valid = false;
 		boolean loop = false;
 		do {
