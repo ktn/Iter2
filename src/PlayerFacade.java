@@ -177,6 +177,10 @@ public class PlayerFacade {
 		return ret;
 	}
 
+	public boolean hasCardWith(String[] t){
+		return playerTurn.getPFPlayer().hasCardWith(t);
+	}
+
 	public boolean playerHasPC(int p, String[] t) {
 		boolean ret = false;
 		ret = playerTurn.getPlayer(p).hasCardWith(t);

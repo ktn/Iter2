@@ -118,11 +118,11 @@ class Sanitation {
 		return player.actionTokenUsable();
 	}
 	
-	public boolean placeTileChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException {
+	public boolean placeTileChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException, CoordinateException {
 		return placeBlockChecker(b, coords);
 	}
 
-	public boolean placeBlockChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException {
+	public boolean placeBlockChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException, CoordinateException {
 		boolean result = true;
 		TileType type = BlockTypeConverter.convertToBlockType(b);
 		int x = coords.x;
@@ -181,7 +181,7 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean placePalaceChecker(int level, Board.Coordinates coord) throws PalaceUpgradeException, NoDeveloperAtCoordinatesException {
+	public boolean placePalaceChecker(int level, Board.Coordinates coord) throws PalaceUpgradeException, NoDeveloperAtCoordinatesException, CoordinateException {
 		boolean result = true;
 		if(level < 2 || level > 10 || level % 2 == 1) {
 			result = false;
@@ -259,7 +259,7 @@ class Sanitation {
 	
 	public boolean playCardChecker(PalaceCard pc) throws NoFestivalException {
 		boolean result = false;
-		String[] type;
+		String[] type = null;
 
 		if(pc instanceof OnePointPalaceCard)
 		{

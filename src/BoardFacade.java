@@ -125,7 +125,7 @@ public class BoardFacade {
 	}
 
 	public boolean notTwoPalacesBetweenCities(Board.Coordinates middleTile){
-		return  board.notTwoPalacesBetweenCities(middleTile);
+		return traversal.notTwoPalacesBetweenCities(middleTile);
 	}
 
 	// DEVELOPER METHODS  
