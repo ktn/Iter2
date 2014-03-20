@@ -248,6 +248,22 @@ public class TurnPhase {
 		case KeyEvent.VK_RIGHT:
 			replay.doCommand();
 			break;
+		case KeyEvent.VK_6:
+			boolean query = ViewFacade.promptPlayer("Do you want to enter planning mode?");
+			if(query) {
+				planning = new PhasePlanning(player, board, sanitation);
+				currentMode = GameMode.PLANNINGMODE;
+				normal = null;
+			}
+			break;
+		case KeyEvent.VK_5:
+			boolean query2 = ViewFacade.promptPlayer("Do you want to enter action mode?");
+			if(query2) {
+				normal = new PhaseActive(player, board, sanitation);
+				currentMode = GameMode.NORMALMODE;
+				planning = null;
+			}
+			break;
 		}
 	}
 
