@@ -4,6 +4,7 @@ PlayerTurn is an object that keeps track of whose turn it is
  ******************************************************************************
  */
 import java.util.*;
+
 public class PlayerTurn {
 	Player[] players;
 	int currentPlayer;
@@ -76,125 +77,103 @@ public class PlayerTurn {
 		blockPlayed = true;
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		players[currentPlayer].returnActionToken();
 	}
 
-	public void createPalaceFestival(PalaceCard c, PlayerFacade p)
-	{
+	public void createPalaceFestival(PalaceCard c, PlayerFacade p) {
 		festival = new PalaceFestival(c, p);
 	}
 
-	public void startFestival(Player[] p)
-	{
+	public void startFestival(Player[] p) {
 		festival.startFestival(p);
 	}
 
-	public int getPlayerInt(Player p)
-	{
+	public int getPlayerInt(Player p) {
 		int ret = -1;
-		for(int i = 0; i < numPlayers; i++)
-		{
-			if(players[i] == p)
-			{
+		for (int i = 0; i < numPlayers; i++) {
+			if (players[i] == p) {
 				ret = i;
 				break;
 			}
 		}
 		return ret;
 	}
-	
-	public PalaceCard getFestivalCard()
-	{
+
+	public PalaceCard getFestivalCard() {
 		return festival.getFestivalCard();
 	}
 
-	public ArrayList<PalaceCard> getCardsForPlayer(Player p)
-	{
+	public ArrayList<PalaceCard> getCardsForPlayer(Player p) {
 		PalaceCard currentFestCard = this.festival.getFestivalCard();
 		ArrayList<PalaceCard> cardList = new ArrayList<PalaceCard>();
 		ArrayList<PalaceCard> temp = new ArrayList<PalaceCard>();
 		OnePointPalaceCard onePointPalaceCard;
 		TwoPointPalaceCard twoPointPalaceCard;
 
-		//Type of the festival card
+		// Type of the festival card
 		String[] type;
-	
-		System.out.println("Current festival card: " + currentFestCard.toString() + "\n");
 
-		if(currentFestCard instanceof OnePointPalaceCard)
-		{
+		System.out.println("Current festival card: "
+				+ currentFestCard.toString() + "\n");
+
+		if (currentFestCard instanceof OnePointPalaceCard) {
 			onePointPalaceCard = (OnePointPalaceCard) currentFestCard;
-			//System.out.println("One point fest card " + currentFestCard);
+			// System.out.println("One point fest card " + currentFestCard);
 			type = new String[1];
 			type[0] = onePointPalaceCard.getSymbol();
 			cardList.addAll(p.getPlayablePalaceCards(type));
-		}
-		else if(currentFestCard instanceof TwoPointPalaceCard)
-		{
+		} else if (currentFestCard instanceof TwoPointPalaceCard) {
 			twoPointPalaceCard = (TwoPointPalaceCard) currentFestCard;
-			//System.out.println("Two point fest card " + currentFestCard);
+			// System.out.println("Two point fest card " + currentFestCard);
 			type = new String[2];
 			type[0] = twoPointPalaceCard.getFirstSymbol();
 			cardList.addAll(p.getPlayablePalaceCards(type));
 			type[1] = twoPointPalaceCard.getSecondSymbol();
 			temp.addAll(p.getPlayablePalaceCards(type));
-			
-			for(int i = 0; i < temp.size(); i++)
-			{
-				if(!cardList.contains(temp.get(i)))
-				{
+
+			for (int i = 0; i < temp.size(); i++) {
+				if (!cardList.contains(temp.get(i))) {
 					cardList.add(temp.get(i));
 				}
 			}
 
-
 		}
-
 
 		return cardList;
 	}
-	
-	public ArrayList<Player> getParticipants()
-	{
+
+	public ArrayList<Player> getParticipants() {
 		return festival.getParticipants();
 	}
-	
-	public boolean checkEnd()
-	{
+
+	public boolean checkEnd() {
 		return festival.checkEnd();
 	}
 
-	public Player getPFPlayer()
-	{
+	public Player getPFPlayer() {
 		return festival.getCurrentPlayer();
 	}
-	
-	public void freezeCurrentPlayer()
-	{
+
+	public void freezeCurrentPlayer() {
 		festival.freezeCurrentPlayer();
 	}
-	
-	public void nextPFPlayer()
-	{
+
+	public void nextPFPlayer() {
 		festival.nextPlayer();
 	}
-	
-	public void giveFestivalPoints(Player p, String[] t)
-	{
+
+	public void giveFestivalPoints(Player p, String[] t) {
 		festival.giveFestivalPoints(p, t);
 	}
-	
-	public void giveFestivalPoints(int p, String[] t)
-	{
-		//Find player corresponding to p
+
+	public void giveFestivalPoints(int p, String[] t) {
+		// Find player corresponding to p
 		Player player = this.getPlayer(p);
 		festival.giveFestivalPoints(player, t);
 	}
 
-	public ArrayList<Player> getVictors()
-	{
+	public ArrayList<Player> getVictors() {
 		return festival.getVictors();
 	}
 

@@ -38,7 +38,6 @@ public class Deck {
 			shuffle(cardStack);
 			discardStack.clear();
 		}
-		System.out.println(ret);
 		return ret;
 	}
 

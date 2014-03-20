@@ -8,7 +8,6 @@ public abstract class Tile {
 		joinedTiles = new Grid<Tile>(Tile.class);
 	}
 
-
 	public TileType getType() {
 		return type;
 	}
