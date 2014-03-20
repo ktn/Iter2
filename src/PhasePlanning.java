@@ -1,8 +1,7 @@
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Queue;
 import java.util.Stack;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PhasePlanning {
 	PlayerFacade player;
@@ -25,43 +24,76 @@ public class PhasePlanning {
 		this.board = board;
 		this.sanitation = sanitation;
 		commands = new Stack<Command>();
+		blockMode();	
 	}
 	
+
 	// Mode switching
 	public void blockMode() {
 		state = Mode.BLOCK;
 		selectedBlock = new OneBlock(TileType.RICE);
 		selectedPos = new int[] {0,0};
+		rotationCount = 0;
+		board.updateBoard();
+		drawCursor();
 	}
 	public void placeDeveloperMode() {
 		state = Mode.PLACEDEVELOPER;
 		selectedPos = new int[] {0,0};
+		board.updateBoard();
+		updateView();
 	}
 	public void moveDeveloperMode() {
 		state = Mode.MOVEDEVELOPER;
 		selectedDeveloper = null;
 		switchDeveloper();
+		board.updateBoard();
+		updateView();
 	}
 	public void palaceMode() {
 		state = Mode.PALACE;
 		selectedPos = new int[] {0,0};
 		palaceLevel = 2;
+		board.updateBoard();
 	}
 	
 	// General methods
-	public void moveDown() {
+	public void moveUp() {
 		selectedPos[1] = (selectedPos[1] <= 0) ? 0 : selectedPos[1] - 1;
+		drawCursor();
+		//updateView();
+
 	}
 	public void moveLeft() {
 		selectedPos[0] = (selectedPos[0] <= 0) ? 0 : selectedPos[0] - 1;
+		drawCursor();
+		//updateView();
 	}
 	public void moveRight() {
 		selectedPos[0] = (selectedPos[0] >= board.getLargest().x) ? board.getLargest().x : selectedPos[0] + 1;
+		drawCursor();
+		//updateView();
 	}
-	public void moveUp() {
+	public void moveDown() {
 		selectedPos[1] = (selectedPos[1] >= board.getLargest().y) ? board.getLargest().y : selectedPos[1] + 1;
+		drawCursor();
+		//updateView();
 	}
 	
+	private void drawCursor(){
+		board.updateBoard();
+		if(state == Mode.BLOCK){ 
+			if (selectedBlock!=null){
+				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+			}else{
+				ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+			}
+		}
+		else {
+			updateView();
+		}
+	}
+
 	public void switchSelected() {
 		if(state == Mode.BLOCK) {
 			switchBlock();
@@ -69,6 +101,7 @@ public class PhasePlanning {
 		if(state == Mode.MOVEDEVELOPER) {
 			switchDeveloper();
 		}
+		drawCursor();
 	}
 	
 	// Block methods
@@ -94,6 +127,7 @@ public class PhasePlanning {
 		if(state != Mode.BLOCK) return;
 		selectedBlock.rotate();
 		rotationCount = (rotationCount + 1) % 4;
+		drawCursor();
 	}
 	
 	// Developer methods
@@ -114,7 +148,9 @@ public class PhasePlanning {
 	
 	// Palace commands
 	public void levelPalace() {
-		if(state != Mode.PALACE) return;
+		if(state != Mode.PALACE) {
+			return;
+		}
 		else if(palaceLevel >= 10) {
 			palaceLevel = 0;
 		}
@@ -123,32 +159,60 @@ public class PhasePlanning {
 	
 	// Create commands
 	public void placeDeveloper() {
-		if(state != Mode.PLACEDEVELOPER) return;
+		if(state != Mode.PLACEDEVELOPER) {
+			return;
+		}
 		boolean valid = false;
-		try {
-			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
-			valid = sanitation.placeDeveloperChecker(c);
-			if(valid) {
-				Command com = new PlaceDeveloperCommand(board, player, c);
-				commands.add(com); com.execute();
-				placeDeveloperMode();
+		Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
+		boolean confirm = true;
+		
+		if(board.isMountains(c)) confirm = ViewFacade.promptPlayer("Do you want to spend 2 AP to place the developer?");
+		else confirm = ViewFacade.promptPlayer("Do you want to spend 1 AP to place the block?");
+		
+		if(!confirm) return;
+		boolean loop = false;
+		do {
+			loop = false;
+			try {
+				valid = sanitation.placeDeveloperChecker(c);
+				if(valid) {
+					Command com = new PlaceDeveloperCommand(board, player, c);
+					com.execute(); commands.push(com);
+					placeDeveloperMode();
+				}
 			}
-		}
-		catch(BlockNotPlayedException e) {
-			ViewFacade.warnPlayer("Not enough AP remaining to play a block.");
-		}
-		catch(NotEnoughAPException e) {
-			ViewFacade.warnPlayer("Not enough AP to place the developer.");
-		}
-		catch(CoordinatesOutOfBoundsException e) {
-			ViewFacade.warnPlayer("How did you even get this?");
-		}
-		catch(CoordinateException e) {
-			ViewFacade.warnPlayer("Invalid location.");
-		}
+			catch(BlockNotPlayedException e) {
+				ViewFacade.warnPlayer("Not enough AP remaining to play a block.");
+			}
+			catch(NotEnoughAPException e) {
+				if(sanitation.actionTokenChecker() && ((!board.isMountains(c) && player.getActionPoints() < 1)
+						|| (board.isMountains(c) && player.getActionPoints() == 1))) {
+					boolean query = ViewFacade.promptPlayer("Do you want to use an action token to play the developer?");
+					if(query) {
+						Command com = new UseActionTokenCommand(board, player);
+						com.execute(); commands.push(com);
+						loop = true;
+					}
+					else {
+						ViewFacade.warnPlayer("Not enough AP to place the developer.");
+					}
+				}
+				else {
+					ViewFacade.warnPlayer("Not enough AP to place the developer.");
+				}
+			}
+			catch(CoordinatesOutOfBoundsException e) {
+				ViewFacade.warnPlayer("How did you even get this?");
+			}
+			catch(CoordinateException e) {
+				ViewFacade.warnPlayer("Invalid location.");
+			}
+		} while(loop);
 	}
 	public void moveDeveloper() {
-		if(state != Mode.MOVEDEVELOPER) return;
+		if(state != Mode.MOVEDEVELOPER) {
+			return;
+		}
 		boolean valid = false;
 		try {
 			Board.Coordinates a = board.getCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
@@ -156,7 +220,7 @@ public class PhasePlanning {
 			valid = sanitation.moveDeveloperChecker(a,b);
 			if(valid) {
 				Command com = new MoveDeveloperCommand(board, player, a, b);
-				commands.add(com); com.execute();
+				com.execute(); commands.push(com);
 				moveDeveloperMode();
 			}
 		}
@@ -178,63 +242,91 @@ public class PhasePlanning {
 		valid = sanitation.actionTokenChecker();
 		if(valid) {
 			Command com = new UseActionTokenCommand(board, player);
-			commands.add(com); com.execute();
+			com.execute(); commands.push(com);
 		}
 		else {
 			ViewFacade.warnPlayer("Can't play an action token.");
 		}
 	}
 	public void placeBlock() {
-		if(state != Mode.BLOCK) return;
+		if(state != Mode.BLOCK) {
+			return;
+		}
+		boolean confirm = ViewFacade.promptPlayer("Do you want to spend 1 AP to place the block?");
+		if(!confirm) return;
 		boolean valid = false;
-		try {
-			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
-			valid = sanitation.placeBlockChecker(selectedBlock, c);
-			if(valid) {
-				Command com;
-				if(selectedBlock instanceof ThreeBlock) {
-					com = new PlaceThreeBlockCommand(board, player, c);
+		boolean loop = false;
+		do {
+			loop = false;
+			try {
+				Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
+				valid = sanitation.placeBlockChecker(selectedBlock, c);
+				if(valid) {
+					Command com;
+					if(selectedBlock instanceof ThreeBlock) {
+						com = new PlaceThreeBlockCommand(board, player, c, rotationCount);
+						com.execute(); commands.push(com);
+					}
+					else if(selectedBlock instanceof TwoBlock) {
+						com = new PlaceTwoBlockCommand(board, player, c, rotationCount);
+						com.execute(); commands.push(com);
+					}
+					else if(selectedBlock.getType() == TileType.RICE) {
+						com = new PlaceRiceTileCommand(board, player, c);
+						com.execute(); commands.push(com);
+					}
+					else if(selectedBlock.getType() == TileType.VILLAGE) {
+						com = new PlaceVillageTileCommand(board, player, c);
+						com.execute(); commands.push(com);
+					}
+					else if(selectedBlock.getType() == TileType.IRRIGATION) {
+						com = new PlaceIrrigationTileCommand(board, player, c);
+						com.execute(); commands.push(com);
+					}
+					//com.rotate(rotationCount);
+					//com.execute();
+					blockMode();
 				}
-				else if(selectedBlock instanceof TwoBlock) {
-					com = new PlaceTwoBlockCommand(board, player, c);
-				}
-				else if(selectedBlock.getType() == TileType.RICE) {
-					com = new PlaceRiceTileCommand(board, player, c);
-				}
-				else if(selectedBlock.getType() == TileType.VILLAGE) {
-					com = new PlaceVillageTileCommand(board, player, c);
-				}
-				else if(selectedBlock.getType() == TileType.IRRIGATION) {
-					com = new PlaceIrrigationTileCommand(board, player, c);
-				}
-				//com.rotate(rotationCount);
-				//commands.add(com); com.execute();
-				blockMode();
 			}
-		}
-		catch(IllegalBlockPlacementException e) {
-			ViewFacade.warnPlayer("Invalid block placement.");
-		}
-		catch(NoBlocksLeftException e) {
-			ViewFacade.warnPlayer("No blocks remaining.");
-		}
-		catch(NotEnoughAPException e) {
-			ViewFacade.warnPlayer("No AP remaining.");
-		}
-		catch(CoordinateException e) {
-			ViewFacade.warnPlayer("Too many palaces.");
-		}
+			catch(IllegalBlockPlacementException e) {
+				ViewFacade.warnPlayer("Invalid block placement.");
+			}
+			catch(NoBlocksLeftException e) {
+				ViewFacade.warnPlayer("No blocks remaining.");
+			}
+			catch(NotEnoughAPException e) {
+				if(sanitation.actionTokenChecker()) {
+					boolean query = ViewFacade.promptPlayer("Do you want to use an action token to play the block?");
+					if(query) {
+						Command com = new UseActionTokenCommand(board, player);
+						com.execute(); commands.push(com);
+						loop = true;
+					}
+					else {
+						ViewFacade.warnPlayer("No AP remaining.");
+					}
+				}
+				else {
+					ViewFacade.warnPlayer("No AP remaining.");
+				}
+			}
+			catch(CoordinateException e) {
+				ViewFacade.warnPlayer("Too many palaces.");
+			}
+		} while(loop);
 	}
 	
 	public void placePalace() {
-		if(state != Mode.PALACE) return;
+		if(state != Mode.PALACE) {
+			return;
+		}
 		boolean valid = false;
 		try {
 			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
 			valid = sanitation.placePalaceChecker(palaceLevel, c);
 			if(valid) {
 				Command com = new PlacePalaceTileCommand(board, player, c, palaceLevel);
-				commands.add(com); com.execute();
+				com.execute(); commands.push(com);
 				palaceMode();
 			}
 		}
@@ -246,36 +338,13 @@ public class PhasePlanning {
 		}
 	}
 	
-	public void changeTurn() {
-		boolean valid = false;
-		try {
-			valid = sanitation.changeTurnChecker();
-			if(valid) {
-				boolean query = ViewFacade.promptPlayer("Do you want to execute the planned methods?");
-				if(query) {
-					Command com = new ChangeTurnCommand(player);
-					com.execute();
-				}
-				else {
-					while(!commands.empty()) {
-						commands.pop().undo();
-					}
-				}
-				
-			}
-		}
-		catch(BlockNotPlayedException e) {
-			ViewFacade.warnPlayer("Need to place a block before ending your turn.");
-		}
-	}
-	
 	public void drawPalaceCard() {
 		boolean valid = false;
 		try {
 			valid = sanitation.drawPalaceCardChecker();
 			if(valid) {
 				Command com = new DrawPalaceCardCommand(board, player);
-				commands.add(com); com.execute();
+				com.execute(); commands.push(com);
 			}
 		}
 		catch(NotEnoughAPException e) {	
@@ -292,7 +361,7 @@ public class PhasePlanning {
 			valid = sanitation.drawCardFromDeckChecker();
 			if(valid) {
 				Command com = new DrawDeckCardCommand(board, player);
-				commands.add(com); com.execute();
+				com.execute(); commands.push(com);
 			}
 		}
 		catch(NotEnoughAPException e) {
@@ -327,5 +396,30 @@ public class PhasePlanning {
 			e.printStackTrace();
 		}
 		ViewFacade.warnPlayer("Didn't load");
+	}
+	private void updateView() {
+		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.BLUE);
+	}
+	
+	public void changeTurn() {
+		boolean valid = false;
+		try {
+			valid = sanitation.changeTurnChecker();
+			if(valid) {
+				boolean query = ViewFacade.promptPlayer("Do you want to execute the planned methods?");
+				if(query) {
+					Command com = new ChangeTurnCommand(player);
+					com.execute();
+				}
+				else {
+					while(!commands.empty()) {
+						commands.pop().undo();
+					}
+				}
+			}
+		}
+		catch(BlockNotPlayedException e) {
+			ViewFacade.warnPlayer("Need to place a block before ending your turn.");
+		}
 	}
 }
