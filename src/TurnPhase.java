@@ -37,6 +37,7 @@ public class TurnPhase {
 		currentMode = GameMode.NORMALMODE;
 		// this.festival = new PhaseFestival(model);
 		ViewFacade.updateBoard(board.board);
+		ViewFacade.updatePalaceInventory(player.getCurrentPlayer().getCards());
 	}
 
 	public void receiveKeyEvent(KeyEvent k) {
