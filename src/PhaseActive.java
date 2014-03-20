@@ -30,41 +30,67 @@ public class PhaseActive {
 		state = Mode.BLOCK;
 		selectedBlock = new OneBlock(TileType.RICE);
 		selectedPos = new int[] {0,0};
-		updateView();
+		rotationCount = 0;
+		board.updateBoard();
+		drawCursor();
 	}
 	public void placeDeveloperMode() {
 		state = Mode.PLACEDEVELOPER;
 		selectedPos = new int[] {0,0};
+		board.updateBoard();
+		updateView();
 	}
 	public void moveDeveloperMode() {
 		state = Mode.MOVEDEVELOPER;
 		selectedDeveloper = null;
 		switchDeveloper();
+		board.updateBoard();
+		updateView();
 	}
 	public void palaceMode() {
 		state = Mode.PALACE;
 		selectedPos = new int[] {0,0};
 		palaceLevel = 2;
+		board.updateBoard();
 	}
 	
 	// General methods
-	public void moveDown() {
+	public void moveUp() {
 		selectedPos[1] = (selectedPos[1] <= 0) ? 0 : selectedPos[1] - 1;
-		updateView();
+		drawCursor();
+		//updateView();
+
 	}
 	public void moveLeft() {
 		selectedPos[0] = (selectedPos[0] <= 0) ? 0 : selectedPos[0] - 1;
-		updateView();
+		drawCursor();
+		//updateView();
 	}
 	public void moveRight() {
 		selectedPos[0] = (selectedPos[0] >= board.getLargest().x) ? board.getLargest().x : selectedPos[0] + 1;
-		updateView();
+		drawCursor();
+		//updateView();
 	}
-	public void moveUp() {
+	public void moveDown() {
 		selectedPos[1] = (selectedPos[1] >= board.getLargest().y) ? board.getLargest().y : selectedPos[1] + 1;
-		updateView();
+		drawCursor();
+		//updateView();
 	}
 	
+	private void drawCursor(){
+		board.updateBoard();
+		if(state == Mode.BLOCK){ 
+			if (selectedBlock!=null){
+				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+			}else{
+				ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+			}
+		}
+		else {
+			updateView();
+		}
+	}
+
 	public void switchSelected() {
 		if(state == Mode.BLOCK) {
 			switchBlock();
@@ -72,6 +98,7 @@ public class PhaseActive {
 		if(state == Mode.MOVEDEVELOPER) {
 			switchDeveloper();
 		}
+		drawCursor();
 	}
 	
 	// Block methods
@@ -97,6 +124,7 @@ public class PhaseActive {
 		if(state != Mode.BLOCK) return;
 		selectedBlock.rotate();
 		rotationCount = (rotationCount + 1) % 4;
+		drawCursor();
 	}
 	
 	// Developer methods
@@ -197,46 +225,68 @@ public class PhaseActive {
 		if(state != Mode.BLOCK) {
 			return;
 		}
+		boolean confirm = ViewFacade.promptPlayer("Do you want to spend 1 AP to place the block?");
+		if(!confirm) return;
 		boolean valid = false;
-		try {
-			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
-			valid = sanitation.placeBlockChecker(selectedBlock, c);
-			if(valid) {
-				Command com;
-				if(selectedBlock instanceof ThreeBlock) {
-					com = new PlaceThreeBlockCommand(board, player, c);
-					com.execute();
+		boolean loop = false;
+		do {
+			loop = false;
+			try {
+				Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
+				valid = sanitation.placeBlockChecker(selectedBlock, c);
+				if(valid) {
+					Command com;
+					if(selectedBlock instanceof ThreeBlock) {
+						com = new PlaceThreeBlockCommand(board, player, c, rotationCount);
+						com.execute();
+					}
+					else if(selectedBlock instanceof TwoBlock) {
+						com = new PlaceTwoBlockCommand(board, player, c, rotationCount);
+						com.execute();
+					}
+					else if(selectedBlock.getType() == TileType.RICE) {
+						com = new PlaceRiceTileCommand(board, player, c);
+						com.execute();
+					}
+					else if(selectedBlock.getType() == TileType.VILLAGE) {
+						com = new PlaceVillageTileCommand(board, player, c);
+						com.execute();
+					}
+					else if(selectedBlock.getType() == TileType.IRRIGATION) {
+						com = new PlaceIrrigationTileCommand(board, player, c);
+						com.execute();
+					}
+					//com.rotate(rotationCount);
+					//com.execute();
+					blockMode();
 				}
-				else if(selectedBlock instanceof TwoBlock) {
-					com = new PlaceTwoBlockCommand(board, player, c);
-					com.execute();
-				}
-				else if(selectedBlock.getType() == TileType.RICE) {
-					com = new PlaceRiceTileCommand(board, player, c);
-					com.execute();
-				}
-				else if(selectedBlock.getType() == TileType.VILLAGE) {
-					com = new PlaceVillageTileCommand(board, player, c);
-					com.execute();
-				}
-				else if(selectedBlock.getType() == TileType.IRRIGATION) {
-					com = new PlaceIrrigationTileCommand(board, player, c);
-					com.execute();
-				}
-				//com.rotate(rotationCount);
-				//com.execute();
-				blockMode();
 			}
-		}
-		catch(IllegalBlockPlacementException e) {
-			ViewFacade.warnPlayer("Invalid block placement.");
-		}
-		catch(NoBlocksLeftException e) {
-			ViewFacade.warnPlayer("No blocks remaining.");
-		}
-		catch(CoordinateException e) {
-			ViewFacade.warnPlayer("Too many palaces.");
-		}
+			catch(IllegalBlockPlacementException e) {
+				ViewFacade.warnPlayer("Invalid block placement.");
+			}
+			catch(NoBlocksLeftException e) {
+				ViewFacade.warnPlayer("No blocks remaining.");
+			}
+			catch(NotEnoughAPException e) {
+				if(sanitation.actionTokenChecker()) {
+					boolean query = ViewFacade.promptPlayer("Do you want to use an action token to play the block?");
+					if(query) {
+						Command com = new UseActionTokenCommand(board, player);
+						com.execute();
+						loop = true;
+					}
+					else {
+						ViewFacade.warnPlayer("No AP remaining.");
+					}
+				}
+				else {
+					ViewFacade.warnPlayer("No AP remaining.");
+				}
+			}
+			catch(CoordinateException e) {
+				ViewFacade.warnPlayer("Too many palaces.");
+			}
+		} while(loop);
 	}
 	
 	public void placePalace() {

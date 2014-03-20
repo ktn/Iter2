@@ -34,12 +34,14 @@ public class PlaceTwoBlockCommand implements Command {
 
 		this.save();
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
 	public void undo() {
 		board.removeBlock(coords);
 		player.returnTwoBlock();
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
 	public void load() {

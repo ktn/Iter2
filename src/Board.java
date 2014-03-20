@@ -146,7 +146,7 @@ public class Board {
 	}
 
 	public boolean inBounds(Coordinates c) {
-		return c.x <= xDim || c.y <= yDim;
+		return c.x < xDim && c.y < yDim && c.x >= 0 && c.y >= 0; 
 	}
 
 	public boolean validPlacement(Coordinates c, Block b)
@@ -170,7 +170,7 @@ public class Board {
 					else
 						throw new IllegalBlockPlacementException(
 								"Block out of bounds");
-				} else if (i == 1) {
+				} else if (i == 3) {
 					// check for out of bounds
 					if (c.y < yDim - 1)
 						adjacentSpaces.add(this.get(new Coordinates(c.x,
@@ -186,7 +186,7 @@ public class Board {
 					else
 						throw new IllegalBlockPlacementException(
 								"Block out of bounds");
-				} else if (i == 3) {
+				} else if (i == 1) {
 					// check for out of bounds
 					if (c.y > 0)
 						adjacentSpaces.add(this.get(new Coordinates(c.x,
@@ -199,14 +199,19 @@ public class Board {
 
 			// adjacent spaces now filled
 
+			
+			
 			// check for if it is a OneBlock
 			if (adjacentSpaces.size() != 0) {
 				// check for level spaces now
 				// initialize new boolean for testing
-
+			
 				for (Space s : adjacentSpaces) {
-					if (s.getHeight() != 0)
+					if (s.getHeight() != 0){
 						return false;
+						
+			
+					}
 				}
 
 			}
@@ -235,7 +240,7 @@ public class Board {
 					else
 						throw new IllegalBlockPlacementException(
 								"Block out of bounds");
-				} else if (i == 1) {
+				} else if (i == 3) {
 					// check for out of bounds
 					if (c.y < yDim - 1)
 						adjacentSpaces.add(this.get(new Coordinates(c.x,
@@ -251,7 +256,7 @@ public class Board {
 					else
 						throw new IllegalBlockPlacementException(
 								"Block out of bounds");
-				} else if (i == 3) {
+				} else if (i == 1) {
 					// check for out of bounds
 					if (c.y > 0)
 						adjacentSpaces.add(this.get(new Coordinates(c.x,
@@ -262,7 +267,7 @@ public class Board {
 				}
 			}
 
-			System.out.print("There are " + adjacentSpaces.size() + " joined");
+			
 
 			// adjacent spaces now filled
 
@@ -271,32 +276,38 @@ public class Board {
 				// check for level spaces now
 				// initialize new boolean for testing
 
-				boolean levelSpaces = true;
+				
 				int height = target.getHeight();
 				for (Space s : adjacentSpaces) {
-					System.out.print(s.getHeight());
-					levelSpaces = levelSpaces && (s.getHeight() == height);
+					if(s.getHeight() != height)
+						return false;
 				}
-				ret = levelSpaces && ret;
+				
 			}
+			
+			
 
 			// check for same type of block
 			if (adjacentSpaces.size() == target.getTile().getJoined().size()) {
 				// same type of tile
 				// check for same rotation
+			
 
-				boolean diffRotation = false;
+				boolean temp = false;
 				// indices of block already places
 				ArrayList<Integer> checkIndices = target.getTile().getJoined();
+
+				
 				for (int j = 0; j < adjacentSpaces.size(); j++) {
 					// if they dont match even once then placement is fine
-					if (checkIndices.get(j) != adjacentIndices.get(j)) {
-						diffRotation = true;
+					if (!checkIndices.contains(adjacentIndices.get(j))) {
+						temp =  true;
 					}
 				}
 
-				ret = ret && diffRotation;
+				ret = ret && temp;
 			}
+			
 
 		}
 

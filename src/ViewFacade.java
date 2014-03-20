@@ -65,20 +65,29 @@ public final class ViewFacade {
 		return boardView;
 	}
 	
-	public static void displayPalaceInventory(int numMask, int numPuppet, 
-											  int numDrum, int numMaskDrum, int numDrumPuppet, int numPuppetMask) 
-											  {
-		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
-												 numMaskDrum, numDrumPuppet,
-												 numPuppetMask);								
+	public static void displayPalaceInventory(int[] inventory) {
+		currentPlayerView.displayPalaceInventory(inventory[0], inventory[1], inventory[2],
+												 inventory[3], inventory[4],
+												 inventory[5]);								
 	}
 	
-	public static void switchActivePlayer() {
+	public static void switchForwardActivePlayer() {
 		String temp = otherPlayers.get(otherPlayers.size() - 1);
 		for (int i = otherPlayers.size() - 1; i > 0; i--) {
 			otherPlayers.set(i, otherPlayers.get(i-1));
 		}
 		otherPlayers.set(0,currentPlayer);
+		currentPlayer = temp;
+		otherPlayersView = new OtherPlayersView(otherPlayers);
+		currentPlayerView = new CurrentPlayerView(currentPlayer);
+	}
+	
+	public static void switchBackwardActivePlayer() {
+		String temp = otherPlayers.get(0);
+		for (int i = 0; i < otherPlayers.size() - 1; i++) {
+			otherPlayers.set(i, otherPlayers.get(i+1));
+		}
+		otherPlayers.set(otherPlayers.size() - 1,currentPlayer);
 		currentPlayer = temp;
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayerView = new CurrentPlayerView(currentPlayer);

@@ -25,7 +25,7 @@ public class View extends JFrame {
         setVisible(true);
     
 		//TODO:Set KeyListener for this to Controller
-        //this.addKeyListener(inputListener);
+
         
 
 		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
@@ -41,8 +41,8 @@ public class View extends JFrame {
 		//this.setBounds(100, 100, 910, 650);
         //this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		Toolkit tk = Toolkit.getDefaultToolkit();  
-		int xSize = ((int) (tk.getScreenSize().getWidth()));  
-		int ySize = ((int) (tk.getScreenSize().getHeight()));  
+		int xSize = ((int) (tk.getScreenSize().getWidth())-64);  
+		int ySize = ((int) (tk.getScreenSize().getHeight())-64);  
 		this.setSize(xSize,ySize);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

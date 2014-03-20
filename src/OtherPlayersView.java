@@ -70,8 +70,26 @@ public class OtherPlayersView extends JPanel {
 			this.add(playerTextArea[i]);
 		}
 	}
-
-	// Method for displaying number of action tokens
+	
+	public void set(PlayerFacade p){
+		for (Player otherPlayer:p.getPlayers()){
+			if (otherPlayer != p.getCurrentPlayer()) {
+				displayActionTokens(otherPlayer.getName(),
+						otherPlayer.getActionTokens());
+				displayRiceBlocks(otherPlayer.getName(),
+						otherPlayer.riceBlocksLeft());
+				displayVillageBlocks(otherPlayer.getName(),
+						otherPlayer.riceBlocksLeft());
+				displayTwoBlocks(otherPlayer.getName(),
+						otherPlayer.twoBlocksLeft());
+				displayDevelopers(otherPlayer.getName(),
+						otherPlayer.getDevelsOff());
+				displayScore(otherPlayer.getName(), otherPlayer.getScore());
+			}
+		}
+	}
+	
+	//Method for displaying number of action tokens
 	public void displayActionTokens(String playerName, int numActionTokens) {
 		int playerNum = getPlayerNumber(playerName);
 		actionTokens[playerNum] = numActionTokens;

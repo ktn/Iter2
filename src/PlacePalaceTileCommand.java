@@ -23,6 +23,7 @@ public class PlacePalaceTileCommand implements Command {
 		this.save();
 		board.updateBoard();
 
+		ViewFacade.getPublicInventoryView().fullUpdate(board);
 	}
 
 	public void undo() {
@@ -31,6 +32,7 @@ public class PlacePalaceTileCommand implements Command {
 		player.returnThreeBlock();
 		board.updateBoard();
 
+		ViewFacade.getPublicInventoryView().fullUpdate(board);
 	}
 
 

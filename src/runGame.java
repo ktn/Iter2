@@ -9,8 +9,12 @@ public class runGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		InputListener listener = new InputListener();
-		System.out.println(listener);
+		if (args.length >=2 && args.length <=4) {
+			InputListener listener = new InputListener(args);
+			System.out.println(listener);
+		}
+		else
+			System.out.println("Please re-run game with 2-4 players");
 		//listener.theView.addKeyListener(listener);
 	}
 

@@ -7,14 +7,16 @@ import java.util.Arrays;
 public class InputListener implements KeyListener {
 	TurnPhase turn;
 	View theView;
-	public InputListener() {
-		ArrayList<String> names = new ArrayList<String>(Arrays.asList(new String[] {"Bob", "Steve", "Frank", "Alice"}));
+	public InputListener(String[] argNames) {
+		ArrayList<String> names = new ArrayList<String>(Arrays.asList(argNames));
 		theView = new View(names);
 		theView.setFocusable(true);
         theView.requestFocusInWindow();
-		turn = new TurnPhase();
+        theView.setFocusTraversalKeysEnabled(false);
+		turn = new TurnPhase(argNames);
 		theView.addKeyListener(this);
 	}
+
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
