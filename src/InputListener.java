@@ -4,10 +4,14 @@ import java.awt.event.KeyListener;
 
 public class InputListener implements KeyListener {
 	TurnPhase turn;
-	ModelFacade model;
-	public InputListener(ModelFacade model) {
-		this.model = model;
-		turn = new TurnPhase(model);
+	PlayerFacade player;
+	BoardFacade board;
+	Sanitation sanitation;
+	public InputListener(PlayerFacade player, BoardFacade board, Sanitation sanitation) {
+		this.player = player;
+		this.board = board;
+		this.sanitation = sanitation;
+		turn = new TurnPhase(player, board, sanitation);
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class PhaseActive {
 	}
 	
 	// Block methods
-	public void switchBlock() {
+	private void switchBlock() {
 		if(selectedBlock == null || selectedBlock instanceof ThreeBlock) {
 			selectedBlock = new OneBlock(TileType.RICE);
 		}
@@ -85,12 +85,13 @@ public class PhaseActive {
 	}
 	
 	public void rotateBlock() {
+		if(state != Mode.BLOCK) return;
 		selectedBlock.rotate();
 		rotationCount = (rotationCount + 1) % 4;
 	}
 	
 	// Developer methods
-	public void switchDeveloper() {
+	private void switchDeveloper() {
 		if(selectedDeveloper == null) {
 			Board.Coordinates c = board.getDeveloper(player.getCurrentPlayer());
 			selectedDeveloper = new int[] {0, 0};
@@ -107,7 +108,10 @@ public class PhaseActive {
 	
 	// Palace commands
 	public void levelPalace() {
-		if(palaceLevel >= 10) {
+		if(state != Mode.PALACE) {
+			return;
+		}
+		else if(palaceLevel >= 10) {
 			palaceLevel = 0;
 		}
 		palaceLevel = palaceLevel + 2;
@@ -115,6 +119,9 @@ public class PhaseActive {
 	
 	// Create commands
 	public void placeDeveloper() {
+		if(state != Mode.PLACEDEVELOPER) {
+			return;
+		}
 		boolean valid = false;
 		try {
 			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
@@ -139,6 +146,9 @@ public class PhaseActive {
 		}
 	}
 	public void moveDeveloper() {
+		if(state != Mode.MOVEDEVELOPER) {
+			return;
+		}
 		boolean valid = false;
 		try {
 			Board.Coordinates a = board.getCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
@@ -175,6 +185,9 @@ public class PhaseActive {
 		}
 	}
 	public void placeBlock() {
+		if(state != Mode.BLOCK) {
+			return;
+		}
 		boolean valid = false;
 		try {
 			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
@@ -210,6 +223,9 @@ public class PhaseActive {
 	}
 	
 	public void placePalace() {
+		if(state != Mode.PALACE) {
+			return;
+		}
 		boolean valid = false;
 		try {
 			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);

@@ -32,8 +32,8 @@ public class TurnPhase {
 		this.board = board;
 		this.sanitation = sanitation;
 		this.normal = new PhaseActive(player, board, sanitation);
-		this.replay = new PhaseReplay(model);
-		this.planning = new PhasePlanning(model);
+		this.replay = new PhaseReplay(player, board, sanitation);
+		this.planning = new PhasePlanning(player, board, sanitation);
 		this.festival = new PhaseFestival(model);
 	}
 	
