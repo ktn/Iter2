@@ -61,6 +61,7 @@ public class PlayerFacade {
 
 	public void returnActionToken() {
 		playerTurn.returnActionToken();
+		playerTurn.addToActionPoints(-1);
 	}
 
 	public void setBlockPlayed(boolean b) {

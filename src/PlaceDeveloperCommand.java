@@ -13,6 +13,9 @@ public class PlaceDeveloperCommand implements Command {
 		Developer dev = new Developer(player.getCurrentPlayer());
 		board.placeDeveloper(coord, dev);
 		player.placeDeveloper();
+		player.playerTurn.addToActionPoints(-1);
+		if (board.isMountains(coord))
+			player.playerTurn.addToActionPoints(-1);
 		this.save();
 		board.updateBoard();
 		ViewFacade.getCurrentPlayerView().displayDevelopers(player.getCurrentPlayer().getDevelsOff());
@@ -22,6 +25,9 @@ public class PlaceDeveloperCommand implements Command {
 		board.removeDeveloper(coord);
 		player.removeDeveloper();
 		board.updateBoard();
+		player.playerTurn.addToActionPoints(1);
+		if (board.isMountains(coord))
+			player.playerTurn.addToActionPoints(1);
 		ViewFacade.getCurrentPlayerView().displayDevelopers(player.getCurrentPlayer().getDevelsOff());
 	}
 
