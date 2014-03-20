@@ -289,7 +289,7 @@ public class PlayerFacade {
 	{
 		return currentPlayer.toString();
 	}
-}
+
 
 	public Player[] getPlayers()
 	{
