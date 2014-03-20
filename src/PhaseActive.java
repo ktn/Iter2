@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Color.*;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
@@ -20,6 +22,7 @@ public class PhaseActive {
 		this.player = player;
 		this.board = board;
 		this.sanitation = sanitation;
+		blockMode();
 	}
 	
 	// Mode switching
@@ -27,6 +30,7 @@ public class PhaseActive {
 		state = Mode.BLOCK;
 		selectedBlock = new OneBlock(TileType.RICE);
 		selectedPos = new int[] {0,0};
+		updateView();
 	}
 	public void placeDeveloperMode() {
 		state = Mode.PLACEDEVELOPER;
@@ -46,15 +50,23 @@ public class PhaseActive {
 	// General methods
 	public void moveDown() {
 		selectedPos[1] = (selectedPos[1] <= 0) ? 0 : selectedPos[1] - 1;
+		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+		//updateView();
 	}
 	public void moveLeft() {
 		selectedPos[0] = (selectedPos[0] <= 0) ? 0 : selectedPos[0] - 1;
+		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+		//updateView();
 	}
 	public void moveRight() {
 		selectedPos[0] = (selectedPos[0] >= board.getLargest().x) ? board.getLargest().x : selectedPos[0] + 1;
+		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+		//updateView();
 	}
 	public void moveUp() {
 		selectedPos[1] = (selectedPos[1] >= board.getLargest().y) ? board.getLargest().y : selectedPos[1] + 1;
+		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+		//updateView();
 	}
 	
 	public void switchSelected() {
@@ -325,5 +337,8 @@ public class PhaseActive {
 			e.printStackTrace();
 		}
 		ViewFacade.warnPlayer("Didn't load");
+	}
+	private void updateView() {
+		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.BLUE);
 	}
 }

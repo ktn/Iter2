@@ -26,6 +26,8 @@ public class TurnPhase {
 	PlayerFacade player;
 	BoardFacade board;
 	Sanitation sanitation;
+
+
 	
 	public TurnPhase() {
 		player = new PlayerFacade(new String[] {"Bob", "Steve", "Frank", "Alice"});
@@ -34,6 +36,7 @@ public class TurnPhase {
 		this.normal = new PhaseActive(player, board, sanitation);
 		//this.replay = new PhaseReplay(player, board, sanitation);
 		this.planning = new PhasePlanning(player, board, sanitation);
+		currentMode = GameMode.NORMALMODE;
 		//this.festival = new PhaseFestival(model);
 		ViewFacade.updateBoard(board.board);
 	}
