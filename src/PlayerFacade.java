@@ -30,7 +30,7 @@ public class PlayerFacade {
 	public void changeTurn() {
 		playerTurn.changeTurn();
 	}
-	
+
 	public void changeTurn(int i) {
 		playerTurn.changeTurn(i);
 	}
@@ -47,7 +47,7 @@ public class PlayerFacade {
 	public void useActionToken() {
 		playerTurn.useActionToken();
 	}
-	
+
 	public int getActionPoints() {
 		return playerTurn.getActionPoints();
 	}
@@ -56,13 +56,13 @@ public class PlayerFacade {
 		playerTurn.returnActionToken();
 	}
 
-	public void setBlockPlayed(boolean b)
-	{
+	public void setBlockPlayed(boolean b) {
 		playerTurn.setBlockPlayed(b);
 	}
 
 	public boolean checkTwoBlock() {
-		if (playerTurn.getCurrentPlayer().twoBlocksLeft() > 0 && playerTurn.getActionPoints() > 0) {
+		if (playerTurn.getCurrentPlayer().twoBlocksLeft() > 0
+				&& playerTurn.getActionPoints() > 0) {
 			return true;
 		} else {
 			return false;
@@ -80,7 +80,8 @@ public class PlayerFacade {
 	}
 
 	public boolean checkVillage() {
-		if (playerTurn.getCurrentPlayer().villageBlocksLeft() > 0 && playerTurn.getActionPoints() > 0) {
+		if (playerTurn.getCurrentPlayer().villageBlocksLeft() > 0
+				&& playerTurn.getActionPoints() > 0) {
 			return true;
 		} else {
 			return false;
@@ -99,7 +100,8 @@ public class PlayerFacade {
 	}
 
 	public boolean checkRice() {
-		if (playerTurn.getCurrentPlayer().riceBlocksLeft() > 0 && playerTurn.getActionPoints() > 0) {
+		if (playerTurn.getCurrentPlayer().riceBlocksLeft() > 0
+				&& playerTurn.getActionPoints() > 0) {
 			return true;
 		} else {
 			return false;
@@ -182,7 +184,7 @@ public class PlayerFacade {
 		return ret;
 	}
 
-	public boolean hasCardWith(String[] t){
+	public boolean hasCardWith(String[] t) {
 		return playerTurn.getPFPlayer().hasCardWith(t);
 	}
 
@@ -194,7 +196,8 @@ public class PlayerFacade {
 
 	public void playerUsePC(int p, String[] t) {
 		PalaceCard palaceCard = playerTurn.getPFPlayer().useCardWith(t);
-		//System.out.println("Current card about to be played: " + palaceCard.toString());
+		// System.out.println("Current card about to be played: " +
+		// palaceCard.toString());
 		deck.discardCard(palaceCard);
 		playerTurn.giveFestivalPoints(p, t);
 	}
@@ -242,11 +245,10 @@ public class PlayerFacade {
 	public ArrayList<PalaceCard> getCurrentPlayerCards() {
 		return getCardsForPlayer(playerTurn.getPFPlayer());
 	}
-	
-	public boolean playCard(String[] t)
-	{
-		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t) && playerCanPlayCard(t))
-		{
+
+	public boolean playCard(String[] t) {
+		if (playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t)
+				&& playerCanPlayCard(t)) {
 
 			playerUsePC(getPlayerInt(playerTurn.getPFPlayer()), t);
 			playerTurn.giveFestivalPoints(playerTurn.getPFPlayer(), t);
@@ -256,14 +258,11 @@ public class PlayerFacade {
 		}
 	}
 
-
-	public boolean playerCanPlayCard(String[] t)
-	{
+	public boolean playerCanPlayCard(String[] t) {
 		return playerTurn.playerCanPlayCard(t);
 	}
-	
-	public PalaceCard getFestivalCard()
-	{
+
+	public PalaceCard getFestivalCard() {
 
 		return playerTurn.getFestivalCard();
 	}
@@ -280,13 +279,11 @@ public class PlayerFacade {
 		playerTurn.freezeCurrentPlayer();
 	}
 
-	public void unfreezePlayer()
-	{
+	public void unfreezePlayer() {
 		playerTurn.unfreezeCurrentPlayer();
 	}
-	
-	public void nextPFPlayer()
-	{
+
+	public void nextPFPlayer() {
 		playerTurn.nextPFPlayer();
 	}
 
@@ -298,13 +295,9 @@ public class PlayerFacade {
 		return playerTurn.getVictors();
 	}
 
-
-	public Player[] getPlayers()
-	{
+	public Player[] getPlayers() {
 		return playerTurn.getPlayers();
 	}
-
-
 
 	public void placeDeveloper() {
 		playerTurn.getCurrentPlayer().placeDeveloper();
@@ -318,25 +311,24 @@ public class PlayerFacade {
 		return playerTurn.getCurrentPlayer().getName();
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return playerTurn.getCurrentPlayer().toString();
 	}
 
-
-	public boolean isOnePlayerLeft()
-	{
+	public boolean isOnePlayerLeft() {
 		return playerTurn.isOnePlayerLeft();
 	}
 
-	public boolean canEndFestival()
-	{
+	public boolean canEndFestival() {
 		return playerTurn.canEndFestival();
 	}
 
-	public boolean getEndFestival()
-	{
+	public boolean getEndFestival() {
 		return playerTurn.getEndFestival();
+	}
+
+	public void loadDeck(ArrayList<PalaceCard> c) {
+		deck = new Deck(c);
 	}
 
 }
