@@ -219,11 +219,24 @@ class Sanitation {
 		return result;
 	}
 	
-	public boolean startFestivalChecker() throws BlockNotPlayedException {
+	public boolean startFestivalChecker(Board.Coordinates c) throws BlockNotPlayedException, CoordinateException {
 		boolean result = true;
+		List<Developer> devs = board.findHighestDev(c);
 		if(player.blockPlayed() == false) {
 			result = false;
 			throw new BlockNotPlayedException("Block must be played before starting festival.");
+		}
+		else if(board.getTile(c).getType() != TileType.PALACE) {
+			result = false;
+			throw new CoordinateException("Coordinate isn't a palace.", c.x, c.y);
+		}
+		else if(devs.size() != 1) {
+			result = false;
+			throw new NoDeveloperAtCoordinatesException("No highest developer at coordinate.", c.x, c.y);
+		}
+		else if(devs.size() == 1 && devs.get(0).getPlayer() == player.getCurrentPlayer()) {
+			result = false;
+			throw new NoDeveloperAtCoordinatesException("Highest developer doesn't belong to player.", c.x, c.y);
 		}
 		else if(player.getEndFestival()) {
 			result = false;
