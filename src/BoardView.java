@@ -160,6 +160,7 @@ public class BoardView extends JPanel{
 		renderSpace(g, origin, spaceHeights[x][y], x, y);
 		g.setColor(hilight);
 		g.fillRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		renderText(g, Integer.toString(spaceHeights[x][y]), x*TILE_WIDTH, y*TILE_HEIGHT+g.getFont().getSize());
 		if (origin.getJoined(Grid.LEFT)!=null&&!finished.contains(origin.getJoined(Grid.LEFT))){
 			finished.add(origin.getJoined(Grid.LEFT));
 			renderNetworkRecursive(g,finished,origin.getJoined(Grid.LEFT),x-1,y, hilight);
@@ -228,7 +229,6 @@ public class BoardView extends JPanel{
 				g.setColor(new Color(0,0,0,0.5f));
 				g.fillRect(x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
 			}
-			
 		}
 	}
 	
