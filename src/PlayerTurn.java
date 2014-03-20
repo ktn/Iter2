@@ -194,5 +194,14 @@ public class PlayerTurn {
 		return festival.playerCanPlayCard(t);
 	}
 
+	public boolean isOnePlayerLeft()
+	{
+		return festival.isOnePlayerLeft();
+	}
+
+	public boolean canEndFestival()
+	{
+		return festival.canEndFestival();
+	}
 
 }
