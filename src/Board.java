@@ -377,7 +377,7 @@ public class Board {
 		return valid;
 	}
 
-	public void placeDeveloper(Coordinates c, Developer d) {
+	public void placeDeveloper(Coordinates c, Developer d) throws IllegalArgumentException {
 		Space temp = this.get(c);
 
 		// check for placing on the borders
