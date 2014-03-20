@@ -292,6 +292,7 @@ public class PlayerFacade {
 	}
 
 
+
 	public void placeDeveloper() {
 		currentPlayer.placeDeveloper();
 	}
@@ -302,6 +303,16 @@ public class PlayerFacade {
 
 	public String getName() {
 		return currentPlayer.getName();
+	}
+
+	public boolean isOnePlayerLeft()
+	{
+		return playerTurn.isOnePlayerLeft();
+	}
+
+	public boolean canEndFestival()
+	{
+		return playerTurn.canEndFestival();
 	}
 
 }
