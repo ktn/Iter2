@@ -35,6 +35,7 @@ public class TurnPhase {
 		//this.replay = new PhaseReplay(player, board, sanitation);
 		this.planning = new PhasePlanning(player, board, sanitation);
 		//this.festival = new PhaseFestival(model);
+		ViewFacade.updateBoard(board.board);
 	}
 	
 	public void receiveKeyEvent(KeyEvent k) {

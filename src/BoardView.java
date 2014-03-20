@@ -105,6 +105,7 @@ public class BoardView extends JPanel{
 			initGraphics();
 		}
 		renderFullBoard(b.head, b);
+		getParent().repaint();
 	}
 	
 	public void renderFullBoard(Space origin, Board b){
