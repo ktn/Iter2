@@ -152,27 +152,29 @@ public class BoardView extends JPanel{
 	 * along with all of the spaces connected to it.*/
 	public void renderNetwork(Tile origin, int x, int y, Color hilight){
 		ArrayList<Tile> alreadyRendered=new ArrayList<Tile>();
-		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y);
+		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y, hilight);
 	}
 	
 	/**recursively renders a network of spaces*/
-	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Tile> finished, Tile origin, int x, int y){
+	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Tile> finished, Tile origin, int x, int y, Color hilight){
 		renderSpace(g, origin, spaceHeights[x][y], x, y);
+		g.setColor(hilight);
+		g.fillRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		if (origin.getJoined(Grid.LEFT)!=null&&!finished.contains(origin.getJoined(Grid.LEFT))){
 			finished.add(origin.getJoined(Grid.LEFT));
-			renderNetworkRecursive(g,finished,origin.getJoined(Grid.LEFT),x-1,y);
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.LEFT),x-1,y, hilight);
 		}
 		if (origin.getJoined(Grid.RIGHT)!=null&&!finished.contains(origin.getJoined(Grid.RIGHT))){
 			finished.add(origin.getJoined(Grid.RIGHT));
-			renderNetworkRecursive(g,finished,origin.getJoined(Grid.RIGHT),x+1,y);
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.RIGHT),x+1,y, hilight);
 		}
 		if (origin.getJoined(Grid.TOP)!=null&&!finished.contains(origin.getJoined(Grid.TOP))){
 			finished.add(origin.getJoined(Grid.TOP));
-			renderNetworkRecursive(g,finished,origin.getJoined(Grid.TOP),x,y-1);
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.TOP),x,y-1, hilight);
 		}
 		if (origin.getJoined(Grid.BOTTOM)!=null&&!finished.contains(origin.getJoined(Grid.BOTTOM))){
 			finished.add(origin.getJoined(Grid.BOTTOM));
-			renderNetworkRecursive(g,finished,origin.getJoined(Grid.BOTTOM),x,y+1);
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.BOTTOM),x,y+1, hilight);
 		}
 	}
 	

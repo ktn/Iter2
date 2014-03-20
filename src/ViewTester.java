@@ -94,14 +94,14 @@ public class ViewTester {
 				if (arg0.getKeyChar() == 'a'&&tx>1) {
 					tx--;
 				}
-				if (arg0.getKeyChar() == 's'&&ty<=10) {
+				if (arg0.getKeyChar() == 's'&&ty<10) {
 					ty++;
 				}
-				if (arg0.getKeyChar() == 'd'&&tx<=10) {
+				if (arg0.getKeyChar() == 'd'&&tx<10) {
 					tx++;
 				}
 				boardView.renderBoard(b);
-				boardView.renderNetwork(temporary.getTile(), tx, ty);
+				boardView.renderNetwork(temporary.getTile(), tx, ty, new Color(1,0,0,0.5f));
 				boardView.repaint();
 			}
 		});
