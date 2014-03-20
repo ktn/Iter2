@@ -30,6 +30,10 @@ public class PlayerFacade {
 	public void changeTurn() {
 		playerTurn.changeTurn();
 	}
+	
+	public void changeTurn(int i) {
+		playerTurn.changeTurn(i);
+	}
 
 	public Player getCurrentPlayer() {
 		return playerTurn.getCurrentPlayer();
