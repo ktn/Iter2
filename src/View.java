@@ -31,6 +31,7 @@ public class View extends JFrame {
 		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
 		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
 		ViewFacade.getBoardView().setSize(new Dimension(minDimension,minDimension));
+		this.setFocusable(true);
 		this.repaint();
 	}  
 	

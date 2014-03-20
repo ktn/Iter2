@@ -13,6 +13,7 @@ public class InputListener implements KeyListener {
 		theView.setFocusable(true);
         theView.requestFocusInWindow();
 		turn = new TurnPhase();
+		theView.addKeyListener(this);
 	}
 
 	@Override
@@ -22,14 +23,13 @@ public class InputListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+		System.out.println("released");
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		//System.out.println("InputListener key pressed");
+
+		System.out.println("typed");
 	}
 
 }
