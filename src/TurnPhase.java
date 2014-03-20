@@ -36,6 +36,7 @@ public class TurnPhase {
 		this.planning = new PhasePlanning(player, board, sanitation);
 		currentMode = GameMode.NORMALMODE;
 		ViewFacade.updateBoard(board.board);
+		ViewFacade.updatePalaceInventory(player.getCurrentPlayer().getCards());
 	}
 
 	public void receiveKeyEvent(KeyEvent k) {
