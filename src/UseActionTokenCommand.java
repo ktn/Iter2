@@ -13,12 +13,13 @@ public class UseActionTokenCommand implements Command {
 
 		this.save();
 		board.updateBoard();
-
+		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
 	public void undo() {
 		player.returnActionToken();
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
 

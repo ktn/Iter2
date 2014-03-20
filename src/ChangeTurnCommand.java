@@ -8,10 +8,10 @@ public class ChangeTurnCommand implements Command {
 
 	public void execute() {
 		player.changeTurn();
-		ViewFacade.switchActivePlayer();
 		this.save();
 		
-
+		ViewFacade.getCurrentPlayerView().set(player);
+		ViewFacade.getOtherPlayerView().set(player);
 	}
 
 	public void undo() {

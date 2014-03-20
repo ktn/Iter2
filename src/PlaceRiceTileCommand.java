@@ -19,7 +19,7 @@ public class PlaceRiceTileCommand implements Command {
 
 		this.save();
 		board.updateBoard();
-
+		ViewFacade.getCurrentPlayerView().displayRiceBlocks(player.currentPlayer.riceBlocksLeft());
 	}
 
 	public void undo() {
@@ -27,7 +27,7 @@ public class PlaceRiceTileCommand implements Command {
 
 		player.returnRiceBlock();
 		board.updateBoard();
-
+		ViewFacade.getCurrentPlayerView().displayRiceBlocks(player.currentPlayer.riceBlocksLeft());
 	}
 
 	public void load() {
