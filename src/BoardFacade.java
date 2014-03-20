@@ -143,10 +143,33 @@ public class BoardFacade {
 		return pathfinding.getShortestPath();
 	}
 
-	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
+	// TRAVERSAL METHODS
+	// =======================================================================================
+
+	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
+	{
 		return traversal.findHighestDev(c);
 	}
+	public ArrayList<Developer> findSecondHighestDev(Board.Coordinates c)
+	{
+		return traversal.findSecondHighestDev(c);
+	}
 
+	public boolean playerInCity(Player player, Board.Coordinates aCityTile)
+	{
+		return traversal.playerInCity(player, aCityTile);
+	}
+
+	public int numIrrigationTiles(Board.Coordinates anIrrigTile)
+	{
+		return traversal.numIrrigationTiles(anIrrigTile);
+	}
+
+	public ArrayList<Board.Coordinates> allPalaceTiles()
+	{
+		return traversal.allPalaceTiles();
+	}
+	
 	public Board.Coordinates getDeveloper(Player p){
 		return board.getDeveloper(p);
 	}

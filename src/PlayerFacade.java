@@ -305,6 +305,12 @@ public class PlayerFacade {
 		return currentPlayer.getName();
 	}
 
+	public String toString()
+	{
+		return currentPlayer.toString();
+	}
+
+
 	public boolean isOnePlayerLeft()
 	{
 		return playerTurn.isOnePlayerLeft();
