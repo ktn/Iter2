@@ -9,11 +9,7 @@ import java.util.*;
 
 public class PlayerFacade {
 	PlayerTurn playerTurn;
-	Player currentPlayer;
 	int numPlayers;
-	boolean tokenUsed;
-	int actionPoints;
-	boolean blockPlayed;
 	Deck deck;
 
 	// initialization requires names of players, assumes acceptable size
@@ -24,10 +20,7 @@ public class PlayerFacade {
 		}
 
 		playerTurn = new PlayerTurn(n);
-		currentPlayer = playerTurn.getCurrentPlayer();
 
-		tokenUsed = false;
-		actionPoints = 6;
 		setBlockPlayed(false);
 
 		deck = new Deck();
@@ -36,7 +29,10 @@ public class PlayerFacade {
 	// change player turn
 	public void changeTurn() {
 		playerTurn.changeTurn();
-		currentPlayer = playerTurn.getCurrentPlayer();
+	}
+	
+	public void changeTurn(int i) {
+		playerTurn.changeTurn(i);
 	}
 
 	public Player getCurrentPlayer() {
@@ -66,7 +62,7 @@ public class PlayerFacade {
 	}
 
 	public boolean checkTwoBlock() {
-		if (currentPlayer.twoBlocksLeft() > 0 && actionPoints > 0) {
+		if (playerTurn.getCurrentPlayer().twoBlocksLeft() > 0 && playerTurn.getActionPoints() > 0) {
 			return true;
 		} else {
 			return false;
@@ -74,17 +70,17 @@ public class PlayerFacade {
 	}
 
 	public void placeTwoBlock() {
-		currentPlayer.placeTwoBlock();
+		playerTurn.getCurrentPlayer().placeTwoBlock();
 		setBlockPlayed(true);
-		actionPoints--;
+		playerTurn.addToActionPoints(-1);
 	}
 
 	public void returnTwoBlock() {
-		currentPlayer.returnTwoBlock();
+		playerTurn.getCurrentPlayer().returnTwoBlock();
 	}
 
 	public boolean checkVillage() {
-		if (currentPlayer.villageBlocksLeft() > 0 && actionPoints > 0) {
+		if (playerTurn.getCurrentPlayer().villageBlocksLeft() > 0 && playerTurn.getActionPoints() > 0) {
 			return true;
 		} else {
 			return false;
@@ -92,18 +88,18 @@ public class PlayerFacade {
 	}
 
 	public void placeVillage() {
-		currentPlayer.placeVillageBlock();
+		playerTurn.getCurrentPlayer().placeVillageBlock();
 		setBlockPlayed(true);
-		actionPoints--;
+		playerTurn.addToActionPoints(-1);
 	}
 
 	public void returnVillageBlock() {
-		currentPlayer.returnVillageBlock();
-		actionPoints++;
+		playerTurn.getCurrentPlayer().returnVillageBlock();
+		playerTurn.addToActionPoints(1);
 	}
 
 	public boolean checkRice() {
-		if (currentPlayer.riceBlocksLeft() > 0 && actionPoints > 0) {
+		if (playerTurn.getCurrentPlayer().riceBlocksLeft() > 0 && playerTurn.getActionPoints() > 0) {
 			return true;
 		} else {
 			return false;
@@ -111,29 +107,29 @@ public class PlayerFacade {
 	}
 
 	public void placeRice() {
-		currentPlayer.placeRiceBlock();
+		playerTurn.getCurrentPlayer().placeRiceBlock();
 		setBlockPlayed(true);
-		actionPoints--;
+		playerTurn.addToActionPoints(-1);
 	}
 
 	public void returnRiceBlock() {
-		currentPlayer.returnRiceBlock();
-		actionPoints++;
+		playerTurn.getCurrentPlayer().returnRiceBlock();
+		playerTurn.addToActionPoints(1);
 
 	}
 
 	public void playThreeBlock() {
 		setBlockPlayed(true);
-		actionPoints--;
+		playerTurn.addToActionPoints(-1);
 	}
 
 	public void returnThreeBlock() {
-		actionPoints++;
+		playerTurn.addToActionPoints(1);
 
 	}
 
 	public boolean blockPlayed() {
-		return blockPlayed;
+		return playerTurn.blockPlayed();
 	}
 
 	public void blockNotPlayed() {
@@ -142,7 +138,7 @@ public class PlayerFacade {
 
 	// changing score
 	public void addScore(int s) {
-		currentPlayer.addScore(s);
+		playerTurn.getCurrentPlayer().addScore(s);
 	}
 
 	public void addPlayerScore(Player p, int s) {
@@ -150,7 +146,7 @@ public class PlayerFacade {
 	}
 
 	public void decrementScore(int s) {
-		currentPlayer.decrementScore(s);
+		playerTurn.getCurrentPlayer().decrementScore(s);
 	}
 
 	public void decrementPlayerScore(Player p, int s) {
@@ -159,7 +155,7 @@ public class PlayerFacade {
 
 	// changing colors
 	public void currentPlayerColor(Color c) {
-		currentPlayer.setColor(c);
+		playerTurn.getCurrentPlayer().setColor(c);
 	}
 
 	// assumes it will always receive a valid input
@@ -169,11 +165,11 @@ public class PlayerFacade {
 
 	// palace card stuff
 	public List<PalaceCard> getCards() {
-		return currentPlayer.getCards();
+		return playerTurn.getCurrentPlayer().getCards();
 	}
 
 	public void addCard(PalaceCard c) {
-		currentPlayer.addCard(c);
+		playerTurn.getCurrentPlayer().addCard(c);
 	}
 
 	public void returnCard(int p, PalaceCard c) {
@@ -208,7 +204,7 @@ public class PlayerFacade {
 	}
 
 	public void removeCard(PalaceCard c) {
-		currentPlayer.removeCard(c);
+		playerTurn.getCurrentPlayer().removeCard(c);
 	}
 
 	public void returnTopCard(PalaceCard c) {
@@ -311,20 +307,20 @@ public class PlayerFacade {
 
 
 	public void placeDeveloper() {
-		currentPlayer.placeDeveloper();
+		playerTurn.getCurrentPlayer().placeDeveloper();
 	}
 
 	public void removeDeveloper() {
-		currentPlayer.removeDeveloper();
+		playerTurn.getCurrentPlayer().removeDeveloper();
 	}
 
 	public String getName() {
-		return currentPlayer.getName();
+		return playerTurn.getCurrentPlayer().getName();
 	}
 
 	public String toString()
 	{
-		return currentPlayer.toString();
+		return playerTurn.getCurrentPlayer().toString();
 	}
 
 

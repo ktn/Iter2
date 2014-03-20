@@ -261,7 +261,7 @@ public class Board {
 				}
 			}
 
-			System.out.print("There are " + adjacentSpaces.size() + " joined");
+			
 
 			// adjacent spaces now filled
 
@@ -273,8 +273,8 @@ public class Board {
 				boolean levelSpaces = true;
 				int height = target.getHeight();
 				for (Space s : adjacentSpaces) {
-					System.out.print(s.getHeight());
-					levelSpaces = levelSpaces && (s.getHeight() == height);
+					if(s.getHeight() != height)
+						return false;
 				}
 				ret = levelSpaces && ret;
 			}
@@ -289,13 +289,15 @@ public class Board {
 				ArrayList<Integer> checkIndices = target.getTile().getJoined();
 				for (int j = 0; j < adjacentSpaces.size(); j++) {
 					// if they dont match even once then placement is fine
-					if (checkIndices.get(j) != adjacentIndices.get(j)) {
+					if (!checkIndices.contains(adjacentIndices.get(j))) {
 						diffRotation = true;
 					}
 				}
 
 				ret = ret && diffRotation;
 			}
+			else
+				return true;
 
 		}
 

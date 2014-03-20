@@ -45,6 +45,16 @@ public class PlayerTurn {
 		actionPoints = 6;
 		blockPlayed = false;
 	}
+	
+	public void changeTurn(int i) {
+		currentPlayer += i;
+		if (currentPlayer >= numPlayers || currentPlayer < 0) {
+			currentPlayer = 0;
+		}
+		tokenUsed = false;
+		actionPoints = 6;
+		blockPlayed = false;
+	}
 
 	public Player getCurrentPlayer() {
 		return players[currentPlayer].getPlayer();
@@ -218,5 +228,8 @@ public class PlayerTurn {
 		blockPlayed = b;
 	}
 
-
+	public void addToActionPoints(int i)
+	{
+		actionPoints += i;
+	}
 }

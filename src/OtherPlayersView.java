@@ -74,7 +74,7 @@ public class OtherPlayersView extends JPanel{
 	
 	public void set(PlayerFacade p){
 		for (Player otherPlayer:p.getPlayers()){
-			if (otherPlayer != p.currentPlayer) {
+			if (otherPlayer != p.getCurrentPlayer()) {
 				displayActionTokens(otherPlayer.getName(),
 						otherPlayer.getActionTokens());
 				displayRiceBlocks(otherPlayer.getName(),
