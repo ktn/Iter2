@@ -220,11 +220,11 @@ public class PhaseActive {
 			if(valid) {
 				Command com;
 				if(selectedBlock instanceof ThreeBlock) {
-					com = new PlaceThreeBlockCommand(board, player, c);
+					com = new PlaceThreeBlockCommand(board, player, c, rotationCount);
 					com.execute();
 				}
 				else if(selectedBlock instanceof TwoBlock) {
-					com = new PlaceTwoBlockCommand(board, player, c);
+					com = new PlaceTwoBlockCommand(board, player, c, rotationCount);
 					com.execute();
 				}
 				else if(selectedBlock.getType() == TileType.RICE) {
