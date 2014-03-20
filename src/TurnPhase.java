@@ -37,8 +37,8 @@ public class TurnPhase {
 		currentMode = GameMode.NORMALMODE;
 		ViewFacade.updateBoard(board.board);
 		ViewFacade.updatePalaceInventory(player.getCurrentPlayer().getCards());
-		//Hard code festival card for now
-		//TODO: randomize this later
+		// Hard code festival card for now
+		// TODO: randomize this later
 		OnePointPalaceCard festCard = new OnePointPalaceCard("MASK");
 		ViewFacade.displayFestivalCard(festCard);
 	}
@@ -98,8 +98,9 @@ public class TurnPhase {
 		case KeyEvent.VK_5:
 			break;
 		case KeyEvent.VK_6:
-			query = ViewFacade.promptPlayer("Do you want to enter planning mode?");
-			if(query) {
+			query = ViewFacade
+					.promptPlayer("Do you want to enter planning mode?");
+			if (query) {
 				planning = new PhasePlanning(player, board, sanitation);
 				currentMode = GameMode.PLANNINGMODE;
 				normal = null;
@@ -107,21 +108,22 @@ public class TurnPhase {
 			break;
 		case KeyEvent.VK_7:
 			// replay = new PhaseReplay(player, board, sanitation);
-			boolean query2 = ViewFacade.promptPlayer("Do you want to enter replay mode?");
-			if(query2) {
-				
+			boolean query2 = ViewFacade
+					.promptPlayer("Do you want to enter replay mode?");
+			if (query2) {
+
 				currentMode = GameMode.REPLAYMODE;
 				normal = null;
 				replay.replay();
-			}
-			else{
-				//currentMode = GameMode.NORMALMODE;
+			} else {
+				// currentMode = GameMode.NORMALMODE;
 			}
 			break;
 		case KeyEvent.VK_8:
-			query = ViewFacade.promptPlayer("Do you want to start a palace festival?");
-			if(query) {
-				if(normal.startFestival()) {
+			query = ViewFacade
+					.promptPlayer("Do you want to start a palace festival?");
+			if (query) {
+				if (normal.startFestival()) {
 					// festival = new PhaseFestival(player, board, sanitation);
 					currentMode = GameMode.FESTIVALMODE;
 					normal = null;
@@ -159,15 +161,23 @@ public class TurnPhase {
 		int key = k.getKeyCode();
 		switch (key) {
 		case KeyEvent.VK_NUMPAD8:
+		case KeyEvent.VK_UP:
+
 			planning.moveUp();
 			break;
 		case KeyEvent.VK_NUMPAD6:
+		case KeyEvent.VK_RIGHT:
+
 			planning.moveRight();
 			break;
 		case KeyEvent.VK_NUMPAD4:
+		case KeyEvent.VK_LEFT:
+
 			planning.moveLeft();
 			break;
 		case KeyEvent.VK_NUMPAD2:
+		case KeyEvent.VK_DOWN:
+
 			planning.moveDown();
 			break;
 		case KeyEvent.VK_TAB:
@@ -186,29 +196,30 @@ public class TurnPhase {
 			planning.palaceMode();
 			break;
 		case KeyEvent.VK_5:
-			query = ViewFacade.promptPlayer("Do you want to enter action mode?");
-			if(query) {
+			query = ViewFacade
+					.promptPlayer("Do you want to enter action mode?");
+			if (query) {
 				normal = new PhaseActive(player, board, sanitation);
 				currentMode = GameMode.NORMALMODE;
 				planning = null;
 			}
 			break;
 		case KeyEvent.VK_6:
-			//planning = new PhasePlanning(player, board, sanitation);
-			//currentMode = GameMode.PLANNINGMODE;
-			//planning = null;
+			// planning = new PhasePlanning(player, board, sanitation);
+			// currentMode = GameMode.PLANNINGMODE;
+			// planning = null;
 			break;
 		case KeyEvent.VK_7:
 			// replay = new PhaseReplay(player, board, sanitation);
-			boolean query2 = ViewFacade.promptPlayer("Do you want to enter replay mode?");
-			if(query2) {
-				
+			boolean query2 = ViewFacade
+					.promptPlayer("Do you want to enter replay mode?");
+			if (query2) {
+
 				currentMode = GameMode.REPLAYMODE;
 				planning = null;
 				replay.replay();
-			}
-			else{
-				//currentMode = GameMode.NORMALMODE;
+			} else {
+				// currentMode = GameMode.NORMALMODE;
 			}
 			break;
 		case KeyEvent.VK_8:
@@ -244,21 +255,23 @@ public class TurnPhase {
 
 	private void replayModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
-		switch (key){
+		switch (key) {
 		case KeyEvent.VK_RIGHT:
 			replay.doCommand();
 			break;
 		case KeyEvent.VK_6:
-			boolean query = ViewFacade.promptPlayer("Do you want to enter planning mode?");
-			if(query) {
+			boolean query = ViewFacade
+					.promptPlayer("Do you want to enter planning mode?");
+			if (query) {
 				planning = new PhasePlanning(player, board, sanitation);
 				currentMode = GameMode.PLANNINGMODE;
 				normal = null;
 			}
 			break;
 		case KeyEvent.VK_5:
-			boolean query2 = ViewFacade.promptPlayer("Do you want to enter action mode?");
-			if(query2) {
+			boolean query2 = ViewFacade
+					.promptPlayer("Do you want to enter action mode?");
+			if (query2) {
 				normal = new PhaseActive(player, board, sanitation);
 				currentMode = GameMode.NORMALMODE;
 				planning = null;
