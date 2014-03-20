@@ -21,7 +21,7 @@ public class test {
 		p.changeTurn();
 
 		System.out.print(p.getCurrentPlayer());
-		p.revertTurn();
+		//p.revertTurn();
 		System.out.print(p.getCurrentPlayer());
 
 		Command a;
