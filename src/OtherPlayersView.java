@@ -9,7 +9,7 @@ public class OtherPlayersView extends JPanel{
 	 * will display the info for a different player. 
 	 */
 	 
-	private JTextArea[] playerTextArea;
+	private JTextPane[] playerTextArea;
 	private String[] playerNames;
 	private int[] oneVillageBlkCounts;
 	private int[] oneRiceBlkCounts;
@@ -22,7 +22,7 @@ public class OtherPlayersView extends JPanel{
 	 
 	public OtherPlayersView(ArrayList<String> playerNames) {
 		this.playerNames = new String[4];
-	    playerTextArea = new JTextArea[4];
+	    playerTextArea = new JTextPane[4];
 	    oneVillageBlkCounts = new int[4];
 	    oneRiceBlkCounts = new int[4];
 	    twoBlkCounts = new int[4];
@@ -63,7 +63,8 @@ public class OtherPlayersView extends JPanel{
 		this.add(label);
 		
 		for (int i = 0; i < this.playerNames.length; i++) {
-		    playerTextArea[i] = new JTextArea("");
+		    playerTextArea[i] = new JTextPane();
+			playerTextArea[i].setBackground(new Color(220,220,220));
 		    updatePlayer(i);
 		    playerTextArea[i].setEditable(false);
 			playerTextArea[i].setBorder(BorderFactory.createLineBorder(Color.black));

@@ -465,4 +465,8 @@ public class Board {
 		}
 		return result.toString();
 	}
+	
+	public Space getHead(){
+		return head;
+	}
 }
