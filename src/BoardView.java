@@ -112,7 +112,7 @@ public class BoardView extends JPanel{
 		for (int x = 0; x<boardWidth;x++){
 			if (x==0){
 				for (int y = 0; y<boardHeight;y++){
-					
+					//if ()
 				}
 			}else if (x==boardWidth-1){
 				for (int y = 0; y<boardHeight;y++){
@@ -169,6 +169,7 @@ public class BoardView extends JPanel{
 	public void renderNetwork(Tile origin, int x, int y, Color hilight){
 		ArrayList<Tile> alreadyRendered=new ArrayList<Tile>();
 		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y, hilight);
+		getParent().repaint();
 	}
 	
 	/**recursively renders a network of spaces*/
@@ -293,6 +294,7 @@ public class BoardView extends JPanel{
 			cachedGraphics.setColor(c);
 			cachedGraphics.drawRect(x.get(i)*TILE_WIDTH, y.get(i)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		}
+		getParent().repaint();
 	}
 	
 	/**Obeys LOD*/
@@ -305,6 +307,7 @@ public class BoardView extends JPanel{
 		cachedGraphics.fillRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		cachedGraphics.setColor(c);
 		cachedGraphics.drawRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		getParent().repaint();
 	}
 
 	public void renderDeveloper(Developer dev, int x, int y){
@@ -316,6 +319,7 @@ public class BoardView extends JPanel{
 		cachedGraphics.fillRect(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT/8, TILE_WIDTH/2, TILE_HEIGHT*3/4);
 		cachedGraphics.fillOval(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT*3/4, TILE_WIDTH/2, TILE_HEIGHT/4);
 		cachedGraphics.drawImage(developer, x*TILE_WIDTH-1, y*TILE_HEIGHT-1, TILE_WIDTH,TILE_HEIGHT, this);
+		getParent().repaint();
 	}
 	
 	public Board.Coordinates coordFromPixel(int x, int y, Board b){
