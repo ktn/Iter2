@@ -65,8 +65,7 @@ public final class ViewFacade {
 		return boardView;
 	}
 	
-	public static void displayPalaceInventory(int[] inventory) 
-											  {
+	public static void displayPalaceInventory(int[] inventory) {
 		currentPlayerView.displayPalaceInventory(inventory[0], inventory[1], inventory[2],
 												 inventory[3], inventory[4],
 												 inventory[5]);								
