@@ -26,14 +26,17 @@ public class Traversal {
 		int highestVal = 0;
 
 		// check for which algorithm to use to search
-		if (board.getTileType(c) == TileType.PALACE) {
+		if (board.getTileType(c) == TileType.PALACE || board.getTileType(c) == TileType.VILLAGE) {
 			// DFS for highest rank developer in the surrounding city;
 			Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
 
 			queuePath.add(c);
 			visited.add(c);
-
+			int inew = 0;
 			while (!queuePath.isEmpty()) {
+				
+				System.out.println(c.x+"\t"+c.y);
+				System.out.println("INEW: "+inew++);
 				c = queuePath.remove();
 				if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
 					continue;
@@ -41,6 +44,7 @@ public class Traversal {
 				// FOUND A DEVELOPER
 				Developer devFound = board.getDeveloper(c);
 				if (devFound != null) {
+					System.out.println("Found Developer!");
 					// System.out.print("Found developer: ");
 					if (!players.contains(devFound.getPlayer())) // First
 					//instance of player, add it to arraylist and create its int array in map
@@ -183,6 +187,7 @@ public class Traversal {
 			ArrayList<Developer> thisLevelOfHighest = new ArrayList<Developer>();
 			for (Player player : players)
 				thisLevelOfHighest.add(highestDevs.get(player));
+			System.out.println(thisLevelOfHighest.size());
 			highestDevsReturn.add(thisLevelOfHighest);
 			players = lowerDevs;
 			lowerDevs = new ArrayList<Player>();
