@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 
 /*
@@ -145,12 +146,12 @@ public class PlayerFacade {
 	}
 
 	// changing colors
-	public void currentPlayerColor(String c) {
+	public void currentPlayerColor(Color c) {
 		currentPlayer.setColor(c);
 	}
 
 	// assumes it will always receive a valid input
-	public void setPlayerColor(String s, int p) {
+	public void setPlayerColor(Color s, int p) {
 		playerTurn.getPlayer(p).setColor(s);
 	}
 

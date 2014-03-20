@@ -17,8 +17,10 @@ public class ThreeBlock extends Block{
 		this.head = new VillageTile();
 
 		type = TileType.THREE;
-		head.set(0, new RiceTile());
-		head.set(3, new RiceTile());
+		head.set(Grid.RIGHT, new RiceTile());
+		head.getJoined(Grid.RIGHT).set(Grid.LEFT,head);
+		head.set(Grid.BOTTOM, new RiceTile());
+		head.getJoined(Grid.BOTTOM).set(Grid.TOP,head);
 	}
 
 	public String toString() {

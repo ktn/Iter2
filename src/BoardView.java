@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -180,22 +181,26 @@ public class BoardView extends JPanel{
 		if (height>0){
 			g.setColor(Color.black);
 			if (t.getJoined(Grid.TOP)==null){
-				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y)*TILE_HEIGHT);
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT);
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT+1, (x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT+1);
 			}
 			if (t.getJoined(Grid.BOTTOM)==null){
-				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT-1, (x+1)*TILE_WIDTH-1, (y+1)*TILE_HEIGHT-1);
+				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT-2, (x+1)*TILE_WIDTH-1, (y+1)*TILE_HEIGHT-2);
 			}
-			if (t.getJoined(Grid.TOP)==null){
-				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			if (t.getJoined(Grid.LEFT)==null){
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x)*TILE_WIDTH, (y+1)*TILE_HEIGHT-1);
+				g.drawLine((x)*TILE_WIDTH+1, (y)*TILE_HEIGHT, (x)*TILE_WIDTH+1, (y+1)*TILE_HEIGHT-1);
 			}
-			if (t.getJoined(Grid.TOP)==null){
-				g.drawLine((x+1)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			if (t.getJoined(Grid.RIGHT)==null){
+				g.drawLine((x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-1, (y+1)*TILE_HEIGHT-1);
+				g.drawLine((x+1)*TILE_WIDTH-2, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-2, (y+1)*TILE_HEIGHT-1);
 			}
 		}
 		
 		if (height>0&&t.getType()==TileType.PALACE){
 			givenHeight=((PalaceTile)t).getLevel();
-			renderPalaceRecursive(g, givenHeight, x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
+			renderPalaceRecursive(g, givenHeight/2, x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
 			if (!((PalaceTile)t).isHeadsUp()){
 				g.setColor(new Color(0,0,0,0.5f));
 				g.fillRect(x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
