@@ -46,13 +46,13 @@ public class PlayerView {
 		return publicInventoryView;
 	}
 	
-	public static void displayPalaceInventory(int numMask, int numPuppet, 
-											  int numDrum, int numMaskDrum, int numDrumPuppet, int numPuppetMask) 
-											  {
-		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
-												 numMaskDrum, numDrumPuppet,
-												 numPuppetMask);								
-	}
+	// public static void displayPalaceInventory(int numMask, int numPuppet, 
+											  // int numDrum, int numMaskDrum, int numDrumPuppet, int numPuppetMask) 
+											  // {
+		// currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
+												 // numMaskDrum, numDrumPuppet,
+												 // numPuppetMask);								
+	// }
 	
 	public static void switchActivePlayer() {
 		String temp = otherPlayers.get(otherPlayers.size() - 1);

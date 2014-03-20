@@ -15,7 +15,7 @@ public class View extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public View(ArrayList<String> playerNames) {
+	public View(ArrayList<String> playerNames, InputListener input) {
         try {
             initialize(playerNames);
         }
@@ -29,6 +29,7 @@ public class View extends JFrame {
         
 
 		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
+		ViewFacade.setListener(input);
 		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
 		ViewFacade.getBoardView().setSize(new Dimension(minDimension,minDimension));
 		this.setFocusable(true);
