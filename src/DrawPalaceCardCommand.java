@@ -26,14 +26,14 @@ public class DrawPalaceCardCommand implements Command {
 
 	public void load() {
 
-	}	
-	public void save(){
+	}
+
+	public void save() {
 		CommandStack.storeCommand(this);
 	}
 
 	public String toString() {
 		StringBuilder result = new StringBuilder(100);
-		String NEW_LINE = System.getProperty("line.separator");
 		result.append(this.getClass().getName());
 		return result.toString();
 	}
