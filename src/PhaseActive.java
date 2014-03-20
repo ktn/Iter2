@@ -160,27 +160,51 @@ public class PhaseActive {
 			return;
 		}
 		boolean valid = false;
-		try {
-			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
-			valid = sanitation.placeDeveloperChecker(c);
-			if(valid) {
-				Command com = new PlaceDeveloperCommand(board, player, c);
-				com.execute();
-				placeDeveloperMode();
+		Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
+		boolean confirm = true;
+		
+		if(board.isMountains(c)) confirm = ViewFacade.promptPlayer("Do you want to spend 2 AP to place the developer?");
+		else confirm = ViewFacade.promptPlayer("Do you want to spend 1 AP to place the block?");
+		
+		if(!confirm) return;
+		boolean loop = false;
+		do {
+			loop = false;
+			try {
+				valid = sanitation.placeDeveloperChecker(c);
+				if(valid) {
+					Command com = new PlaceDeveloperCommand(board, player, c);
+					com.execute();
+					placeDeveloperMode();
+				}
 			}
-		}
-		catch(BlockNotPlayedException e) {
-			ViewFacade.warnPlayer("Not enough AP remaining to play a block.");
-		}
-		catch(NotEnoughAPException e) {
-			ViewFacade.warnPlayer("Not enough AP to place the developer.");
-		}
-		catch(CoordinatesOutOfBoundsException e) {
-			ViewFacade.warnPlayer("How did you even get this?");
-		}
-		catch(CoordinateException e) {
-			ViewFacade.warnPlayer("Invalid location.");
-		}
+			catch(BlockNotPlayedException e) {
+				ViewFacade.warnPlayer(e.toString());
+			}
+			catch(NotEnoughAPException e) {
+				if(sanitation.actionTokenChecker() && ((!board.isMountains(c) && player.getActionPoints() < 1)
+						|| (board.isMountains(c) && player.getActionPoints() == 1))) {
+					boolean query = ViewFacade.promptPlayer("Do you want to use an action token to play the developer?");
+					if(query) {
+						Command com = new UseActionTokenCommand(board, player);
+						com.execute();
+						loop = true;
+					}
+					else {
+						ViewFacade.warnPlayer(e.toString());
+					}
+				}
+				else {
+					ViewFacade.warnPlayer(e.toString());
+				}
+			}
+			catch(CoordinatesOutOfBoundsException e) {
+				ViewFacade.warnPlayer(e.toString());
+			}
+			catch(CoordinateException e) {
+				ViewFacade.warnPlayer(e.toString());
+			}
+		} while(loop);
 	}
 	public void moveDeveloper() {
 		if(state != Mode.MOVEDEVELOPER) {
@@ -198,16 +222,16 @@ public class PhaseActive {
 			}
 		}
 		catch(NotEnoughAPException e) {
-			ViewFacade.warnPlayer("Not enough AP to move the developer");
+			ViewFacade.warnPlayer(e.toString());
 		}
 		catch(NoDeveloperAtCoordinatesException e) {
-			ViewFacade.warnPlayer("How did you even get this?");
+			ViewFacade.warnPlayer(e.toString());
 		}
 		catch(CoordinateException e) {
-			ViewFacade.warnPlayer("Invalid location.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 		catch(BlockNotPlayedException e) {
-			ViewFacade.warnPlayer("Not enough remaining AP to play a block.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 	}
 	public void useActionToken() {
@@ -262,10 +286,10 @@ public class PhaseActive {
 				}
 			}
 			catch(IllegalBlockPlacementException e) {
-				ViewFacade.warnPlayer("Invalid block placement.");
+				ViewFacade.warnPlayer(e.toString());
 			}
 			catch(NoBlocksLeftException e) {
-				ViewFacade.warnPlayer("No blocks remaining.");
+				ViewFacade.warnPlayer(e.toString());
 			}
 			catch(NotEnoughAPException e) {
 				if(sanitation.actionTokenChecker()) {
@@ -284,7 +308,7 @@ public class PhaseActive {
 				}
 			}
 			catch(CoordinateException e) {
-				ViewFacade.warnPlayer("Too many palaces.");
+				ViewFacade.warnPlayer(e.toString());
 			}
 		} while(loop);
 	}
@@ -304,10 +328,10 @@ public class PhaseActive {
 			}
 		}
 		catch(PalaceUpgradeException e) {
-			ViewFacade.warnPlayer("Invalid block placement.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 		catch(NoDeveloperAtCoordinatesException e) {
-			ViewFacade.warnPlayer("Put a developer at the highest location.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 	}
 	
@@ -321,7 +345,7 @@ public class PhaseActive {
 			}
 		}
 		catch(BlockNotPlayedException e) {
-			ViewFacade.warnPlayer("Need to place a block before ending your turn.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 	}
 	
@@ -335,10 +359,10 @@ public class PhaseActive {
 			}
 		}
 		catch(NotEnoughAPException e) {	
-			ViewFacade.warnPlayer("Not enough AP to draw a card.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 		catch(BlockNotPlayedException e) {
-			ViewFacade.warnPlayer("Not enough AP remaining to play a block.");
+			ViewFacade.warnPlayer(e.toString());
 		}
 	}
 	

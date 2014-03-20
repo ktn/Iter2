@@ -90,9 +90,12 @@ public class TurnPhase {
 		case KeyEvent.VK_5:
 			break;
 		case KeyEvent.VK_6:
-			planning = new PhasePlanning(player, board, sanitation);
-			currentMode = GameMode.PLANNINGMODE;
-			normal = null;
+			boolean query = ViewFacade.promptPlayer("Do you want to enter planning mode?");
+			if(query) {
+				planning = new PhasePlanning(player, board, sanitation);
+				currentMode = GameMode.PLANNINGMODE;
+				normal = null;
+			}
 			break;
 		case KeyEvent.VK_7:
 			//replay = new PhaseReplay(player, board, sanitation);
@@ -155,10 +158,10 @@ public class TurnPhase {
 			planning.moveDeveloperMode();
 			break;
 		case KeyEvent.VK_3:
-			planning.placeBlock();
+			planning.blockMode();
 			break;
 		case KeyEvent.VK_4:
-			planning.placePalace();
+			planning.palaceMode();
 			break;
 		case KeyEvent.VK_5:
 			normal = new PhaseActive(player, board, sanitation);
@@ -166,9 +169,9 @@ public class TurnPhase {
 			planning = null;
 			break;
 		case KeyEvent.VK_6:
-			planning = new PhasePlanning(player, board, sanitation);
-			currentMode = GameMode.PLANNINGMODE;
-			planning = null;
+			//planning = new PhasePlanning(player, board, sanitation);
+			//currentMode = GameMode.PLANNINGMODE;
+			//planning = null;
 			break;
 		case KeyEvent.VK_7:
 			//replay = new PhaseReplay(player, board, sanitation);
