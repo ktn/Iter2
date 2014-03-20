@@ -15,7 +15,7 @@ public class View extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public View(ArrayList<String> playerNames, KeyListener inputListener) {
+	public View(ArrayList<String> playerNames) {
         try {
             initialize(playerNames);
         }
@@ -23,8 +23,9 @@ public class View extends JFrame {
             e.printStackTrace();
         }
         setVisible(true);
+    
 		//TODO:Set KeyListener for this to Controller
-      //  this.addKeyListener(inputListener);
+        //this.addKeyListener(inputListener);
         
 
 		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);

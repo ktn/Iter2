@@ -6,9 +6,12 @@ import java.util.Arrays;
 
 public class InputListener implements KeyListener {
 	TurnPhase turn;
+	View theView;
 	public InputListener() {
 		ArrayList<String> names = new ArrayList<String>(Arrays.asList(new String[] {"Bob", "Steve", "Frank", "Alice"}));
-		new View(names, this);
+		theView = new View(names);
+		theView.setFocusable(true);
+        theView.requestFocusInWindow();
 		turn = new TurnPhase();
 	}
 
@@ -26,7 +29,7 @@ public class InputListener implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-
+		//System.out.println("InputListener key pressed");
 	}
 
 }
