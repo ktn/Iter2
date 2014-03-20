@@ -3,6 +3,8 @@
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -65,6 +67,9 @@ public class ViewTester {
 		boardView.hilightTile(3, 4, Color.red);
 		mainFrame.repaint();
 		
+		boardView.setSize(600, 600);
+		boardView.setLocation(100, 100);
+		
 		final ThreeBlock temporary = new ThreeBlock();
 		
 		
@@ -101,6 +106,41 @@ public class ViewTester {
 				boardView.renderBoard(b);
 				boardView.renderNetwork(temporary.getTile(), tx, ty, new Color(1,0,0,0.5f));
 				boardView.repaint();
+			}
+		});
+		
+		boardView.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("Mouse: "+e.getX()+","+e.getY());
+				Board.Coordinates coord = boardView.coordFromPixel(e.getX(), e.getY(), b); 
+				System.out.println("Coord: "+coord.x+", "+coord.y);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
