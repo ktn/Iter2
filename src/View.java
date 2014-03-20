@@ -58,7 +58,7 @@ public class View extends JFrame {
 		ViewFacade.getControllerView().setBackground(new Color(220,220,220));
 		this.getContentPane().add(ViewFacade.getControllerView(), 
 							  BorderLayout.WEST);
-		JPanel boardPanel = new JPanel();
+		boardPanel = new JPanel();
 		boardPanel.setBackground(new Color(112,128,144));
 		boardPanel = new JPanel();
 		boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
