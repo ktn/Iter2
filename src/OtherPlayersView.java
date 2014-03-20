@@ -72,8 +72,10 @@ public class OtherPlayersView extends JPanel {
 	}
 	
 	public void set(PlayerFacade p){
+		ArrayList<String> names = new ArrayList<String>();
 		for (Player otherPlayer:p.getPlayers()){
 			if (otherPlayer != p.getCurrentPlayer()) {
+				names.add(otherPlayer.getName());
 				displayActionTokens(otherPlayer.getName(),
 						otherPlayer.getActionTokens());
 				displayRiceBlocks(otherPlayer.getName(),
@@ -87,6 +89,7 @@ public class OtherPlayersView extends JPanel {
 				displayScore(otherPlayer.getName(), otherPlayer.getScore());
 			}
 		}
+		playerNames=(String[]) names.toArray();
 	}
 	
 	//Method for displaying number of action tokens

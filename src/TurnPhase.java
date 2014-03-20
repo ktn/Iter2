@@ -35,7 +35,6 @@ public class TurnPhase {
 		this.replay = new PhaseReplay(board, player);
 		this.planning = new PhasePlanning(player, board, sanitation);
 		currentMode = GameMode.NORMALMODE;
-		// this.festival = new PhaseFestival(model);
 		ViewFacade.updateBoard(board.board);
 	}
 
