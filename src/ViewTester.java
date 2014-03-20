@@ -28,7 +28,7 @@ public class ViewTester {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("steve");
 		names.add("martin");
-		ViewFacade view = new ViewFacade(names);
+		ViewFacade view = new ViewFacade(names, 10 , 10);
 		View viewer=new View(names);
 		ViewFacade.updateBoard(board.board);
 	}

@@ -179,7 +179,7 @@ public class BoardView extends JPanel{
 		Color transparentColor=new Color(c.getRed(),c.getGreen(),c.getBlue(),63);
 		for (int i=0;i<x.size();i++){
 			cachedGraphics.setColor(transparentColor);
-			cachedGraphics.drawRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
+			cachedGraphics.fillRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
 			cachedGraphics.setColor(c);
 			cachedGraphics.drawRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
 		}

@@ -20,7 +20,7 @@ public class ViewFacade {
 	private static ControllerView controllerView;
 	private static BoardView boardView;
 	
-	public ViewFacade(ArrayList<String> playerNames) {
+	public ViewFacade(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
@@ -28,11 +28,11 @@ public class ViewFacade {
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
 		//@ TODO: don't use magic  numbers
-		boardView=new BoardView(12,12);
+		boardView=new BoardView(boardWidth+2, boardHeight+2);
 	}
 	
 	//Copy of above for testing
-	public static void initialize(ArrayList<String> playerNames) {
+	public static void initialize(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
@@ -40,7 +40,7 @@ public class ViewFacade {
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
 		//@ TODO: don't use magic  numbers
-		boardView=new BoardView(12,12);
+		boardView=new BoardView(boardWidth+2, boardHeight+2);
 	}
 	
 	public static OtherPlayersView getOtherPlayerView() {

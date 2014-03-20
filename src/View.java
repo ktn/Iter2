@@ -36,7 +36,7 @@ public class View extends JFrame {
 		this.getContentPane().setLayout(new BorderLayout(3, 3));
 		
 		//PlayerView playerView = new PlayerView();
-		ViewFacade.initialize(playerNames);
+		ViewFacade.initialize(playerNames, 10, 10);
 		
 		this.getContentPane().add(ViewFacade.getOtherPlayerView(), 
 								  BorderLayout.NORTH);
