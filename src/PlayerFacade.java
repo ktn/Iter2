@@ -278,5 +278,10 @@ public class PlayerFacade {
 	{
 		return playerTurn.getVictors();
 	}
+	
+	public String toString()
+	{
+		return currentPlayer.toString();
+	}
 }
 

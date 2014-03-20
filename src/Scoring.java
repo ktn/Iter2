@@ -16,7 +16,7 @@ public class Scoring {
 		this.b=null;
 	}
 
-	public Scoring(BoartdFacade b){
+	public Scoring(BoardFacade b){
 		//this should take in whatever
 		this.p=null;
 		this.b=b;
@@ -33,7 +33,7 @@ public class Scoring {
 		//is COMPLETELY enclosed by land tiles.
 		ArrayList<Developer> d = b.findHighestDev(c);
 		if(d.size()==1){
-			p.addPlayerScore(d.get(0).getPlayer(), 3);
+			p.addPlayerScore(d.get(0).getPlayer(), b.numIrrigationTiles(c)*3);
 		}
 		//if theres a tie for highest developer no points scored
 	}

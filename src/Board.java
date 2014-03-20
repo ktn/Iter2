@@ -296,11 +296,17 @@ public class Board {
 		String NEW_LINE = System.getProperty("line.separator");
 		for (int i = 0; i < xDim; i++) {
 			for (int j = 0; j < yDim; j++) {
-				if (this.getTileType(new Coordinates(i, j)) == null) {
-					result.append("N ");
-				} else {
-					result.append(this.getTileType(new Coordinates(i, j)) + "\t");
+				Coordinates c = new Coordinates(i,j);
+				if (this.getTileType(c) == null) {
+					result.append("N");
+				} 
+				else {
+					result.append(this.getTileType(c));
 				}
+				if(this.getTileType(c) == TileType.PALACE)
+					result.append(((PalaceTile) board.getTile(c)).getLevel());
+				if(getDeveloper(c) != null)
+					result.append("D");
 			}
 			result.append(NEW_LINE);
 		}

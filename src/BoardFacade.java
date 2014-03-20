@@ -56,6 +56,11 @@ public class BoardFacade {
 	public Developer getDeveloper(Board.Coordinates c) {
 		return board.getDeveloper(c);
 	}
+	
+	public String toString()
+	{
+		return board.toString();
+	}
 
 	// BLOCK METHODS
 	// =======================================================================
@@ -121,7 +126,43 @@ public class BoardFacade {
 		return pathfinding.getShortestPath();
 	}
 
+	// TRAVERSAL METHODS
+	// =======================================================================================
+
 	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
 		return traversal.findHighestDev(c);
 	}
+
+	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
+	{
+		return traversal.findHighestDev(c);
+	}
+	public ArrayList<Developer> findSecondHighestDev(Board.Coordinates c)
+	{
+		return traversal.findSecondHighestDev(c);
+	}
+
+	public boolean playerInCity(Player player, Board.Coordinates aCityTile)
+	{
+		return traversal.playerInCity(player, aCityTile);
+	}
+
+	public int numIrrigationTiles(Board.Coordinates anIrrigTile)
+	{
+		return traversal.numIrrigationTiles(anIrrigTile);
+	}
+
+	public ArrayList<Board.Coordinates> allPalaceTiles()
+	{
+		return traversal.allPalaceTiles();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }		
