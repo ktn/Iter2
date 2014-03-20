@@ -7,7 +7,7 @@ public class Traversal
 	{
 		board = b;
 	}
-	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
+	private ArrayList<ArrayList<Developer>> findHighestDevsDownTheLine(Board.Coordinates c)
 	{
 		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
 		ArrayList<Player> players = new ArrayList<Player>();
@@ -161,57 +161,49 @@ public class Traversal
 				}
 			}
 		}
-		ArrayList<Developer> highestDevsReturn = new ArrayList<Developer>();
+		ArrayList<ArrayList<Developer>> highestDevsReturn = new ArrayList<ArrayList<Developer>>();
 		ArrayList<Player> lowerDevs = new ArrayList<Player>();
-		for( int height=highestVal; highestDevsReturn.size() == 0 && height >= 0; height--)
+		do
 		{
-			int most = 0;	//most developers on this level
-			//System.out.print("Height: "+height+" most: "+most);
-			for(int p = 0; p < players.size(); p++)	//get most developers on this level
-				if(map.get(players.get(p))[height] > most)
-					most = map.get(players.get(p))[height];
-			//System.out.print(" most: "+most+"Players: "+players.size());
-			for(int p = 0; p < players.size(); p++)	//if player has less than most developers, remove it from array list
-				if(map.get(players.get(p))[height] < most)
-				{
-					lowerDevs.add(players.get(p));
-					players.remove(players.get(p));
-				}
-			//System.out.println(" Players: "+players.size());
-			if(players.size() == 1)	//if there is only one player left, he had the highest developers
-				highestDevsReturn.add(highestDevs.get(players.get(0)));
-		}
-		if(highestDevsReturn.size() == 1)
-		{
-			if(lowerDevs.size() == 1)
+			for( int height=highestVal; highestDevsReturn.size() == 0 && height >= 0; height--)
 			{
-				highestDevsReturn.add(highestDevs.get(lowerDevs.get(0)));
+				int most = 0;	//most developers on this level
+				//System.out.print("Height: "+height+" most: "+most);
+				for(int p = 0; p < players.size(); p++)	//get most developers on this level
+					if(map.get(players.get(p))[height] > most)
+						most = map.get(players.get(p))[height];
+				//System.out.print(" most: "+most+"Players: "+players.size());
+				for(int p = 0; p < players.size(); p++)	//if player has less than most developers, remove it from array list
+					if(map.get(players.get(p))[height] < most)
+					{
+						lowerDevs.add(players.get(p));
+						players.remove(players.get(p));
+					}
 			}
-			else
-			{
-				for( int height=highestVal; highestDevsReturn.size() == 0 && height >= 0; height--)
-				{
-					int most = 0;	//most developers on this level
-					//System.out.print("Height: "+height+" most: "+most);
-					for(int p = 0; p < lowerDevs.size(); p++)	//get most developers on this level
-						if(map.get(lowerDevs.get(p))[height] > most)
-							most = map.get(lowerDevs.get(p))[height];
-					//System.out.print(" most: "+most+"lowerDevs: "+lowerDevs.size());
-					for(int p = 0; p < lowerDevs.size(); p++)	//if player has less than most developers, remove it from array list
-						if(map.get(lowerDevs.get(p))[height] < most)
-						{
-							lowerDevs.remove(lowerDevs.get(p));
-						}
-					//System.out.println(" lowerDevs: "+lowerDevs.size());
-					if(lowerDevs.size() == 1)	//if there is only one player left, he had the highest developers
-						highestDevsReturn.add(highestDevs.get(lowerDevs.get(0)));
-				}
-			}
-		}
-		if(highestDevsReturn.size() == 0 & players.size() == 2)
-			for(Player p : players)
-				highestDevsReturn.add(highestDevs.get(p));	
+			ArrayList<Developer> thisLevelOfHighest = new ArrayList<Developer>();
+			for(Player player : players)
+				thisLevelOfHighest.add(highestDevs.get(player));
+			players = lowerDevs;
+			lowerDevs = new ArrayList<Player>();
+			
+		} while(lowerDevs.size() > 0);		
 		return highestDevsReturn;
+	}
+	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
+	{
+		ArrayList<ArrayList<Developer>> highestDevsReturn = findHighestDevsDownTheLine(c);
+		if(highestDevsReturn.size() > 0)
+			return highestDevsReturn.get(0);
+		else
+			return null;
+	}
+	public ArrayList<Developer> findSecondHighestDev(Board.Coordinates c)
+	{
+		ArrayList<ArrayList<Developer>> highestDevsReturn = findHighestDevsDownTheLine(c);
+		if(highestDevsReturn.size() > 1)
+			return highestDevsReturn.get(1);
+		else
+			return null;
 	}
 
 	public boolean playerInCity(Player player, Board.Coordinates aCityTile)

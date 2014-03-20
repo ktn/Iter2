@@ -7,6 +7,8 @@ public class View extends JFrame {
 	 * window. It will grab the other components of view and place them 
 	 * in a single window according to a specific layout scheme. */
 	 
+	private static final long serialVersionUID = -2507182043735130183L;
+
 	/**
 	 * Create the application.
 	 */
@@ -26,29 +28,24 @@ public class View extends JFrame {
 		//this.setBounds(100, 100, 910, 650);
         //this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		Toolkit tk = Toolkit.getDefaultToolkit();  
-		int xSize = ((int) tk.getScreenSize().getWidth());  
-		int ySize = ((int) tk.getScreenSize().getHeight());  
+		int xSize = ((int) (tk.getScreenSize().getWidth()*0.75f));  
+		int ySize = ((int) (tk.getScreenSize().getHeight()*0.75f));  
 		this.setSize(xSize,ySize);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout(3, 3));
 		
 		//PlayerView playerView = new PlayerView();
-		PlayerViewFacade.initialize(playerNames);
+		ViewFacade.initialize(playerNames);
 		
-		this.getContentPane().add(PlayerViewFacade.getOtherPlayerView(), 
+		this.getContentPane().add(ViewFacade.getOtherPlayerView(), 
 								  BorderLayout.NORTH);
-		this.getContentPane().add(PlayerViewFacade.getCurrentPlayerView(),
+		this.getContentPane().add(ViewFacade.getCurrentPlayerView(),
 								  BorderLayout.SOUTH);
-		this.getContentPane().add(PlayerViewFacade.getPublicInventoryView(),
+		this.getContentPane().add(ViewFacade.getPublicInventoryView(),
 								  BorderLayout.EAST);
-		this.getContentPane().add(PlayerViewFacade.getControllerView(), 
+		this.getContentPane().add(ViewFacade.getControllerView(), 
 								  BorderLayout.WEST);
-		try {
-			BoardView boardView = new BoardView(14,14);
-			//boardView.renderNetwork(b.head, 1, 1);
-			this.getContentPane().add(boardView, BorderLayout.CENTER);
-		}
-		catch (Exception e) { e.printStackTrace(); }	
+		this.getContentPane().add(ViewFacade.getBoardView(), BorderLayout.CENTER);
 	}
 }
