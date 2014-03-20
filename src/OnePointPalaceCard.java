@@ -2,14 +2,14 @@ public class OnePointPalaceCard extends PalaceCard {
 	private Symbol symbol;
 
 	public OnePointPalaceCard(String symbolType) {
-		if (symbolType == "MASK") {
+		System.out.println("Symbol 1 " + symbolType + " ");
+		if (symbolType.equals("MASK")) {
 			symbol = Symbol.MASK;
-		} else if (symbolType == "DRUM") {
+		} else if (symbolType.equals("DRUM")) {
 			symbol = Symbol.DRUM;
-		} else if (symbolType == "PUPPET") {
+		} else if (symbolType.equals("PUPPET")) {
 			symbol = Symbol.PUPPET;
-		} else
-			symbol = Symbol.NULL;
+		}
 	}
 
 	public String getSymbol() {

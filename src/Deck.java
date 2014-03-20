@@ -27,16 +27,10 @@ public class Deck {
 		discardStack = new ArrayList<PalaceCard>();
 	}
 
-	public Deck(String array[]) {
+	public Deck(ArrayList<PalaceCard> cstack) {
 		// Assumption: 10 two-symbol cards and 20 one symbol
-		cardStack = new ArrayList<PalaceCard>();
+		cardStack = cstack;
 
-		for (int i = 0; i < 50; i++) {
-			cardStack.add(new OnePointPalaceCard(array[i]));
-			System.out.println(array[i]);
-		}
-
-		shuffle(cardStack);
 		setFestivalCard();
 
 		discardStack = new ArrayList<PalaceCard>();
@@ -112,7 +106,7 @@ public class Deck {
 	public void save() {
 		PrintWriter writer = null;
 		try {
-			writer = new PrintWriter("Deck");
+			writer = new PrintWriter("Deck.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -120,27 +114,4 @@ public class Deck {
 		writer.close();
 	}
 
-	public void loadDeck() {
-		Scanner in = null;
-		try {
-			in = new Scanner(new FileInputStream("Deck"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		String s = in.nextLine();
-		String[] sa = s.split(",");
-		ArrayList<PalaceCard> ca = new ArrayList<PalaceCard>();
-		for (int i = 0; i < sa.length; i++) {
-			String[] sb = sa[i].split(" ");
-			if (sb.length == 1) {
-				System.out.println(sb[0]);
-				ca.add(new OnePointPalaceCard(sb[0]));
-			} else {
-				System.out.println(sb[0] + "  " + sb[1]);
-				ca.add(new TwoPointPalaceCard(sb[0], sb[1]));
-			}
-		}
-
-		cardStack = ca;
-	}
 }

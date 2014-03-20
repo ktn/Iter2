@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
@@ -77,5 +78,29 @@ public final class CommandStack {
 			}
 		}
 		in.close();
+	}
+
+	@SuppressWarnings("resource")
+	public static ArrayList<PalaceCard> loadDeck() {
+		Scanner in = null;
+		try {
+			in = new Scanner(new FileInputStream("Deck.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		String s = in.nextLine();
+		String[] sa = s.split(",");
+		ArrayList<PalaceCard> ca = new ArrayList<PalaceCard>();
+		for (int i = 0; i < sa.length; i++) {
+			String[] sb = sa[i].split(" ");
+			if (sb.length == 1) {
+				OnePointPalaceCard c = new OnePointPalaceCard(sb[0]);
+				ca.add(c);
+			} else {
+				TwoPointPalaceCard c = new TwoPointPalaceCard(sb[0], sb[1]);
+				ca.add(c);
+			}
+		}
+		return ca;
 	}
 }

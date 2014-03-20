@@ -10,12 +10,11 @@ public class test {
 			IllegalBlockPlacementException {
 
 		String names[] = { "Lucas", "Xy", "Trouble" };
-
 		Deck d = new Deck();
-		System.out.print(d);
-		d.loadDeck();
-		// System.out.println(d.showCards());
-		System.out.print(d);
+		d.save();
+
+		Deck c = new Deck(CommandStack.loadDeck());
+		System.out.print(c);
 
 		PlayerFacade p = new PlayerFacade(names);
 		BoardFacade b = new BoardFacade();
@@ -56,5 +55,4 @@ public class test {
 		CommandStack.save("test");
 
 	}
-
 }

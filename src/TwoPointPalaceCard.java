@@ -4,17 +4,19 @@ public class TwoPointPalaceCard extends PalaceCard {
 	private Symbol secondSymbol;
 
 	public TwoPointPalaceCard(String symbol1, String symbol2) {
-		if (symbol1 == "MASK") {
+		System.out.println("Symbol 2 " + symbol1 + "  " + symbol2);
+
+		if (symbol1.equals("MASK")) {
 			firstSymbol = Symbol.MASK;
-		} else if (symbol1 == "DRUM") {
+		} else if (symbol1.equals("DRUM")) {
 			firstSymbol = Symbol.DRUM;
 		} else {
 			firstSymbol = Symbol.PUPPET;
 		}
 
-		if (symbol2 == "MASK") {
+		if (symbol2.equals("MASK")) {
 			secondSymbol = Symbol.MASK;
-		} else if (symbol2 == "DRUM") {
+		} else if (symbol2.equals("DRUM")) {
 			secondSymbol = Symbol.DRUM;
 		} else {
 			secondSymbol = Symbol.PUPPET;
