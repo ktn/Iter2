@@ -81,14 +81,7 @@ public abstract class Tile {
 	}
 
 	private void updatePosition(int i, Tile t){
-		int old = 0;
-		for(Tile y : joinedTiles){
-			old++;
-			if(y == t)
-				joinedTiles.set(old, null);
-		}
-
-		joinedTiles.set((i+2)%4, t);
+		joinedTiles.rotate();
 	}
 
 	public Grid<Tile> getGrid() {

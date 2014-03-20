@@ -112,6 +112,7 @@ public class PhaseActive {
 		if(state != Mode.BLOCK) return;
 		selectedBlock.rotate();
 		rotationCount = (rotationCount + 1) % 4;
+		drawCursor();
 	}
 	
 	// Developer methods
