@@ -308,7 +308,12 @@ public class TurnPhase {
 		"3 - Place a Block<br>" +
 		"4 - Place a Palace<br>" +
 		"5 - Active Mode<br>" +
-		"6 - Planning Mode<br></html>");
+		"6 - Planning Mode<br>" +
+		"7 - Replay Mode<br>" +
+		"8 - Festival Mode<br>" +
+		"S - Save<br>" +
+		"L - Load<br>" + 
+		"E - End Turn</html>");
 	}
 	
 	private void sendReplayCommands() {

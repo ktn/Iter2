@@ -22,7 +22,7 @@ public class ControllerView extends JPanel {
 	}
 	
 	private void initialize() {
-		setLayout(new GridLayout(2,1));
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		gamePhase = new JLabel("Active Mode");
 		this.add(gamePhase);
