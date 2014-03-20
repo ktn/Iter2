@@ -8,10 +8,10 @@ public class InputListener implements KeyListener {
 	TurnPhase turn;
 	public InputListener() {
 		ArrayList<String> names = new ArrayList<String>(Arrays.asList(new String[] {"Bob", "Steve", "Frank", "Alice"}));
-		new View(names, this);
 
-		
+		View view=new View(names, this);
 		turn = new TurnPhase();
+		view.addKeyListener(this);
 	}
 
 
@@ -22,14 +22,12 @@ public class InputListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+		System.out.println("released");
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
+		System.out.println("typed");
 	}
 
 }
