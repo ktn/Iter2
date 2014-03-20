@@ -37,10 +37,10 @@ public class test {
 		a = new PlacePalaceTileCommand(b, p, b.getCoordinates(2, 3), 4);
 		a.execute();
 
-		a = new PlaceTwoBlockCommand(b, p, b.getCoordinates(8, 9));
+		a = new PlaceTwoBlockCommand(b, p, b.getCoordinates(8, 9), 0);
 		a.execute();
 
-		a = new PlaceThreeBlockCommand(b, p, b.getCoordinates(2, 3));
+		a = new PlaceThreeBlockCommand(b, p, b.getCoordinates(2, 3), 0);
 		a.execute();
 
 		a = new PlaceDeveloperCommand(b, p, b.getCoordinates(2, 3));

@@ -17,6 +17,7 @@ public class PlaceVillageTileCommand implements Command {
 		// if(board.validPlacement(coors, b)
 		board.placeBlock(coords, block);
 		this.save();
+		board.updateBoard();
 
 	}
 
@@ -24,6 +25,7 @@ public class PlaceVillageTileCommand implements Command {
 		board.removeBlock(coords);
 
 		player.returnVillageBlock();
+		board.updateBoard();
 
 	}
 

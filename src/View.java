@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class View extends JFrame {
@@ -22,11 +23,15 @@ public class View extends JFrame {
             e.printStackTrace();
         }
         setVisible(true);
+    
 		//TODO:Set KeyListener for this to Controller
+        //this.addKeyListener(inputListener);
         
+
 		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
 		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
 		ViewFacade.getBoardView().setSize(new Dimension(minDimension,minDimension));
+		this.setFocusable(true);
 		this.repaint();
 	}  
 	

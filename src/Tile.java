@@ -70,6 +70,25 @@ public abstract class Tile {
 
 	public void rotate() {
 		joinedTiles.rotate();
+
+		int i = 0;
+		for(Tile y : joinedTiles){
+			i++;
+			if(y != null){
+				y.updatePosition(i, this);
+			}
+		}
+	}
+
+	private void updatePosition(int i, Tile t){
+		int old = 0;
+		for(Tile y : joinedTiles){
+			old++;
+			if(y == t)
+				joinedTiles.set(old, null);
+		}
+
+		joinedTiles.set((i+2)%4, t);
 	}
 
 	public Grid<Tile> getGrid() {

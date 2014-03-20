@@ -13,6 +13,7 @@ public class DrawDeckCardCommand implements Command {
 		card = player.topCard();
 		player.addCard(card);
 		this.save();
+		board.updateBoard();
 
 	}
 
@@ -21,6 +22,7 @@ public class DrawDeckCardCommand implements Command {
 		// return festival cards
 		player.returnTopCard(card);
 		player.removeCard(card);
+		board.updateBoard();
 
 	}
 

@@ -50,12 +50,14 @@ public final class CommandStack {
 				break;
 			case "PlaceTwoBlockCommand":
 				c = new PlaceTwoBlockCommand(b, p, b.getCoordinates(
-						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])));
+						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])),
+						Integer.parseInt(sa[3]));
 				c.execute();
 				break;
 			case "PlaceThreeBlockCommand":
-				c = new PlaceThreeBlockCommand(b, p, b.getCoordinates(
-						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])));
+			c = new PlaceThreeBlockCommand(b, p, b.getCoordinates(
+						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])),
+						Integer.parseInt(sa[3]));
 				c.execute();
 				break;
 			case "PlaceDeveloperCommand":
@@ -104,5 +106,13 @@ public final class CommandStack {
 			}
 		}
 		return ca;
+
+	public static boolean empty(){
+		return commands.empty();
+	}
+
+
+	public static Command popCommand(){
+		return commands.pop();
 	}
 }

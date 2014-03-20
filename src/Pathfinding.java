@@ -57,7 +57,6 @@ class Pathfinding {
 					board.new Coordinates(xOld, yOld), 0);
 		}
 		return APUsed;
-
 	}
 
 	public void checkNextSpot(ArrayList<Board.Coordinates> currentPath, int x,
@@ -126,7 +125,6 @@ class Pathfinding {
 					checkNextSpot(
 							new ArrayList<Board.Coordinates>(currentPath), x,
 							y - 1, newCoord, AP);
-
 				}
 			}
 		}

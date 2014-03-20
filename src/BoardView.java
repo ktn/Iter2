@@ -1,7 +1,9 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
 
 /**mostly for mark-ups as of yet.  need more model to view.
  * needs work to create buffer.*/
@@ -23,24 +26,46 @@ public class BoardView extends JPanel{
 	Image rice;
 	Image village;
 	Image palace;
+	Image developer;
+	Image mountians;
+	Image lowlands;
 	
-	public static final int TILE_WIDTH=48;
-	public static final int TILE_HEIGHT=48;
+	protected int TILE_WIDTH=64;
+	protected int TILE_HEIGHT=64;
+	
+	protected int boardWidth;
+	protected int boardHeight;
 	
 	BufferedImage cachedCanvas;
 	Graphics2D cachedGraphics;
+	
+	/**a cached copy of the heights of the spaces*/
+	int[][] spaceHeights;
 	
 	/**creates a new board view with the given height and width (in Tiles)
 	 * Obeys LOD (given that createGraphics does not return an attribute of BufferedImage,
 	 * but rather, and interface to it)*/
 	public BoardView(int boardWidth, int boardHeight){
+		spaceHeights=new int[boardWidth][boardHeight];
 		createDefaultTexture();
 		dirt=getTexture("images/dirt.png");
 		rice=getTexture("images/rice.png");
 		village=getTexture("images/village.png");
 		palace=getTexture("images/palace.png");
-		cachedCanvas=new BufferedImage(TILE_WIDTH*boardWidth, TILE_HEIGHT*boardHeight, BufferedImage.TYPE_INT_RGB);
+		developer = getTexture("images/developer.png");
+		lowlands=getTexture("images/dirtside.png");
+		mountians=getTexture("images/Mountain.png");
+		this.boardWidth=boardWidth;
+		this.boardHeight=boardHeight;
+		initGraphics();
+	}
+	
+	private void initGraphics(){
+		cachedCanvas=new BufferedImage(TILE_WIDTH*(boardWidth+2), TILE_HEIGHT*(boardHeight+2), BufferedImage.TYPE_INT_RGB);
 		cachedGraphics=cachedCanvas.createGraphics();
+		cachedGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		Font font=new Font(Font.SANS_SERIF, Font.PLAIN, TILE_HEIGHT*3/8);
+		cachedGraphics.setFont(font);
 	}
 	
 	private Image getTexture(String texturePath){
@@ -57,10 +82,10 @@ public class BoardView extends JPanel{
 		defaultTexture=new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Graphics2D defaultGraphics = defaultTexture.createGraphics();
 		defaultGraphics.setColor(Color.black);
-		defaultGraphics.drawRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
+		defaultGraphics.fillRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
 		defaultGraphics.setColor(Color.magenta);
-		defaultGraphics.drawRect(0, 0, TILE_WIDTH/2, TILE_HEIGHT/2);
-		defaultGraphics.drawRect(TILE_WIDTH/2, TILE_HEIGHT/2, TILE_WIDTH/2, TILE_HEIGHT/2);
+		defaultGraphics.fillRect(0, 0, TILE_WIDTH/2, TILE_HEIGHT/2);
+		defaultGraphics.fillRect(TILE_WIDTH/2, TILE_HEIGHT/2, TILE_WIDTH/2, TILE_HEIGHT/2);
 	}
 	
 	@Override
@@ -73,15 +98,81 @@ public class BoardView extends JPanel{
 	
 	
 	public void renderBoard(Board b){
+		if (this.getWidth()!=cachedCanvas.getWidth()||
+				this.getHeight()!=cachedCanvas.getHeight()){
+			TILE_WIDTH=this.getWidth()/(boardWidth+2);
+			TILE_HEIGHT=this.getWidth()/(boardHeight+2);
+			initGraphics();
+		}
 		renderFullBoard(b.head, b);
+		getParent().repaint();
 	}
 	
 	public void renderFullBoard(Space origin, Board b){
+		Image currentTile;
+		for (int x = 0; x<boardWidth;x++){
+			if (x==0){
+				for (int y = 0; y<boardHeight;y++){
+					currentTile=lowlands;
+					if (b.isMountainSpace(b.new Coordinates(x, y))){
+						currentTile=mountians;
+					}
+					cachedGraphics.drawImage(currentTile, x*TILE_WIDTH, (y+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+				}
+			}else if (x==boardWidth-1){
+				for (int y = 0; y<boardHeight;y++){
+					currentTile=lowlands;
+					if (b.isMountainSpace(b.new Coordinates(x, y))){
+						currentTile=mountians;
+					}
+					cachedGraphics.drawImage(currentTile, (x+2)*TILE_WIDTH, (y+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+				}
+			}else{
+				currentTile=lowlands;
+				if (b.isMountainSpace(b.new Coordinates(x, 0))){
+					currentTile=mountians;
+				}
+				cachedGraphics.drawImage(currentTile, (x+1)*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT, this);
+				currentTile=lowlands;
+				if (b.isMountainSpace(b.new Coordinates(x, boardHeight-1))){
+					currentTile=mountians;
+				}
+				cachedGraphics.drawImage(currentTile, (x+1)*TILE_WIDTH, (boardHeight+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+			}
+			Image northwest=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(0, 0))){
+				northwest=mountians;
+			}
+			cachedGraphics.drawImage(northwest, TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northwest, 0, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northwest, 0, 0, TILE_WIDTH, TILE_HEIGHT, this);
+			Image northeast=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(boardWidth-1,0))){
+				northeast=mountians;
+			}
+			cachedGraphics.drawImage(northeast, TILE_WIDTH*(boardWidth), 0, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northeast, TILE_WIDTH*(boardWidth+1), TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northeast, TILE_WIDTH*(boardWidth+1), 0, TILE_WIDTH, TILE_HEIGHT, this);
+			Image southeast=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(0,boardHeight-1))){
+				southeast=mountians;
+			}
+			cachedGraphics.drawImage(southeast, TILE_WIDTH, TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southeast, 0, TILE_HEIGHT*(boardHeight), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southeast, 0, TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+			Image southwest=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(boardWidth-1, boardHeight+1))){
+				southwest=mountians;
+			}
+			cachedGraphics.drawImage(southwest, TILE_WIDTH*(boardWidth+1), TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southwest, TILE_WIDTH*(boardWidth+1), TILE_HEIGHT*(boardHeight), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southwest, TILE_WIDTH*(boardWidth), TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+		}
 		ArrayList<Space> alreadyRendered=new ArrayList<Space>();
-		renderFullBoardRecursive(cachedGraphics,alreadyRendered, origin, 1, 1, b);
+		renderFullBoardRecursive(cachedGraphics,alreadyRendered, origin, 0, 0, b);
 	}
 	
-	public void renderFullBoardRecursive(Graphics g, AbstractList<Space> finished, Space origin, int x, int y, Board b){
+	private void renderFullBoardRecursive(Graphics g, AbstractList<Space> finished, Space origin, int x, int y, Board b){
 		renderSpace(g, origin, x, y);
 		Board.Coordinates coord = b.new Coordinates(x, y);
 		Developer dev = b.getDeveloper(coord);
@@ -104,33 +195,57 @@ public class BoardView extends JPanel{
 			finished.add(origin.getBottom());
 			renderFullBoardRecursive(g,finished,origin.getBottom(),x,y+1,b);
 		}
+		int givenHeight=origin.getHeight();
+		if (origin.getHeight()>0&&origin.getTile().getType()==TileType.PALACE){
+			givenHeight=((PalaceTile)origin.getTile()).getLevel();
+		}
+		spaceHeights[x][y]=givenHeight;
+		renderText(g, ""+givenHeight, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT+g.getFont().getSize());
+	}
+	
+	
+	/**recursively renders the given space at it's given location, 
+	 * along with all of the spaces connected to it.*/
+	public void renderNetwork(Tile origin, int x, int y){
+		renderNetwork(origin, x, y, new Color(0,0,0,0));
 	}
 	
 	/**recursively renders the given space at it's given location, 
 	 * along with all of the spaces connected to it.*/
-	public void renderNetwork(Space origin, int x, int y){
-		ArrayList<Space> alreadyRendered=new ArrayList<Space>();
-		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y);
+	public void renderNetwork(Tile origin, int x, int y, Color hilight){
+		ArrayList<Tile> alreadyRendered=new ArrayList<Tile>();
+		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y, hilight);
+		getParent().repaint();
 	}
 	
 	/**recursively renders a network of spaces*/
-	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Space> finished, Space origin, int x, int y){
-		renderSpace(g, origin, x, y);
-		if (origin.getLeft()!=null&&!finished.contains(origin.getLeft())){
-			finished.add(origin.getLeft());
-			renderNetworkRecursive(g,finished,origin.getLeft(),x-1,y);
+	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Tile> finished, Tile origin, int x, int y, Color hilight){
+		int dummyHeight=0;
+		
+		if (x>=0&&x<boardWidth&&y>=0&&y<boardHeight){
+			dummyHeight=spaceHeights[x][y];
 		}
-		if (origin.getRight()!=null&&!finished.contains(origin.getRight())){
-			finished.add(origin.getRight());
-			renderNetworkRecursive(g,finished,origin.getRight(),x+1,y);
+		renderSpace(g, origin, dummyHeight, x, y);
+		g.setColor(hilight);
+		g.fillRect((x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		if (x>=0&&x<boardWidth&&y>=0&&y<boardHeight){
+			renderText(g, Integer.toString(spaceHeights[x][y]), (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT+g.getFont().getSize());
 		}
-		if (origin.getTop()!=null&&!finished.contains(origin.getTop())){
-			finished.add(origin.getTop());
-			renderNetworkRecursive(g,finished,origin.getTop(),x,y-1);
+		if (origin.getJoined(Grid.LEFT)!=null&&!finished.contains(origin.getJoined(Grid.LEFT))){
+			finished.add(origin.getJoined(Grid.LEFT));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.LEFT),x-1,y, hilight);
 		}
-		if (origin.getBottom()!=null&&!finished.contains(origin.getBottom())){
-			finished.add(origin.getBottom());
-			renderNetworkRecursive(g,finished,origin.getBottom(),x,y+1);
+		if (origin.getJoined(Grid.RIGHT)!=null&&!finished.contains(origin.getJoined(Grid.RIGHT))){
+			finished.add(origin.getJoined(Grid.RIGHT));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.RIGHT),x+1,y, hilight);
+		}
+		if (origin.getJoined(Grid.TOP)!=null&&!finished.contains(origin.getJoined(Grid.TOP))){
+			finished.add(origin.getJoined(Grid.TOP));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.TOP),x,y-1, hilight);
+		}
+		if (origin.getJoined(Grid.BOTTOM)!=null&&!finished.contains(origin.getJoined(Grid.BOTTOM))){
+			finished.add(origin.getJoined(Grid.BOTTOM));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.BOTTOM),x,y+1, hilight);
 		}
 	}
 	
@@ -140,11 +255,19 @@ public class BoardView extends JPanel{
 		renderSpace(cachedGraphics,s, x, y);
 	}
 	
-	protected void renderSpace(Graphics g, Tile t, int height, int x, int y){
+	protected void renderSpace(Graphics g, Tile t, int height, int inx, int iny){
+		int x = inx+1;
+		int y = iny+1;
+		
 		Image tileFace=dirt;
 		
-		if (height>0&&t.getType()==TileType.RICE){
-			tileFace=rice;
+		if (t!=null){
+			if (t.getType()==TileType.RICE){
+				tileFace=rice;
+			}
+			if (t.getType()==TileType.VILLAGE){
+				tileFace=village;
+			}
 		}
 		
 		g.setColor(Color.white);
@@ -152,33 +275,34 @@ public class BoardView extends JPanel{
 		
 		int givenHeight=height;
 		
-		if (height>0){
+		if (t!=null){
 			g.setColor(Color.black);
 			if (t.getJoined(Grid.TOP)==null){
-				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y)*TILE_HEIGHT);
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT);
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT+1, (x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT+1);
 			}
 			if (t.getJoined(Grid.BOTTOM)==null){
-				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT-1, (x+1)*TILE_WIDTH-1, (y+1)*TILE_HEIGHT-1);
+				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT-2, (x+1)*TILE_WIDTH-1, (y+1)*TILE_HEIGHT-2);
 			}
-			if (t.getJoined(Grid.TOP)==null){
-				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			if (t.getJoined(Grid.LEFT)==null){
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x)*TILE_WIDTH, (y+1)*TILE_HEIGHT-1);
+				g.drawLine((x)*TILE_WIDTH+1, (y)*TILE_HEIGHT, (x)*TILE_WIDTH+1, (y+1)*TILE_HEIGHT-1);
 			}
-			if (t.getJoined(Grid.TOP)==null){
-				g.drawLine((x+1)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			if (t.getJoined(Grid.RIGHT)==null){
+				g.drawLine((x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-1, (y+1)*TILE_HEIGHT-1);
+				g.drawLine((x+1)*TILE_WIDTH-2, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-2, (y+1)*TILE_HEIGHT-1);
 			}
 		}
 		
 		if (height>0&&t.getType()==TileType.PALACE){
 			givenHeight=((PalaceTile)t).getLevel();
-			renderPalaceRecursive(g, givenHeight, x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
+			renderPalaceRecursive(g, givenHeight/2, x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
 			if (!((PalaceTile)t).isHeadsUp()){
 				g.setColor(new Color(0,0,0,0.5f));
 				g.fillRect(x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
 			}
-			
 		}
-
-		renderText(g, ""+givenHeight, x*TILE_WIDTH+12, y*TILE_HEIGHT+12);
 	}
 	
 	public void renderPalaceRecursive(Graphics g, int layers, double x, double y, double width, double height){
@@ -216,19 +340,41 @@ public class BoardView extends JPanel{
 			cachedGraphics.setColor(c);
 			cachedGraphics.drawRect(x.get(i)*TILE_WIDTH, y.get(i)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		}
+		getParent().repaint();
 	}
 	
 	/**Obeys LOD*/
 	public void hilightTile(int x, int y, Color c){
+		//offset for edge
+		x++;
+		y++;
 		Color transparentColor=new Color(c.getRed(),c.getGreen(),c.getBlue(),63);
 		cachedGraphics.setColor(transparentColor);
 		cachedGraphics.fillRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		cachedGraphics.setColor(c);
 		cachedGraphics.drawRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		getParent().repaint();
 	}
 
 	public void renderDeveloper(Developer dev, int x, int y){
+		//offset for edge
+		x++;
+		y++;
 		cachedGraphics.setColor(Color.red);
-		cachedGraphics.fillOval(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		cachedGraphics.fillOval(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT, TILE_WIDTH/2, TILE_HEIGHT/4);
+		cachedGraphics.fillRect(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT/8, TILE_WIDTH/2, TILE_HEIGHT*3/4);
+		cachedGraphics.fillOval(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT*3/4, TILE_WIDTH/2, TILE_HEIGHT/4);
+		cachedGraphics.drawImage(developer, x*TILE_WIDTH-1, y*TILE_HEIGHT-1, TILE_WIDTH,TILE_HEIGHT, this);
+		getParent().repaint();
+	}
+	
+	public Board.Coordinates coordFromPixel(int x, int y, Board b){
+		int x2=x/(getWidth()/(boardWidth+2))-1;
+		int y2=y/(getHeight()/(boardHeight+2))-1;
+		if (b.inBounds(x2, y2)){
+			return b.new Coordinates(x2,y2);
+		}else {
+			return null;
+		}
 	}
 }

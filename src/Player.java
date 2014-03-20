@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 
 /*
@@ -11,7 +12,7 @@ import java.util.*;
 public class Player {
 	private String name;
 	private int score;
-	private String color; // this may end up being something different, just a
+	private Color color; // this may end up being something different, just a
 							// placeholder for now
 	private int develsOffBoard; // The number of developers not placed on the
 								// board
@@ -26,7 +27,7 @@ public class Player {
 	public Player() {
 		name = "Joe Shmoe";
 		score = 0;
-		color = "black";
+		color = Color.black;
 		develsOffBoard = 12;
 		develsOnBoard = 0;
 		actionTokens = 3;
@@ -40,7 +41,7 @@ public class Player {
 	public Player(String n) {
 		name = n;
 		score = 0;
-		color = "black";
+		color = Color.black;
 		develsOffBoard = 12;
 		develsOnBoard = 0;
 		actionTokens = 3;
@@ -50,7 +51,7 @@ public class Player {
 		cards = new ArrayList<PalaceCard>();
 	}
 
-	public Player(String n, String c) {
+	public Player(String n, Color c) {
 		name = n;
 		score = 0;
 		color = c;
@@ -63,7 +64,7 @@ public class Player {
 		cards = new ArrayList<PalaceCard>();
 	}
 
-	public void setColor(String c) {
+	public void setColor(Color c) {
 		color = c;
 	}
 
@@ -76,7 +77,7 @@ public class Player {
 		return score;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 

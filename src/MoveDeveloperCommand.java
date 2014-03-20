@@ -16,12 +16,14 @@ public class MoveDeveloperCommand implements Command {
 		Developer dev = board.getDeveloper(oldCoords);
 		board.moveDeveloper(newCoords, dev);
 		this.save();
+		board.updateBoard();
 
 	}
 
 	public void undo() {
 		Developer dev = board.getDeveloper(newCoords);
 		board.moveDeveloper(oldCoords, dev);
+		board.updateBoard();
 	}
 
 	public void load() {

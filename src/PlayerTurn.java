@@ -59,6 +59,10 @@ public class PlayerTurn {
 	public Player getPlayer(int p) {
 		return players[p];
 	}
+	
+	public int getActionPoints() {
+		return actionPoints;
+	}
 
 	// checks, placements, and returns
 	public boolean actionTokenUsable() {
@@ -195,5 +199,22 @@ public class PlayerTurn {
 	public boolean playerCanPlayCard(String[] t) {
 		return festival.playerCanPlayCard(t);
 	}
+
+
+	public boolean isOnePlayerLeft()
+	{
+		return festival.isOnePlayerLeft();
+	}
+
+	public boolean canEndFestival()
+	{
+		return festival.canEndFestival();
+	}
+
+	public boolean getEndFestival()
+	{
+		return festival.getEndFestival();
+	}
+
 
 }
