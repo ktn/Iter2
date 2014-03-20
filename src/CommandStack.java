@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -17,6 +18,7 @@ public final class CommandStack {
 			writer.println(comm);
 		}
 		writer.close();
+
 	}
 
 	public static void load(String fileName, PlayerFacade p, BoardFacade b)
@@ -62,6 +64,15 @@ public final class CommandStack {
 			case "ChangeTurnCommand":
 				c = new ChangeTurnCommand(p);
 				c.execute();
+				break;
+			case "DrawDeckCardCommand":
+				c = new DrawDeckCardCommand(b, p);
+				c.execute();
+				break;
+			case "Deck":
+				for (int i = 1; i < 50; i++) {
+					Arrays.copyOfRange(sa, 1, sa.length);
+				}
 				break;
 			}
 		}

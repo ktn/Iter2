@@ -11,11 +11,19 @@ public class test {
 
 		String names[] = { "Lucas", "Xy", "Trouble" };
 
+		Deck d = new Deck();
+		System.out.print(d);
+		d.loadDeck();
+		// System.out.println(d.showCards());
+		System.out.print(d);
+
 		PlayerFacade p = new PlayerFacade(names);
 		BoardFacade b = new BoardFacade();
+		p.changeTurn();
 
-		BoardFacade b2 = new BoardFacade();
-		PlayerFacade p2 = new PlayerFacade(names);
+		System.out.print(p.getCurrentPlayer());
+		p.revertTurn();
+		System.out.print(p.getCurrentPlayer());
 
 		Command a;
 		a = new PlaceIrrigationTileCommand(b, p, b.getCoordinates(1, 0));
@@ -37,6 +45,12 @@ public class test {
 		a.execute();
 
 		a = new PlaceDeveloperCommand(b, p, b.getCoordinates(2, 3));
+		a.execute();
+
+		a = new ChangeTurnCommand(p);
+		a.execute();
+
+		a = new DrawDeckCardCommand(b, p);
 		a.execute();
 
 		CommandStack.save("test");

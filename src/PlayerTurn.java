@@ -46,6 +46,12 @@ public class PlayerTurn {
 		blockPlayed = false;
 	}
 
+	public void revertTurn() {
+		currentPlayer--;
+		if (currentPlayer < 0)
+			currentPlayer = numPlayers;
+	}
+
 	public Player getCurrentPlayer() {
 		return players[currentPlayer].getPlayer();
 	}
@@ -159,13 +165,11 @@ public class PlayerTurn {
 		festival.freezeCurrentPlayer();
 	}
 
-	public void unfreezeCurrentPlayer()
-	{
+	public void unfreezeCurrentPlayer() {
 		festival.unfreezeCurrentPlayer();
 	}
-	
-	public void nextPFPlayer()
-	{
+
+	public void nextPFPlayer() {
 
 		festival.nextPlayer();
 	}
@@ -184,15 +188,12 @@ public class PlayerTurn {
 		return festival.getVictors();
 	}
 
-	public Player[] getPlayers()
-	{
+	public Player[] getPlayers() {
 		return players;
 	}
 
-	public boolean playerCanPlayCard(String[] t)
-	{
+	public boolean playerCanPlayCard(String[] t) {
 		return festival.playerCanPlayCard(t);
 	}
-
 
 }

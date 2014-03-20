@@ -20,7 +20,7 @@ public class PalaceTile extends Tile {
 		return this.headsUp;
 	}
 
-	public int getLevel(){
+	public int getLevel() {
 		return level;
 	}
 }

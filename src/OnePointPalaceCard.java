@@ -6,16 +6,17 @@ public class OnePointPalaceCard extends PalaceCard {
 			symbol = Symbol.MASK;
 		} else if (symbolType == "DRUM") {
 			symbol = Symbol.DRUM;
-		} else {
+		} else if (symbolType == "PUPPET") {
 			symbol = Symbol.PUPPET;
-		}
+		} else
+			symbol = Symbol.NULL;
 	}
 
 	public String getSymbol() {
-		return this.symbol.toString();
+		return symbol.toString();
 	}
 
 	public String toString() {
-		return this.symbol.toString();
+		return getSymbol();
 	}
 }

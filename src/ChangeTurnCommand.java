@@ -3,7 +3,6 @@ public class ChangeTurnCommand implements Command {
 
 	public ChangeTurnCommand(PlayerFacade p) {
 		this.player = p;
-
 	}
 
 	public void execute() {
@@ -13,12 +12,11 @@ public class ChangeTurnCommand implements Command {
 	}
 
 	public void undo() {
-		// player.changeTurn(-1);
-
+		player.revertTurn();
 	}
 
 	public void save() {
-
+		CommandStack.storeCommand(this);
 	}
 
 	public void load() {

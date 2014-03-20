@@ -38,6 +38,11 @@ public class PlayerFacade {
 		currentPlayer = playerTurn.getCurrentPlayer();
 	}
 
+	public void revertTurn() {
+		playerTurn.revertTurn();
+		currentPlayer = playerTurn.getCurrentPlayer();
+	}
+
 	public Player getCurrentPlayer() {
 		return playerTurn.getCurrentPlayer();
 	}
@@ -181,7 +186,8 @@ public class PlayerFacade {
 
 	public void playerUsePC(int p, String[] t) {
 		PalaceCard palaceCard = playerTurn.getPFPlayer().useCardWith(t);
-		//System.out.println("Current card about to be played: " + palaceCard.toString());
+		// System.out.println("Current card about to be played: " +
+		// palaceCard.toString());
 		deck.discardCard(palaceCard);
 		playerTurn.giveFestivalPoints(p, t);
 	}
@@ -229,11 +235,10 @@ public class PlayerFacade {
 	public ArrayList<PalaceCard> getCurrentPlayerCards() {
 		return getCardsForPlayer(playerTurn.getPFPlayer());
 	}
-	
-	public boolean playCard(String[] t)
-	{
-		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t) && playerCanPlayCard(t))
-		{
+
+	public boolean playCard(String[] t) {
+		if (playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t)
+				&& playerCanPlayCard(t)) {
 
 			playerUsePC(getPlayerInt(playerTurn.getPFPlayer()), t);
 			playerTurn.giveFestivalPoints(playerTurn.getPFPlayer(), t);
@@ -243,14 +248,11 @@ public class PlayerFacade {
 		}
 	}
 
-
-	public boolean playerCanPlayCard(String[] t)
-	{
+	public boolean playerCanPlayCard(String[] t) {
 		return playerTurn.playerCanPlayCard(t);
 	}
-	
-	public PalaceCard getFestivalCard()
-	{
+
+	public PalaceCard getFestivalCard() {
 
 		return playerTurn.getFestivalCard();
 	}
@@ -267,13 +269,11 @@ public class PlayerFacade {
 		playerTurn.freezeCurrentPlayer();
 	}
 
-	public void unfreezePlayer()
-	{
+	public void unfreezePlayer() {
 		playerTurn.unfreezeCurrentPlayer();
 	}
-	
-	public void nextPFPlayer()
-	{
+
+	public void nextPFPlayer() {
 		playerTurn.nextPFPlayer();
 	}
 
@@ -285,12 +285,9 @@ public class PlayerFacade {
 		return playerTurn.getVictors();
 	}
 
-
-	public Player[] getPlayers()
-	{
+	public Player[] getPlayers() {
 		return playerTurn.getPlayers();
 	}
-
 
 	public void placeDeveloper() {
 		currentPlayer.placeDeveloper();

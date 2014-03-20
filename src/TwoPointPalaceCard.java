@@ -34,6 +34,6 @@ public class TwoPointPalaceCard extends PalaceCard {
 	}
 
 	public String toString() {
-		return this.firstSymbol.toString() + " " + this.secondSymbol.toString();
+		return getSymbol();
 	}
 }
