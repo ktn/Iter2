@@ -21,6 +21,8 @@ public final class ViewFacade {
 	private static PublicInventoryView publicInventoryView;
 	private static ControllerView controllerView;
 	private static BoardView boardView;
+	//A reference to listener to pass to a new palace festival
+	private static InputListener listener;
 	
 	private ViewFacade(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
@@ -45,6 +47,14 @@ public final class ViewFacade {
 		boardView=new BoardView(boardWidth, boardHeight);
 	}
 	
+	public static void setListener(InputListener input) {
+		listener = input;
+	}
+	
+	public static void updatePalaceInventory(ArrayList<PalaceCard> cards) {
+		getCurrentPlayerView().updatePalaceInventory(cards);
+	}
+	
 	public static OtherPlayersView getOtherPlayerView() {
 		return otherPlayersView;
 	}
@@ -66,9 +76,7 @@ public final class ViewFacade {
 	}
 	
 	public static void displayPalaceInventory(int[] inventory) {
-		currentPlayerView.displayPalaceInventory(inventory[0], inventory[1], inventory[2],
-												 inventory[3], inventory[4],
-												 inventory[5]);								
+		currentPlayerView.displayPalaceInventory(inventory);								
 	}
 	
 	public static void switchForwardActivePlayer() {
@@ -194,7 +202,7 @@ public final class ViewFacade {
 	}
 	
 	public static void startPalaceFestival(String currentPlayer) {
-		PalaceFestivalViewFacade.initialize(currentPlayer);
+		PalaceFestivalViewFacade.initialize(currentPlayer, listener);
 	}
 	
 	public static void updateBoard(Board board){
