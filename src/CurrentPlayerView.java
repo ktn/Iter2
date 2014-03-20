@@ -176,6 +176,15 @@ public class CurrentPlayerView extends JPanel {
 		numDrumPuppetCards.setText(Integer.toString(numDrumPuppet));
 		numPuppetMaskCards.setText(Integer.toString(numPuppetMask));
 	}
+	
+	public void set(PlayerFacade p){
+				displayActionTokens(p.getCurrentPlayer().getActionTokens());
+				displayRiceBlocks(p.getCurrentPlayer().riceBlocksLeft());
+				displayVillageBlocks(p.getCurrentPlayer().riceBlocksLeft());
+				displayTwoBlocks(p.getCurrentPlayer().twoBlocksLeft());
+				displayDevelopers(p.getCurrentPlayer().getDevelsOff());
+				displayScore(p.getCurrentPlayer().getScore());
+	}
 
 	public void displayRiceBlocks(int numRice)
 	{

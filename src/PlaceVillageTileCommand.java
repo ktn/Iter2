@@ -19,7 +19,7 @@ public class PlaceVillageTileCommand implements Command {
 		board.placeBlock(coords, block);
 		this.save();
 		board.updateBoard();
-
+		ViewFacade.getCurrentPlayerView().displayVillageBlocks(player.getCurrentPlayer().villageBlocksLeft());
 	}
 
 	public void undo() {
@@ -27,6 +27,7 @@ public class PlaceVillageTileCommand implements Command {
 
 		player.returnVillageBlock();
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().displayVillageBlocks(player.getCurrentPlayer().villageBlocksLeft());
 
 	}
 

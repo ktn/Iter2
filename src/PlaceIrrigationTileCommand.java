@@ -19,7 +19,7 @@ public class PlaceIrrigationTileCommand implements Command {
 		board.placeBlock(coords, block);
 		this.save();
 		board.updateBoard();
-
+		ViewFacade.getPublicInventoryView().displayIrrigationTiles(board.irrigationBlocksLeft());
 	}
 
 	public void undo() {
@@ -28,6 +28,7 @@ public class PlaceIrrigationTileCommand implements Command {
 		player.returnThreeBlock();
 		board.updateBoard();
 
+		ViewFacade.getPublicInventoryView().displayIrrigationTiles(board.irrigationBlocksLeft());
 	}
 
 
