@@ -12,11 +12,13 @@ public class UseActionTokenCommand implements Command {
 		player.useActionToken();
 
 		this.save();
+		board.updateBoard();
 
 	}
 
 	public void undo() {
 		player.returnActionToken();
+		board.updateBoard();
 	}
 
 

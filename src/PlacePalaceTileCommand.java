@@ -21,6 +21,7 @@ public class PlacePalaceTileCommand implements Command {
 		board.placeBlock(coords, block);
 
 		this.save();
+		board.updateBoard();
 
 	}
 
@@ -28,6 +29,7 @@ public class PlacePalaceTileCommand implements Command {
 		board.removeBlock(coords);
 
 		player.returnThreeBlock();
+		board.updateBoard();
 
 	}
 

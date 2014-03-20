@@ -469,4 +469,8 @@ public class Board {
 	public Space getHead(){
 		return head;
 	}
+
+	public void updateBoard(){
+		ViewFacade.updateBoard(this);
+	}
 }

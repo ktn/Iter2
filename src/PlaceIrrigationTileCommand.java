@@ -18,6 +18,7 @@ public class PlaceIrrigationTileCommand implements Command {
 		// if(board.validPlacement(coors, b)
 		board.placeBlock(coords, block);
 		this.save();
+		board.updateBoard();
 
 	}
 
@@ -25,6 +26,7 @@ public class PlaceIrrigationTileCommand implements Command {
 		board.removeBlock(coords);
 
 		player.returnThreeBlock();
+		board.updateBoard();
 
 	}
 

@@ -18,6 +18,7 @@ public class PlaceRiceTileCommand implements Command {
 		board.placeBlock(coords, block);
 
 		this.save();
+		board.updateBoard();
 
 	}
 
@@ -25,6 +26,7 @@ public class PlaceRiceTileCommand implements Command {
 		board.removeBlock(coords);
 
 		player.returnRiceBlock();
+		board.updateBoard();
 
 	}
 

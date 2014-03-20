@@ -15,6 +15,10 @@ public class BoardFacade {
 		traversal = new Traversal(board);
 	}
 
+	public void updateBoard(){
+		board.updateBoard();
+	}
+
 	public Board.Coordinates getCoordinates(int x, int y){
 		return board.new Coordinates(x, y);
 	}
