@@ -183,7 +183,9 @@ public class PlayerFacade {
 	}
 
 	public void playerUsePC(int p, String[] t) {
-		deck.discardCard(playerTurn.getPlayer(p).useCardWith(t));
+		PalaceCard palaceCard = playerTurn.getPFPlayer().useCardWith(t);
+		//System.out.println("Current card about to be played: " + palaceCard.toString());
+		deck.discardCard(palaceCard);
 		playerTurn.giveFestivalPoints(p, t);
 	}
 
@@ -239,7 +241,7 @@ public class PlayerFacade {
 	
 	public boolean playCard(String[] t)
 	{
-		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t))
+		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t) && playerCanPlayCard(t))
 		{
 			playerUsePC(getPlayerInt(playerTurn.getPFPlayer()), t);
 			playerTurn.giveFestivalPoints(playerTurn.getPFPlayer(), t);
@@ -249,6 +251,11 @@ public class PlayerFacade {
 		{
 			return false;
 		}
+	}
+
+	public boolean playerCanPlayCard(String[] t)
+	{
+		return playerTurn.playerCanPlayCard(t);
 	}
 	
 	public PalaceCard getFestivalCard()

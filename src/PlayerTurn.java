@@ -208,4 +208,9 @@ public class PlayerTurn {
 		return players;
 	}
 
+	public boolean playerCanPlayCard(String[] t)
+	{
+		return festival.playerCanPlayCard(t);
+	}
+
 }

@@ -221,4 +221,40 @@ public class PalaceFestival {
 		}
 		return victors;
 	}
+
+	public boolean playerCanPlayCard(String[] t)
+	{
+		boolean ret = false;
+		String[] s = new String[2];
+		s[0] = t[0];
+
+		if(t.length == 1)
+		{
+			s[1] = " ";
+		}
+		else
+		{
+			s[1] = t[1];
+		}
+
+		if(festivalCard instanceof OnePointPalaceCard)
+		{
+			OnePointPalaceCard current = (OnePointPalaceCard) festivalCard;
+			if(current.getSymbol().equals(s[0]) || current.getSymbol().equals(s[1]))
+			{
+				ret = true;
+			}
+		}
+		else if (festivalCard instanceof TwoPointPalaceCard)
+		{
+			TwoPointPalaceCard current = (TwoPointPalaceCard) festivalCard;
+			if(current.getFirstSymbol().equals(s[0]) || current.getFirstSymbol().equals(s[1]) 
+				|| current.getSecondSymbol().equals(s[0]) || current.getSecondSymbol().equals(s[1]))
+			{
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
 }
