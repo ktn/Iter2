@@ -63,12 +63,10 @@ public class ViewTester {
 		mainFrame.add(boardView);
 		//boardView.renderNetwork(b.getOrigin(), 1, 1);
 		mainFrame.setVisible(true);
+		boardView.setSize(600, 600);
 		boardView.renderBoard(b);
 		boardView.hilightTile(3, 4, Color.red);
-		mainFrame.repaint();
 		
-		boardView.setSize(600, 600);
-		boardView.setLocation(100, 100);
 		
 		final ThreeBlock temporary = new ThreeBlock();
 		

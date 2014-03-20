@@ -109,18 +109,64 @@ public class BoardView extends JPanel{
 	}
 	
 	public void renderFullBoard(Space origin, Board b){
+		Image currentTile;
 		for (int x = 0; x<boardWidth;x++){
 			if (x==0){
 				for (int y = 0; y<boardHeight;y++){
-					//if ()
+					currentTile=lowlands;
+					if (b.isMountainSpace(b.new Coordinates(x, y))){
+						currentTile=mountians;
+					}
+					cachedGraphics.drawImage(currentTile, x*TILE_WIDTH, (y+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
 				}
 			}else if (x==boardWidth-1){
 				for (int y = 0; y<boardHeight;y++){
-					
+					currentTile=lowlands;
+					if (b.isMountainSpace(b.new Coordinates(x, y))){
+						currentTile=mountians;
+					}
+					cachedGraphics.drawImage(currentTile, (x+2)*TILE_WIDTH, (y+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
 				}
 			}else{
-				
+				currentTile=lowlands;
+				if (b.isMountainSpace(b.new Coordinates(x, 0))){
+					currentTile=mountians;
+				}
+				cachedGraphics.drawImage(currentTile, (x+1)*TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT, this);
+				currentTile=lowlands;
+				if (b.isMountainSpace(b.new Coordinates(x, boardHeight-1))){
+					currentTile=mountians;
+				}
+				cachedGraphics.drawImage(currentTile, (x+1)*TILE_WIDTH, (boardHeight+1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
 			}
+			Image northwest=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(0, 0))){
+				northwest=mountians;
+			}
+			cachedGraphics.drawImage(northwest, TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northwest, 0, TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northwest, 0, 0, TILE_WIDTH, TILE_HEIGHT, this);
+			Image northeast=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(boardWidth-1,0))){
+				northeast=mountians;
+			}
+			cachedGraphics.drawImage(northeast, TILE_WIDTH*(boardWidth), 0, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northeast, TILE_WIDTH*(boardWidth+1), TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(northeast, TILE_WIDTH*(boardWidth+1), 0, TILE_WIDTH, TILE_HEIGHT, this);
+			Image southeast=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(0,boardHeight-1))){
+				southeast=mountians;
+			}
+			cachedGraphics.drawImage(southeast, TILE_WIDTH, TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southeast, 0, TILE_HEIGHT*(boardHeight), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southeast, 0, TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+			Image southwest=lowlands;
+			if (b.isMountainSpace(b.new Coordinates(boardWidth-1, boardHeight+1))){
+				southwest=mountians;
+			}
+			cachedGraphics.drawImage(southwest, TILE_WIDTH*(boardWidth+1), TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southwest, TILE_WIDTH*(boardWidth+1), TILE_HEIGHT*(boardHeight), TILE_WIDTH, TILE_HEIGHT, this);
+			cachedGraphics.drawImage(southwest, TILE_WIDTH*(boardWidth), TILE_HEIGHT*(boardHeight+1), TILE_WIDTH, TILE_HEIGHT, this);
 		}
 		ArrayList<Space> alreadyRendered=new ArrayList<Space>();
 		renderFullBoardRecursive(cachedGraphics,alreadyRendered, origin, 0, 0, b);
