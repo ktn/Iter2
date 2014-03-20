@@ -31,6 +31,10 @@ public class MoveDeveloperCommand implements Command {
 		Developer dev = board.getDeveloper(newCoords);
 		board.moveDeveloper(oldCoords, dev);
 		board.updateBoard();
+		Wavefront wavefront=new Wavefront();
+		wavefront.wavefront(oldCoords, newCoords, board.board);
+		int requiredAP = wavefront.totalCost-1;
+		player.playerTurn.addToActionPoints(requiredAP);
 		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
