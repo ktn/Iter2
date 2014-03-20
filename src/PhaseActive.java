@@ -226,6 +226,9 @@ public class PhaseActive {
 		catch(NoBlocksLeftException e) {
 			ViewFacade.warnPlayer("No blocks remaining.");
 		}
+		catch(CoordinateException e) {
+			ViewFacade.warnPlayer("Too many palaces.");
+		}
 	}
 	
 	public void placePalace() {

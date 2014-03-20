@@ -181,7 +181,7 @@ class Sanitation {
 		return result;
 	}
 
-	public boolean placePalaceChecker(int level, Board.Coordinates coord) throws PalaceUpgradeException, NoDeveloperAtCoordinatesException, CoordinateException {
+	public boolean placePalaceChecker(int level, Board.Coordinates coord) throws PalaceUpgradeException, NoDeveloperAtCoordinatesException {
 		boolean result = true;
 		if(level < 2 || level > 10 || level % 2 == 1) {
 			result = false;
