@@ -4,7 +4,6 @@ public class TwoPointPalaceCard extends PalaceCard {
 	private Symbol secondSymbol;
 
 	public TwoPointPalaceCard(String symbol1, String symbol2) {
-		System.out.println("Symbol 2 " + symbol1 + "  " + symbol2);
 
 		if (symbol1.equals("MASK")) {
 			firstSymbol = Symbol.MASK;

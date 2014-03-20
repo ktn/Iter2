@@ -301,4 +301,7 @@ public class PlayerFacade {
 		return currentPlayer.getName();
 	}
 
+	public void loadDeck(ArrayList<PalaceCard> c) {
+		deck = new Deck(c);
+	}
 }

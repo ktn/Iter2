@@ -19,12 +19,14 @@ public final class CommandStack {
 			writer.println(comm);
 		}
 		writer.close();
+		Deck.save();
 
 	}
 
 	public static void load(String fileName, PlayerFacade p, BoardFacade b)
 			throws FileNotFoundException {
 		Scanner in = new Scanner(new FileInputStream(fileName));
+		p.loadDeck(loadDeck());
 		while (in.hasNextLine()) {
 			String s = in.nextLine();
 			String[] sa = s.split(" ");
@@ -84,7 +86,7 @@ public final class CommandStack {
 	public static ArrayList<PalaceCard> loadDeck() {
 		Scanner in = null;
 		try {
-			in = new Scanner(new FileInputStream("Deck.txt"));
+			in = new Scanner(new FileInputStream("Deck"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

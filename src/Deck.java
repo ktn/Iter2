@@ -95,7 +95,7 @@ public class Deck {
 		return result.toString();
 	}
 
-	public String showCards() {
+	public static String showCards() {
 		StringBuilder result = new StringBuilder(100);
 		for (PalaceCard c : cardStack) {
 			result.append(c + ",");
@@ -103,7 +103,7 @@ public class Deck {
 		return result.toString();
 	}
 
-	public void save() {
+	public static void save() {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("Deck.txt");
