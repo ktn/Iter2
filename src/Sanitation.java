@@ -117,12 +117,8 @@ class Sanitation {
 	public boolean actionTokenChecker() {
 		return player.actionTokenUsable();
 	}
-	
-	public boolean placeTileChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException, CoordinateException {
-		return placeBlockChecker(b, coords);
-	}
 
-	public boolean placeBlockChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException, CoordinateException {
+	public boolean placeBlockChecker(Block b, Board.Coordinates coords) throws NoBlocksLeftException, IllegalBlockPlacementException, NotEnoughAPException, CoordinateException {
 		boolean result = true;
 		TileType type = BlockTypeConverter.convertToBlockType(b);
 		int x = coords.x;
@@ -131,6 +127,10 @@ class Sanitation {
 		if (!board.validPlacement(coords, b)) {
 			result = false;
 			throw new IllegalBlockPlacementException("Error when placing block", type, x, y);
+		}
+		else if(player.getActionPoints() < 1) {
+			result = false;
+			throw new NotEnoughAPException("Not enough to play block.");
 		}
 
 		switch (type) {
