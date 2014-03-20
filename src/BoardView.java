@@ -1,7 +1,9 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,8 +26,11 @@ public class BoardView extends JPanel{
 	Image village;
 	Image palace;
 	
-	public static final int TILE_WIDTH=48;
-	public static final int TILE_HEIGHT=48;
+	protected int TILE_WIDTH=64;
+	protected int TILE_HEIGHT=64;
+	
+	protected int boardWidth;
+	protected int boardHeight;
 	
 	BufferedImage cachedCanvas;
 	Graphics2D cachedGraphics;
@@ -39,8 +44,17 @@ public class BoardView extends JPanel{
 		rice=getTexture("images/rice.png");
 		village=getTexture("images/village.png");
 		palace=getTexture("images/palace.png");
+		this.boardWidth=boardWidth;
+		this.boardHeight=boardHeight;
+		initGraphics();
+	}
+	
+	private void initGraphics(){
 		cachedCanvas=new BufferedImage(TILE_WIDTH*boardWidth, TILE_HEIGHT*boardHeight, BufferedImage.TYPE_INT_RGB);
 		cachedGraphics=cachedCanvas.createGraphics();
+		cachedGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		Font font=new Font(Font.SANS_SERIF, Font.PLAIN, TILE_HEIGHT*3/8);
+		cachedGraphics.setFont(font);
 	}
 	
 	private Image getTexture(String texturePath){
@@ -73,6 +87,12 @@ public class BoardView extends JPanel{
 	
 	
 	public void renderBoard(Board b){
+		if (this.getWidth()!=cachedCanvas.getWidth()||
+				this.getHeight()!=cachedCanvas.getHeight()){
+			TILE_WIDTH=this.getWidth()/boardWidth;
+			TILE_HEIGHT=this.getWidth()/boardHeight;
+			initGraphics();
+		}
 		renderFullBoard(b.head, b);
 	}
 	
@@ -104,6 +124,11 @@ public class BoardView extends JPanel{
 			finished.add(origin.getBottom());
 			renderFullBoardRecursive(g,finished,origin.getBottom(),x,y+1,b);
 		}
+		int givenHeight=origin.getHeight();
+		if (origin.getHeight()>0&&origin.getTile().getType()==TileType.PALACE){
+			givenHeight=((PalaceTile)origin.getTile()).getLevel();
+		}
+		renderText(g, ""+givenHeight, x*TILE_WIDTH, y*TILE_HEIGHT+g.getFont().getSize());
 	}
 	
 	/**recursively renders the given space at it's given location, 
@@ -177,8 +202,6 @@ public class BoardView extends JPanel{
 			}
 			
 		}
-
-		renderText(g, ""+givenHeight, x*TILE_WIDTH+12, y*TILE_HEIGHT+12);
 	}
 	
 	public void renderPalaceRecursive(Graphics g, int layers, double x, double y, double width, double height){

@@ -1,6 +1,8 @@
 
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,16 +37,17 @@ public class ViewTester {
 	public static void boardViewTester(){
 		TestableBoard b=new TestableBoard();
 		 
-		b.placeDeveloper(b.new Coordinates(3, 4), new Developer(new Player("king dude", "red")));
+		b.placeDeveloper(b.new Coordinates(4, 4), new Developer(new Player("king dude", "red")));
 		Block block = new OneBlock(new PalaceTile(2));
 		b.placeBlock(b.new Coordinates(5,5), block);
 		BoardView boardView=new BoardView(12,12);
 		JFrame mainFrame=new JFrame("BoardViewTest");
-		mainFrame.setSize(384, 384);
+		mainFrame.setSize(768,768);
 		mainFrame.add(boardView);
 		//boardView.renderNetwork(b.getOrigin(), 1, 1);
+		mainFrame.setVisible(true);
 		boardView.renderBoard(b);
 		boardView.hilightTile(3, 4, Color.red);
-		mainFrame.setVisible(true);
+		mainFrame.repaint();
 	}
 }
