@@ -33,8 +33,7 @@ public class TwoPointPalaceCard extends PalaceCard {
 		return this.secondSymbol.toString();
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return this.firstSymbol.toString() + " " + this.secondSymbol.toString();
 	}
 }
