@@ -33,6 +33,7 @@ public class PlaceThreeBlockCommand implements Command {
 
 		this.save();
 		board.updateBoard();
+		ViewFacade.getPublicInventoryView().displayThreeBlocks(board.threeBlocksLeft());
 	}
 
 	public void undo() {
@@ -40,6 +41,7 @@ public class PlaceThreeBlockCommand implements Command {
 		board.putBackThreeBlock(block);
 		player.returnThreeBlock();
 		board.updateBoard();
+		ViewFacade.getPublicInventoryView().displayThreeBlocks(board.threeBlocksLeft());
 	}
 
 	public void load() {

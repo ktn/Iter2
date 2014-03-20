@@ -70,11 +70,11 @@ public class CurrentPlayerView extends JPanel {
 		img = ImageIO.read(new File("images/village.png"));
 		img = img.getScaledInstance(32,32,0);
 		JLabel villageBlocks = new JLabel(new ImageIcon(img));
-		numVillageBlocks = new JLabel("3");
+		numVillageBlocks = new JLabel("2");
 		JLabel twoBlocks = new JLabel("Two Blocks: ");
 		numTwoBlocks = new JLabel("3");
 		JLabel developers = new JLabel("Off-Board Developers: ");
-		JLabel numDevelopers = new JLabel("12");
+		numDevelopers = new JLabel("12");
 		JLabel actionTokens = new JLabel("Action Tokens: ");
 		numActionTokens = new JLabel("3");
 		
@@ -162,6 +162,7 @@ public class CurrentPlayerView extends JPanel {
 		puppetMaskCards.add(numPuppetMaskCards);
 		playerCards.add(puppetMaskCards);
 		
+		
 		//Add this whole panel in 
 		this.add(playerCards);	
 	}
@@ -175,6 +176,17 @@ public class CurrentPlayerView extends JPanel {
 		numMaskDrumCards.setText(Integer.toString(numMaskDrum));
 		numDrumPuppetCards.setText(Integer.toString(numDrumPuppet));
 		numPuppetMaskCards.setText(Integer.toString(numPuppetMask));
+	}
+	
+	public void set(PlayerFacade p){
+				displayActionTokens(p.getCurrentPlayer().getActionTokens());
+				displayRiceBlocks(p.getCurrentPlayer().riceBlocksLeft());
+				displayVillageBlocks(p.getCurrentPlayer().villageBlocksLeft());
+				displayTwoBlocks(p.getCurrentPlayer().twoBlocksLeft());
+				displayDevelopers(p.getCurrentPlayer().getDevelsOff());
+				displayScore(p.getCurrentPlayer().getScore());
+				name.setText("Name: "+p.getCurrentPlayer().getName());
+				AP.setText("AP: "+p.getActionPoints());
 	}
 
 	public void displayRiceBlocks(int numRice)

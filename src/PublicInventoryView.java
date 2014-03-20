@@ -53,38 +53,48 @@ public class PublicInventoryView extends JPanel {
 		this.add(festivalCard);		
 	}
 	
+	public void fullUpdate(BoardFacade b){
+		displayThreeBlocks(b.threeBlocksLeft());
+		displayIrrigationTiles(b.irrigationBlocksLeft());
+		displayTwoPalaceTiles(b.communal.numPalaceTiles(2));
+		displayFourPalaceTiles(b.communal.numPalaceTiles(4));
+		displaySixPalaceTiles(b.communal.numPalaceTiles(6));
+		displayEightPalaceTiles(b.communal.numPalaceTiles(8));
+		displayTenPalaceTiles(b.communal.numPalaceTiles(10));
+	}
+	
 	public void displayThreeBlocks(int numThreeBlocks) {
-		numLandTiles = new JLabel("Three Space Tiles: " + 
+		numLandTiles.setText("Three Space Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
 	public void displayIrrigationTiles(int numThreeBlocks) {
-		numIrrigationTiles = new JLabel("Irrigation Tiles: " + 
+		numIrrigationTiles.setText("Irrigation Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
 	public void displayTwoPalaceTiles(int numThreeBlocks) {
-		numTwoPalaceTiles = new JLabel("Lv. 2 Palace Tiles: " + 
+		numTwoPalaceTiles.setText("Lv. 2 Palace Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
 	public void displayFourPalaceTiles(int numThreeBlocks) {
-		numFourPalaceTiles = new JLabel("Lv. 4 Palace Tiles: " + 
+		numFourPalaceTiles.setText("Lv. 4 Palace Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
 	public void displaySixPalaceTiles(int numThreeBlocks) {
-		numSixPalaceTiles = new JLabel("Lv. 6 Palace Tiles: " + 
+		numSixPalaceTiles.setText("Lv. 6 Palace Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
 	public void displayEightPalaceTiles(int numThreeBlocks) {
-		numEightPalaceTiles = new JLabel("Lv. 8 Palace Tiles: " + 
+		numEightPalaceTiles.setText("Lv. 8 Palace Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
 	public void displayTenPalaceTiles(int numThreeBlocks) {
-		numTenPalaceTiles = new JLabel("Lv. 10 Palace Tiles: " + 
+		numTenPalaceTiles.setText("Lv. 10 Palace Tiles: " + 
 								  Integer.toString(numThreeBlocks));
 	}
 	
@@ -107,7 +117,7 @@ public class PublicInventoryView extends JPanel {
 						break;
 			}
 					
-			festivalCard = new JLabel(new ImageIcon(img));
+			festivalCard.setIcon(new ImageIcon(img));
 		}
 		catch (Exception e) {
 			e.printStackTrace();

@@ -82,10 +82,10 @@ public class TurnPhase {
 			normal.moveDeveloperMode();
 			break;
 		case KeyEvent.VK_3:
-			normal.placeBlock();
+			normal.blockMode();
 			break;
 		case KeyEvent.VK_4:
-			normal.placePalace();
+			normal.palaceMode();
 			break;
 		case KeyEvent.VK_5:
 			break;

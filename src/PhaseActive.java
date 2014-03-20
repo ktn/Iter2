@@ -31,21 +31,27 @@ public class PhaseActive {
 		selectedBlock = new OneBlock(TileType.RICE);
 		selectedPos = new int[] {0,0};
 		rotationCount = 0;
-		updateView();
+		board.updateBoard();
+		drawCursor();
 	}
 	public void placeDeveloperMode() {
 		state = Mode.PLACEDEVELOPER;
 		selectedPos = new int[] {0,0};
+		board.updateBoard();
+		updateView();
 	}
 	public void moveDeveloperMode() {
 		state = Mode.MOVEDEVELOPER;
 		selectedDeveloper = null;
 		switchDeveloper();
+		board.updateBoard();
+		updateView();
 	}
 	public void palaceMode() {
 		state = Mode.PALACE;
 		selectedPos = new int[] {0,0};
 		palaceLevel = 2;
+		board.updateBoard();
 	}
 	
 	// General methods
@@ -73,10 +79,15 @@ public class PhaseActive {
 	
 	private void drawCursor(){
 		board.updateBoard();
-		if (selectedBlock!=null){
-			ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
-		}else{
-			ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+		if(state == Mode.BLOCK){ 
+			if (selectedBlock!=null){
+				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+			}else{
+				ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+			}
+		}
+		else {
+			updateView();
 		}
 	}
 
@@ -214,49 +225,68 @@ public class PhaseActive {
 		if(state != Mode.BLOCK) {
 			return;
 		}
+		boolean confirm = ViewFacade.promptPlayer("Do you want to spend 1 AP to place the block?");
+		if(!confirm) return;
 		boolean valid = false;
-		try {
-			Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
-			valid = sanitation.placeBlockChecker(selectedBlock, c);
-			if(valid) {
-				Command com;
-				if(selectedBlock instanceof ThreeBlock) {
-					com = new PlaceThreeBlockCommand(board, player, c, rotationCount);
-					com.execute();
+		boolean loop = false;
+		do {
+			loop = false;
+			try {
+				Board.Coordinates c = board.getCoordinates(selectedPos[0], selectedPos[1]);
+				valid = sanitation.placeBlockChecker(selectedBlock, c);
+				if(valid) {
+					Command com;
+					if(selectedBlock instanceof ThreeBlock) {
+						com = new PlaceThreeBlockCommand(board, player, c, rotationCount);
+						com.execute();
+					}
+					else if(selectedBlock instanceof TwoBlock) {
+						com = new PlaceTwoBlockCommand(board, player, c, rotationCount);
+						com.execute();
+					}
+					else if(selectedBlock.getType() == TileType.RICE) {
+						com = new PlaceRiceTileCommand(board, player, c);
+						com.execute();
+					}
+					else if(selectedBlock.getType() == TileType.VILLAGE) {
+						com = new PlaceVillageTileCommand(board, player, c);
+						com.execute();
+					}
+					else if(selectedBlock.getType() == TileType.IRRIGATION) {
+						com = new PlaceIrrigationTileCommand(board, player, c);
+						com.execute();
+					}
+					//com.rotate(rotationCount);
+					//com.execute();
+					blockMode();
 				}
-				else if(selectedBlock instanceof TwoBlock) {
-					com = new PlaceTwoBlockCommand(board, player, c, rotationCount);
-					com.execute();
-				}
-				else if(selectedBlock.getType() == TileType.RICE) {
-					com = new PlaceRiceTileCommand(board, player, c);
-					com.execute();
-				}
-				else if(selectedBlock.getType() == TileType.VILLAGE) {
-					com = new PlaceVillageTileCommand(board, player, c);
-					com.execute();
-				}
-				else if(selectedBlock.getType() == TileType.IRRIGATION) {
-					com = new PlaceIrrigationTileCommand(board, player, c);
-					com.execute();
-				}
-				//com.rotate(rotationCount);
-				//com.execute();
-				blockMode();
 			}
-		}
-		catch(IllegalBlockPlacementException e) {
-			ViewFacade.warnPlayer("Invalid block placement.");
-		}
-		catch(NoBlocksLeftException e) {
-			ViewFacade.warnPlayer("No blocks remaining.");
-		}
-		catch(NotEnoughAPException e) {
-			ViewFacade.warnPlayer("No AP remaining.");
-		}
-		catch(CoordinateException e) {
-			ViewFacade.warnPlayer("Too many palaces.");
-		}
+			catch(IllegalBlockPlacementException e) {
+				ViewFacade.warnPlayer("Invalid block placement.");
+			}
+			catch(NoBlocksLeftException e) {
+				ViewFacade.warnPlayer("No blocks remaining.");
+			}
+			catch(NotEnoughAPException e) {
+				if(sanitation.actionTokenChecker()) {
+					boolean query = ViewFacade.promptPlayer("Do you want to use an action token to play the block?");
+					if(query) {
+						Command com = new UseActionTokenCommand(board, player);
+						com.execute();
+						loop = true;
+					}
+					else {
+						ViewFacade.warnPlayer("No AP remaining.");
+					}
+				}
+				else {
+					ViewFacade.warnPlayer("No AP remaining.");
+				}
+			}
+			catch(CoordinateException e) {
+				ViewFacade.warnPlayer("Too many palaces.");
+			}
+		} while(loop);
 	}
 	
 	public void placePalace() {
