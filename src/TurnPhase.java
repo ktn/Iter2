@@ -102,7 +102,6 @@ public class TurnPhase {
 			}
 			break;
 		case KeyEvent.VK_7:
-<<<<<<< HEAD
 			// replay = new PhaseReplay(player, board, sanitation);
 			boolean query2 = ViewFacade.promptPlayer("Do you want to enter replay mode?");
 			if(query2) {
@@ -113,13 +112,6 @@ public class TurnPhase {
 			}
 			else{
 				//currentMode = GameMode.NORMALMODE;
-=======
-			query = ViewFacade.promptPlayer("Do you want to enter replay mode?");
-			if(query) {
-				// replay = new PhaseReplay(player, board, sanitation);
-				currentMode = GameMode.REPLAYMODE;
-				normal = null;
->>>>>>> 560dbd8c7125ae7a4aba0d69669acef9343b247d
 			}
 			break;
 		case KeyEvent.VK_8:
@@ -204,8 +196,8 @@ public class TurnPhase {
 			break;
 		case KeyEvent.VK_7:
 			// replay = new PhaseReplay(player, board, sanitation);
-			boolean query = ViewFacade.promptPlayer("Do you want to enter replay mode?");
-			if(query) {
+			boolean query2 = ViewFacade.promptPlayer("Do you want to enter replay mode?");
+			if(query2) {
 				
 				currentMode = GameMode.REPLAYMODE;
 				planning = null;
