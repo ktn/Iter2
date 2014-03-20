@@ -37,6 +37,17 @@ public class Scoring {
 		}
 		//if theres a tie for highest developer no points scored
 	}
+	
+	//THIS METHOD ASSUMES THAT THE IRRIGATION PLACEMENT WAS LEGAL
+		public void irrigationUnScoring(Board.Coordinates c) {
+			//Called when any player lays down an irrigation tile AND that irrigation tile (and irrigation tiles connected to it)
+			//is COMPLETELY enclosed by land tiles.
+			ArrayList<Developer> d = b.findHighestDev(c);
+			if(d.size()==1){
+				p.addPlayerScore(d.get(0).getPlayer(), -b.numIrrigationTiles(c)*3);
+			}
+			//if theres a tie for highest developer no points scored
+		}
 
 	public void partyScoring(ArrayList<Player> victors, Board.Coordinates palaceCoordinates){
 		//this method is called when a festival ends

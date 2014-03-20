@@ -17,9 +17,10 @@ public class PlacePalaceTileCommand implements Command {
 		// assume checks have been made
 		block = new OneBlock(new PalaceTile(level));
 		player.playThreeBlock();
-		// if(board.validPlacement(coors, b)
 		board.placeBlock(coords, block);
 
+		player.getCurrentPlayer().addScore(1);
+		
 		this.save();
 		board.updateBoard();
 
@@ -31,6 +32,8 @@ public class PlacePalaceTileCommand implements Command {
 
 		player.returnThreeBlock();
 		board.updateBoard();
+		
+		player.getCurrentPlayer().addScore(-1);
 
 		ViewFacade.getPublicInventoryView().fullUpdate(board);
 	}
