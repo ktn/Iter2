@@ -3,6 +3,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class OtherPlayersView extends JPanel {
+	
+	private static final long serialVersionUID = -5110351784018660913L;
+	
 	/**
 	 * This class represents the player info display. It creates a single
 	 * visible window, split into a grid, 1 x 4, wherein each grid component
@@ -74,8 +77,8 @@ public class OtherPlayersView extends JPanel {
 	public void set(PlayerFacade p){
 		ArrayList<String> names = new ArrayList<String>();
 		for (Player otherPlayer:p.getPlayers()){
+			names.add(otherPlayer.getName());
 			if (otherPlayer != p.getCurrentPlayer()) {
-				names.add(otherPlayer.getName());
 				displayActionTokens(otherPlayer.getName(),
 						otherPlayer.getActionTokens());
 				displayRiceBlocks(otherPlayer.getName(),
@@ -89,6 +92,13 @@ public class OtherPlayersView extends JPanel {
 				displayScore(otherPlayer.getName(), otherPlayer.getScore());
 			}
 		}
+		while (names.get(0)!=p.getCurrentPlayer().getName()){
+			names.add(names.get(0));
+			names.remove(0);
+		}
+		
+		names.remove(0);
+
 		playerNames=(String[]) names.toArray();
 	}
 	
