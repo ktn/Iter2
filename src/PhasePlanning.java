@@ -207,8 +207,8 @@ public class PhasePlanning {
 				else if(selectedBlock.getType() == TileType.IRRIGATION) {
 					com = new PlaceIrrigationTileCommand(board, player, c);
 				}
-				com.rotate(rotationCount);
-				commands.add(com); com.execute();
+				//com.rotate(rotationCount);
+				//commands.add(com); com.execute();
 				blockMode();
 			}
 		}

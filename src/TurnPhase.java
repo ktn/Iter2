@@ -27,14 +27,14 @@ public class TurnPhase {
 	BoardFacade board;
 	Sanitation sanitation;
 	
-	public TurnPhase(PlayerFacade player, BoardFacade board, Sanitation sanitation) {
-		this.player = player;
-		this.board = board;
-		this.sanitation = sanitation;
+	public TurnPhase() {
+		player = new PlayerFacade(new String[] {"Bob", "Steve", "Frank", "Alice"});
+		board = new BoardFacade();
+		sanitation = new Sanitation(player, board);
 		this.normal = new PhaseActive(player, board, sanitation);
-		this.replay = new PhaseReplay(player, board, sanitation);
+		//this.replay = new PhaseReplay(player, board, sanitation);
 		this.planning = new PhasePlanning(player, board, sanitation);
-		this.festival = new PhaseFestival(model);
+		//this.festival = new PhaseFestival(model);
 	}
 	
 	public void receiveKeyEvent(KeyEvent k) {
@@ -90,12 +90,12 @@ public class TurnPhase {
 			normal = null;
 			break;
 		case KeyEvent.VK_7:
-			replay = new PhaseReplay(player, board, sanitation);
+			//replay = new PhaseReplay(player, board, sanitation);
 			currentMode = GameMode.REPLAYMODE;
 			normal = null;
 			break;
 		case KeyEvent.VK_8:
-			festival = new PhaseFestival(player, board, sanitation);
+			//festival = new PhaseFestival(player, board, sanitation);
 			currentMode = GameMode.FESTIVALMODE;
 			normal = null;
 			break;
@@ -156,7 +156,7 @@ public class TurnPhase {
 			planning.placePalace();
 			break;
 		case KeyEvent.VK_5:
-			normal = new PhaseNormal(player, board, sanitation);
+			normal = new PhaseActive(player, board, sanitation);
 			currentMode = GameMode.NORMALMODE;
 			planning = null;
 			break;
@@ -166,12 +166,12 @@ public class TurnPhase {
 			planning = null;
 			break;
 		case KeyEvent.VK_7:
-			replay = new PhaseReplay(player, board, sanitation);
+			//replay = new PhaseReplay(player, board, sanitation);
 			currentMode = GameMode.REPLAYMODE;
 			planning = null;
 			break;
 		case KeyEvent.VK_8:
-			festival = new PhaseFestival(player, board, sanitation);
+			//festival = new PhaseFestival(player, board, sanitation);
 			currentMode = GameMode.FESTIVALMODE;
 			planning = null;
 			break;

@@ -168,6 +168,10 @@ class Sanitation {
 				throw new NoBlocksLeftException("Error when placing block",
 						type);
 			}
+			else if(!board.notTwoPalacesBetweenCities(coords)) {
+				result = false;
+				throw new CoordinateException("Can't connect two cities");
+			}
 			break;
 		default:
 			break;
@@ -266,7 +270,18 @@ class Sanitation {
 	}
 	
 	public boolean endFestivalChecker() throws NoFestivalException {
-		
+		boolean result = false;
+		if(!player.getEndFestival()) {
+			result = false;
+			throw new NoFestivalException("There is no festival.");
+		}
+		else if(!player.isOnePlayerLeft()) {
+			result = false;
+		}
+		else if(player.canEndFestival()) {
+			result = false;
+		}
+		return result;
 	}
 	
 	private boolean isAPLeftForBlocks(int ap, int requiredAP) {
