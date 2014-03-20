@@ -86,7 +86,7 @@ public class PalaceFestivalView extends JFrame {
 		//Drum cards first
 		JPanel drumCards = new JPanel();
 		drumCards.setLayout(new BoxLayout(drumCards,BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/drumcard.png"));
+		img = ImageIO.read(new File("images/drumcard.png"));
 		JLabel drumPic = new JLabel(new ImageIcon(img));
 		drumCards.add(drumPic);
 		numDrumCards = new JLabel("0", JLabel.CENTER);
@@ -96,7 +96,7 @@ public class PalaceFestivalView extends JFrame {
 		//Puppet cards now 
 		JPanel puppetCards = new JPanel();
 		puppetCards.setLayout(new BoxLayout(puppetCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/puppetcard.png"));
+		img = ImageIO.read(new File("images/puppetcard.png"));
 		JLabel puppetPic = new JLabel(new ImageIcon(img));
 		puppetCards.add(puppetPic);
 		numPuppetCards = new JLabel("0", JLabel.CENTER);
@@ -106,7 +106,7 @@ public class PalaceFestivalView extends JFrame {
 		//Mask cards now
 		JPanel maskCards = new JPanel();
 		maskCards.setLayout(new BoxLayout(maskCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/maskcard.png"));
+		img = ImageIO.read(new File("images/maskcard.png"));
 		JLabel maskPic = new JLabel(new ImageIcon(img));
 		maskCards.add(maskPic);
 		numMaskCards = new JLabel("0", JLabel.CENTER);
@@ -116,7 +116,7 @@ public class PalaceFestivalView extends JFrame {
 		//MaskDrum cards now
 		JPanel maskDrumCards = new JPanel();
 		maskDrumCards.setLayout(new BoxLayout(maskDrumCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/drummaskcard.png"));
+		img = ImageIO.read(new File("images/drummaskcard.png"));
 		JLabel maskDrumPic = new JLabel(new ImageIcon(img));
 		maskDrumCards.add(maskDrumPic);
 		numMaskDrumCards = new JLabel("0", JLabel.CENTER);
@@ -126,7 +126,7 @@ public class PalaceFestivalView extends JFrame {
 		//DrumPuppet cards now
 		JPanel drumPuppetCards = new JPanel();
 		drumPuppetCards.setLayout(new BoxLayout(drumPuppetCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/drumpuppet.png"));
+		img = ImageIO.read(new File("images/drumpuppet.png"));
 		JLabel drumPuppetPic = new JLabel(new ImageIcon(img));
 		drumPuppetCards.add(drumPuppetPic);
 		numDrumPuppetCards = new JLabel("0", JLabel.CENTER);
@@ -136,7 +136,7 @@ public class PalaceFestivalView extends JFrame {
 		//PuppetMask cards now
 		JPanel puppetMaskCards = new JPanel();
 		puppetMaskCards.setLayout(new BoxLayout(puppetMaskCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/puppetmaskcard.png"));
+		img = ImageIO.read(new File("images/puppetmaskcard.png"));
 		JLabel puppetMaskPic = new JLabel(new ImageIcon(img));
 		puppetMaskCards.add(puppetMaskPic);
 		numPuppetMaskCards = new JLabel("0", JLabel.CENTER);
@@ -150,27 +150,27 @@ public class PalaceFestivalView extends JFrame {
 		Image img;
 		switch (cardType) {
 			case "puppet": 
-				img = ImageIO.read(new File("../images/puppet.png"));
+				img = ImageIO.read(new File("images/puppet.png"));
 				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "drum": 
-				img = ImageIO.read(new File("../images/drum.png"));
+				img = ImageIO.read(new File("images/drum.png"));
 				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "mask": 
-				img = ImageIO.read(new File("../images/mask.png"));
+				img = ImageIO.read(new File("images/mask.png"));
 				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "puppetmask": 
-				img = ImageIO.read(new File("../images/puppetmaskcard.png"));
+				img = ImageIO.read(new File("images/puppetmaskcard.png"));
 				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "maskdrum": 
-				img = ImageIO.read(new File("../images/drummaskcard.png"));
+				img = ImageIO.read(new File("images/drummaskcard.png"));
 				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "drumpuppet": 
-				img = ImageIO.read(new File("../images/drumpuppet.png"));
+				img = ImageIO.read(new File("images/drumpuppet.png"));
 				festivalCard.setIcon(new ImageIcon(img));
 				break;
 		}

@@ -9,6 +9,7 @@ public class PhaseReplay {
 	public PhaseReplay(BoardFacade b, PlayerFacade p) {
 		this.board = b;
 		this.player = p;
+		ViewFacade.setGameMode("Replay");
 	}
 
 

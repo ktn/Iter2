@@ -24,7 +24,7 @@ public class PhaseActive {
 		this.board = board;
 		this.sanitation = sanitation;
 		blockMode();
-		ViewFacade.setGameMode("Active");
+		ViewFacade.setGameMode("Active Mode");
 	}
 	
 	// Mode switching

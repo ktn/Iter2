@@ -189,7 +189,40 @@ public final class ViewFacade {
 		publicInventoryView.displaySixPalaceTiles(numTenPalace);
 	}
 	
-	public static void displayFestivalCard(int type) {
+	public static void displayFestivalCard(PalaceCard card) {
+		int type = 1;
+		if(card instanceof OnePointPalaceCard)
+		{
+			OnePointPalaceCard current = (OnePointPalaceCard) card;
+			if(current.getSymbol().equals("MASK"))
+			{
+				type = 2;
+			}
+			else if(current.getSymbol().equals("PUPPET"))
+			{
+				type = 3;
+			}
+			else if(current.getSymbol().equals("DRUM"))
+			{
+				type = 1;
+			}
+		}
+		else if(card instanceof TwoPointPalaceCard)
+		{
+			TwoPointPalaceCard current = (TwoPointPalaceCard) card;
+			if(current.getFirstSymbol().equals("MASK") && current.getSecondSymbol().equals("DRUM"))
+			{
+				type = 4;
+			}
+			else if(current.getFirstSymbol().equals("DRUM") && current.getSecondSymbol().equals("PUPPET"))
+			{
+				type = 5;
+			}
+			else if(current.getFirstSymbol().equals("PUPPET") && current.getSecondSymbol().equals("MASK"))
+			{
+				type = 6;
+			}
+		}
 		publicInventoryView.displayFestivalCard(type);
 	}
 	

@@ -100,24 +100,25 @@ public class PublicInventoryView extends JPanel {
 	
 	 public void displayFestivalCard(int type) {
 		try {
-			Image img = ImageIO.read(new File("../images/drumcard.png"));
+			Image img = ImageIO.read(new File("images/drumcard.png"));
 		
 			switch (type) {
-				case 1: img = ImageIO.read(new File("../images/drumcard.png"));
+				case 1: img = ImageIO.read(new File("images/drumcard.png"));
 						break;
-				case 2: img = ImageIO.read(new File("../images/maskcard.png"));
+				case 2: img = ImageIO.read(new File("images/maskcard.png"));
 						break;
-				case 3: img = ImageIO.read(new File("../images/puppetcard.png"));
+				case 3: img = ImageIO.read(new File("images/puppetcard.png"));
 						break;					
-				case 4: img = ImageIO.read(new File("../images/drummaskcard.png"));
+				case 4: img = ImageIO.read(new File("images/drummaskcard.png"));
 						break;
-				case 5: img = ImageIO.read(new File("../images/drumpuppet.png"));
+				case 5: img = ImageIO.read(new File("images/drumpuppet.png"));
 						break;
-				case 6: img = ImageIO.read(new File("../images/puppetmaskcard.png"));
+				case 6: img = ImageIO.read(new File("images/puppetmaskcard.png"));
 						break;
 			}
 					
 			festivalCard.setIcon(new ImageIcon(img));
+			festivalCard.setText("");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

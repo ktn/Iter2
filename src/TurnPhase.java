@@ -37,6 +37,10 @@ public class TurnPhase {
 		currentMode = GameMode.NORMALMODE;
 		ViewFacade.updateBoard(board.board);
 		ViewFacade.updatePalaceInventory(player.getCurrentPlayer().getCards());
+		//Hard code festival card for now
+		//TODO: randomize this later
+		OnePointPalaceCard festCard = new OnePointPalaceCard("MASK");
+		ViewFacade.displayFestivalCard(festCard);
 	}
 
 	public void receiveKeyEvent(KeyEvent k) {

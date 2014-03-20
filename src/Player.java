@@ -50,10 +50,10 @@ public class Player {
 		riceBlocks = 3;
 		cards = new ArrayList<PalaceCard>();
 		//For now hardcode the cards they get at beginning
-		//TODO: randomize this selection
-		cards.add(new OnePointPalaceCard("MASK"));
-		cards.add(new OnePointPalaceCard("PUPPET"));
-		cards.add(new OnePointPalaceCard("DRUM"));
+		// //TODO: randomize this selection
+		// cards.add(new OnePointPalaceCard("MASK"));
+		// cards.add(new OnePointPalaceCard("PUPPET"));
+		// cards.add(new OnePointPalaceCard("DRUM"));
 	}
 
 	public Player(String n, Color c) {
@@ -68,10 +68,10 @@ public class Player {
 		riceBlocks = 3;
 		cards = new ArrayList<PalaceCard>();
 		//For now hardcode the cards they get at beginning
-		//TODO: randomize this selection
-		cards.add(new OnePointPalaceCard("MASK"));
-		cards.add(new OnePointPalaceCard("PUPPET"));
-		cards.add(new OnePointPalaceCard("DRUM"));
+		// //TODO: randomize this selection
+		// cards.add(new OnePointPalaceCard("MASK"));
+		// cards.add(new OnePointPalaceCard("PUPPET"));
+		// cards.add(new OnePointPalaceCard("DRUM"));
 	}
 
 	public void setColor(Color c) {

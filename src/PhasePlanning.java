@@ -25,6 +25,7 @@ public class PhasePlanning {
 		this.sanitation = sanitation;
 		commands = new Stack<Command>();
 		blockMode();	
+		ViewFacade.setGameMode("Planning Mode");
 	}
 	
 
