@@ -177,8 +177,8 @@ public class PlayerFacade {
 		playerTurn.getPlayer(p).addCard(c);
 	}
 
-	public void returnCard(int p, PalaceCard c) {
-		playerTurn.getPFPlayer(p).addCard(c);
+	public void returnCard(PalaceCard c) {
+		playerTurn.getPFPlayer().addCard(c);
 	}
 
 	public boolean playerCanParticipate(int p, String t) {
@@ -187,9 +187,9 @@ public class PlayerFacade {
 		return ret;
 	}
 
-	public PalaceCard playCardWith(String[] t)
+	public PalaceCard useCardWith(String[] t)
 	{
-		return playerTurn.playCardWith(t);
+		return playerTurn.useCardWith(t);
 	}
 
 	public boolean hasCardWith(String[] t){

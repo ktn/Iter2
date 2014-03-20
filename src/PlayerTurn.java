@@ -216,9 +216,9 @@ public class PlayerTurn {
 		return festival.getEndFestival();
 	}
 
-	public PalaceCard getCardWith(String[] t)
+	public PalaceCard useCardWith(String[] t)
 	{
-		
+		return getPFPlayer().useCardWith(t);
 	}
 
 
