@@ -124,6 +124,10 @@ public class BoardFacade {
 		return board.checkEdgePlacement(c);
 	}
 
+	public boolean notTwoPalacesBetweenCities(Board.Coordinates middleTile){
+		return  board.notTwoPalacesBetweenCities(middleTile);
+	}
+
 	// DEVELOPER METHODS  
 	// =======================================================================
 
