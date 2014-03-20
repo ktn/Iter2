@@ -49,21 +49,8 @@ public class Scoring {
 			p.addPlayerScore(victors.get(0), level/2);
 		}
 		else{
-			for(int i=0; i<victors.size(); i++){
-				switch (level) {
-					case 2: p.addPlayerScore(victors.get(i), 0);
-							break;
-					case 4: p.addPlayerScore(victors.get(i), 1);
-							break;
-					case 6: p.addPlayerScore(victors.get(i), 2);
-							break;
-					case 8: p.addPlayerScore(victors.get(i), 3);
-							break;
-					case 10:p.addPlayerScore(victors.get(i), 4);
-							break;
-					default:p.addPlayerScore(victors.get(i), 0);
-							break;
-				}
+			for(Player player : victors){
+				p.addPlayerScore(player, level/2-1);
 			}		
 		}
 	}
