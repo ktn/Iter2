@@ -213,5 +213,10 @@ public class PlayerTurn {
 		return festival.getEndFestival();
 	}
 
+	public void setBlockPlayed(boolean b)
+	{
+		blockPlayed = b;
+	}
+
 
 }

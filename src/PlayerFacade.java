@@ -28,7 +28,7 @@ public class PlayerFacade {
 
 		tokenUsed = false;
 		actionPoints = 6;
-		blockPlayed = false;
+		setBlockPlayed(false);
 
 		deck = new Deck();
 	}
@@ -60,6 +60,11 @@ public class PlayerFacade {
 		playerTurn.returnActionToken();
 	}
 
+	public void setBlockPlayed(boolean b)
+	{
+		playerTurn.setBlockPlayed(b);
+	}
+
 	public boolean checkTwoBlock() {
 		if (currentPlayer.twoBlocksLeft() > 0 && actionPoints > 0) {
 			return true;
@@ -70,7 +75,7 @@ public class PlayerFacade {
 
 	public void placeTwoBlock() {
 		currentPlayer.placeTwoBlock();
-		blockPlayed = true;
+		setBlockPlayed(true);
 		actionPoints--;
 	}
 
@@ -88,7 +93,7 @@ public class PlayerFacade {
 
 	public void placeVillage() {
 		currentPlayer.placeVillageBlock();
-		blockPlayed = true;
+		setBlockPlayed(true);
 		actionPoints--;
 	}
 
@@ -107,7 +112,7 @@ public class PlayerFacade {
 
 	public void placeRice() {
 		currentPlayer.placeRiceBlock();
-		blockPlayed = true;
+		setBlockPlayed(true);
 		actionPoints--;
 	}
 
@@ -118,7 +123,7 @@ public class PlayerFacade {
 	}
 
 	public void playThreeBlock() {
-		blockPlayed = true;
+		setBlockPlayed(true);
 		actionPoints--;
 	}
 
@@ -132,7 +137,7 @@ public class PlayerFacade {
 	}
 
 	public void blockNotPlayed() {
-		blockPlayed = false;
+		setBlockPlayed(false);
 	}
 
 	// changing score
