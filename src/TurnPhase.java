@@ -1,10 +1,9 @@
 import java.awt.event.KeyEvent;
 
-
 public class TurnPhase {
 	private enum GameMode {
-		NORMALMODE("Normal mode"), REPLAYMODE("Replay mode"), PLANNINGMODE("Planning mode"),
-		FESTIVALMODE("Festival mode");
+		NORMALMODE("Normal mode"), REPLAYMODE("Replay mode"), PLANNINGMODE(
+				"Planning mode"), FESTIVALMODE("Festival mode");
 
 		String s;
 
@@ -16,60 +15,64 @@ public class TurnPhase {
 			return s;
 		}
 	}
+
 	GameMode currentMode = GameMode.NORMALMODE;
-	
+
 	PhaseActive normal;
 	PhaseReplay replay;
 	PhasePlanning planning;
 	PhaseFestival festival;
-	
+
 	PlayerFacade player;
 	BoardFacade board;
 	Sanitation sanitation;
 
-
-	
 	public TurnPhase(String[] argNames) {
 		player = new PlayerFacade(argNames);
 		board = new BoardFacade();
 		sanitation = new Sanitation(player, board);
 		this.normal = new PhaseActive(player, board, sanitation);
-		//this.replay = new PhaseReplay(player, board, sanitation);
+		// this.replay = new PhaseReplay(player, board, sanitation);
 		this.planning = new PhasePlanning(player, board, sanitation);
 		currentMode = GameMode.NORMALMODE;
-		//this.festival = new PhaseFestival(model);
+		// this.festival = new PhaseFestival(model);
 		ViewFacade.updateBoard(board.board);
 	}
-	
+
 	public void receiveKeyEvent(KeyEvent k) {
 		System.out.println("Key pressed");
-		if(currentMode == GameMode.NORMALMODE) {
+		if (currentMode == GameMode.NORMALMODE) {
 			normalModeInterpreter(k);
-		}
-		else if(currentMode == GameMode.PLANNINGMODE) {
+		} else if (currentMode == GameMode.PLANNINGMODE) {
 			planningModeInterpreter(k);
-		}
-		else if(currentMode == GameMode.REPLAYMODE) {
+		} else if (currentMode == GameMode.REPLAYMODE) {
 			replayModeInterpreter(k);
-		}
-		else if(currentMode == GameMode.FESTIVALMODE) {
+		} else if (currentMode == GameMode.FESTIVALMODE) {
 			festivalModeInterpreter(k);
 		}
 	}
-	
+
 	private void normalModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
-		switch(key) {
+		switch (key) {
 		case KeyEvent.VK_NUMPAD8:
+		case KeyEvent.VK_UP:
+
 			normal.moveUp();
 			break;
 		case KeyEvent.VK_NUMPAD6:
+		case KeyEvent.VK_RIGHT:
+
 			normal.moveRight();
 			break;
 		case KeyEvent.VK_NUMPAD4:
+		case KeyEvent.VK_LEFT:
+
 			normal.moveLeft();
 			break;
 		case KeyEvent.VK_NUMPAD2:
+		case KeyEvent.VK_DOWN:
+
 			normal.moveDown();
 			break;
 		case KeyEvent.VK_TAB:
@@ -98,12 +101,12 @@ public class TurnPhase {
 			}
 			break;
 		case KeyEvent.VK_7:
-			//replay = new PhaseReplay(player, board, sanitation);
+			// replay = new PhaseReplay(player, board, sanitation);
 			currentMode = GameMode.REPLAYMODE;
 			normal = null;
 			break;
 		case KeyEvent.VK_8:
-			//festival = new PhaseFestival(player, board, sanitation);
+			// festival = new PhaseFestival(player, board, sanitation);
 			currentMode = GameMode.FESTIVALMODE;
 			normal = null;
 			break;
@@ -132,10 +135,10 @@ public class TurnPhase {
 			break;
 		}
 	}
-	
+
 	private void planningModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
-		switch(key) {
+		switch (key) {
 		case KeyEvent.VK_NUMPAD8:
 			planning.moveUp();
 			break;
@@ -174,12 +177,12 @@ public class TurnPhase {
 			//planning = null;
 			break;
 		case KeyEvent.VK_7:
-			//replay = new PhaseReplay(player, board, sanitation);
+			// replay = new PhaseReplay(player, board, sanitation);
 			currentMode = GameMode.REPLAYMODE;
 			planning = null;
 			break;
 		case KeyEvent.VK_8:
-			//festival = new PhaseFestival(player, board, sanitation);
+			// festival = new PhaseFestival(player, board, sanitation);
 			currentMode = GameMode.FESTIVALMODE;
 			planning = null;
 			break;
@@ -208,11 +211,11 @@ public class TurnPhase {
 			break;
 		}
 	}
-	
+
 	private void replayModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
 	}
-	
+
 	private void festivalModeInterpreter(KeyEvent k) {
 		int key = k.getKeyCode();
 	}

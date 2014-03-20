@@ -74,7 +74,7 @@ public class CurrentPlayerView extends JPanel {
 		JLabel twoBlocks = new JLabel("Two Blocks: ");
 		numTwoBlocks = new JLabel("3");
 		JLabel developers = new JLabel("Off-Board Developers: ");
-		JLabel numDevelopers = new JLabel("12");
+		numDevelopers = new JLabel("12");
 		JLabel actionTokens = new JLabel("Action Tokens: ");
 		numActionTokens = new JLabel("3");
 		
@@ -162,6 +162,7 @@ public class CurrentPlayerView extends JPanel {
 		puppetMaskCards.add(numPuppetMaskCards);
 		playerCards.add(puppetMaskCards);
 		
+		
 		//Add this whole panel in 
 		this.add(playerCards);	
 	}
@@ -180,10 +181,12 @@ public class CurrentPlayerView extends JPanel {
 	public void set(PlayerFacade p){
 				displayActionTokens(p.getCurrentPlayer().getActionTokens());
 				displayRiceBlocks(p.getCurrentPlayer().riceBlocksLeft());
-				displayVillageBlocks(p.getCurrentPlayer().riceBlocksLeft());
+				displayVillageBlocks(p.getCurrentPlayer().villageBlocksLeft());
 				displayTwoBlocks(p.getCurrentPlayer().twoBlocksLeft());
 				displayDevelopers(p.getCurrentPlayer().getDevelsOff());
 				displayScore(p.getCurrentPlayer().getScore());
+				name.setText("Name: "+p.getCurrentPlayer().getName());
+				AP.setText("AP: "+p.getActionPoints());
 	}
 
 	public void displayRiceBlocks(int numRice)
