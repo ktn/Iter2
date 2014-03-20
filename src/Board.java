@@ -86,7 +86,7 @@ public class Board {
 	}
 
 	private Coordinates get(Space s) {
-		Coordinates temp = null;
+		Coordinates temp = new Coordinates(0,0);
 
 		for (int x = 0; x < xDim; x++) {
 			for (int y = 0; y < yDim; y++) {
