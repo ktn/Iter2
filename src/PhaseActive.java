@@ -31,23 +31,27 @@ public class PhaseActive {
 		selectedBlock = new OneBlock(TileType.RICE);
 		selectedPos = new int[] {0,0};
 		rotationCount = 0;
-		updateView();
+		board.updateBoard();
+		drawCursor();
 	}
 	public void placeDeveloperMode() {
 		state = Mode.PLACEDEVELOPER;
 		selectedPos = new int[] {0,0};
+		board.updateBoard();
 		updateView();
 	}
 	public void moveDeveloperMode() {
 		state = Mode.MOVEDEVELOPER;
 		selectedDeveloper = null;
 		switchDeveloper();
+		board.updateBoard();
 		updateView();
 	}
 	public void palaceMode() {
 		state = Mode.PALACE;
 		selectedPos = new int[] {0,0};
 		palaceLevel = 2;
+		board.updateBoard();
 	}
 	
 	// General methods
