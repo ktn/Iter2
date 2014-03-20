@@ -23,7 +23,7 @@ public class ViewTester {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		//viewFacadeTester();
+		viewFacadeTester();
 		boardViewTester();
 	}
 	
