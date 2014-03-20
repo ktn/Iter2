@@ -84,6 +84,7 @@ public class PlayerFacade {
 
 	public void returnTwoBlock() {
 		playerTurn.getCurrentPlayer().returnTwoBlock();
+		playerTurn.addToActionPoints(1);
 	}
 
 	public boolean checkVillage() {
