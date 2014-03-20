@@ -60,8 +60,8 @@ class Pathfinding {
 
 	}
 
-	public void checkNextSpot(ArrayList<Board.Coordinates> currentPath, int x, int y,
-			Board.Coordinates prevCoord, int AP) {
+	public void checkNextSpot(ArrayList<Board.Coordinates> currentPath, int x,
+			int y, Board.Coordinates prevCoord, int AP) {
 		Board.Coordinates newCoord = board.new Coordinates(x, y);
 		currentPath.add(newCoord);
 		boolean cont = true;
@@ -87,13 +87,14 @@ class Pathfinding {
 			// recursively call this function for each of the four directions,
 			// but only if the current AP is less than the new AP by 2 (or 1 if
 			// the two tiles are of the same type)
-			
+
 			if (x + 1 < coords.x) {
 				if (board.getTileType(newCoord) == board
 						.getTileType(board.new Coordinates(x + 1, y))
 						&& AP < check[x + 1][y]
 						&& board.getTileType(board.new Coordinates(x + 1, y)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath),
+					checkNextSpot(
+							new ArrayList<Board.Coordinates>(currentPath),
 							x + 1, y, newCoord, AP);
 				}
 			}
@@ -102,7 +103,8 @@ class Pathfinding {
 						.getTileType(board.new Coordinates(x - 1, y))
 						&& AP < check[x - 1][y]
 						&& board.getTileType(board.new Coordinates(x - 1, y)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath),
+					checkNextSpot(
+							new ArrayList<Board.Coordinates>(currentPath),
 							x - 1, y, newCoord, AP);
 				}
 			}
@@ -111,7 +113,8 @@ class Pathfinding {
 						.getTileType(board.new Coordinates(x, y + 1))
 						&& AP < check[x][y + 1]
 						&& board.getTileType(board.new Coordinates(x, y + 1)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath), x,
+					checkNextSpot(
+							new ArrayList<Board.Coordinates>(currentPath), x,
 							y + 1, newCoord, AP);
 				}
 			}
@@ -120,7 +123,8 @@ class Pathfinding {
 						.getTileType(board.new Coordinates(x, y - 1))
 						&& AP < check[x][y - 1]
 						&& board.getTileType(board.new Coordinates(x, y - 1)) != TileType.EMPTY) {
-					checkNextSpot(new ArrayList<Board.Coordinates>(currentPath), x,
+					checkNextSpot(
+							new ArrayList<Board.Coordinates>(currentPath), x,
 							y - 1, newCoord, AP);
 
 				}

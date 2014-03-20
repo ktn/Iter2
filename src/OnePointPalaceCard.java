@@ -15,8 +15,7 @@ public class OnePointPalaceCard extends PalaceCard {
 		return this.symbol.toString();
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return this.symbol.toString();
 	}
 }
