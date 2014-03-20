@@ -32,6 +32,8 @@ public class View extends JFrame {
 	
 	private void initialize(ArrayList<String> playerNames) {
 		this.setTitle("Java");
+		this.getContentPane().setBackground(Color.BLACK);
+		//this.setBounds(100, 100, 910, 650);
         //this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		Toolkit tk = Toolkit.getDefaultToolkit();  
 		int xSize = ((int) (tk.getScreenSize().getWidth()));  
@@ -39,19 +41,25 @@ public class View extends JFrame {
 		this.setSize(xSize,ySize);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(new BorderLayout(7, 3));
+		this.getContentPane().setLayout(new BorderLayout(3, 3));
 		
 		//PlayerView playerView = new PlayerView();
 		ViewFacade.initialize(playerNames, 10, 10);
 		
+		ViewFacade.getOtherPlayerView().setBackground(new Color(220,220,220));
 		this.getContentPane().add(ViewFacade.getOtherPlayerView(), 
 								  BorderLayout.NORTH);
+		ViewFacade.getCurrentPlayerView().setBackground(new Color(220,220,220));
 		this.getContentPane().add(ViewFacade.getCurrentPlayerView(),
 								  BorderLayout.SOUTH);
+		ViewFacade.getPublicInventoryView().setBackground(new Color(220,220,220));
 		this.getContentPane().add(ViewFacade.getPublicInventoryView(),
 								  BorderLayout.EAST);
+		ViewFacade.getControllerView().setBackground(new Color(220,220,220));
 		this.getContentPane().add(ViewFacade.getControllerView(), 
 							  BorderLayout.WEST);
+		JPanel boardPanel = new JPanel();
+		boardPanel.setBackground(new Color(112,128,144));
 		boardPanel = new JPanel();
 		boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		boardPanel.add(ViewFacade.getBoardView());
