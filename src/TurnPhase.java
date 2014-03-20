@@ -29,8 +29,8 @@ public class TurnPhase {
 
 
 	
-	public TurnPhase() {
-		player = new PlayerFacade(new String[] {"Bob", "Steve", "Frank", "Alice"});
+	public TurnPhase(String[] argNames) {
+		player = new PlayerFacade(argNames);
 		board = new BoardFacade();
 		sanitation = new Sanitation(player, board);
 		this.normal = new PhaseActive(player, board, sanitation);
