@@ -13,6 +13,7 @@ public class DrawPalaceCardCommand implements Command {
 		card = player.drawFestivalCard();
 		player.addCard(card);
 		this.save();
+		board.updateBoard();
 
 	}
 
@@ -21,6 +22,7 @@ public class DrawPalaceCardCommand implements Command {
 		// return festival cards
 		player.removeCard(card);
 		player.returnFestivalCard(card);
+		board.updateBoard();
 
 	}
 

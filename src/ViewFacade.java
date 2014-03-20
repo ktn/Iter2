@@ -1,8 +1,10 @@
+import java.awt.Color;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class ViewFacade {
+public final class ViewFacade {
 	/**This class represents the facade for three portions
 	 * of the final view, the current player other player
 	 * components, and public inventory. This class serves as a facade to
@@ -20,7 +22,7 @@ public class ViewFacade {
 	private static ControllerView controllerView;
 	private static BoardView boardView;
 	
-	public ViewFacade(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
+	private ViewFacade(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);
@@ -28,7 +30,7 @@ public class ViewFacade {
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
 		//@ TODO: don't use magic  numbers
-		boardView=new BoardView(boardWidth+2, boardHeight+2);
+		boardView=new BoardView(boardWidth, boardHeight);
 	}
 	
 	//Copy of above for testing
@@ -40,7 +42,7 @@ public class ViewFacade {
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
 		//@ TODO: don't use magic  numbers
-		boardView=new BoardView(boardWidth+2, boardHeight+2);
+		boardView=new BoardView(boardWidth, boardHeight);
 	}
 	
 	public static OtherPlayersView getOtherPlayerView() {
@@ -188,5 +190,13 @@ public class ViewFacade {
 	
 	public static void updateBoard(Board board){
 		boardView.renderBoard(board);
+	}
+	
+	public static void renderNetwork(Tile origin, int x, int y){
+		boardView.renderNetwork(origin, x, y);
+	}
+	
+	public static void renderNetwork(Tile origin, int x, int y, Color c){
+		boardView.renderNetwork(origin, x, y, c);
 	}
 }

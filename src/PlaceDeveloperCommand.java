@@ -14,12 +14,13 @@ public class PlaceDeveloperCommand implements Command {
 		board.placeDeveloper(coord, dev);
 		player.placeDeveloper();
 		this.save();
-
+		board.updateBoard();
 	}
 
 	public void undo() {
 		board.removeDeveloper(coord);
 		player.removeDeveloper();
+		board.updateBoard();
 	}
 
 

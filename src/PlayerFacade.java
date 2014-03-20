@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 
 /*
@@ -49,6 +50,10 @@ public class PlayerFacade {
 
 	public void useActionToken() {
 		playerTurn.useActionToken();
+	}
+	
+	public int getActionPoints() {
+		return playerTurn.getActionPoints();
 	}
 
 	public void returnActionToken() {
@@ -145,12 +150,12 @@ public class PlayerFacade {
 	}
 
 	// changing colors
-	public void currentPlayerColor(String c) {
+	public void currentPlayerColor(Color c) {
 		currentPlayer.setColor(c);
 	}
 
 	// assumes it will always receive a valid input
-	public void setPlayerColor(String s, int p) {
+	public void setPlayerColor(Color s, int p) {
 		playerTurn.getPlayer(p).setColor(s);
 	}
 
@@ -171,6 +176,10 @@ public class PlayerFacade {
 		boolean ret = false;
 		ret = playerTurn.getPlayer(p).cardsContain(t);
 		return ret;
+	}
+
+	public boolean hasCardWith(String[] t){
+		return playerTurn.getPFPlayer().hasCardWith(t);
 	}
 
 	public boolean playerHasPC(int p, String[] t) {
@@ -292,6 +301,7 @@ public class PlayerFacade {
 	}
 
 
+
 	public void placeDeveloper() {
 		currentPlayer.placeDeveloper();
 	}
@@ -302,6 +312,27 @@ public class PlayerFacade {
 
 	public String getName() {
 		return currentPlayer.getName();
+	}
+
+	public String toString()
+	{
+		return currentPlayer.toString();
+	}
+
+
+	public boolean isOnePlayerLeft()
+	{
+		return playerTurn.isOnePlayerLeft();
+	}
+
+	public boolean canEndFestival()
+	{
+		return playerTurn.canEndFestival();
+	}
+
+	public boolean getEndFestival()
+	{
+		return playerTurn.getEndFestival();
 	}
 
 }

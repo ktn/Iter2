@@ -15,6 +15,10 @@ public class BoardFacade {
 		traversal = new Traversal(board);
 	}
 
+	public void updateBoard(){
+		board.updateBoard();
+	}
+
 	public Board.Coordinates getCoordinates(int x, int y){
 		return board.new Coordinates(x, y);
 	}
@@ -29,6 +33,10 @@ public class BoardFacade {
 
 	public TileType getTileType(Board.Coordinates c) {
 		return board.getTileType(c);
+	}
+	
+	public TileType getTileType(int x, int y) {
+		return board.getTileType(board.new Coordinates(x, y));
 	}
 
 	public Board.Coordinates getLargest() {
@@ -102,7 +110,7 @@ public class BoardFacade {
 	public int irrigationBlocksLeft() {
 		return communal.numIrrigationTiles();
 	}
-
+	
 	public boolean validPlacement(Board.Coordinates c, Block b) throws IllegalBlockPlacementException {
 		return board.validPlacement(c,b);
 	}
@@ -118,6 +126,10 @@ public class BoardFacade {
 
 	public boolean checkEdgePlacement(Board.Coordinates c){
 		return board.checkEdgePlacement(c);
+	}
+
+	public boolean notTwoPalacesBetweenCities(Board.Coordinates middleTile){
+		return traversal.notTwoPalacesBetweenCities(middleTile);
 	}
 
 	// DEVELOPER METHODS  
@@ -143,10 +155,33 @@ public class BoardFacade {
 		return pathfinding.getShortestPath();
 	}
 
-	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
+	// TRAVERSAL METHODS
+	// =======================================================================================
+
+	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
+	{
 		return traversal.findHighestDev(c);
 	}
+	public ArrayList<Developer> findSecondHighestDev(Board.Coordinates c)
+	{
+		return traversal.findSecondHighestDev(c);
+	}
 
+	public boolean playerInCity(Player player, Board.Coordinates aCityTile)
+	{
+		return traversal.playerInCity(player, aCityTile);
+	}
+
+	public int numIrrigationTiles(Board.Coordinates anIrrigTile)
+	{
+		return traversal.numIrrigationTiles(anIrrigTile);
+	}
+
+	public ArrayList<Board.Coordinates> allPalaceTiles()
+	{
+		return traversal.allPalaceTiles();
+	}
+	
 	public Board.Coordinates getDeveloper(Player p){
 		return board.getDeveloper(p);
 	}
@@ -154,4 +189,4 @@ public class BoardFacade {
 	public Board.Coordinates nextDeveloper(Board.Coordinates c){
 		return board.nextDeveloper(c);
 	}
-}		
+}

@@ -7,6 +7,14 @@ public class Traversal {
 		board = b;
 	}
 
+	private boolean containsCoord(ArrayList<Board.Coordinates> array, Board.Coordinates coord)
+	{
+		for(Board.Coordinates c : array)
+			if(coord.equals(c))
+				return true;
+		return false;
+	}
+
 	private ArrayList<ArrayList<Developer>> findHighestDevsDownTheLine(
 			Board.Coordinates c) {
 		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
@@ -33,16 +41,7 @@ public class Traversal {
 				if (devFound != null) {
 					// System.out.print("Found developer: ");
 					if (!players.contains(devFound.getPlayer())) // First
-																	// instance
-																	// of
-																	// player,
-																	// add it to
-																	// arraylist
-																	// and
-																	// create
-																	// its int
-																	// array in
-																	// map
+					//instance of player, add it to arraylist and create its int array in map
 					{
 						// System.out.println(devFound.getPlayer());
 						players.add(devFound.getPlayer());
@@ -52,12 +51,8 @@ public class Traversal {
 						map.put(devFound.getPlayer(), temp);
 					}
 					if (board.getHeight(c) > highestVal) // if height is greater
-															// than past
-															// heighest value,
-															// reset heighest
-															// devs so code will
-															// know what to pass
-															// at the end
+					// than past heighest value, reset heighest devs so code will
+					// know what to pass at the end
 					{
 						highestVal = board.getHeight(c);
 						highestDevs.clear();
@@ -71,26 +66,22 @@ public class Traversal {
 					map.put(devFound.getPlayer(), temp);
 				}
 				if (board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE
-						&& !visited
-								.contains(board.new Coordinates(c.x, c.y + 1))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 					queuePath.add(board.new Coordinates(c.x, c.y + 1));
 					visited.add(board.new Coordinates(c.x, c.y + 1));
 				}
 				if (board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE
-						&& !visited
-								.contains(board.new Coordinates(c.x, c.y - 1))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 					queuePath.add(board.new Coordinates(c.x, c.y - 1));
 					visited.add(board.new Coordinates(c.x, c.y - 1));
 				}
 				if (board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE
-						&& !visited
-								.contains(board.new Coordinates(c.x - 1, c.y))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 					queuePath.add(board.new Coordinates(c.x - 1, c.y));
 					visited.add(board.new Coordinates(c.x - 1, c.y));
 				}
 				if (board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE
-						&& !visited
-								.contains(board.new Coordinates(c.x + 1, c.y))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 					queuePath.add(board.new Coordinates(c.x + 1, c.y));
 					visited.add(board.new Coordinates(c.x + 1, c.y));
 				}
@@ -102,57 +93,48 @@ public class Traversal {
 			queuePath.add(c);
 			visited.add(c);
 			ArrayList<Board.Coordinates> check = new ArrayList<Board.Coordinates>();
-
 			while (!queuePath.isEmpty()) {
 				c = queuePath.remove();
-
-				if (!check.contains(c)) {
+				if (!containsCoord(check, c)) {
 					check.add(c);
 				}
-				if (!check.contains(board.getTile(board.new Coordinates(c.x,
-						c.y + 1)))) {
-					board.new Coordinates(c.x, c.y + 1);
+				if (!containsCoord(check, board.new Coordinates(c.x, c.y + 1))) {
+					check.add(board.new Coordinates(c.x, c.y + 1));
 				}
-				if (!check.contains(board.getTile(board.new Coordinates(c.x,
-						c.y - 1)))) {
-					board.new Coordinates(c.x, c.y - 1);
+				if (!containsCoord(check, board.new Coordinates(c.x, c.y - 1))) {
+					check.add(board.new Coordinates(c.x, c.y - 1));
 				}
-				if (!check.contains(board.getTile(board.new Coordinates(
-						c.x + 1, c.y)))) {
-					board.new Coordinates(c.x + 1, c.y);
+				if (!containsCoord(check, board.new Coordinates(c.x + 1, c.y))) {
+					check.add(board.new Coordinates(c.x + 1, c.y));
 				}
-				if (!check.contains(board.getTile(board.new Coordinates(
-						c.x - 1, c.y)))) {
-					board.new Coordinates(c.x - 1, c.y);
+				if (!containsCoord(check, board.new Coordinates(c.x - 1, c.y))) {
+					check.add(board.new Coordinates(c.x - 1, c.y));
 				}
 
 				if (board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.IRRIGATION
-						&& !visited
-								.contains(board.new Coordinates(c.x, c.y + 1))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 					queuePath.add(board.new Coordinates(c.x, c.y + 1));
 					visited.add(board.new Coordinates(c.x, c.y + 1));
 				}
 				if (board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.IRRIGATION
-						&& !visited
-								.contains(board.new Coordinates(c.x, c.y - 1))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 					queuePath.add(board.new Coordinates(c.x, c.y - 1));
 					visited.add(board.new Coordinates(c.x, c.y - 1));
 				}
 				if (board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.IRRIGATION
-						&& !visited
-								.contains(board.new Coordinates(c.x - 1, c.y))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 					queuePath.add(board.new Coordinates(c.x - 1, c.y));
 					visited.add(board.new Coordinates(c.x - 1, c.y));
 				}
 				if (board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.IRRIGATION
-						&& !visited
-								.contains(board.new Coordinates(c.x + 1, c.y))) {
+						&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 					queuePath.add(board.new Coordinates(c.x + 1, c.y));
 					visited.add(board.new Coordinates(c.x + 1, c.y));
 				}
 			}
 			for (int checkI = 0; checkI < check.size(); checkI++) {
 				c = check.get(checkI);
+				System.out.println(checkI);
 				Developer devFound = board.getDeveloper(c);
 				if (devFound != null) {
 					if (!players.contains(devFound.getPlayer())) {
@@ -178,8 +160,7 @@ public class Traversal {
 		ArrayList<ArrayList<Developer>> highestDevsReturn = new ArrayList<ArrayList<Developer>>();
 		ArrayList<Player> lowerDevs = new ArrayList<Player>();
 		do {
-			for (int height = highestVal; highestDevsReturn.size() == 0
-					&& height >= 0; height--) {
+			for (int height = highestVal; height >= 0; height--) {
 				int most = 0; // most developers on this level
 				// System.out.print("Height: "+height+" most: "+most);
 				for (int p = 0; p < players.size(); p++)
@@ -198,6 +179,7 @@ public class Traversal {
 			ArrayList<Developer> thisLevelOfHighest = new ArrayList<Developer>();
 			for (Player player : players)
 				thisLevelOfHighest.add(highestDevs.get(player));
+			highestDevsReturn.add(thisLevelOfHighest);
 			players = lowerDevs;
 			lowerDevs = new ArrayList<Player>();
 
@@ -210,7 +192,7 @@ public class Traversal {
 		if (highestDevsReturn.size() > 0)
 			return highestDevsReturn.get(0);
 		else
-			return null;
+			return new ArrayList<Developer>();
 	}
 
 	public ArrayList<Developer> findSecondHighestDev(Board.Coordinates c) {
@@ -218,7 +200,7 @@ public class Traversal {
 		if (highestDevsReturn.size() > 1)
 			return highestDevsReturn.get(1);
 		else
-			return null;
+			return new ArrayList<Developer>();
 	}
 
 	public boolean playerInCity(Player player, Board.Coordinates aCityTile) {
@@ -239,27 +221,27 @@ public class Traversal {
 				if (devFound.getPlayer() == player)
 					return true;
 			}
-			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
+			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE || 
+					board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
 				visited.add(board.new Coordinates(c.x, c.y + 1));
 			}
-			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
+			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE || 
+					board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y - 1));
 				visited.add(board.new Coordinates(c.x, c.y - 1));
 			}
-			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
+			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE || 
+					board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
+					&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x - 1, c.y));
 				visited.add(board.new Coordinates(c.x - 1, c.y));
 			}
-			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
+			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE || 
+					board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
+					&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x + 1, c.y));
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
@@ -279,22 +261,22 @@ public class Traversal {
 		while (!queuePath.isEmpty()) {
 			c = queuePath.remove();
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.IRRIGATION)
-					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
 				visited.add(board.new Coordinates(c.x, c.y + 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.IRRIGATION)
-					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y - 1));
 				visited.add(board.new Coordinates(c.x, c.y - 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.IRRIGATION)
-					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x - 1, c.y));
 				visited.add(board.new Coordinates(c.x - 1, c.y));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.IRRIGATION)
-					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x + 1, c.y));
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
@@ -317,25 +299,25 @@ public class Traversal {
 			c = queuePath.remove();
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
 				visited.add(board.new Coordinates(c.x, c.y + 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y - 1));
 				visited.add(board.new Coordinates(c.x, c.y - 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x - 1, c.y));
 				visited.add(board.new Coordinates(c.x - 1, c.y));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x + 1, c.y));
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
@@ -361,25 +343,25 @@ public class Traversal {
 			
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
 				visited.add(board.new Coordinates(c.x, c.y + 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y - 1));
 				visited.add(board.new Coordinates(c.x, c.y - 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x - 1, c.y));
 				visited.add(board.new Coordinates(c.x - 1, c.y));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x + 1, c.y));
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
@@ -416,22 +398,22 @@ public class Traversal {
 			
 			
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
 				visited.add(board.new Coordinates(c.x, c.y + 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x, c.y - 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y - 1));
 				visited.add(board.new Coordinates(c.x, c.y - 1));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x - 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x - 1, c.y));
 				visited.add(board.new Coordinates(c.x - 1, c.y));
 			}
 			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
-					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
+					&& !containsCoord(visited, board.new Coordinates(c.x + 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x + 1, c.y));
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
