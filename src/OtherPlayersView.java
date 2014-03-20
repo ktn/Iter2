@@ -96,7 +96,7 @@ public class OtherPlayersView extends JPanel {
 				displayRiceBlocks(otherPlayer.getName(),
 						otherPlayer.riceBlocksLeft());
 				displayVillageBlocks(otherPlayer.getName(),
-						otherPlayer.riceBlocksLeft());
+						otherPlayer.villageBlocksLeft());
 				displayTwoBlocks(otherPlayer.getName(),
 						otherPlayer.twoBlocksLeft());
 				displayDevelopers(otherPlayer.getName(),
