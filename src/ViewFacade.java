@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-public class ViewFacade {
+public final class ViewFacade {
 	/**This class represents the facade for three portions
 	 * of the final view, the current player other player
 	 * components, and public inventory. This class serves as a facade to
@@ -21,7 +21,7 @@ public class ViewFacade {
 	private static ControllerView controllerView;
 	private static BoardView boardView;
 	
-	public ViewFacade(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
+	private ViewFacade(ArrayList<String> playerNames, int boardWidth, int boardHeight) {
 		otherPlayers = new ArrayList<String>(playerNames.subList(1,playerNames.size()));
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayer = playerNames.get(0);

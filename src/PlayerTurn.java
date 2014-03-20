@@ -53,6 +53,10 @@ public class PlayerTurn {
 	public Player getPlayer(int p) {
 		return players[p];
 	}
+	
+	public int getActionPoints() {
+		return actionPoints;
+	}
 
 	// checks, placements, and returns
 	public boolean actionTokenUsable() {

@@ -67,4 +67,14 @@ public final class CommandStack {
 		}
 		in.close();
 	}
+
+
+	public static boolean empty(){
+		return commands.empty();
+	}
+
+
+	public static Command popCommand(){
+		return commands.pop();
+	}
 }

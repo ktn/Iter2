@@ -18,12 +18,14 @@ public class PlaceThreeBlockCommand implements Command {
 		board.placeBlock(coords, block);
 
 		this.save();
+		board.updateBoard();
 	}
 
 	public void undo() {
 		board.removeBlock(coords);
 		board.putBackThreeBlock(block);
 		player.returnThreeBlock();
+		board.updateBoard();
 	}
 
 	public void load() {

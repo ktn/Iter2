@@ -51,6 +51,10 @@ public class PlayerFacade {
 	public void useActionToken() {
 		playerTurn.useActionToken();
 	}
+	
+	public int getActionPoints() {
+		return playerTurn.getActionPoints();
+	}
 
 	public void returnActionToken() {
 		playerTurn.returnActionToken();
@@ -172,6 +176,10 @@ public class PlayerFacade {
 		boolean ret = false;
 		ret = playerTurn.getPlayer(p).cardsContain(t);
 		return ret;
+	}
+
+	public boolean hasCardWith(String[] t){
+		return playerTurn.getPFPlayer().hasCardWith(t);
 	}
 
 	public boolean playerHasPC(int p, String[] t) {

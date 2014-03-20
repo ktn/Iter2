@@ -18,11 +18,13 @@ public class PlaceTwoBlockCommand implements Command {
 		board.placeBlock(coords, block);
 
 		this.save();
+		board.updateBoard();
 	}
 
 	public void undo() {
 		board.removeBlock(coords);
 		player.returnTwoBlock();
+		board.updateBoard();
 	}
 
 	public void load() {

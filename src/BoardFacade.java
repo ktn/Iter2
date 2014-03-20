@@ -15,6 +15,10 @@ public class BoardFacade {
 		traversal = new Traversal(board);
 	}
 
+	public void updateBoard(){
+		board.updateBoard();
+	}
+
 	public Board.Coordinates getCoordinates(int x, int y){
 		return board.new Coordinates(x, y);
 	}
@@ -29,6 +33,10 @@ public class BoardFacade {
 
 	public TileType getTileType(Board.Coordinates c) {
 		return board.getTileType(c);
+	}
+	
+	public TileType getTileType(int x, int y) {
+		return board.getTileType(board.new Coordinates(x, y));
 	}
 
 	public Board.Coordinates getLargest() {
@@ -102,7 +110,7 @@ public class BoardFacade {
 	public int irrigationBlocksLeft() {
 		return communal.numIrrigationTiles();
 	}
-
+	
 	public boolean validPlacement(Board.Coordinates c, Block b) throws IllegalBlockPlacementException {
 		return board.validPlacement(c,b);
 	}
@@ -118,6 +126,10 @@ public class BoardFacade {
 
 	public boolean checkEdgePlacement(Board.Coordinates c){
 		return board.checkEdgePlacement(c);
+	}
+
+	public boolean notTwoPalacesBetweenCities(Board.Coordinates middleTile){
+		return traversal.notTwoPalacesBetweenCities(middleTile);
 	}
 
 	// DEVELOPER METHODS  
@@ -177,4 +189,4 @@ public class BoardFacade {
 	public Board.Coordinates nextDeveloper(Board.Coordinates c){
 		return board.nextDeveloper(c);
 	}
-}		
+}
