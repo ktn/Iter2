@@ -1,5 +1,7 @@
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PhasePlanning {
@@ -7,7 +9,7 @@ public class PhasePlanning {
 	BoardFacade board;
 	Sanitation sanitation;
 	
-	Queue<Command> commands;
+	Stack<Command> commands;
 
 	private enum Mode { BLOCK, PALACE, PLACEDEVELOPER, MOVEDEVELOPER }
 	private Mode state;
@@ -22,7 +24,7 @@ public class PhasePlanning {
 		this.player = player;
 		this.board = board;
 		this.sanitation = sanitation;
-		commands = new ConcurrentLinkedQueue<Command>();
+		commands = new Stack<Command>();
 	}
 	
 	// Mode switching
@@ -243,8 +245,17 @@ public class PhasePlanning {
 		try {
 			valid = sanitation.changeTurnChecker();
 			if(valid) {
-				Command com = new ChangeTurnCommand(player);
-				commands.add(com); com.execute();
+				boolean query = ViewFacade.promptPlayer("Do you want to execute the planned methods?");
+				if(query) {
+					Command com = new ChangeTurnCommand(player);
+					com.execute();
+				}
+				else {
+					while(!commands.empty()) {
+						commands.pop().undo();
+					}
+				}
+				
 			}
 		}
 		catch(BlockNotPlayedException e) {
@@ -284,5 +295,31 @@ public class PhasePlanning {
 		catch(BlockNotPlayedException e) {
 			ViewFacade.warnPlayer("Not enough AP remaining to play a block.");
 		}
+	}
+	public void save() {
+		boolean query = ViewFacade.promptPlayer("Do you want to save?");
+		if(!query) return;
+		try {
+			CommandStack.save("savefile");
+			ViewFacade.warnPlayer("Saved");
+			return;
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ViewFacade.warnPlayer("Didn't save");
+	}
+	public void load() {
+		boolean query = ViewFacade.promptPlayer("Do you want to load the last-saved game?");
+		if(!query) return;
+		try {
+			CommandStack.load("savefile", player, board);
+			ViewFacade.warnPlayer("Loading");
+			return;
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ViewFacade.warnPlayer("Didn't load");
 	}
 }
