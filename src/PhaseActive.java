@@ -81,7 +81,7 @@ public class PhaseActive {
 		board.updateBoard();
 		if(state == Mode.BLOCK){ 
 			if (selectedBlock!=null){
-				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1],new Color(0,0,1,0.25f));
 			}else{
 				ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
 			}
@@ -137,8 +137,9 @@ public class PhaseActive {
 		}
 		else {
 			Board.Coordinates o = board.getCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
-			selectedDeveloper[0] = board.nextDeveloper(o).x;
-			selectedDeveloper[1] = board.nextDeveloper(o).y;
+			Board.Coordinates n = board.nextDeveloper(o);
+			selectedDeveloper[0] = n.x;
+			selectedDeveloper[1] = n.y;
 		}
 		selectedPos = Arrays.copyOf(selectedDeveloper, 2);
 	}
@@ -397,14 +398,23 @@ public class PhaseActive {
 		ViewFacade.warnPlayer("Didn't save");
 	}
 	public void load() {
-		boolean query = ViewFacade.promptPlayer("Do you want to load the last-saved game?");
-		if(!query) return;
+		boolean query = ViewFacade
+				.promptPlayer("Do you want to load the last-saved game?");
+		if (!query)
+			return;
 		try {
-			CommandStack.load("savefile", player, board);
+			PlayerFacade a = new PlayerFacade(CommandStack.loadPlayers());
+			BoardFacade b = new BoardFacade();
+
+			CommandStack.load("savefile", a, b);
+			player = a;
+			board = b;
+
+			player.loadDeck(CommandStack.loadDeck());
+
 			ViewFacade.warnPlayer("Loading");
 			return;
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		ViewFacade.warnPlayer("Didn't load");
