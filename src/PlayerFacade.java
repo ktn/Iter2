@@ -35,6 +35,11 @@ public class PlayerFacade {
 		playerTurn.changeTurn(i);
 	}
 
+	// public void revertTurn() {
+		// playerTurn.revertTurn();
+		// currentPlayer = playerTurn.getCurrentPlayer();
+	// }
+
 	public Player getCurrentPlayer() {
 		return playerTurn.getCurrentPlayer();
 	}
@@ -311,6 +316,10 @@ public class PlayerFacade {
 		return playerTurn.getCurrentPlayer().getName();
 	}
 
+	public void loadDeck(ArrayList<PalaceCard> c) {
+		deck = new Deck(c);
+	}
+	
 	public String toString() {
 		return playerTurn.getCurrentPlayer().toString();
 	}
@@ -325,10 +334,6 @@ public class PlayerFacade {
 
 	public boolean getEndFestival() {
 		return playerTurn.getEndFestival();
-	}
-
-	public void loadDeck(ArrayList<PalaceCard> c) {
-		deck = new Deck(c);
 	}
 
 }

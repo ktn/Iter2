@@ -85,6 +85,7 @@ public class Board {
 
 	}
 
+	@SuppressWarnings("null")
 	private Coordinates get(Space s) {
 		Coordinates temp = new Coordinates(0,0);
 
@@ -480,8 +481,8 @@ public class Board {
 		}
 		return result.toString();
 	}
-	
-	public Space getHead(){
+
+	public Space getHead() {
 		return head;
 	}
 
