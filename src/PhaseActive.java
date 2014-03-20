@@ -48,23 +48,37 @@ public class PhaseActive {
 	}
 	
 	// General methods
-	public void moveDown() {
+	public void moveUp() {
 		selectedPos[1] = (selectedPos[1] <= 0) ? 0 : selectedPos[1] - 1;
-		updateView();
+		drawCursor();
+		//updateView();
+
 	}
 	public void moveLeft() {
 		selectedPos[0] = (selectedPos[0] <= 0) ? 0 : selectedPos[0] - 1;
-		updateView();
+		drawCursor();
+		//updateView();
 	}
 	public void moveRight() {
 		selectedPos[0] = (selectedPos[0] >= board.getLargest().x) ? board.getLargest().x : selectedPos[0] + 1;
-		updateView();
+		drawCursor();
+		//updateView();
 	}
-	public void moveUp() {
+	public void moveDown() {
 		selectedPos[1] = (selectedPos[1] >= board.getLargest().y) ? board.getLargest().y : selectedPos[1] + 1;
-		updateView();
+		drawCursor();
+		//updateView();
 	}
 	
+	private void drawCursor(){
+		board.updateBoard();
+		if (selectedBlock!=null){
+			ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+		}else{
+			ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
+		}
+	}
+
 	public void switchSelected() {
 		if(state == Mode.BLOCK) {
 			switchBlock();
@@ -72,6 +86,7 @@ public class PhaseActive {
 		if(state == Mode.MOVEDEVELOPER) {
 			switchDeveloper();
 		}
+		drawCursor();
 	}
 	
 	// Block methods
@@ -233,6 +248,9 @@ public class PhaseActive {
 		}
 		catch(NoBlocksLeftException e) {
 			ViewFacade.warnPlayer("No blocks remaining.");
+		}
+		catch(NotEnoughAPException e) {
+			ViewFacade.warnPlayer("No AP remaining.");
 		}
 		catch(CoordinateException e) {
 			ViewFacade.warnPlayer("Too many palaces.");

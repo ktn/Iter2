@@ -218,6 +218,9 @@ public class PhasePlanning {
 		catch(NoBlocksLeftException e) {
 			ViewFacade.warnPlayer("No blocks remaining.");
 		}
+		catch(NotEnoughAPException e) {
+			ViewFacade.warnPlayer("No AP remaining.");
+		}
 		catch(CoordinateException e) {
 			ViewFacade.warnPlayer("Too many palaces.");
 		}

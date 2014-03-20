@@ -17,6 +17,7 @@ public class InputListener implements KeyListener {
 		theView.addKeyListener(this);
 	}
 
+
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		turn.receiveKeyEvent(arg0);

@@ -16,7 +16,7 @@ public class TurnPhase {
 			return s;
 		}
 	}
-	GameMode currentMode;
+	GameMode currentMode = GameMode.NORMALMODE;
 	
 	PhaseActive normal;
 	PhaseReplay replay;
@@ -26,6 +26,8 @@ public class TurnPhase {
 	PlayerFacade player;
 	BoardFacade board;
 	Sanitation sanitation;
+
+
 	
 	public TurnPhase() {
 		player = new PlayerFacade(new String[] {"Bob", "Steve", "Frank", "Alice"});
@@ -40,6 +42,7 @@ public class TurnPhase {
 	}
 	
 	public void receiveKeyEvent(KeyEvent k) {
+		System.out.println("Key pressed");
 		if(currentMode == GameMode.NORMALMODE) {
 			normalModeInterpreter(k);
 		}

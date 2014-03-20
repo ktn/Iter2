@@ -145,7 +145,7 @@ public class Board {
 	}
 
 	public boolean inBounds(Coordinates c) {
-		return c.x <= xDim || c.y <= yDim;
+		return c.x < xDim && c.y < yDim && c.x >= 0 && c.y >= 0; 
 	}
 
 	public boolean validPlacement(Coordinates c, Block b)
