@@ -36,7 +36,7 @@ public class BoardView extends JPanel{
 		createDefaultTexture();
 		dirt=getTexture("images/dirt.png");
 		rice=getTexture("images/rice.png");
-		rice=getTexture("images/village.png");
+		village=getTexture("images/village.png");
 		cachedCanvas=new BufferedImage(dirt.getWidth(this)*boardWidth, dirt.getHeight(this)*boardHeight, BufferedImage.TYPE_INT_RGB);
 		cachedGraphics=cachedCanvas.createGraphics();
 	}
