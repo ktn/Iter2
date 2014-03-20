@@ -274,7 +274,8 @@ public class Traversal {
 		queuePath.add(c);
 
 		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
-		visited.add(c);
+		if(board.getTileType(c) == TileType.IRRIGATION)
+			visited.add(c);
 		while (!queuePath.isEmpty()) {
 			c = queuePath.remove();
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.IRRIGATION)
@@ -302,6 +303,9 @@ public class Traversal {
 	}
 
 	public int numVillageTiles(Board.Coordinates aVillageTile) {
+		if(board.getTileType(aVillageTile) != TileType.PALACE 
+			&& board.getTileType(aVillageTile) != TileType.VILLAGE)
+			return 0;
 		Board.Coordinates c = aVillageTile;
 		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
 
@@ -311,32 +315,77 @@ public class Traversal {
 		visited.add(c);
 		while (!queuePath.isEmpty()) {
 			c = queuePath.remove();
-			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
+			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
 					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
 				visited.add(board.new Coordinates(c.x, c.y + 1));
 			}
-			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
+			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
 					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y - 1));
 				visited.add(board.new Coordinates(c.x, c.y - 1));
 			}
-			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
+			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
 					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x - 1, c.y));
 				visited.add(board.new Coordinates(c.x - 1, c.y));
 			}
-			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE || board
-					.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
+			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
 					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
 				queuePath.add(board.new Coordinates(c.x + 1, c.y));
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
 		}
 		return visited.size();
+	}
+	
+	public boolean notTwoPalacesBetweenCities(Board.Coordinates middleTile) {
+		Board.Coordinates c = middleTile;
+		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
+
+		queuePath.add(c);
+		if(board.getTileType(c) == TileType.PALACE)
+			return true;
+		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
+		visited.add(c);
+		int numPalace = 0;
+		while (!queuePath.isEmpty()) {
+			c = queuePath.remove();
+			
+			if (board.getTileType(c) == TileType.PALACE)
+				numPalace++;
+			
+			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y + 1));
+				visited.add(board.new Coordinates(c.x, c.y + 1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x, c.y - 1)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x, c.y - 1))) {
+				queuePath.add(board.new Coordinates(c.x, c.y - 1));
+				visited.add(board.new Coordinates(c.x, c.y - 1));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x - 1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x - 1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x - 1, c.y));
+				visited.add(board.new Coordinates(c.x - 1, c.y));
+			}
+			if ((board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.PALACE
+					|| board.getTileType(board.new Coordinates(c.x + 1, c.y)) == TileType.VILLAGE)
+					&& !visited.contains(board.new Coordinates(c.x + 1, c.y))) {
+				queuePath.add(board.new Coordinates(c.x + 1, c.y));
+				visited.add(board.new Coordinates(c.x + 1, c.y));
+			}
+		}
+		
+		return numPalace < 2;
 	}
 
 	public ArrayList<Board.Coordinates> allPalaceTiles() {
@@ -351,8 +400,6 @@ public class Traversal {
 	
 	public boolean palaceInCity(Board.Coordinates aVillageTile)
 	{
-		if(board.getTileType(aVillageTile) == TileType.PALACE)\
-			return true;
 		Board.Coordinates c = aVillageTile;
 		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
 
@@ -362,15 +409,12 @@ public class Traversal {
 		visited.add(c);
 		while (!queuePath.isEmpty())
 		{
-			if (board.getTileType(board.new Coordinates(c.x, c.y+1)) == TileType.PALACE
-			|| board.getTileType(board.new Coordinates(c.x, c.y-1)) == TileType.PALACE
-			|| board.getTileType(board.new Coordinates(c.x-1, c.y)) == TileType.PALACE
-			|| board.getTileType(board.new Coordinates(c.x+1, c.y)) == TileType.PALACE)
-			{
-				return true;
-			}
 
 			c = queuePath.remove();
+			if (board.getTileType(c) == TileType.PALACE)
+				return true;
+			
+			
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
 					&& !visited.contains(board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));

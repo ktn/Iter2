@@ -1,8 +1,11 @@
-public final class CommandStack{
-	Stack<Command> commands;
+import java.util.Stack;
+
+public final class CommandStack
+{
+	static Stack<Command> commands;
 
 	private CommandStack(){
-		commands = new Stack<Tiles>();
+		commands = new Stack<Command>();
 	}
 
 
