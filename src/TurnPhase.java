@@ -53,6 +53,7 @@ public class TurnPhase {
 	}
 
 	private void normalModeInterpreter(KeyEvent k) {
+		boolean query = false;
 		int key = k.getKeyCode();
 		switch (key) {
 		case KeyEvent.VK_NUMPAD8:
@@ -93,7 +94,7 @@ public class TurnPhase {
 		case KeyEvent.VK_5:
 			break;
 		case KeyEvent.VK_6:
-			boolean query = ViewFacade.promptPlayer("Do you want to enter planning mode?");
+			query = ViewFacade.promptPlayer("Do you want to enter planning mode?");
 			if(query) {
 				planning = new PhasePlanning(player, board, sanitation);
 				currentMode = GameMode.PLANNINGMODE;
@@ -101,14 +102,20 @@ public class TurnPhase {
 			}
 			break;
 		case KeyEvent.VK_7:
-			// replay = new PhaseReplay(player, board, sanitation);
-			currentMode = GameMode.REPLAYMODE;
-			normal = null;
+			query = ViewFacade.promptPlayer("Do you want to enter replay mode?");
+			if(query) {
+				// replay = new PhaseReplay(player, board, sanitation);
+				currentMode = GameMode.REPLAYMODE;
+				normal = null;
+			}
 			break;
 		case KeyEvent.VK_8:
-			// festival = new PhaseFestival(player, board, sanitation);
-			currentMode = GameMode.FESTIVALMODE;
-			normal = null;
+			query = ViewFacade.promptPlayer("Do you want to start a palace festival?");
+			if(query) {
+				// festival = new PhaseFestival(player, board, sanitation);
+				currentMode = GameMode.FESTIVALMODE;
+				normal = null;
+			}
 			break;
 		case KeyEvent.VK_ENTER:
 			normal.placeBlock();
@@ -137,6 +144,7 @@ public class TurnPhase {
 	}
 
 	private void planningModeInterpreter(KeyEvent k) {
+		boolean query = false;
 		int key = k.getKeyCode();
 		switch (key) {
 		case KeyEvent.VK_NUMPAD8:
@@ -167,9 +175,12 @@ public class TurnPhase {
 			planning.palaceMode();
 			break;
 		case KeyEvent.VK_5:
-			normal = new PhaseActive(player, board, sanitation);
-			currentMode = GameMode.NORMALMODE;
-			planning = null;
+			query = ViewFacade.promptPlayer("Do you want to enter action mode?");
+			if(query) {
+				normal = new PhaseActive(player, board, sanitation);
+				currentMode = GameMode.NORMALMODE;
+				planning = null;
+			}
 			break;
 		case KeyEvent.VK_6:
 			//planning = new PhasePlanning(player, board, sanitation);

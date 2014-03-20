@@ -137,8 +137,9 @@ public class PhaseActive {
 		}
 		else {
 			Board.Coordinates o = board.getCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
-			selectedDeveloper[0] = board.nextDeveloper(o).x;
-			selectedDeveloper[1] = board.nextDeveloper(o).y;
+			Board.Coordinates n = board.nextDeveloper(o);
+			selectedDeveloper[0] = n.x;
+			selectedDeveloper[1] = n.y;
 		}
 		selectedPos = Arrays.copyOf(selectedDeveloper, 2);
 	}
