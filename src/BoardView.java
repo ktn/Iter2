@@ -22,9 +22,10 @@ public class BoardView extends JPanel{
 	Image dirt;
 	Image rice;
 	Image village;
+	Image palace;
 	
-	int tileWidth=32;
-	int tileHeight=32;
+	public static final int TILE_WIDTH=48;
+	public static final int TILE_HEIGHT=48;
 	
 	BufferedImage cachedCanvas;
 	Graphics2D cachedGraphics;
@@ -36,8 +37,9 @@ public class BoardView extends JPanel{
 		createDefaultTexture();
 		dirt=getTexture("images/dirt.png");
 		rice=getTexture("images/rice.png");
-		rice=getTexture("images/village.png");
-		cachedCanvas=new BufferedImage(dirt.getWidth(this)*boardWidth, dirt.getHeight(this)*boardHeight, BufferedImage.TYPE_INT_RGB);
+		village=getTexture("images/village.png");
+		palace=getTexture("images/palace.png");
+		cachedCanvas=new BufferedImage(TILE_WIDTH*boardWidth, TILE_HEIGHT*boardHeight, BufferedImage.TYPE_INT_RGB);
 		cachedGraphics=cachedCanvas.createGraphics();
 	}
 	
@@ -52,10 +54,10 @@ public class BoardView extends JPanel{
 	}
 	
 	private void createDefaultTexture(){
-		defaultTexture=new BufferedImage(tileWidth, tileHeight, BufferedImage.TYPE_INT_RGB);
+		defaultTexture=new BufferedImage(TILE_WIDTH, TILE_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		Graphics2D defaultGraphics = defaultTexture.createGraphics();
 		defaultGraphics.setColor(Color.black);
-		defaultGraphics.drawRect(0, 0, tileWidth, tileHeight);
+		defaultGraphics.drawRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
 	}
 	
 	@Override
@@ -63,12 +65,11 @@ public class BoardView extends JPanel{
 	 * Obeys LOD*/
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(cachedCanvas, 0, 0, this);
+		g.drawImage(cachedCanvas, 0, 0,this.getWidth(),this.getHeight(), this);
 	}
 	
 	
 	public void renderBoard(Board b){
-		System.out.println("rendering board");
 		renderFullBoard(b.head, b);
 	}
 	
@@ -78,7 +79,6 @@ public class BoardView extends JPanel{
 	}
 	
 	public void renderFullBoardRecursive(Graphics g, AbstractList<Space> finished, Space origin, int x, int y, Board b){
-		System.out.println("render tile");
 		renderSpace(g, origin, x, y);
 		Board.Coordinates coord = b.new Coordinates(x, y);
 		Developer dev = b.getDeveloper(coord);
@@ -137,28 +137,42 @@ public class BoardView extends JPanel{
 		renderSpace(cachedGraphics,s, x, y);
 	}
 	
-	protected void renderSpace(Graphics g, Tile t, int height, int x, int y, boolean[] directions){
+	protected void renderSpace(Graphics g, Tile t, int height, int x, int y){
 		Image tileFace=dirt;
 		if (height>0&&t.getType()==TileType.RICE){
 			tileFace=rice;
 		}
 		
 		g.setColor(Color.white);
-		g.drawImage(tileFace, x*tileWidth, y*tileHeight, this);
-		renderText(g, ""+height, x*tileWidth+12, y*tileHeight+12);
+		g.drawImage(tileFace, x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH,TILE_HEIGHT, this);
+		
+		int givenHeight=height;
+		
+		if (height>0&&t.getType()==TileType.PALACE){
+			System.out.println("BoarddView: palace");
+			givenHeight=((PalaceTile)t).getLevel();
+			renderPalaceRecursive(g, givenHeight, x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
+			if (!((PalaceTile)t).isHeadsUp()){
+				g.setColor(new Color(0,0,0,0.5f));
+				g.fillRect(x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
+			}
+			
+		}
+
+		renderText(g, ""+givenHeight, x*TILE_WIDTH+12, y*TILE_HEIGHT+12);
+	}
+	
+	public void renderPalaceRecursive(Graphics g, int layers, double x, double y, double width, double height){
+		if (layers>0){
+			g.drawImage(palace, (int)x, (int)y, (int)width, (int)height, this);
+			renderPalaceRecursive(g,layers-1,x+width*0.1,y,width*0.8,height*0.7);
+		}
 	}
 	
 	/**Renders a space at the given x & y board coordinates.
 	 * Obeys LOD*/
 	protected void renderSpace(Graphics g, Space s,int x, int y){
-		Image tileFace=dirt;
-		if (s.getHeight()>0&&s.getTile().getType()==TileType.RICE){
-			tileFace=rice;
-		}
-		
-		g.setColor(Color.white);
-		g.drawImage(tileFace, x*tileWidth, y*tileHeight, this);
-		renderText(g, ""+s.getHeight(), x*tileWidth+12, y*tileHeight+12);
+		renderSpace(g, s.getTile(), s.getHeight(), x, y);
 	}
 	
 	/**calls g.drawstring, but gives a small black outline
@@ -179,9 +193,9 @@ public class BoardView extends JPanel{
 		Color transparentColor=new Color(c.getRed(),c.getGreen(),c.getBlue(),63);
 		for (int i=0;i<x.size();i++){
 			cachedGraphics.setColor(transparentColor);
-			cachedGraphics.fillRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
+			cachedGraphics.fillRect(x.get(i)*TILE_WIDTH, y.get(i)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 			cachedGraphics.setColor(c);
-			cachedGraphics.drawRect(x.get(i)*tileWidth, y.get(i)*tileHeight, tileWidth, tileHeight);
+			cachedGraphics.drawRect(x.get(i)*TILE_WIDTH, y.get(i)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		}
 	}
 	
@@ -189,13 +203,13 @@ public class BoardView extends JPanel{
 	public void hilightTile(int x, int y, Color c){
 		Color transparentColor=new Color(c.getRed(),c.getGreen(),c.getBlue(),63);
 		cachedGraphics.setColor(transparentColor);
-		cachedGraphics.fillRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+		cachedGraphics.fillRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 		cachedGraphics.setColor(c);
-		cachedGraphics.drawRect(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+		cachedGraphics.drawRect(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 	}
 
 	public void renderDeveloper(Developer dev, int x, int y){
 		cachedGraphics.setColor(Color.red);
-		cachedGraphics.fillOval(x*tileWidth, y*tileHeight, tileWidth, tileHeight);
+		cachedGraphics.fillOval(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 	}
 }

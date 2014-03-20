@@ -19,7 +19,7 @@ public class ViewTester {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		viewFacadeTester();
+		//viewFacadeTester();
 		boardViewTester();
 	}
 	
@@ -37,10 +37,11 @@ public class ViewTester {
 		TestableBoard b=new TestableBoard();
 		 
 		b.placeDeveloper(b.new Coordinates(3, 4), new Developer(new Player("king dude", "red")));
+		Block block = new OneBlock(new PalaceTile(2));
+		b.placeBlock(b.new Coordinates(5,5), block);
 		BoardView boardView=new BoardView(12,12);
-		
 		JFrame mainFrame=new JFrame("BoardViewTest");
-		mainFrame.setBounds(0, 0, 800, 600);
+		mainFrame.setSize(384, 384);
 		mainFrame.add(boardView);
 		//boardView.renderNetwork(b.getOrigin(), 1, 1);
 		boardView.renderBoard(b);
