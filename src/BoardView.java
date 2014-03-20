@@ -58,6 +58,9 @@ public class BoardView extends JPanel{
 		Graphics2D defaultGraphics = defaultTexture.createGraphics();
 		defaultGraphics.setColor(Color.black);
 		defaultGraphics.drawRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
+		defaultGraphics.setColor(Color.magenta);
+		defaultGraphics.drawRect(0, 0, TILE_WIDTH/2, TILE_HEIGHT/2);
+		defaultGraphics.drawRect(TILE_WIDTH/2, TILE_HEIGHT/2, TILE_WIDTH/2, TILE_HEIGHT/2);
 	}
 	
 	@Override
