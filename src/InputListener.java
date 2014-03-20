@@ -12,6 +12,7 @@ public class InputListener implements KeyListener {
 		theView = new View(names);
 		theView.setFocusable(true);
         theView.requestFocusInWindow();
+        theView.setFocusTraversalKeysEnabled(false);
 		turn = new TurnPhase();
 		theView.addKeyListener(this);
 	}
