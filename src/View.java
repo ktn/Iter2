@@ -9,6 +9,8 @@ public class View extends JFrame {
 	 
 	private static final long serialVersionUID = -2507182043735130183L;
 
+	JPanel boardPanel;
+	
 	/**
 	 * Create the application.
 	 */
@@ -21,6 +23,11 @@ public class View extends JFrame {
         }
         setVisible(true);
 		//TODO:Set KeyListener for this to Controller
+        
+		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
+		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
+		ViewFacade.getBoardView().setSize(new Dimension(minDimension,minDimension));
+		this.repaint();
 	}  
 	
 	private void initialize(ArrayList<String> playerNames) {
@@ -53,8 +60,8 @@ public class View extends JFrame {
 							  BorderLayout.WEST);
 		JPanel boardPanel = new JPanel();
 		boardPanel.setBackground(new Color(112,128,144));
+		boardPanel = new JPanel();
 		boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		ViewFacade.getBoardView().setPreferredSize(new Dimension(500, 400));
 		boardPanel.add(ViewFacade.getBoardView());
 		this.getContentPane().add(boardPanel, BorderLayout.CENTER);
 	}

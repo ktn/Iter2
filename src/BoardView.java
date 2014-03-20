@@ -58,6 +58,9 @@ public class BoardView extends JPanel{
 		Graphics2D defaultGraphics = defaultTexture.createGraphics();
 		defaultGraphics.setColor(Color.black);
 		defaultGraphics.drawRect(0, 0, TILE_WIDTH, TILE_HEIGHT);
+		defaultGraphics.setColor(Color.magenta);
+		defaultGraphics.drawRect(0, 0, TILE_WIDTH/2, TILE_HEIGHT/2);
+		defaultGraphics.drawRect(TILE_WIDTH/2, TILE_HEIGHT/2, TILE_WIDTH/2, TILE_HEIGHT/2);
 	}
 	
 	@Override
@@ -139,6 +142,7 @@ public class BoardView extends JPanel{
 	
 	protected void renderSpace(Graphics g, Tile t, int height, int x, int y){
 		Image tileFace=dirt;
+		
 		if (height>0&&t.getType()==TileType.RICE){
 			tileFace=rice;
 		}
@@ -148,8 +152,23 @@ public class BoardView extends JPanel{
 		
 		int givenHeight=height;
 		
+		if (height>0){
+			g.setColor(Color.black);
+			if (t.getJoined(Grid.TOP)==null){
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y)*TILE_HEIGHT);
+			}
+			if (t.getJoined(Grid.BOTTOM)==null){
+				g.drawLine((x)*TILE_WIDTH, (y+1)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			}
+			if (t.getJoined(Grid.TOP)==null){
+				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			}
+			if (t.getJoined(Grid.TOP)==null){
+				g.drawLine((x+1)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH, (y+1)*TILE_HEIGHT);
+			}
+		}
+		
 		if (height>0&&t.getType()==TileType.PALACE){
-			System.out.println("BoarddView: palace");
 			givenHeight=((PalaceTile)t).getLevel();
 			renderPalaceRecursive(g, givenHeight, x*TILE_WIDTH, y*TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT);
 			if (!((PalaceTile)t).isHeadsUp()){
