@@ -146,10 +146,6 @@ public class BoardFacade {
 	// TRAVERSAL METHODS
 	// =======================================================================================
 
-	public ArrayList<Developer> findHighestDeveloper(Board.Coordinates c) {
-		return traversal.findHighestDev(c);
-	}
-
 	public ArrayList<Developer> findHighestDev(Board.Coordinates c)
 	{
 		return traversal.findHighestDev(c);
