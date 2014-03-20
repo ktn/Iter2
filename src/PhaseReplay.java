@@ -20,7 +20,7 @@ public class PhaseReplay {
 		int numPlayers = temp.length;
 
 		//loop until 4 player turns have been popped off or no commands left
-		while(numPlayers >= 1 || !CommandStack.empty()){
+		loop: while(numPlayers >= 0 && !CommandStack.empty()){
 			Command c = CommandStack.popCommand();
 
 			//someones turn ended so decrement counter
@@ -32,6 +32,7 @@ public class PhaseReplay {
 			//undo command
 			c.undo();
 			replayStack.push(c);
+
 		}
 
 		
