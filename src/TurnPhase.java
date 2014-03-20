@@ -90,12 +90,12 @@ public class TurnPhase {
 			normal = null;
 			break;
 		case KeyEvent.VK_7:
-			replay = new PhaseReplay(player, board, sanitation);
+			//replay = new PhaseReplay(player, board, sanitation);
 			currentMode = GameMode.REPLAYMODE;
 			normal = null;
 			break;
 		case KeyEvent.VK_8:
-			festival = new PhaseFestival(player, board, sanitation);
+			//festival = new PhaseFestival(player, board, sanitation);
 			currentMode = GameMode.FESTIVALMODE;
 			normal = null;
 			break;
@@ -156,7 +156,7 @@ public class TurnPhase {
 			planning.placePalace();
 			break;
 		case KeyEvent.VK_5:
-			normal = new PhaseNormal(player, board, sanitation);
+			normal = new PhaseActive(player, board, sanitation);
 			currentMode = GameMode.NORMALMODE;
 			planning = null;
 			break;
@@ -166,12 +166,12 @@ public class TurnPhase {
 			planning = null;
 			break;
 		case KeyEvent.VK_7:
-			replay = new PhaseReplay(player, board, sanitation);
+			//replay = new PhaseReplay(player, board, sanitation);
 			currentMode = GameMode.REPLAYMODE;
 			planning = null;
 			break;
 		case KeyEvent.VK_8:
-			festival = new PhaseFestival(player, board, sanitation);
+			//festival = new PhaseFestival(player, board, sanitation);
 			currentMode = GameMode.FESTIVALMODE;
 			planning = null;
 			break;

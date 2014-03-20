@@ -16,7 +16,7 @@ public class PhaseFestival {
 	}
 
 	public void currentPlayerPlaceBid(String[] cardSymbol) {
-		playerFacade.play(cardSymbol);
+		//playerFacade.play(cardSymbol);
 		playerFacade.nextPFPlayer();
 	}
 
@@ -27,7 +27,7 @@ public class PhaseFestival {
     
 	public boolean endFestival() {
 		//If this is true, the festival is over
-		if(playerFacade.checkEnd());
+		if(playerFacade.checkEnd())
 		{
 			return true;
 		}

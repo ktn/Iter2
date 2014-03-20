@@ -197,21 +197,26 @@ public class PhaseActive {
 				Command com;
 				if(selectedBlock instanceof ThreeBlock) {
 					com = new PlaceThreeBlockCommand(board, player, c);
+					com.execute();
 				}
 				else if(selectedBlock instanceof TwoBlock) {
 					com = new PlaceTwoBlockCommand(board, player, c);
+					com.execute();
 				}
 				else if(selectedBlock.getType() == TileType.RICE) {
 					com = new PlaceRiceTileCommand(board, player, c);
+					com.execute();
 				}
 				else if(selectedBlock.getType() == TileType.VILLAGE) {
 					com = new PlaceVillageTileCommand(board, player, c);
+					com.execute();
 				}
 				else if(selectedBlock.getType() == TileType.IRRIGATION) {
 					com = new PlaceIrrigationTileCommand(board, player, c);
+					com.execute();
 				}
-				com.rotate(rotationCount);
-				com.execute();
+				//com.rotate(rotationCount);
+				//com.execute();
 				blockMode();
 			}
 		}
