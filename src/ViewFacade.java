@@ -73,12 +73,23 @@ public final class ViewFacade {
 												 numPuppetMask);								
 	}
 	
-	public static void switchActivePlayer() {
+	public static void switchForwardActivePlayer() {
 		String temp = otherPlayers.get(otherPlayers.size() - 1);
 		for (int i = otherPlayers.size() - 1; i > 0; i--) {
 			otherPlayers.set(i, otherPlayers.get(i-1));
 		}
 		otherPlayers.set(0,currentPlayer);
+		currentPlayer = temp;
+		otherPlayersView = new OtherPlayersView(otherPlayers);
+		currentPlayerView = new CurrentPlayerView(currentPlayer);
+	}
+	
+	public static void switchBackwardActivePlayer() {
+		String temp = otherPlayers.get(0);
+		for (int i = 0; i < otherPlayers.size() - 1; i++) {
+			otherPlayers.set(i, otherPlayers.get(i+1));
+		}
+		otherPlayers.set(otherPlayers.size() - 1,currentPlayer);
 		currentPlayer = temp;
 		otherPlayersView = new OtherPlayersView(otherPlayers);
 		currentPlayerView = new CurrentPlayerView(currentPlayer);
