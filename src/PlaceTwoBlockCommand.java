@@ -25,12 +25,11 @@ public class PlaceTwoBlockCommand implements Command {
 		player.returnTwoBlock();
 	}
 
-	public void save() {
-
-	}
-
 	public void load() {
 
+	}	
+	public void save(){
+		CommandStack.storeCommand(this);
 	}
 
 	public String toString() {

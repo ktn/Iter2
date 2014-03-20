@@ -22,12 +22,13 @@ public class PlaceDeveloperCommand implements Command {
 		player.removeDeveloper();
 	}
 
-	public void save() {
 
-	}
 
 	public void load() {
+	}
 
+	public void save(){
+		CommandStack.storeCommand(this);
 	}
 
 	public String toString() {

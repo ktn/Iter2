@@ -26,12 +26,11 @@ public class PlaceThreeBlockCommand implements Command {
 		player.returnThreeBlock();
 	}
 
-	public void save() {
-
-	}
-
 	public void load() {
 
+	}	
+	public void save(){
+		CommandStack.storeCommand(this);
 	}
 
 	public String toString() {

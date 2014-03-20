@@ -24,12 +24,11 @@ public class MoveDeveloperCommand implements Command {
 		board.moveDeveloper(oldCoords, dev);
 	}
 
-	public void save() {
-
-	}
-
 	public void load() {
 
+	}	
+	public void save(){
+		CommandStack.storeCommand(this);
 	}
 
 	public String toString() {

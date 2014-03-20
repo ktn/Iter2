@@ -19,12 +19,13 @@ public class UseActionTokenCommand implements Command {
 		player.returnActionToken();
 	}
 
-	public void save() {
 
+	public void save(){
+		CommandStack.storeCommand(this);
 	}
 
-	public void load() {
-
+	public void load(){
+		
 	}
 
 	public String toString() {

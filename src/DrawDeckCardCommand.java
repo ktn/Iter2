@@ -24,13 +24,14 @@ public class DrawDeckCardCommand implements Command {
 
 	}
 
-	public void save() {
-
-	}
-
 	public void load() {
 
+	}	
+	public void save(){
+		CommandStack.storeCommand(this);
 	}
+
+	
 
 	public String toString() {
 		StringBuilder result = new StringBuilder(100);
