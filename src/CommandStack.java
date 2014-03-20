@@ -27,11 +27,16 @@ public final class CommandStack {
 		while (in.hasNextLine()) {
 			String s = in.nextLine();
 			String[] sa = s.split(" ");
-			
+
 			Command c;
 			switch (sa[0]) {
 			case "PlaceIrrigationTileCommand":
 				c = new PlaceIrrigationTileCommand(b, p, b.getCoordinates(
+						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])));
+				c.execute();
+				break;
+			case "PlaceVillageTileCommand":
+				c = new PlaceVillageTileCommand(b, p, b.getCoordinates(
 						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])));
 				c.execute();
 				break;
