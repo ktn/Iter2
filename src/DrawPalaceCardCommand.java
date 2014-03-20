@@ -3,14 +3,14 @@ public class DrawPalaceCardCommand implements Command{
 	private PlayerFacade player;
 	private PalaceCard card;
 
-	DrawPalaceCardCommand(BoardFacade b, PlayerFacade p)
+	DrawPalaceCardCommand(BoardFacade b, PlayerFacade p){
 		this.board = b;
 		this.player = p;
 		
 	}
 
 	public void	execute(){
-		card = player.getFestivalCard;
+		card = player.getFestivalCard();
 		player.addCard(card);
 		this.save();
 
@@ -24,5 +24,9 @@ public class DrawPalaceCardCommand implements Command{
 
 	public void save(){
 
+	}
+
+	public void load(){
+		
 	}
 }

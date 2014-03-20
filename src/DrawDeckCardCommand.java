@@ -1,9 +1,9 @@
-public class DrawPalaceCardCommand implements Command{
+public class DrawDeckCardCommand implements Command{
 	private BoardFacade board;
 	private PlayerFacade player;
 	private PalaceCard card;
 
-	DrawPalaceCardCommand(BoardFacade b, PlayerFacade p)
+	DrawDeckCardCommand(BoardFacade b, PlayerFacade p){
 		this.board = b;
 		this.player = p;
 		
@@ -24,5 +24,9 @@ public class DrawPalaceCardCommand implements Command{
 
 	public void save(){
 
+	}
+
+	public void load(){
+		
 	}
 }

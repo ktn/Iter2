@@ -23,11 +23,15 @@ public class TurnPhase {
 	PhasePlanning planning;
 	PhaseFestival festival;
 	
-	ModelFacade model;
+	PlayerFacade player;
+	BoardFacade board;
+	Sanitation sanitation;
 	
-	public TurnPhase(ModelFacade model) {
-		this.model = model;
-		this.normal = new PhaseActive(model);
+	public TurnPhase(PlayerFacade player, BoardFacade board, Sanitation sanitation) {
+		this.player = player;
+		this.board = board;
+		this.sanitation = sanitation;
+		this.normal = new PhaseActive(player, board, sanitation);
 		this.replay = new PhaseReplay(model);
 		this.planning = new PhasePlanning(model);
 		this.festival = new PhaseFestival(model);

@@ -10,8 +10,8 @@ public class PlaceDeveloperCommand implements Command{
 	}
 
 	public void	execute(){
-		Developer dev = new Developer(p.getCurrentPlayer());
-		board.placeDeveloper(coords, dev);
+		Developer dev = new Developer(player.getCurrentPlayer());
+		board.placeDeveloper(coord, dev);
 		player.placeDeveloper();
 
 		this.save();
@@ -19,11 +19,15 @@ public class PlaceDeveloperCommand implements Command{
 	}
 
 	public void undo(){
-		board.removeDeveloper(coords);
+		board.removeDeveloper(coord);
 		player.removeDeveloper();
 	}
 
 	public void save(){
 
+	}
+
+	public void load(){
+		
 	}
 }

@@ -4,7 +4,7 @@ public class MoveDeveloperCommand implements Command{
 	private Board.Coordinates oldCoords;
 	private Board.Coordinates newCoords;
 
-	MoveDeveloperCommand(BoardFacade b, PlayerFacade p, Board.Coordinates olds, Board.Coordinates news)
+	MoveDeveloperCommand(BoardFacade b, PlayerFacade p, Board.Coordinates olds, Board.Coordinates news){
 		this.board = b;
 		this.player = p;
 		this.oldCoords = olds;
@@ -20,10 +20,15 @@ public class MoveDeveloperCommand implements Command{
 	}
 
 	public void undo(){
+		Developer dev = board.getDeveloper(newCoords);
 		board.moveDeveloper(oldCoords, dev);
 	}
 
 	public void save(){
 
+	}
+
+	public void load(){
+		
 	}
 }
