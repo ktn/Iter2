@@ -85,6 +85,7 @@ public class Board {
 
 	}
 
+	@SuppressWarnings("null")
 	private Coordinates get(Space s) {
 		Coordinates temp = new Coordinates(0,0);
 
@@ -376,7 +377,7 @@ public class Board {
 		return valid;
 	}
 
-	public void placeDeveloper(Coordinates c, Developer d) {
+	public void placeDeveloper(Coordinates c, Developer d) throws IllegalArgumentException {
 		Space temp = this.get(c);
 
 		// check for placing on the borders
@@ -435,9 +436,11 @@ public class Board {
 		Developer old = null;
 
 		loop: for (Developer d : devs) {
-			if (next && d.getPlayer() == old.getPlayer()) {
+			if (c.equals(this.get(d.getSpace()))) {
+				devs.remove(d);
+				devs.add(d);
 				temp = this.get(d.getSpace());
-				break loop;
+				return this.getDeveloper(d.getPlayer());
 			}
 			if (c.equals(this.get(d.getSpace()))) {
 				next = true;
@@ -445,13 +448,7 @@ public class Board {
 				temp = this.get(d.getSpace());
 			}
 		}
-		if (next && c.equals(this.get(old.getSpace()))) {
-			// then the given developer is last in the list
-			for (Developer d : devs) {
-				if (old.getPlayer() == d.getPlayer())
-					temp = this.get(d.getSpace());
-			}
-		}
+		
 
 		return temp;
 
@@ -484,8 +481,8 @@ public class Board {
 		}
 		return result.toString();
 	}
-	
-	public Space getHead(){
+
+	public Space getHead() {
 		return head;
 	}
 

@@ -95,6 +95,15 @@ public class Deck {
 		return result.toString();
 	}
 
+
+	public static String showCards() {
+		StringBuilder result = new StringBuilder(100);
+		for (PalaceCard c : cardStack) {
+			result.append(c + ",");
+		}
+		return result.toString();
+	}
+	
 	public static void save() {
 		PrintWriter writer = null;
 		try {
@@ -102,6 +111,7 @@ public class Deck {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		//writer.println(showCards());
 		writer.println(printCards());
 		writer.close();
 	}

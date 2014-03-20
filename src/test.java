@@ -10,12 +10,19 @@ public class test {
 			IllegalBlockPlacementException {
 
 		String names[] = { "Lucas", "Xy", "Trouble" };
+		Deck d = new Deck();
+		d.save();
+
+		Deck c = new Deck(CommandStack.loadDeck());
+		System.out.print(c);
 
 		PlayerFacade p = new PlayerFacade(names);
 		BoardFacade b = new BoardFacade();
+		p.changeTurn();
 
-		BoardFacade b2 = new BoardFacade();
-		PlayerFacade p2 = new PlayerFacade(names);
+		System.out.print(p.getCurrentPlayer());
+		//p.revertTurn();
+		System.out.print(p.getCurrentPlayer());
 
 		Command a;
 		a = new PlaceIrrigationTileCommand(b, p, b.getCoordinates(1, 0));
@@ -39,8 +46,13 @@ public class test {
 		a = new PlaceDeveloperCommand(b, p, b.getCoordinates(2, 3));
 		a.execute();
 
+		a = new ChangeTurnCommand(p);
+		a.execute();
+
+		a = new DrawDeckCardCommand(b, p);
+		a.execute();
+
 		CommandStack.save("test");
 
 	}
-
 }

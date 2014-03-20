@@ -121,8 +121,7 @@ public class Player {
 		actionTokens--;
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		actionTokens++;
 	}
 
@@ -172,9 +171,9 @@ public class Player {
 		return cards;
 	}
 
-	public void removeCard(PalaceCard c){
-		for(PalaceCard card : cards){
-			if(c == card){
+	public void removeCard(PalaceCard c) {
+		for (PalaceCard card : cards) {
+			if (c == card) {
 				cards.remove(card);
 			}
 		}
@@ -205,16 +204,14 @@ public class Player {
 		return ret;
 	}
 
-	private String showCards() {
+	public String showCards() {
 		StringBuilder result = new StringBuilder(100);
 		int i = 1;
-		result.append("[");
 		for (PalaceCard c : cards) {
 
 			result.append(i++ + ". ");
 			result.append(c.getSymbol() + " ");
 		}
-		result.append("]");
 
 		return result.toString();
 	}
@@ -223,12 +220,9 @@ public class Player {
 	{
 		String[] t = new String[2];
 		t[0] = s[0];
-		if(s.length == 1)
-		{
+		if (s.length == 1) {
 			t[1] = " ";
-		}
-		else
-		{
+		} else {
 			t[1] = s[1];
 		}
 		boolean ret = false;
@@ -257,12 +251,9 @@ public class Player {
 		PalaceCard ret = null;
 		String[] t = new String[2];
 		t[0] = s[0];
-		if(s.length == 1)
-		{
+		if (s.length == 1) {
 			t[1] = " ";
-		}
-		else
-		{
+		} else {
 			t[1] = s[1];
 		}
 		for (int i = 0; i < cards.size(); i++) {
@@ -305,16 +296,12 @@ public class Player {
 		return result.toString();
 	}
 
-	public List<PalaceCard> getPlayablePalaceCards(String[] s)
-	{
+	public List<PalaceCard> getPlayablePalaceCards(String[] s) {
 		String[] t = new String[2];
 		t[0] = s[0];
-		if(s.length == 1)
-		{
+		if (s.length == 1) {
 			t[1] = " ";
-		}
-		else
-		{
+		} else {
 			t[1] = s[1];
 		}
 		ArrayList<PalaceCard> playableCards = new ArrayList<PalaceCard>();
@@ -328,15 +315,13 @@ public class Player {
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
 				if (current.getFirstSymbol().equals(t[0])
-						|| current.getSecondSymbol().equals(t[0])
-					) {
+						|| current.getSecondSymbol().equals(t[0])) {
 					playableCards.add(current);
 				}
-				if(t.length > 1) {
-					if(current.getFirstSymbol().equals(t[1])
-						|| current.getSecondSymbol().equals(t[1])
-					) 
-					playableCards.add(current);
+				if (t.length > 1) {
+					if (current.getFirstSymbol().equals(t[1])
+							|| current.getSecondSymbol().equals(t[1]))
+						playableCards.add(current);
 				}
 			}
 

@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Communal {
 	ArrayList<ThreeBlock> threes;
 	ArrayList<OneBlock> irrigations;
@@ -69,10 +68,9 @@ public class Communal {
 	}
 
 	public void putBackPalaceTile(Block b) {
-		if (b.getType() == TileType.PALACE)
-		{
+		if (b.getType() == TileType.PALACE) {
 			int level = (((PalaceTile) b.getTile()).getLevel());
-			palaceTiles.set(level, palaceTiles.get(level) +1 );
+			palaceTiles.set(level, palaceTiles.get(level) + 1);
 		}
 	}
 

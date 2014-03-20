@@ -1,6 +1,6 @@
 abstract class PalaceCard {
 	protected enum Symbol {
-		MASK, DRUM, PUPPET
+		MASK, DRUM, PUPPET, NULL
 	}
 
 	public String getSymbol() {

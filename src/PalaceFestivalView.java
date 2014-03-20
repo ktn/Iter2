@@ -151,27 +151,27 @@ public class PalaceFestivalView extends JFrame {
 		switch (cardType) {
 			case "puppet": 
 				img = ImageIO.read(new File("../images/puppet.png"));
-				festivalCard = new JLabel(new ImageIcon(img));
+				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "drum": 
 				img = ImageIO.read(new File("../images/drum.png"));
-				festivalCard = new JLabel(new ImageIcon(img));
+				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "mask": 
 				img = ImageIO.read(new File("../images/mask.png"));
-				festivalCard = new JLabel(new ImageIcon(img));
+				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "puppetmask": 
 				img = ImageIO.read(new File("../images/puppetmaskcard.png"));
-				festivalCard = new JLabel(new ImageIcon(img));
+				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "maskdrum": 
 				img = ImageIO.read(new File("../images/drummaskcard.png"));
-				festivalCard = new JLabel(new ImageIcon(img));
+				festivalCard.setIcon(new ImageIcon(img));
 				break;
 			case "drumpuppet": 
 				img = ImageIO.read(new File("../images/drumpuppet.png"));
-				festivalCard = new JLabel(new ImageIcon(img));
+				festivalCard.setIcon(new ImageIcon(img));
 				break;
 		}
 	}
@@ -191,12 +191,12 @@ public class PalaceFestivalView extends JFrame {
 	}
 	
 	public void displayPalaceCard(int numMask, int numPuppet, int numDrum, int numMaskDrum, int numDrumPuppet, int numPuppetMask) {
-		numDrumCards = new JLabel(Integer.toString(numDrum), JLabel.CENTER);
-		numPuppetCards = new JLabel(Integer.toString(numPuppet), JLabel.CENTER);
-		numMaskCards = new JLabel(Integer.toString(numMask), JLabel.CENTER);
-		numMaskDrumCards = new JLabel(Integer.toString(numMaskDrum), JLabel.CENTER);
-		numDrumPuppetCards = new JLabel(Integer.toString(numDrumPuppet), JLabel.CENTER);
-		numPuppetMaskCards = new JLabel(Integer.toString(numPuppetMask), JLabel.CENTER);
+		numDrumCards.setText(Integer.toString(numDrum));
+		numPuppetCards.setText(Integer.toString(numPuppet));
+		numMaskCards.setText(Integer.toString(numMask));
+		numMaskDrumCards.setText(Integer.toString(numMaskDrum));
+		numDrumPuppetCards.setText(Integer.toString(numDrumPuppet));
+		numPuppetMaskCards.setText(Integer.toString(numPuppetMask));
 	}
 	
 	public boolean promptSharePoints(String name) {
