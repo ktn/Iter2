@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 
 /*
@@ -11,7 +12,7 @@ import java.util.*;
 public class Player {
 	private String name;
 	private int score;
-	private String color; // this may end up being something different, just a
+	private Color color; // this may end up being something different, just a
 							// placeholder for now
 	private int develsOffBoard; // The number of developers not placed on the
 								// board
@@ -26,7 +27,7 @@ public class Player {
 	public Player() {
 		name = "Joe Shmoe";
 		score = 0;
-		color = "black";
+		color = Color.black;
 		develsOffBoard = 12;
 		develsOnBoard = 0;
 		actionTokens = 3;
@@ -40,7 +41,7 @@ public class Player {
 	public Player(String n) {
 		name = n;
 		score = 0;
-		color = "black";
+		color = Color.black;
 		develsOffBoard = 12;
 		develsOnBoard = 0;
 		actionTokens = 3;
@@ -50,7 +51,7 @@ public class Player {
 		cards = new ArrayList<PalaceCard>();
 	}
 
-	public Player(String n, String c) {
+	public Player(String n, Color c) {
 		name = n;
 		score = 0;
 		color = c;
@@ -63,7 +64,7 @@ public class Player {
 		cards = new ArrayList<PalaceCard>();
 	}
 
-	public void setColor(String c) {
+	public void setColor(Color c) {
 		color = c;
 	}
 
@@ -76,7 +77,7 @@ public class Player {
 		return score;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
@@ -120,8 +121,7 @@ public class Player {
 		actionTokens--;
 	}
 
-	public void returnActionToken()
-	{
+	public void returnActionToken() {
 		actionTokens++;
 	}
 
@@ -171,9 +171,9 @@ public class Player {
 		return cards;
 	}
 
-	public void removeCard(PalaceCard c){
-		for(PalaceCard card : cards){
-			if(c == card){
+	public void removeCard(PalaceCard c) {
+		for (PalaceCard card : cards) {
+			if (c == card) {
 				cards.remove(card);
 			}
 		}
@@ -204,16 +204,14 @@ public class Player {
 		return ret;
 	}
 
-	private String showCards() {
+	public String showCards() {
 		StringBuilder result = new StringBuilder(100);
 		int i = 1;
-		result.append("[");
 		for (PalaceCard c : cards) {
 
 			result.append(i++ + ". ");
 			result.append(c.getSymbol() + " ");
 		}
-		result.append("]");
 
 		return result.toString();
 	}
@@ -222,12 +220,9 @@ public class Player {
 	{
 		String[] t = new String[2];
 		t[0] = s[0];
-		if(s.length == 1)
-		{
+		if (s.length == 1) {
 			t[1] = " ";
-		}
-		else
-		{
+		} else {
 			t[1] = s[1];
 		}
 		boolean ret = false;
@@ -256,12 +251,9 @@ public class Player {
 		PalaceCard ret = null;
 		String[] t = new String[2];
 		t[0] = s[0];
-		if(s.length == 1)
-		{
+		if (s.length == 1) {
 			t[1] = " ";
-		}
-		else
-		{
+		} else {
 			t[1] = s[1];
 		}
 		for (int i = 0; i < cards.size(); i++) {
@@ -304,16 +296,12 @@ public class Player {
 		return result.toString();
 	}
 
-	public List<PalaceCard> getPlayablePalaceCards(String[] s)
-	{
+	public List<PalaceCard> getPlayablePalaceCards(String[] s) {
 		String[] t = new String[2];
 		t[0] = s[0];
-		if(s.length == 1)
-		{
+		if (s.length == 1) {
 			t[1] = " ";
-		}
-		else
-		{
+		} else {
 			t[1] = s[1];
 		}
 		ArrayList<PalaceCard> playableCards = new ArrayList<PalaceCard>();
@@ -327,15 +315,13 @@ public class Player {
 			} else if (cards.get(i) instanceof TwoPointPalaceCard) {
 				TwoPointPalaceCard current = (TwoPointPalaceCard) cards.get(i);
 				if (current.getFirstSymbol().equals(t[0])
-						|| current.getSecondSymbol().equals(t[0])
-					) {
+						|| current.getSecondSymbol().equals(t[0])) {
 					playableCards.add(current);
 				}
-				if(t.length > 1) {
-					if(current.getFirstSymbol().equals(t[1])
-						|| current.getSecondSymbol().equals(t[1])
-					) 
-					playableCards.add(current);
+				if (t.length > 1) {
+					if (current.getFirstSymbol().equals(t[1])
+							|| current.getSecondSymbol().equals(t[1]))
+						playableCards.add(current);
 				}
 			}
 

@@ -85,8 +85,9 @@ public class Board {
 
 	}
 
+	@SuppressWarnings("null")
 	private Coordinates get(Space s) {
-		Coordinates temp = null;
+		Coordinates temp = new Coordinates(0,0);
 
 		for (int x = 0; x < xDim; x++) {
 			for (int y = 0; y < yDim; y++) {
@@ -454,19 +455,27 @@ public class Board {
 		String NEW_LINE = System.getProperty("line.separator");
 		for (int i = 0; i < yDim; i++) {
 			for (int j = 0; j < xDim; j++) {
-				if (this.getTileType(new Coordinates(j, i)) == null) {
-					result.append("N ");
+				Coordinates c = new Coordinates(j, i);
+				if (this.getTileType(c) == null) {
+					result.append("N");
 				} else {
-					result.append(this.getTileType(new Coordinates(j, i))
-							+ "\t");
+					result.append(this.getTileType(c));
 				}
+				if(getTileType(c) == TileType.PALACE)
+					result.append(((PalaceTile) getTile(c)).getLevel());
+					
+				if(getTileType(c) != TileType.IRRIGATION)
+					result.append("\t");
+				if(getDeveloper(c) != null)
+					result.append("D");
+				result.append("\t");
 			}
 			result.append(NEW_LINE);
 		}
 		return result.toString();
 	}
-	
-	public Space getHead(){
+
+	public Space getHead() {
 		return head;
 	}
 

@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.*;
 
 /*
@@ -35,6 +36,11 @@ public class PlayerFacade {
 	// change player turn
 	public void changeTurn() {
 		playerTurn.changeTurn();
+		currentPlayer = playerTurn.getCurrentPlayer();
+	}
+
+	public void revertTurn() {
+		playerTurn.revertTurn();
 		currentPlayer = playerTurn.getCurrentPlayer();
 	}
 
@@ -149,12 +155,12 @@ public class PlayerFacade {
 	}
 
 	// changing colors
-	public void currentPlayerColor(String c) {
+	public void currentPlayerColor(Color c) {
 		currentPlayer.setColor(c);
 	}
 
 	// assumes it will always receive a valid input
-	public void setPlayerColor(String s, int p) {
+	public void setPlayerColor(Color s, int p) {
 		playerTurn.getPlayer(p).setColor(s);
 	}
 
@@ -198,7 +204,8 @@ public class PlayerFacade {
 
 	public void playerUsePC(int p, String[] t) {
 		PalaceCard palaceCard = playerTurn.getPFPlayer().useCardWith(t);
-		//System.out.println("Current card about to be played: " + palaceCard.toString());
+		// System.out.println("Current card about to be played: " +
+		// palaceCard.toString());
 		deck.discardCard(palaceCard);
 		playerTurn.giveFestivalPoints(p, t);
 	}
@@ -246,11 +253,10 @@ public class PlayerFacade {
 	public ArrayList<PalaceCard> getCurrentPlayerCards() {
 		return getCardsForPlayer(playerTurn.getPFPlayer());
 	}
-	
-	public boolean playCard(String[] t)
-	{
-		if(playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t) && playerCanPlayCard(t))
-		{
+
+	public boolean playCard(String[] t) {
+		if (playerHasPC(getPlayerInt(playerTurn.getPFPlayer()), t)
+				&& playerCanPlayCard(t)) {
 
 			playerUsePC(getPlayerInt(playerTurn.getPFPlayer()), t);
 			playerTurn.giveFestivalPoints(playerTurn.getPFPlayer(), t);
@@ -260,14 +266,11 @@ public class PlayerFacade {
 		}
 	}
 
-
-	public boolean playerCanPlayCard(String[] t)
-	{
+	public boolean playerCanPlayCard(String[] t) {
 		return playerTurn.playerCanPlayCard(t);
 	}
-	
-	public PalaceCard getFestivalCard()
-	{
+
+	public PalaceCard getFestivalCard() {
 
 		return playerTurn.getFestivalCard();
 	}
@@ -284,13 +287,11 @@ public class PlayerFacade {
 		playerTurn.freezeCurrentPlayer();
 	}
 
-	public void unfreezePlayer()
-	{
+	public void unfreezePlayer() {
 		playerTurn.unfreezeCurrentPlayer();
 	}
-	
-	public void nextPFPlayer()
-	{
+
+	public void nextPFPlayer() {
 		playerTurn.nextPFPlayer();
 	}
 
@@ -302,14 +303,15 @@ public class PlayerFacade {
 		return playerTurn.getVictors();
 	}
 
-
-	public Player[] getPlayers()
-	{
+	public Player[] getPlayers() {
 		return playerTurn.getPlayers();
 	}
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> master
 	public void placeDeveloper() {
 		currentPlayer.placeDeveloper();
 	}
@@ -321,6 +323,16 @@ public class PlayerFacade {
 	public String getName() {
 		return currentPlayer.getName();
 	}
+
+	public void loadDeck(ArrayList<PalaceCard> c) {
+		deck = new Deck(c);
+	}
+	
+	public String toString()
+	{
+		return currentPlayer.toString();
+	}
+
 
 	public boolean isOnePlayerLeft()
 	{

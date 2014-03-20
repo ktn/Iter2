@@ -1,6 +1,8 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -17,11 +19,14 @@ public final class CommandStack {
 			writer.println(comm);
 		}
 		writer.close();
+		Deck.save();
+
 	}
 
 	public static void load(String fileName, PlayerFacade p, BoardFacade b)
 			throws FileNotFoundException {
 		Scanner in = new Scanner(new FileInputStream(fileName));
+		p.loadDeck(loadDeck());
 		while (in.hasNextLine()) {
 			String s = in.nextLine();
 			String[] sa = s.split(" ");
@@ -45,12 +50,14 @@ public final class CommandStack {
 				break;
 			case "PlaceTwoBlockCommand":
 				c = new PlaceTwoBlockCommand(b, p, b.getCoordinates(
-						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])));
+						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])),
+						Integer.parseInt(sa[3]));
 				c.execute();
 				break;
 			case "PlaceThreeBlockCommand":
-				c = new PlaceThreeBlockCommand(b, p, b.getCoordinates(
-						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])));
+			c = new PlaceThreeBlockCommand(b, p, b.getCoordinates(
+						Integer.parseInt(sa[1]), Integer.parseInt(sa[2])),
+						Integer.parseInt(sa[3]));
 				c.execute();
 				break;
 			case "PlaceDeveloperCommand":
@@ -63,11 +70,42 @@ public final class CommandStack {
 				c = new ChangeTurnCommand(p);
 				c.execute();
 				break;
+			case "DrawDeckCardCommand":
+				c = new DrawDeckCardCommand(b, p);
+				c.execute();
+				break;
+			case "Deck":
+				for (int i = 1; i < 50; i++) {
+					Arrays.copyOfRange(sa, 1, sa.length);
+				}
+				break;
 			}
 		}
 		in.close();
 	}
 
+	@SuppressWarnings("resource")
+	public static ArrayList<PalaceCard> loadDeck() {
+		Scanner in = null;
+		try {
+			in = new Scanner(new FileInputStream("Deck"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		String s = in.nextLine();
+		String[] sa = s.split(",");
+		ArrayList<PalaceCard> ca = new ArrayList<PalaceCard>();
+		for (int i = 0; i < sa.length; i++) {
+			String[] sb = sa[i].split(" ");
+			if (sb.length == 1) {
+				OnePointPalaceCard c = new OnePointPalaceCard(sb[0]);
+				ca.add(c);
+			} else {
+				TwoPointPalaceCard c = new TwoPointPalaceCard(sb[0], sb[1]);
+				ca.add(c);
+			}
+		}
+		return ca;
 
 	public static boolean empty(){
 		return commands.empty();
