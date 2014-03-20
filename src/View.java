@@ -33,7 +33,7 @@ public class View extends JFrame {
 		this.setSize(xSize,ySize);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setLayout(new BorderLayout(3, 3));
+		this.getContentPane().setLayout(new BorderLayout(7, 3));
 		
 		//PlayerView playerView = new PlayerView();
 		ViewFacade.initialize(playerNames, 10, 10);
@@ -46,9 +46,10 @@ public class View extends JFrame {
 								  BorderLayout.EAST);
 		this.getContentPane().add(ViewFacade.getControllerView(), 
 							  BorderLayout.WEST);
-		//JPanel boardPanel = new JPanel();
-		//boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		//boardPanel.add(ViewFacade.getBoardView());
-		this.getContentPane().add(ViewFacade.getBoardView(), BorderLayout.CENTER);
+		JPanel boardPanel = new JPanel();
+		boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		ViewFacade.getBoardView().setPreferredSize(new Dimension(500, 400));
+		boardPanel.add(ViewFacade.getBoardView());
+		this.getContentPane().add(boardPanel, BorderLayout.CENTER);
 	}
 }
