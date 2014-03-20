@@ -117,9 +117,11 @@ public class TurnPhase {
 		case KeyEvent.VK_8:
 			query = ViewFacade.promptPlayer("Do you want to start a palace festival?");
 			if(query) {
-				// festival = new PhaseFestival(player, board, sanitation);
-				currentMode = GameMode.FESTIVALMODE;
-				normal = null;
+				if(normal.startFestival()) {
+					// festival = new PhaseFestival(player, board, sanitation);
+					currentMode = GameMode.FESTIVALMODE;
+					normal = null;
+				}
 			}
 			break;
 		case KeyEvent.VK_ENTER:
