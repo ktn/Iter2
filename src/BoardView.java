@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import sun.java2d.jules.TileWorker;
+
 /**mostly for mark-ups as of yet.  need more model to view.
  * needs work to create buffer.*/
 public class BoardView extends JPanel{
@@ -26,6 +28,7 @@ public class BoardView extends JPanel{
 	Image rice;
 	Image village;
 	Image palace;
+	Image developer;
 	
 	protected int TILE_WIDTH=64;
 	protected int TILE_HEIGHT=64;
@@ -36,15 +39,20 @@ public class BoardView extends JPanel{
 	BufferedImage cachedCanvas;
 	Graphics2D cachedGraphics;
 	
+	/**a cached copy of the heights of the spaces*/
+	int[][] spaceHeights;
+	
 	/**creates a new board view with the given height and width (in Tiles)
 	 * Obeys LOD (given that createGraphics does not return an attribute of BufferedImage,
 	 * but rather, and interface to it)*/
 	public BoardView(int boardWidth, int boardHeight){
+		spaceHeights=new int[boardWidth][boardHeight];
 		createDefaultTexture();
 		dirt=getTexture("images/dirt.png");
 		rice=getTexture("images/rice.png");
 		village=getTexture("images/village.png");
 		palace=getTexture("images/palace.png");
+		developer = getTexture("images/developer.png");
 		this.boardWidth=boardWidth;
 		this.boardHeight=boardHeight;
 		initGraphics();
@@ -129,34 +137,42 @@ public class BoardView extends JPanel{
 		if (origin.getHeight()>0&&origin.getTile().getType()==TileType.PALACE){
 			givenHeight=((PalaceTile)origin.getTile()).getLevel();
 		}
+		spaceHeights[x][y]=givenHeight;
 		renderText(g, ""+givenHeight, x*TILE_WIDTH, y*TILE_HEIGHT+g.getFont().getSize());
+	}
+	
+	
+	/**recursively renders the given space at it's given location, 
+	 * along with all of the spaces connected to it.*/
+	public void renderNetwork(Tile origin, int x, int y){
+		renderNetwork(origin, x, y, new Color(0,0,0,0));
 	}
 	
 	/**recursively renders the given space at it's given location, 
 	 * along with all of the spaces connected to it.*/
-	public void renderNetwork(Space origin, int x, int y){
-		ArrayList<Space> alreadyRendered=new ArrayList<Space>();
+	public void renderNetwork(Tile origin, int x, int y, Color hilight){
+		ArrayList<Tile> alreadyRendered=new ArrayList<Tile>();
 		renderNetworkRecursive(cachedGraphics,alreadyRendered, origin, x, y);
 	}
 	
 	/**recursively renders a network of spaces*/
-	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Space> finished, Space origin, int x, int y){
-		renderSpace(g, origin, x, y);
-		if (origin.getLeft()!=null&&!finished.contains(origin.getLeft())){
-			finished.add(origin.getLeft());
-			renderNetworkRecursive(g,finished,origin.getLeft(),x-1,y);
+	protected void renderNetworkRecursive(Graphics g, AbstractCollection<Tile> finished, Tile origin, int x, int y){
+		renderSpace(g, origin, spaceHeights[x][y], x, y);
+		if (origin.getJoined(Grid.LEFT)!=null&&!finished.contains(origin.getJoined(Grid.LEFT))){
+			finished.add(origin.getJoined(Grid.LEFT));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.LEFT),x-1,y);
 		}
-		if (origin.getRight()!=null&&!finished.contains(origin.getRight())){
-			finished.add(origin.getRight());
-			renderNetworkRecursive(g,finished,origin.getRight(),x+1,y);
+		if (origin.getJoined(Grid.RIGHT)!=null&&!finished.contains(origin.getJoined(Grid.RIGHT))){
+			finished.add(origin.getJoined(Grid.RIGHT));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.RIGHT),x+1,y);
 		}
-		if (origin.getTop()!=null&&!finished.contains(origin.getTop())){
-			finished.add(origin.getTop());
-			renderNetworkRecursive(g,finished,origin.getTop(),x,y-1);
+		if (origin.getJoined(Grid.TOP)!=null&&!finished.contains(origin.getJoined(Grid.TOP))){
+			finished.add(origin.getJoined(Grid.TOP));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.TOP),x,y-1);
 		}
-		if (origin.getBottom()!=null&&!finished.contains(origin.getBottom())){
-			finished.add(origin.getBottom());
-			renderNetworkRecursive(g,finished,origin.getBottom(),x,y+1);
+		if (origin.getJoined(Grid.BOTTOM)!=null&&!finished.contains(origin.getJoined(Grid.BOTTOM))){
+			finished.add(origin.getJoined(Grid.BOTTOM));
+			renderNetworkRecursive(g,finished,origin.getJoined(Grid.BOTTOM),x,y+1);
 		}
 	}
 	
@@ -169,8 +185,13 @@ public class BoardView extends JPanel{
 	protected void renderSpace(Graphics g, Tile t, int height, int x, int y){
 		Image tileFace=dirt;
 		
-		if (height>0&&t.getType()==TileType.RICE){
-			tileFace=rice;
+		if (t!=null){
+			if (t.getType()==TileType.RICE){
+				tileFace=rice;
+			}
+			if (t.getType()==TileType.VILLAGE){
+				tileFace=village;
+			}
 		}
 		
 		g.setColor(Color.white);
@@ -178,7 +199,7 @@ public class BoardView extends JPanel{
 		
 		int givenHeight=height;
 		
-		if (height>0){
+		if (t!=null){
 			g.setColor(Color.black);
 			if (t.getJoined(Grid.TOP)==null){
 				g.drawLine((x)*TILE_WIDTH, (y)*TILE_HEIGHT, (x+1)*TILE_WIDTH-1, (y)*TILE_HEIGHT);
@@ -257,6 +278,9 @@ public class BoardView extends JPanel{
 
 	public void renderDeveloper(Developer dev, int x, int y){
 		cachedGraphics.setColor(Color.red);
-		cachedGraphics.fillOval(x*TILE_WIDTH, y*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+		cachedGraphics.fillOval(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT, TILE_WIDTH/2, TILE_HEIGHT/4);
+		cachedGraphics.fillRect(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT/8, TILE_WIDTH/2, TILE_HEIGHT*3/4);
+		cachedGraphics.fillOval(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT*3/4, TILE_WIDTH/2, TILE_HEIGHT/4);
+		cachedGraphics.drawImage(developer, x*TILE_WIDTH-1, y*TILE_HEIGHT-1, TILE_WIDTH,TILE_HEIGHT, this);
 	}
 }
