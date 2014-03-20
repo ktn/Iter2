@@ -171,10 +171,19 @@ public class PlayerFacade {
 		playerTurn.getPlayer(p).addCard(c);
 	}
 
+	public void returnCard(int p, PalaceCard c) {
+		playerTurn.getPFPlayer(p).addCard(c);
+	}
+
 	public boolean playerCanParticipate(int p, String t) {
 		boolean ret = false;
 		ret = playerTurn.getPlayer(p).cardsContain(t);
 		return ret;
+	}
+
+	public PalaceCard playCardWith(String[] t)
+	{
+		return playerTurn.playCardWith(t);
 	}
 
 	public boolean hasCardWith(String[] t){

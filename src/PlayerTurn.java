@@ -213,5 +213,10 @@ public class PlayerTurn {
 		return festival.getEndFestival();
 	}
 
+	public PalaceCard getCardWith(String[] t)
+	{
+		
+	}
+
 
 }
