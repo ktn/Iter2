@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -188,5 +189,13 @@ public class ViewFacade {
 	
 	public static void updateBoard(Board board){
 		boardView.renderBoard(board);
+	}
+	
+	public static void renderNetwork(Tile origin, int x, int y){
+		boardView.renderNetwork(origin, x, y);
+	}
+	
+	public static void renderNetwork(Tile origin, int x, int y, Color c){
+		boardView.renderNetwork(origin, x, y, c);
 	}
 }
