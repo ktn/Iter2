@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -29,7 +30,7 @@ public final class ViewFacade {
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
 		//@ TODO: don't use magic  numbers
-		boardView=new BoardView(boardWidth+2, boardHeight+2);
+		boardView=new BoardView(boardWidth, boardHeight);
 	}
 	
 	//Copy of above for testing
@@ -41,7 +42,7 @@ public final class ViewFacade {
 		publicInventoryView = new PublicInventoryView();
 		controllerView = new ControllerView();
 		//@ TODO: don't use magic  numbers
-		boardView=new BoardView(boardWidth+2, boardHeight+2);
+		boardView=new BoardView(boardWidth, boardHeight);
 	}
 	
 	public static OtherPlayersView getOtherPlayerView() {

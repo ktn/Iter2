@@ -1,8 +1,6 @@
 
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -23,7 +21,7 @@ public class ViewTester {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		viewFacadeTester();
+		//viewFacadeTester();
 		boardViewTester();
 	}
 	
@@ -57,7 +55,7 @@ public class ViewTester {
 		b.placeBlock(b.new Coordinates(5,7), block);
 		block = new ThreeBlock();
 		b.placeBlock(b.new Coordinates(6,7), block);
-		final BoardView boardView=new BoardView(12,12);
+		final BoardView boardView=new BoardView(10,10);
 		JFrame mainFrame=new JFrame("BoardViewTest");
 		mainFrame.setSize(768,768);
 		mainFrame.add(boardView);
@@ -88,16 +86,16 @@ public class ViewTester {
 			
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyChar() == 'w'&&ty>1){
+				if (arg0.getKeyChar() == 'w'&&ty>0){
 					ty--;
 				}
-				if (arg0.getKeyChar() == 'a'&&tx>1) {
+				if (arg0.getKeyChar() == 'a'&&tx>0) {
 					tx--;
 				}
-				if (arg0.getKeyChar() == 's'&&ty<10) {
+				if (arg0.getKeyChar() == 's'&&ty<9) {
 					ty++;
 				}
-				if (arg0.getKeyChar() == 'd'&&tx<10) {
+				if (arg0.getKeyChar() == 'd'&&tx<9) {
 					tx++;
 				}
 				boardView.renderBoard(b);
