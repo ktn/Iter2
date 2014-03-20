@@ -21,8 +21,8 @@ public class ViewTester {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		viewFacadeTester();
-		//boardViewTester();
+		//viewFacadeTester();
+		boardViewTester();
 	}
 	
 	public static void viewFacadeTester(){
@@ -86,16 +86,16 @@ public class ViewTester {
 			
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyChar() == 'w'&&ty>1){
+				if (arg0.getKeyChar() == 'w'&&ty>0){
 					ty--;
 				}
-				if (arg0.getKeyChar() == 'a'&&tx>1) {
+				if (arg0.getKeyChar() == 'a'&&tx>0) {
 					tx--;
 				}
-				if (arg0.getKeyChar() == 's'&&ty<10) {
+				if (arg0.getKeyChar() == 's'&&ty<9) {
 					ty++;
 				}
-				if (arg0.getKeyChar() == 'd'&&tx<10) {
+				if (arg0.getKeyChar() == 'd'&&tx<9) {
 					tx++;
 				}
 				boardView.renderBoard(b);
