@@ -21,12 +21,6 @@ public class View extends JFrame {
         catch (Exception e) {
             e.printStackTrace();
         }
-        setVisible(true);
-		//TODO:Set KeyListener for this to Controller
-        
-		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
-		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
-		boardPanel.validate();
 	}  
 	
 	private void initialize(ArrayList<String> playerNames) {
@@ -56,5 +50,9 @@ public class View extends JFrame {
 		boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		boardPanel.add(ViewFacade.getBoardView());
 		this.getContentPane().add(boardPanel, BorderLayout.CENTER);
+        setVisible(true);
+		int minDimension = Math.min(boardPanel.getSize().width,boardPanel.getSize().height);
+		ViewFacade.getBoardView().setPreferredSize(new Dimension(minDimension,minDimension));
+		boardPanel.validate();
 	}
 }
