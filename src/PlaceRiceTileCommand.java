@@ -1,39 +1,44 @@
-public class PlaceRiceTileCommand implements Command{
+public class PlaceRiceTileCommand implements Command {
 	private BoardFacade board;
 	private Board.Coordinates coords;
 	private PlayerFacade player;
 	private Block block;
 
-	PlaceRiceTileCommand(BoardFacade b,PlayerFacade p, Board.Coordinates c){
+	PlaceRiceTileCommand(BoardFacade b, PlayerFacade p, Board.Coordinates c) {
 		this.board = b;
 		this.coords = c;
 		this.player = p;
 	}
 
-	public void execute(){
-		//assume checks have been made
+	public void execute() {
+		// assume checks have been made
 		block = new OneBlock(TileType.RICE);
 		player.placeRice();
-		//if(board.validPlacement(coors, b)
+		// if(board.validPlacement(coors, b)
 		board.placeBlock(coords, block);
 
 		this.save();
-		
+
 	}
 
-	public void undo(){
+	public void undo() {
 		board.removeBlock(coords);
-			
+
 		player.returnRiceBlock();
-			
-		
+
 	}
 
+	public void load() {
+
+	}	
 	public void save(){
-		
+		CommandStack.storeCommand(this);
 	}
 
-	public void load(){
-		
+	public String toString() {
+		StringBuilder result = new StringBuilder(100);
+		result.append(this.getClass().getName() + " " + coords.x + " "
+				+ coords.y);
+		return result.toString();
 	}
 }

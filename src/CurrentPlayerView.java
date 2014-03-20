@@ -45,6 +45,7 @@ public class CurrentPlayerView extends JPanel {
 		
 		//Current Player basic info
 		JPanel playerInfo = new JPanel();
+		playerInfo.setBackground(new Color(220,220,220));
 		//playerInfo.setLayout(new BoxLayout(playerInfo, BoxLayout.PAGE_AXIS));
 		playerInfo.setLayout(new GridLayout(3,1));
 		playerInfo.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -58,13 +59,14 @@ public class CurrentPlayerView extends JPanel {
 		
 		//Current player inventory
 		JPanel playerInv = new JPanel();
+		playerInv.setBackground(new Color(220,220,220));
 		playerInv.setBorder(BorderFactory.createLineBorder(Color.black));
 		//playerInv.setLayout(new BoxLayout(playerInv, BoxLayout.PAGE_AXIS));
 		playerInv.setLayout(new GridLayout(5,2));
-		Image img = ImageIO.read(new File("../images/rice.png"));
+		Image img = ImageIO.read(new File("images/rice.png"));
 		JLabel riceBlocks = new JLabel(new ImageIcon(img));
 		numRiceBlocks = new JLabel("3");
-		img = ImageIO.read(new File("../images/village.png"));
+		img = ImageIO.read(new File("images/village.png"));
 		JLabel villageBlocks = new JLabel(new ImageIcon(img));
 		numVillageBlocks = new JLabel("3");
 		JLabel twoBlocks = new JLabel("Two Blocks: ");
@@ -88,13 +90,15 @@ public class CurrentPlayerView extends JPanel {
 		
 		//Current player palace card inventory
 		JPanel playerCards = new JPanel();
+		playerCards.setBackground(new Color(220,220,220));
 		//playerCards.setLayout(new BoxLayout(playerCards, BoxLayout.LINE_AXIS));
 		playerCards.setLayout(new GridLayout(1,6));
 		
 		//Drum cards first
 		JPanel drumCards = new JPanel();
+		drumCards.setBackground(new Color(220,220,220));
 		drumCards.setLayout(new BoxLayout(drumCards,BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/drumcard.png"));
+		img = ImageIO.read(new File("images/drumcard.PNG"));
 		JLabel drumPic = new JLabel(new ImageIcon(img));
 		drumCards.add(drumPic);
 		numDrumCards = new JLabel("0", JLabel.CENTER);
@@ -103,8 +107,9 @@ public class CurrentPlayerView extends JPanel {
 		
 		//Puppet cards now 
 		JPanel puppetCards = new JPanel();
+		puppetCards.setBackground(new Color(220,220,220));
 		puppetCards.setLayout(new BoxLayout(puppetCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/puppetcard.png"));
+		img = ImageIO.read(new File("images/puppetcard.png"));
 		JLabel puppetPic = new JLabel(new ImageIcon(img));
 		puppetCards.add(puppetPic);
 		numPuppetCards = new JLabel("0", JLabel.CENTER);
@@ -113,8 +118,9 @@ public class CurrentPlayerView extends JPanel {
 
 		//Mask cards now
 		JPanel maskCards = new JPanel();
+		maskCards.setBackground(new Color(220,220,220));
 		maskCards.setLayout(new BoxLayout(maskCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/maskcard.png"));
+		img = ImageIO.read(new File("images/maskcard.PNG"));
 		JLabel maskPic = new JLabel(new ImageIcon(img));
 		maskCards.add(maskPic);
 		numMaskCards = new JLabel("0", JLabel.CENTER);
@@ -123,8 +129,9 @@ public class CurrentPlayerView extends JPanel {
 
 		//MaskDrum cards now
 		JPanel maskDrumCards = new JPanel();
+		maskDrumCards.setBackground(new Color(220,220,220));
 		maskDrumCards.setLayout(new BoxLayout(maskDrumCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/drummaskcard.png"));
+		img = ImageIO.read(new File("images/drummaskcard.PNG"));
 		JLabel maskDrumPic = new JLabel(new ImageIcon(img));
 		maskDrumCards.add(maskDrumPic);
 		numMaskDrumCards = new JLabel("0", JLabel.CENTER);
@@ -133,8 +140,9 @@ public class CurrentPlayerView extends JPanel {
 
 		//DrumPuppet cards now
 		JPanel drumPuppetCards = new JPanel();
+		drumPuppetCards.setBackground(new Color(220,220,220));
 		drumPuppetCards.setLayout(new BoxLayout(drumPuppetCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/drumpuppet.png"));
+		img = ImageIO.read(new File("images/drumpuppet.png"));
 		JLabel drumPuppetPic = new JLabel(new ImageIcon(img));
 		drumPuppetCards.add(drumPuppetPic);
 		numDrumPuppetCards = new JLabel("0", JLabel.CENTER);
@@ -143,8 +151,9 @@ public class CurrentPlayerView extends JPanel {
 		
 		//PuppetMask cards now
 		JPanel puppetMaskCards = new JPanel();
+		puppetMaskCards.setBackground(new Color(220,220,220));
 		puppetMaskCards.setLayout(new BoxLayout(puppetMaskCards, BoxLayout.PAGE_AXIS));
-		img = ImageIO.read(new File("../images/puppetmaskcard.png"));
+		img = ImageIO.read(new File("images/puppetmaskcard.PNG"));
 		JLabel puppetMaskPic = new JLabel(new ImageIcon(img));
 		puppetMaskCards.add(puppetMaskPic);
 		numPuppetMaskCards = new JLabel("0", JLabel.CENTER);

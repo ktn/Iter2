@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ControllerView extends JPanel {
+
+	private static final long serialVersionUID = -2891745662059708730L;
+	
 	/** This class represents an interface between the player and the 
 	 * controller. 
 	 */

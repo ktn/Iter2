@@ -5,6 +5,11 @@ public class Grid<E> implements Iterable<E> {
 	private final int childNum = 4; // Change this to increase board size
 	private E[] members;
 
+	public static final int RIGHT=0;
+	public static final int TOP=1;
+	public static final int LEFT=2;
+	public static final int BOTTOM=3;
+	
 	/*
 	 * ======================================== 
 	 *	The standard is as follows

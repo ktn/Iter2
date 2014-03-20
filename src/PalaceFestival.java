@@ -93,6 +93,11 @@ public class PalaceFestival {
 	{
 		playerFrozen[currentPlayer] = true;
 	}
+
+	public void unfreezeCurrentPlayer()
+	{
+		playerFrozen[currentPlayer] = false;
+	}
 	
 	public void nextPlayer()
 	{
@@ -215,5 +220,89 @@ public class PalaceFestival {
 			}
 		}
 		return victors;
+	}
+
+	public boolean playerCanPlayCard(String[] t)
+	{
+		boolean ret = false;
+		String[] s = new String[2];
+		s[0] = t[0];
+
+		if(t.length == 1)
+		{
+			s[1] = " ";
+		}
+		else
+		{
+			s[1] = t[1];
+		}
+
+		if(festivalCard instanceof OnePointPalaceCard)
+		{
+			OnePointPalaceCard current = (OnePointPalaceCard) festivalCard;
+			if(current.getSymbol().equals(s[0]) || current.getSymbol().equals(s[1]))
+			{
+				ret = true;
+			}
+		}
+		else if (festivalCard instanceof TwoPointPalaceCard)
+		{
+			TwoPointPalaceCard current = (TwoPointPalaceCard) festivalCard;
+			if(current.getFirstSymbol().equals(s[0]) || current.getFirstSymbol().equals(s[1]) 
+				|| current.getSecondSymbol().equals(s[0]) || current.getSecondSymbol().equals(s[1]))
+			{
+				ret = true;
+			}
+		}
+
+		return ret;
+	}
+
+	public boolean isOnePlayerLeft()
+	{
+		int count = 0;
+		for(int i = 0; i < playerFrozen.length; i++)
+		{
+			if(playerFrozen[i] == false)
+			{
+				count++;
+			}
+		}
+
+		if(count == 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean canEndFestival()
+	{
+		int max = 0;
+		for(int i = 0; i < playerScores.length; i++)
+		{
+			if(playerScores[i] > max)
+			{
+				max = playerScores[i];
+			}
+		}
+
+		int numberOfTies = 0;
+		for(int i = 0; i < playerScores.length; i++)
+		{
+			if(playerScores[i] == max)
+			{
+				numberOfTies++;
+			}
+		}
+
+		if(numberOfTies > 1)
+		{
+			return true;
+		}
+
+		return false;
+
 	}
 }
