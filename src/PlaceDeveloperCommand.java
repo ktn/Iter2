@@ -15,12 +15,14 @@ public class PlaceDeveloperCommand implements Command {
 		player.placeDeveloper();
 		this.save();
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().displayDevelopers(player.getCurrentPlayer().getDevelsOff());
 	}
 
 	public void undo() {
 		board.removeDeveloper(coord);
 		player.removeDeveloper();
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().displayDevelopers(player.getCurrentPlayer().getDevelsOff());
 	}
 
 
