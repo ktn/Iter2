@@ -85,7 +85,9 @@ class Sanitation {
 			throws NotEnoughAPException, CoordinateException, NoDeveloperAtCoordinatesException, BlockNotPlayedException{
 		boolean result = true;
 		int ap = player.getActionPoints();
-		int requiredAP = board.findShortestPath(oldCoords, newCoords);
+		Wavefront wavefront=new Wavefront();
+		wavefront.wavefront(oldCoords, newCoords, board.board);
+		int requiredAP = wavefront.totalCost-1;
 		int old_x = oldCoords.x;
 		int old_y = oldCoords.y;
 		int new_x = newCoords.x;

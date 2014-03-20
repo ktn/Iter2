@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Color.*;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -88,6 +89,11 @@ public class PhaseActive {
 		}
 		else {
 			updateView();
+		}
+		if (selectedDeveloper!=null){
+			Wavefront wavefront=new Wavefront();
+			ArrayList<Board.Coordinates> coords =wavefront.wavefront(board.board.new Coordinates(selectedDeveloper[0],selectedDeveloper[1]), 
+					board.board.new Coordinates(selectedPos[0],selectedPos[1]), board.board);
 		}
 	}
 
@@ -207,6 +213,7 @@ public class PhaseActive {
 			}
 		} while(loop);
 	}
+	
 	public void moveDeveloper() {
 		if(state != Mode.MOVEDEVELOPER) {
 			return;

@@ -18,12 +18,20 @@ public class MoveDeveloperCommand implements Command {
 		this.save();
 		board.updateBoard();
 
+		Wavefront wavefront=new Wavefront();
+		wavefront.wavefront(oldCoords, newCoords, board.board);
+		int requiredAP = wavefront.totalCost-1;
+		for (int i=0;i<requiredAP;i++)
+			player.playThreeBlock();
+		
+		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
 	public void undo() {
 		Developer dev = board.getDeveloper(newCoords);
 		board.moveDeveloper(oldCoords, dev);
 		board.updateBoard();
+		ViewFacade.getCurrentPlayerView().set(player);
 	}
 
 	public void load() {
