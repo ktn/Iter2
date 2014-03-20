@@ -317,4 +317,14 @@ public class BoardView extends JPanel{
 		cachedGraphics.fillOval(x*TILE_WIDTH+TILE_WIDTH/4, y*TILE_HEIGHT+TILE_HEIGHT*3/4, TILE_WIDTH/2, TILE_HEIGHT/4);
 		cachedGraphics.drawImage(developer, x*TILE_WIDTH-1, y*TILE_HEIGHT-1, TILE_WIDTH,TILE_HEIGHT, this);
 	}
+	
+	public Board.Coordinates coordFromPixel(int x, int y, Board b){
+		int x2=x/(getWidth()/(boardWidth+2))-1;
+		int y2=y/(getHeight()/(boardHeight+2))-1;
+		if (b.inBounds(x2, y2)){
+			return b.new Coordinates(x2,y2);
+		}else {
+			return null;
+		}
+	}
 }

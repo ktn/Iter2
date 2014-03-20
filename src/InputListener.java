@@ -20,12 +20,10 @@ public class InputListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		System.out.println("released");
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		System.out.println("typed");
 	}
 
 }
