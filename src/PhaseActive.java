@@ -398,14 +398,23 @@ public class PhaseActive {
 		ViewFacade.warnPlayer("Didn't save");
 	}
 	public void load() {
-		boolean query = ViewFacade.promptPlayer("Do you want to load the last-saved game?");
-		if(!query) return;
+		boolean query = ViewFacade
+				.promptPlayer("Do you want to load the last-saved game?");
+		if (!query)
+			return;
 		try {
-			CommandStack.load("savefile", player, board);
+			PlayerFacade a = new PlayerFacade(CommandStack.loadPlayers());
+			BoardFacade b = new BoardFacade();
+
+			CommandStack.load("savefile", a, b);
+			player = a;
+			board = b;
+
+			player.loadDeck(CommandStack.loadDeck());
+
 			ViewFacade.warnPlayer("Loading");
 			return;
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		ViewFacade.warnPlayer("Didn't load");
