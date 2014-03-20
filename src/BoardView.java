@@ -29,6 +29,7 @@ public class BoardView extends JPanel{
 	Image developer;
 	Image mountians;
 	Image lowlands;
+	Image water;
 	
 	protected int TILE_WIDTH=64;
 	protected int TILE_HEIGHT=64;
@@ -55,6 +56,7 @@ public class BoardView extends JPanel{
 		developer = getTexture("images/developer.png");
 		lowlands=getTexture("images/dirtside.png");
 		mountians=getTexture("images/Mountain.png");
+		water=getTexture("images/water.png");
 		this.boardWidth=boardWidth;
 		this.boardHeight=boardHeight;
 		initGraphics();
@@ -267,6 +269,9 @@ public class BoardView extends JPanel{
 			}
 			if (t.getType()==TileType.VILLAGE){
 				tileFace=village;
+			}
+			if (t.getType()==TileType.IRRIGATION){
+				tileFace=water;
 			}
 		}
 		

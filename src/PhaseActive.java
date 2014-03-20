@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Color.*;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -44,6 +45,7 @@ public class PhaseActive {
 		state = Mode.MOVEDEVELOPER;
 		selectedDeveloper = null;
 		switchDeveloper();
+		if(selectedDeveloper == null) placeDeveloperMode();
 		board.updateBoard();
 		updateView();
 	}
@@ -81,13 +83,18 @@ public class PhaseActive {
 		board.updateBoard();
 		if(state == Mode.BLOCK){ 
 			if (selectedBlock!=null){
-				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1]);
+				ViewFacade.renderNetwork(selectedBlock.getTile(),selectedPos[0],selectedPos[1],new Color(0,0,1,0.25f));
 			}else{
 				ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.red);
 			}
 		}
 		else {
 			updateView();
+		}
+		if (selectedDeveloper!=null){
+			Wavefront wavefront=new Wavefront();
+			ArrayList<Board.Coordinates> coords =wavefront.wavefront(board.board.new Coordinates(selectedDeveloper[0],selectedDeveloper[1]), 
+					board.board.new Coordinates(selectedPos[0],selectedPos[1]), board.board);
 		}
 	}
 
@@ -131,14 +138,16 @@ public class PhaseActive {
 	private void switchDeveloper() {
 		if(selectedDeveloper == null) {
 			Board.Coordinates c = board.getDeveloper(player.getCurrentPlayer());
+			if(c == null) return;
 			selectedDeveloper = new int[] {0, 0};
 			selectedDeveloper[0] = c.x;
 			selectedDeveloper[1] = c.y;
 		}
 		else {
 			Board.Coordinates o = board.getCoordinates(selectedDeveloper[0], selectedDeveloper[1]);
-			selectedDeveloper[0] = board.nextDeveloper(o).x;
-			selectedDeveloper[1] = board.nextDeveloper(o).y;
+			Board.Coordinates n = board.nextDeveloper(o);
+			selectedDeveloper[0] = n.x;
+			selectedDeveloper[1] = n.y;
 		}
 		selectedPos = Arrays.copyOf(selectedDeveloper, 2);
 	}
@@ -206,6 +215,7 @@ public class PhaseActive {
 			}
 		} while(loop);
 	}
+	
 	public void moveDeveloper() {
 		if(state != Mode.MOVEDEVELOPER) {
 			return;
@@ -284,6 +294,7 @@ public class PhaseActive {
 					//com.execute();
 					blockMode();
 				}
+				rotationCount = 0;
 			}
 			catch(IllegalBlockPlacementException e) {
 				ViewFacade.warnPlayer(e.toString());
@@ -396,19 +407,49 @@ public class PhaseActive {
 		ViewFacade.warnPlayer("Didn't save");
 	}
 	public void load() {
-		boolean query = ViewFacade.promptPlayer("Do you want to load the last-saved game?");
-		if(!query) return;
+		boolean query = ViewFacade
+				.promptPlayer("Do you want to load the last-saved game?");
+		if (!query)
+			return;
 		try {
-			CommandStack.load("savefile", player, board);
+			PlayerFacade a = new PlayerFacade(CommandStack.loadPlayers());
+			BoardFacade b = new BoardFacade();
+
+			CommandStack.load("savefile", a, b);
+			player = a;
+			board = b;
+
+			player.loadDeck(CommandStack.loadDeck());
+
 			ViewFacade.warnPlayer("Loading");
 			return;
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		ViewFacade.warnPlayer("Didn't load");
 	}
 	private void updateView() {
 		ViewFacade.getBoardView().hilightTile(selectedPos[0], selectedPos[1], Color.BLUE);
+	}
+	
+	public boolean startFestival() {
+		Board.Coordinates b = board.getCoordinates(selectedPos[0], selectedPos[1]);
+		boolean valid = false;
+		try {
+			valid = sanitation.startFestivalChecker(b);
+			if(valid) {
+				ViewFacade.startPalaceFestival(player.getName());
+				return true;
+			}
+			return false;
+		}
+		catch(BlockNotPlayedException e) {
+			ViewFacade.warnPlayer(e.toString());
+			return false;
+		}
+		catch(CoordinateException e) {
+			ViewFacade.warnPlayer(e.toString());
+			return false;
+		}
 	}
 }

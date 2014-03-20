@@ -24,6 +24,8 @@ public class PlayerFacade {
 		setBlockPlayed(false);
 
 		deck = new Deck();
+		Deck.save();
+
 	}
 
 	// change player turn
@@ -31,13 +33,13 @@ public class PlayerFacade {
 		playerTurn.changeTurn();
 	}
 
-	public void changeTurn(int i) {
-		playerTurn.changeTurn(i);
+	public void revertTurn() {
+		playerTurn.revertTurn();
 	}
 
 	// public void revertTurn() {
-		// playerTurn.revertTurn();
-		// currentPlayer = playerTurn.getCurrentPlayer();
+	// playerTurn.revertTurn();
+	// currentPlayer = playerTurn.getCurrentPlayer();
 	// }
 
 	public Player getCurrentPlayer() {
@@ -319,7 +321,7 @@ public class PlayerFacade {
 	public void loadDeck(ArrayList<PalaceCard> c) {
 		deck = new Deck(c);
 	}
-	
+
 	public String toString() {
 		return playerTurn.getCurrentPlayer().toString();
 	}

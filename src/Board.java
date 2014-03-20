@@ -68,7 +68,7 @@ public class Board {
 	// ACCESSORS
 	// =======================================================================
 	// All methods from here down assume that inbounds indices are passed
-	private Space get(Coordinates c) {
+	public Space get(Coordinates c) {
 		Space temp = head;
 
 		if (c.x < xDim) {
@@ -436,9 +436,11 @@ public class Board {
 		Developer old = null;
 
 		loop: for (Developer d : devs) {
-			if (next && d.getPlayer() == old.getPlayer()) {
+			if (c.equals(this.get(d.getSpace()))) {
+				devs.remove(d);
+				devs.add(d);
 				temp = this.get(d.getSpace());
-				break loop;
+				return this.getDeveloper(d.getPlayer());
 			}
 			if (c.equals(this.get(d.getSpace()))) {
 				next = true;
@@ -446,13 +448,7 @@ public class Board {
 				temp = this.get(d.getSpace());
 			}
 		}
-		if (next && c.equals(this.get(old.getSpace()))) {
-			// then the given developer is last in the list
-			for (Developer d : devs) {
-				if (old.getPlayer() == d.getPlayer())
-					temp = this.get(d.getSpace());
-			}
-		}
+		
 
 		return temp;
 
