@@ -27,14 +27,14 @@ public class TurnPhase {
 	BoardFacade board;
 	Sanitation sanitation;
 	
-	public TurnPhase(PlayerFacade player, BoardFacade board, Sanitation sanitation) {
-		this.player = player;
-		this.board = board;
-		this.sanitation = sanitation;
+	public TurnPhase() {
+		player = new PlayerFacade(new String[] {"Bob", "Steve", "Frank", "Alice"});
+		board = new BoardFacade();
+		sanitation = new Sanitation(player, board);
 		this.normal = new PhaseActive(player, board, sanitation);
-		this.replay = new PhaseReplay(player, board, sanitation);
+		//this.replay = new PhaseReplay(player, board, sanitation);
 		this.planning = new PhasePlanning(player, board, sanitation);
-		this.festival = new PhaseFestival(model);
+		//this.festival = new PhaseFestival(model);
 	}
 	
 	public void receiveKeyEvent(KeyEvent k) {
