@@ -284,11 +284,6 @@ public class PlayerFacade {
 	public ArrayList<Player> getVictors() {
 		return playerTurn.getVictors();
 	}
-	
-	public String toString()
-	{
-		return currentPlayer.toString();
-	}
 
 
 	public Player[] getPlayers()
