@@ -70,6 +70,7 @@ public class PlayerFacade {
 
 	public void placeTwoBlock() {
 		currentPlayer.placeTwoBlock();
+		blockPlayed = true;
 		actionPoints--;
 	}
 
@@ -87,6 +88,7 @@ public class PlayerFacade {
 
 	public void placeVillage() {
 		currentPlayer.placeVillageBlock();
+		blockPlayed = true;
 		actionPoints--;
 	}
 
@@ -105,6 +107,7 @@ public class PlayerFacade {
 
 	public void placeRice() {
 		currentPlayer.placeRiceBlock();
+		blockPlayed = true;
 		actionPoints--;
 	}
 
