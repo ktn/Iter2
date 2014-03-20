@@ -175,6 +175,12 @@ class Sanitation {
 				throw new CoordinateException("Can't connect two cities");
 			}
 			break;
+		case PALACE:
+			if(!board.palaceInCity(coords)) {
+				result = false;
+				throw new CoordinateException("Can't connect two cities");
+			}
+			break;
 		default:
 			break;
 		}

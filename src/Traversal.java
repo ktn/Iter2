@@ -387,6 +387,7 @@ public class Traversal {
 		}
 		return numPalaces < 2;
 	}
+	
 
 	public ArrayList<Board.Coordinates> allPalaceTiles() {
 		ArrayList<Board.Coordinates> palaceTiles = new ArrayList<Board.Coordinates>();

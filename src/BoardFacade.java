@@ -197,6 +197,10 @@ public class BoardFacade {
 	public boolean notTwoPalacesBetweenCities(Board.Coordinates middleTile){
 		return traversal.notTwoPalacesBetweenCities(middleTile);
 	}
+	
+	public boolean palaceInCity(Board.Coordinates tile){
+		return traversal.palaceInCity(tile);
+	}
 
 	// DEVELOPER METHODS  
 	// =======================================================================

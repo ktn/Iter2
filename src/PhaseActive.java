@@ -23,6 +23,7 @@ public class PhaseActive {
 		this.player = player;
 		this.board = board;
 		this.sanitation = sanitation;
+		Scoring.setScoring(player,board);
 		blockMode();
 	}
 	

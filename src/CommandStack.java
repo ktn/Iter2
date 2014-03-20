@@ -79,7 +79,6 @@ public final class CommandStack {
 				for (int i = 1; i < 50; i++) {
 					Arrays.copyOfRange(sa, 1, sa.length);
 				}
-				break;
 			}
 		}
 		in.close();
