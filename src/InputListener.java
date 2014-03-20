@@ -1,10 +1,14 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class InputListener implements KeyListener {
 	TurnPhase turn;
-	public InputListener(PlayerFacade player, BoardFacade board, Sanitation sanitation) {
+	public InputListener() {
+		ArrayList<String> names = new ArrayList<String>(Arrays.asList(new String[] {"Bob", "Steve", "Frank", "Alice"}));
+		new View(names, this);
 		turn = new TurnPhase();
 	}
 

@@ -191,7 +191,7 @@ class Sanitation {
 			result = false;
 			throw new PalaceUpgradeException("Coordinate isn't a palace or village");
 		}
-		List<Developer> hd = board.findHighestDeveloper(coord);
+		List<Developer> hd = board.findHighestDev(coord);
 		if(hd.size() == 0) {
 			result = false;
 			throw new NoDeveloperAtCoordinatesException("Can't upgrade palace", coord.x, coord.y);
