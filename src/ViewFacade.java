@@ -65,12 +65,11 @@ public final class ViewFacade {
 		return boardView;
 	}
 	
-	public static void displayPalaceInventory(int numMask, int numPuppet, 
-											  int numDrum, int numMaskDrum, int numDrumPuppet, int numPuppetMask) 
+	public static void displayPalaceInventory(int[] inventory) 
 											  {
-		currentPlayerView.displayPalaceInventory(numMask, numPuppet, numDrum,
-												 numMaskDrum, numDrumPuppet,
-												 numPuppetMask);								
+		currentPlayerView.displayPalaceInventory(inventory[0], inventory[1], inventory[2],
+												 inventory[3], inventory[4],
+												 inventory[5]);								
 	}
 	
 	public static void switchForwardActivePlayer() {
