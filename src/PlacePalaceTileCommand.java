@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class PlacePalaceTileCommand implements Command {
 	private BoardFacade board;
 	private Board.Coordinates coords;
 	private PlayerFacade player;
 	private Block block;
 	private int level;
+	private int[] scoreChanges;
 
 	PlacePalaceTileCommand(BoardFacade b, PlayerFacade p, Board.Coordinates c,
 			int l) {
@@ -18,9 +21,17 @@ public class PlacePalaceTileCommand implements Command {
 		block = new OneBlock(new PalaceTile(level));
 		player.playThreeBlock();
 		board.placeBlock(coords, block);
-
-		player.getCurrentPlayer().addScore(1);
 		
+		Player[] players = player.getPlayers();
+		int[] oldScores = new int[players.length];
+		for(int i = 0; i < players.length; i++)
+			oldScores[i] = players[i].getScore();
+		Scoring.palaceScoring(coords);
+		
+		scoreChanges = new int[players.length];
+		for(int i = 0; i < players.length; i++)
+			scoreChanges[i] = players[i].getScore()-oldScores[i];
+			
 		this.save();
 		board.updateBoard();
 
@@ -29,8 +40,12 @@ public class PlacePalaceTileCommand implements Command {
 
 	public void undo() {
 		board.removeBlock(coords);
-
 		player.returnThreeBlock();
+		
+		Player[] players = player.getPlayers();
+		for(int i = 0; i < players.length; i++)
+			players[i].decrementScore(scoreChanges[i]);
+		
 		board.updateBoard();
 		
 		player.getCurrentPlayer().addScore(-1);

@@ -163,6 +163,10 @@ public class PlayerFacade {
 	public void decrementPlayerScore(Player p, int s) {
 		p.decrementScore(s);
 	}
+	public int getScore(Player p)
+	{
+		return p.getScore();
+	}
 
 	// changing colors
 	public void currentPlayerColor(Color c) {

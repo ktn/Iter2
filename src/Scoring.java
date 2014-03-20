@@ -1,34 +1,22 @@
 import java.util.*;
 
-public class Scoring {
-	private PlayerFacade p;
-	private BoardFacade b;
+public final class Scoring {
+	private static PlayerFacade p;
+	private static BoardFacade b;
 
-	public Scoring(PlayerFacade p, BoardFacade b){
+	public static void setScoring(PlayerFacade pNew, BoardFacade bNew){
 		//this should take in whatever
-		this.p=p;
-		this.b=b;
-	}
-	
-	public Scoring(PlayerFacade p){
-		//this should take in whatever
-		this.p=p;
-		this.b=null;
-	}
-
-	public Scoring(BoardFacade b){
-		//this should take in whatever
-		this.p=null;
-		this.b=b;
+		p=pNew;
+		b=bNew;
 	}
 	//THIS METHOD ASSUMES THAT THE PALACE PLACEMENT WAS LEGAL
-	public void palaceScoring(Board.Coordinates c) {
+	public static void palaceScoring(Board.Coordinates c) {
 		//This method is called when a player expands or builds a palace
 		p.addScore(b.getPalaceLevel(c)/2);
 	}
 
 	//THIS METHOD ASSUMES THAT THE IRRIGATION PLACEMENT WAS LEGAL
-	public void irrigationScoring(Board.Coordinates c) {
+	public static void irrigationScoring(Board.Coordinates c) {
 		//Called when any player lays down an irrigation tile AND that irrigation tile (and irrigation tiles connected to it)
 		//is COMPLETELY enclosed by land tiles.
 		ArrayList<Developer> d = b.findHighestDev(c);
@@ -49,7 +37,7 @@ public class Scoring {
 			//if theres a tie for highest developer no points scored
 		}
 
-	public void partyScoring(ArrayList<Player> victors, Board.Coordinates palaceCoordinates){
+	public static void partyScoring(ArrayList<Player> victors, Board.Coordinates palaceCoordinates){
 		//this method is called when a festival ends
 
 		//Boardfacade class has a method which returns the level of a palace if you pass it the coordinates of a palace
@@ -66,7 +54,7 @@ public class Scoring {
 		}
 	}
 
-	public void greatFinalCount(){
+	public static void greatFinalCount(){
 		//this happens at THE END of each player's final turn!!!
 
 		//first thing we need to do is iterate over all palace tiles to te

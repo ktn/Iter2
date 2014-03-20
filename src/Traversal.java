@@ -35,6 +35,8 @@ public class Traversal {
 
 			while (!queuePath.isEmpty()) {
 				c = queuePath.remove();
+				if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
+					continue;
 				// System.out.println(coord[0]+" "+coord[1]);
 				// FOUND A DEVELOPER
 				Developer devFound = board.getDeveloper(c);
@@ -95,6 +97,8 @@ public class Traversal {
 			ArrayList<Board.Coordinates> check = new ArrayList<Board.Coordinates>();
 			while (!queuePath.isEmpty()) {
 				c = queuePath.remove();
+			if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
+				continue;
 				if (!containsCoord(check, c)) {
 					check.add(c);
 				}
@@ -248,8 +252,9 @@ public class Traversal {
 		}
 		return false;
 	}
-
-	public int numIrrigationTiles(Board.Coordinates anIrrigTile) {
+	
+	private ArrayList<Board.Coordinates> irrigationArray(Board.Coordinates anIrrigTile)
+	{
 		Board.Coordinates c = anIrrigTile;
 		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
 
@@ -260,6 +265,8 @@ public class Traversal {
 			visited.add(c);
 		while (!queuePath.isEmpty()) {
 			c = queuePath.remove();
+			if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
+				continue;
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.IRRIGATION)
 					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
 				queuePath.add(board.new Coordinates(c.x, c.y + 1));
@@ -281,7 +288,12 @@ public class Traversal {
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
 		}
-		return visited.size();
+		return visited;
+	}
+	
+	public int numIrrigationTiles(Board.Coordinates anIrrigTile) {
+		
+		return irrigationArray(anIrrigTile).size();
 	}
 
 	public int numVillageTiles(Board.Coordinates aVillageTile) {
@@ -297,6 +309,8 @@ public class Traversal {
 		visited.add(c);
 		while (!queuePath.isEmpty()) {
 			c = queuePath.remove();
+			if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
+				continue;
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
 					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
@@ -330,17 +344,17 @@ public class Traversal {
 		Queue<Board.Coordinates> queuePath = new LinkedList<Board.Coordinates>();
 
 		queuePath.add(c);
-		if(board.getTileType(c) == TileType.PALACE)
-			return true;
+
 		ArrayList<Board.Coordinates> visited = new ArrayList<Board.Coordinates>();
 		visited.add(c);
-		int numPalace = 0;
+		int numPalaces = 0;
 		while (!queuePath.isEmpty()) {
 			c = queuePath.remove();
-			
-			if (board.getTileType(c) == TileType.PALACE)
-				numPalace++;
-			
+			if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
+				continue;
+			System.out.println(c.x+"\t"+c.y);
+			if(board.getTileType(c) == TileType.PALACE)
+				numPalaces++;
 			if ((board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.PALACE
 					|| board.getTileType(board.new Coordinates(c.x, c.y + 1)) == TileType.VILLAGE)
 					&& !containsCoord(visited, board.new Coordinates(c.x, c.y + 1))) {
@@ -366,8 +380,7 @@ public class Traversal {
 				visited.add(board.new Coordinates(c.x + 1, c.y));
 			}
 		}
-		
-		return numPalace < 2;
+		return numPalaces < 2;
 	}
 
 	public ArrayList<Board.Coordinates> allPalaceTiles() {
@@ -393,6 +406,8 @@ public class Traversal {
 		{
 
 			c = queuePath.remove();
+			if(c.x < 0 || c.x > 9 || c.y < 0 || c.y > 9)
+				continue;
 			if (board.getTileType(c) == TileType.PALACE)
 				return true;
 			
@@ -419,5 +434,40 @@ public class Traversal {
 			}
 		}
 		return false;
+	}
+	
+	public ArrayList<Board.Coordinates> checkForIrrigation(Board.Coordinates coord)
+	{
+		ArrayList<Board.Coordinates> irrs = new ArrayList<Board.Coordinates>();
+		if(board.getTileType(board.new Coordinates(coord.x, coord.y)) == TileType.IRRIGATION)
+			irrs.add(board.new Coordinates(coord.x, coord.y));
+		if(board.getTileType(board.new Coordinates(coord.x, coord.y + 1)) == TileType.IRRIGATION)
+			irrs.add(board.new Coordinates(coord.x, coord.y+1));
+		if(board.getTileType(board.new Coordinates(coord.x, coord.y - 1)) == TileType.IRRIGATION)
+			irrs.add(board.new Coordinates(coord.x, coord.y-1));
+		if(board.getTileType(board.new Coordinates(coord.x - 1, coord.y)) == TileType.IRRIGATION)
+			irrs.add(board.new Coordinates(coord.x-1, coord.y));
+		if(board.getTileType(board.new Coordinates(coord.x + 1, coord.y)) == TileType.IRRIGATION)
+			irrs.add(board.new Coordinates(coord.x+1, coord.y));
+		return irrs;
+	}
+	
+	public ArrayList<Board.Coordinates> surroundedIrrigation(Board.Coordinates anIrrigTile)
+	{
+		ArrayList<Board.Coordinates> irrs = irrigationArray(anIrrigTile);
+		boolean surrounded = true;
+		for(Board.Coordinates coord : irrs)
+		{
+			if(board.getTileType(board.new Coordinates(coord.x, coord.y)) == TileType.EMPTY
+			|| board.getTileType(board.new Coordinates(coord.x, coord.y + 1)) == TileType.EMPTY
+			|| board.getTileType(board.new Coordinates(coord.x, coord.y - 1)) == TileType.EMPTY
+			|| board.getTileType(board.new Coordinates(coord.x - 1, coord.y)) == TileType.EMPTY
+			|| board.getTileType(board.new Coordinates(coord.x + 1, coord.y)) == TileType.EMPTY)
+			{
+				surrounded = false;
+				break;
+			}
+		}
+		return surrounded ? irrs : new ArrayList<Board.Coordinates>();
 	}
 }

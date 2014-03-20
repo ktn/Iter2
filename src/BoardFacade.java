@@ -6,6 +6,8 @@ public class BoardFacade {
 	Communal communal;
 	Pathfinding pathfinding;
 	Traversal traversal;
+	ArrayList<ArrayList<Board.Coordinates>> irrigations;
+	private ArrayList<Board.Coordinates> irrigationsSurrounded;
 
 	public BoardFacade() {
 		board = new Board();
@@ -13,6 +15,8 @@ public class BoardFacade {
 		communal = new Communal();
 		pathfinding = new Pathfinding(board);
 		traversal = new Traversal(board);
+		irrigations = new ArrayList<ArrayList<Board.Coordinates>>();
+		irrigationsSurrounded = new ArrayList<Board.Coordinates>();
 	}
 
 	public void updateBoard(){
@@ -79,6 +83,26 @@ public class BoardFacade {
 
 	public void placeBlock(Board.Coordinates c, Block b) {
 		board.placeBlock(c, b);
+		ArrayList<Board.Coordinates> check = traversal.checkForIrrigation(c);
+		if(check.size() > 0)
+		{
+			for(Board.Coordinates coord : check)
+			{
+				ArrayList<Board.Coordinates> array = traversal.surroundedIrrigation(coord);
+				if(array.size() != 0 && !coordArrayExists(array))
+				{
+					irrigations.add(array);
+					irrigationsSurrounded.add(array.get(0));
+				}
+			}
+		}
+	}
+	
+	public ArrayList<Board.Coordinates> checkIrrigationsSurrounded()
+	{
+		ArrayList<Board.Coordinates> temp = irrigationsSurrounded;
+		irrigationsSurrounded = new ArrayList<Board.Coordinates>();
+		return temp;
 	}
 
 	public void removeBlock(Board.Coordinates c) {
@@ -91,6 +115,48 @@ public class BoardFacade {
 
 	public void putBackIrrigationTile(Block b) {
 		communal.putBackIrrigationTile((OneBlock)b);
+	}
+	
+	private boolean coordArrayExists(ArrayList<Board.Coordinates> check)
+	{
+		boolean exists = false;
+		for(ArrayList<Board.Coordinates> array : irrigations)
+		{
+			boolean thisArray = false;
+			if(array.size() != check.size())
+				continue;
+			for(Board.Coordinates coord1 : array)
+			{
+				boolean goodSoFar = false;
+				for(Board.Coordinates coord2 : check)
+				{
+					if(coord1.equals(coord2))
+					{
+						goodSoFar = true;
+						break;
+					}
+				}
+				if(!goodSoFar)
+				{
+					thisArray = false;
+					break;
+				}
+			}
+			if(thisArray)
+			{
+				exists = true;
+				break;
+			}
+		}
+		return exists;
+	}
+	
+	private boolean containsCoord(ArrayList<Board.Coordinates> array, Board.Coordinates coord)
+	{
+		for(Board.Coordinates c : array)
+			if(coord.equals(c))
+				return true;
+		return false;
 	}
 
 	// CHECKING METHODS  
