@@ -353,9 +353,22 @@ public class Board {
 		return valid;
 	}
 
+	public boolean checkEdgePlacement(Coordinates c) {
+		boolean valid = false;
+
+		if (c.x <= 1) {
+			if (c.y <= 1) {
+				valid = true;
+			}
+		}
+
+		return valid;
+	}
+
 	public void placeDeveloper(Coordinates c, Developer d) {
 		Space temp = this.get(c);
 
+		// check for placing on the borders
 		for (Developer dev : devs) {
 			if (temp == dev.getSpace())
 				throw new IllegalArgumentException(
