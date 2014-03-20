@@ -64,9 +64,11 @@ public class CurrentPlayerView extends JPanel {
 		//playerInv.setLayout(new BoxLayout(playerInv, BoxLayout.PAGE_AXIS));
 		playerInv.setLayout(new GridLayout(5,2));
 		Image img = ImageIO.read(new File("images/rice.png"));
+		img = img.getScaledInstance(32,32,0);
 		JLabel riceBlocks = new JLabel(new ImageIcon(img));
 		numRiceBlocks = new JLabel("3");
 		img = ImageIO.read(new File("images/village.png"));
+		img = img.getScaledInstance(32,32,0);
 		JLabel villageBlocks = new JLabel(new ImageIcon(img));
 		numVillageBlocks = new JLabel("3");
 		JLabel twoBlocks = new JLabel("Two Blocks: ");

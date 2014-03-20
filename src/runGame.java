@@ -9,8 +9,9 @@ public class runGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new InputListener();
-
+		InputListener listener = new InputListener();
+		System.out.println(listener);
+		//listener.theView.addKeyListener(listener);
 	}
 
 }
