@@ -32,7 +32,7 @@ public class ViewTester {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("steve");
 		names.add("martin");
-		View viewer=new View(names);
+		//View viewer=new View(names);
 		ViewFacade.updateBoard(board.board);
 	}
 	
