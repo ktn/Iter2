@@ -16,7 +16,7 @@ public class TurnPhase {
 			return s;
 		}
 	}
-	GameMode currentMode = NORMALMODE;
+	GameMode currentMode = GameMode.NORMALMODE;
 	
 	PhaseActive normal;
 	PhaseReplay replay;
