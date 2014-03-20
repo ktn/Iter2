@@ -26,7 +26,6 @@ public final class CommandStack {
 	public static void load(String fileName, PlayerFacade p, BoardFacade b)
 			throws FileNotFoundException {
 		Scanner in = new Scanner(new FileInputStream(fileName));
-		p.loadDeck(loadDeck());
 		while (in.hasNextLine()) {
 			String s = in.nextLine();
 			String[] sa = s.split(" ");
@@ -98,12 +97,25 @@ public final class CommandStack {
 			if (sb.length == 1) {
 				OnePointPalaceCard c = new OnePointPalaceCard(sb[0]);
 				ca.add(c);
-			} else {
+			} else if (sb.length == 2) {
 				TwoPointPalaceCard c = new TwoPointPalaceCard(sb[0], sb[1]);
 				ca.add(c);
 			}
 		}
 		return ca;
+	}
+
+	public static String[] loadPlayers() {
+		Scanner in = null;
+		try {
+			in = new Scanner(new FileInputStream("Players"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		String s = in.nextLine();
+		String[] sa = s.split(" ");
+
+		return sa;
 	}
 
 	public static boolean empty() {
