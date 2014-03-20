@@ -45,16 +45,6 @@ public class PlayerTurn {
 		actionPoints = 6;
 		blockPlayed = false;
 	}
-	
-	public void changeTurn(int i) {
-		currentPlayer += i;
-		if (currentPlayer >= numPlayers || currentPlayer < 0) {
-			currentPlayer = 0;
-		}
-		tokenUsed = false;
-		actionPoints = 6;
-		blockPlayed = false;
-	}
 
 	public void revertTurn() {
 		currentPlayer--;
@@ -69,7 +59,7 @@ public class PlayerTurn {
 	public Player getPlayer(int p) {
 		return players[p];
 	}
-	
+
 	public int getActionPoints() {
 		return actionPoints;
 	}
@@ -210,29 +200,23 @@ public class PlayerTurn {
 		return festival.playerCanPlayCard(t);
 	}
 
-
-	public boolean isOnePlayerLeft()
-	{
+	public boolean isOnePlayerLeft() {
 		return festival.isOnePlayerLeft();
 	}
 
-	public boolean canEndFestival()
-	{
+	public boolean canEndFestival() {
 		return festival.canEndFestival();
 	}
 
-	public boolean getEndFestival()
-	{
+	public boolean getEndFestival() {
 		return festival.getEndFestival();
 	}
 
-	public void setBlockPlayed(boolean b)
-	{
+	public void setBlockPlayed(boolean b) {
 		blockPlayed = b;
 	}
 
-	public void addToActionPoints(int i)
-	{
+	public void addToActionPoints(int i) {
 		actionPoints += i;
 	}
 }

@@ -19,8 +19,6 @@ public final class CommandStack {
 			writer.println(comm);
 		}
 		writer.close();
-		Deck.save();
-
 	}
 
 	public static void load(String fileName, PlayerFacade p, BoardFacade b)
@@ -29,6 +27,7 @@ public final class CommandStack {
 		while (in.hasNextLine()) {
 			String s = in.nextLine();
 			String[] sa = s.split(" ");
+			
 			Command c;
 			switch (sa[0]) {
 			case "PlaceIrrigationTileCommand":
