@@ -445,12 +445,9 @@ public class Board {
 				temp = this.get(d.getSpace());
 			}
 		}
-		if (next && c.equals(this.get(old.getSpace()))) {
+		if (c.equals(this.get(old.getSpace()))) {
 			// then the given developer is last in the list
-			for (Developer d : devs) {
-				if (old.getPlayer() == d.getPlayer())
-					temp = this.get(d.getSpace());
-			}
+			return this.getDeveloper(old.getPlayer());
 		}
 
 		return temp;
